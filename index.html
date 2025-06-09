@@ -5,306 +5,266 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Salmanul Faris</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
   /* Reset */
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
+
   html, body {
     height: 100%;
     background: #000;
-    color: #eee;
-    font-family: 'Share Tech Mono', monospace;
+    color: #ddd;
+    font-family: 'Courier New', Courier, monospace;
     overflow-x: hidden;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
-  body.light {
-    background: #fff;
-    color: #111;
   }
 
-  /* Matrix background canvas */
-  #matrix {
+  /* Matrix background */
+  canvas#matrix {
     position: fixed;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw; height: 100vh;
     z-index: 0;
-    background: black;
+    background: #000;
   }
 
-  /* Container for content */
+  /* Container */
   .container {
     position: relative;
-    max-width: 900px;
-    margin: 3rem auto 6rem auto;
-    padding: 0 2rem;
-    z-index: 2;
+    max-width: 800px;
+    margin: 3rem auto 5rem;
+    padding: 1.5rem 2rem;
+    background-color: rgba(0,0,0,0.75);
+    border: 1px solid #0f0;
+    box-shadow: 0 0 15px #0f0aa0;
+    border-radius: 8px;
+    z-index: 10;
   }
 
-  /* Glitchy heading */
-  h1 {
-    font-size: 3.5rem;
-    text-align: center;
-    font-weight: 900;
-    color: #eee;
+  /* Typing + glitch effect */
+  .title-wrapper {
     position: relative;
-    letter-spacing: 0.1em;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
     margin-bottom: 0.3rem;
-    user-select: none;
+    letter-spacing: 0.06em;
   }
-  /* glitch layers */
-  h1::before, h1::after {
-    content: attr(data-text);
+  .title-wrapper .glitch {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    overflow: hidden;
-    clip: rect(0, 900px, 0, 0);
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    color: #0f0;
+    clip-path: polygon(0 2%, 100% 2%, 100% 25%, 0 25%);
+    animation: glitchAnim1 2s infinite linear alternate-reverse;
+    opacity: 0.6;
   }
-  h1::before {
-    left: 2px;
-    text-shadow: -2px 0 #0f0;
-    animation: glitch-anim 2s infinite linear alternate-reverse;
+  .title-wrapper .glitch:nth-child(2) {
+    clip-path: polygon(0 75%, 100% 75%, 100% 98%, 0 98%);
+    animation: glitchAnim2 3s infinite linear alternate;
+    opacity: 0.5;
   }
-  h1::after {
-    left: -2px;
-    text-shadow: -2px 0 #0ff;
-    animation: glitch-anim2 3s infinite linear alternate-reverse;
+
+  @keyframes glitchAnim1 {
+    0%   {transform: translate(-2px, -2px);}
+    25%  {transform: translate(2px, 2px);}
+    50%  {transform: translate(-2px, 2px);}
+    75%  {transform: translate(2px, -2px);}
+    100% {transform: translate(-2px, -2px);}
   }
-  @keyframes glitch-anim {
-    0%, 20%, 40%, 60%, 80%, 100% {
-      clip: rect(0, 900px, 0, 0);
-    }
-    10% {
-      clip: rect(0, 900px, 40px, 0);
-    }
-    30% {
-      clip: rect(60px, 900px, 80px, 0);
-    }
-    50% {
-      clip: rect(20px, 900px, 50px, 0);
-    }
-    70% {
-      clip: rect(40px, 900px, 60px, 0);
-    }
-    90% {
-      clip: rect(0, 900px, 20px, 0);
-    }
-  }
-  @keyframes glitch-anim2 {
-    0%, 20%, 40%, 60%, 80%, 100% {
-      clip: rect(0, 900px, 0, 0);
-    }
-    15% {
-      clip: rect(10px, 900px, 30px, 0);
-    }
-    35% {
-      clip: rect(50px, 900px, 70px, 0);
-    }
-    55% {
-      clip: rect(0, 900px, 40px, 0);
-    }
-    75% {
-      clip: rect(30px, 900px, 50px, 0);
-    }
-    95% {
-      clip: rect(60px, 900px, 80px, 0);
-    }
+  @keyframes glitchAnim2 {
+    0%   {transform: translate(2px, 2px);}
+    25%  {transform: translate(-2px, -2px);}
+    50%  {transform: translate(2px, -2px);}
+    75%  {transform: translate(-2px, 2px);}
+    100% {transform: translate(2px, 2px);}
   }
 
   /* Typing effect */
-  .typing-container {
-    display: flex;
-    justify-content: center;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #aaa;
-    letter-spacing: 0.07em;
-    font-style: italic;
-    user-select: none;
-  }
-  .typing-text {
-    border-right: 3px solid #eee;
+  .typed-name {
+    display: inline-block;
     white-space: nowrap;
     overflow: hidden;
-    animation:
-      typing 3s steps(30, end) infinite,
-      blink-caret 0.75s step-end infinite;
-  }
-  body.light .typing-text {
-    border-right-color: #222;
-    color: #555;
+    border-right: 0.15em solid #0f0;
+    animation: typing 3.5s steps(18) 1 forwards, blink-caret 1s step-end infinite;
   }
   @keyframes typing {
-    0%, 50%, 100% {
-      width: 0;
-    }
-    25%, 75% {
-      width: 17ch;
-    }
+    from { width: 0 }
+    to { width: 18ch; }
   }
   @keyframes blink-caret {
-    50% {
-      border-color: transparent;
-    }
+    0%, 100% { border-color: transparent }
+    50% { border-color: #0f0 }
+  }
+
+  .tagline {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #aaa;
   }
 
   /* Sections */
   section {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
   h2 {
-    font-weight: 700;
-    font-size: 1.8rem;
     border-left: 4px solid #0f0;
     padding-left: 0.6rem;
-    color: #ddd;
+    font-size: 1.6rem;
+    color: #0f0;
     margin-bottom: 1rem;
-    user-select: none;
-  }
-  body.light h2 {
-    color: #222;
-    border-left-color: #080;
   }
   p, li {
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #ddd;
   }
   li {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
   ul {
     padding-left: 1.5rem;
-    list-style: none;
   }
-  li::before {
-    content: "▸ ";
+  /* Bold keywords */
+  b, strong {
     color: #0f0;
-    font-weight: 700;
   }
+
+  /* Links */
   a {
     color: #0f0;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: bold;
   }
   a:hover {
     text-decoration: underline;
   }
 
-  /* Bold keywords */
-  strong, b {
+  /* Dark/Light toggle */
+  #toggle-theme {
+    position: fixed;
+    top: 1rem; right: 1rem;
+    background: transparent;
+    border: 2px solid #0f0;
     color: #0f0;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 20;
+    transition: all 0.3s ease;
+    user-select: none;
   }
-  body.light strong, body.light b {
-    color: #080;
+  #toggle-theme:hover {
+    background: #0f0;
+    color: #000;
   }
 
   /* Footer */
   footer {
     text-align: center;
-    color: #555;
+    color: #444;
     font-size: 0.9rem;
     margin-top: 3rem;
-    user-select: none;
-  }
-  body.light footer {
-    color: #888;
   }
 
-  /* Dark/Light toggle button */
-  .toggle-container {
+  /* Floating Hire Me badge */
+  .hire-me {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    user-select: none;
-  }
-  .toggle-button {
-    background: transparent;
-    border: 2px solid #0f0;
-    color: #0f0;
-    padding: 8px 16px;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: 700;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .toggle-button:hover {
+    bottom: 2rem;
+    right: 2rem;
     background: #0f0;
     color: #000;
-    box-shadow: 0 0 8px #0f0;
-  }
-  body.light .toggle-button {
-    border-color: #080;
-    color: #080;
-  }
-  body.light .toggle-button:hover {
-    background: #080;
-    color: #fff;
-    box-shadow: 0 0 8px #080;
-  }
-
-  /* Hire me badge */
-  .hire-me-badge {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #000;
-    color: #0f0;
-    border: 2px solid #0f0;
-    padding: 10px 16px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0 0 15px #0f0;
+    user-select: none;
+    z-index: 20;
+    transition: background-color 0.3s ease;
     text-decoration: none;
-    z-index: 999;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #0f0;
-    transition: all 0.3s ease;
   }
-  .hire-me-badge:hover {
-    background-color: #0f0;
-    color: #000;
-    box-shadow: 0 0 20px #0f0;
+  .hire-me:hover {
+    background: #00cc00;
   }
 
+  /* Social icons container */
+  .social {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.8rem;
+  }
+  .social a {
+    color: #0f0;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+  }
+  .social a:hover {
+    color: #00cc00;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      margin: 2rem 1rem 4rem;
+      padding: 1rem 1.2rem;
+    }
+    .title-wrapper {
+      font-size: 2.2rem;
+    }
+    #toggle-theme {
+      top: 0.6rem; right: 0.6rem;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+    }
+    .hire-me {
+      bottom: 1rem; right: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
 </style>
 </head>
 <body>
 
-<!-- Matrix Background -->
+<!-- Matrix Canvas -->
 <canvas id="matrix"></canvas>
 
-<!-- Dark/Light mode toggle -->
-<div class="toggle-container">
-  <button class="toggle-button" id="modeToggle">Light Mode</button>
-</div>
+<!-- Dark/Light toggle -->
+<button id="toggle-theme" aria-label="Toggle Dark/Light Mode">LIGHT MODE</button>
 
-<!-- Content -->
-<div class="container" role="main" aria-label="Salmanul Faris Personal Website">
+<!-- Main content container -->
+<div class="container" role="main" aria-label="Personal website of Salmanul Faris">
 
-  <!-- Glitchy heading -->
-  <h1 data-text="Salmanul Faris">Salmanul Faris<span style="color:#0f0;">_</span></h1>
-
-  <!-- Typing tagline -->
-  <div class="typing-container" aria-live="polite" aria-atomic="true" aria-relevant="text">
-    <span class="typing-text">Cybersecurity enthusiast & full-stack developer</span>
+  <!-- Title with typing + glitch -->
+  <div class="title-wrapper" aria-label="Name and tagline">
+    <span class="typed-name" aria-live="polite" aria-atomic="true" aria-relevant="text">Salmanul Faris</span>
+    <span class="glitch" aria-hidden="true">Salmanul Faris</span>
+    <span class="glitch" aria-hidden="true">Salmanul Faris</span>
   </div>
+
+  <!-- Tagline -->
+  <p class="tagline">Petrolhead & Cybersecurity coder. Building secure digital futures.</p>
 
   <!-- About -->
   <section id="about">
     <h2>About Me</h2>
     <p>
-      MSc Physics graduate with a passion for <b>understanding technology</b> at all levels — from <b>web applications</b> to <b>reverse engineering</b> binaries.  
-      I'm a dedicated <b>Certified Penetration Tester</b> and always eager to <b>build, break, and improve</b> software and systems.  
-      Currently working on an ambitious <b>cross-platform billing software</b> targeting both desktop and mobile users.
+      MSc Physics graduate passionate about technology and cybersecurity. Fascinated by everything from web applications to reverse engineering binaries. Constantly learning, building, breaking, and making the digital world safer. Currently focused on developing cross-platform billing software.
     </p>
     <p>
-      If you want a <b>custom app, website, or software</b> crafted with care and expertise, <b>contact me</b> — I’m ready to help bring your ideas to life.
+      You can query me for creating <strong>websites, apps, and software</strong> tailored to your needs.
+    </p>
+    <p>
+      Education:
+      <br><strong>BSc Physics</strong> (2018–2021), <strong>MSc Physics</strong> (2021–2023).
     </p>
   </section>
 
@@ -312,10 +272,10 @@
   <section id="skills">
     <h2>Skills</h2>
     <ul>
-      <li><b>Cybersecurity:</b> Certified Penetration Tester, Vulnerability Assessment, Network Security, Ethical Hacking, Reverse Engineering, Exploit Development, Security Auditing</li>
-      <li><b>Programming Languages:</b> C++, Java, JavaScript, Node.js, Flutter, HTML, CSS</li>
-      <li><b>Frontend Development:</b> React, Redux, Responsive Design</li>
-      <li><b>Tools & Platforms:</b> Burp Suite, Wireshark, Hashcat, VirtualBox, Docker, Linux</li>
+      <li><strong>Cybersecurity:</strong> Certified Penetration Tester (CPT), Network Security, Vulnerability Assessment, Ethical Hacking, Incident Response, Wireshark analysis, Cryptography basics</li>
+      <li><strong>Programming Languages:</strong> C++, Java, JavaScript, Node.js, Flutter</li>
+      <li><strong>Frontend:</strong> HTML, CSS, React, Responsive Design</li>
+      <li><strong>Tools:</strong> Burp Suite, Wireshark, Hashcat, VirtualBox, Git, Docker</li>
     </ul>
   </section>
 
@@ -323,10 +283,10 @@
   <section id="projects">
     <h2>Projects</h2>
     <ul>
-      <li><b>Cyber Labs:</b> Hands-on experiments with DoS (Apache), Burp Suite, buffer overflows, command injection, and more</li>
-      <li><b>Attendance Automation:</b> Google Sheets system built with Apps Script to simplify attendance tracking</li>
-      <li><b>Cross-Platform Billing App:</b> A robust billing application for desktop and mobile platforms</li>
-      <li><b>React Development Projects:</b> Various web applications demonstrating React expertise</li>
+      <li><strong>Cyber Labs:</strong> Hands-on experiments with DoS attacks (Apache), Burp Suite, buffer overflows, command injection</li>
+      <li><strong>Google Sheets Attendance System:</strong> Automated attendance tracking using Google Apps Script</li>
+      <li><strong>Cross-Platform Billing App:</strong> Billing software for desktop and mobile platforms</li>
+      <li><strong>React Development Projects:</strong> Various React apps demonstrating frontend proficiency</li>
     </ul>
   </section>
 
@@ -334,70 +294,103 @@
   <section id="contact">
     <h2>Contact</h2>
     <ul>
-      <li><b>Email:</b> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
-      <li><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer">linkedin.com/in/p-salmanul-faris-68b733249</a></li>
-      <li><b>Phone:</b> +91 99627 26106</li>
+      <li><strong>Email:</strong> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
+      <li><strong>Phone:</strong> <a href="tel:+919962726106">+91 99627 26106</a></li>
+      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer">p-salmanul-faris</a></li>
+      <li><strong>GitHub:</strong> <a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer">github.com/salman2610</a></li>
     </ul>
+
+    <div class="social" aria-label="Social links">
+      <a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:salmanulfariss642@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
   </section>
 
-  <footer>&copy; 2025 Salmanul Faris</footer>
+  <footer>
+    &copy; 2025 Salmanul Faris
+  </footer>
 </div>
 
 <!-- Floating Hire Me Badge -->
-<a href="mailto:salmanulfariss642@gmail.com" class="hire-me-badge" title="Hire Me for Your Project!">💻 Hire Me</a>
+<a href="tel:+919962726106" class="hire-me" aria-label="Hire Salmanul Faris">Hire Me</a>
 
 <script>
-  // Matrix rain effect
+  // MATRIX RAIN BACKGROUND
   const canvas = document.getElementById('matrix');
   const ctx = canvas.getContext('2d');
 
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
 
-  const letters = "01".split("");
-  const fontSize = 18;
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%+-/~{[|`]}".split("");
+  const fontSize = 16;
   const columns = Math.floor(width / fontSize);
 
-  let drops = [];
-  for(let i = 0; i < columns; i++) {
-    drops[i] = Math.random() * height;
-  }
+  const drops = Array(columns).fill(1);
 
   function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.fillRect(0, 0, width, height);
 
-    ctx.fillStyle = "#0f0";
-    ctx.font = fontSize + "px 'Share Tech Mono', monospace";
+    ctx.fillStyle = '#0f0';
+    ctx.font = fontSize + "px Courier New";
 
-    for(let i = 0; i < drops.length; i++) {
+    for (let i = 0; i < drops.length; i++) {
       const text = letters[Math.floor(Math.random() * letters.length)];
       ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-      if(drops[i] * fontSize > height && Math.random() > 0.975) {
+      if (drops[i] * fontSize > height && Math.random() > 0.975) {
         drops[i] = 0;
       }
       drops[i]++;
     }
   }
-  setInterval(draw, 45);
+  setInterval(draw, 50);
 
-  // Resize canvas on window resize
   window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
   });
 
-  // Dark/Light mode toggle
-  const modeToggle = document.getElementById('modeToggle');
-  modeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    if(document.body.classList.contains('light')) {
-      modeToggle.textContent = 'Dark Mode';
+  // DARK/LIGHT MODE TOGGLE
+  const toggleBtn = document.getElementById('toggle-theme');
+  const body = document.body;
+  toggleBtn.addEventListener('click', () => {
+    if (body.classList.contains('light')) {
+      body.classList.remove('light');
+      toggleBtn.textContent = 'LIGHT MODE';
+      // revert colors for dark mode
+      document.querySelector('.container').style.backgroundColor = 'rgba(0,0,0,0.75)';
+      document.querySelector('.container').style.borderColor = '#0f0';
+      document.querySelector('.container').style.boxShadow = '0 0 15px #0f0aa0';
+      document.querySelector('h2').style.color = '#0f0';
+      document.querySelector('#toggle-theme').style.color = '#0f0';
+      document.querySelector('#toggle-theme').style.borderColor = '#0f0';
+      document.querySelector('.hire-me').style.backgroundColor = '#0f0';
+      document.querySelector('.hire-me').style.color = '#000';
+      // text color
+      document.querySelector('.container').style.color = '#ddd';
     } else {
-      modeToggle.textContent = 'Light Mode';
+      body.classList.add('light');
+      toggleBtn.textContent = 'DARK MODE';
+      // light mode colors
+      document.querySelector('.container').style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+      document.querySelector('.container').style.borderColor = '#555';
+      document.querySelector('.container').style.boxShadow = '0 0 20px #888';
+      document.querySelector('h2').style.color = '#444';
+      document.querySelector('#toggle-theme').style.color = '#444';
+      document.querySelector('#toggle-theme').style.borderColor = '#444';
+      document.querySelector('.hire-me').style.backgroundColor = '#222';
+      document.querySelector('.hire-me').style.color = '#eee';
+      document.querySelector('.container').style.color = '#222';
     }
   });
 </script>
+
 </body>
 </html>
