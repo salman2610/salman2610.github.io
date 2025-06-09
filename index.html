@@ -3,144 +3,407 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Portfolio of Salmanul Faris – cybersecurity enthusiast, coder, and physics graduate. Projects include cyber labs, apps, and React development." />
   <title>Salmanul Faris</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    :root {
+      --bg-color-light: #f0f0f0;
+      --text-color-light: #111;
+      --bg-color-dark: #0a0a0a;
+      --text-color-dark: #e0e0e0;
+      --accent-color: #00e5ff;
+      --accent-color-light: #44ffff;
+      --accent-color-dark: #1de9b6;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      background-color: #0a0a0a;
-      color: #e0e0e0;
-      font-family: 'Courier New', Courier, monospace;
+      background-color: var(--bg-color-dark);
+      color: var(--text-color-dark);
+      font-family: 'Share Tech Mono', monospace;
       line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1rem;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
+
+    body.light {
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+    }
+
     .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
+      max-width: 900px;
+      width: 100%;
+      background: #111;
+      border-radius: 8px;
+      box-shadow: 0 0 12px var(--accent-color);
+      padding: 2rem 3rem;
+      box-sizing: border-box;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
+
+    body.light .container {
+      background: #fff;
+      box-shadow: 0 0 15px #00aaff44;
+    }
+
     .ascii {
       white-space: pre;
-      color: #6cf;
+      color: var(--accent-color-dark);
+      font-size: 1rem;
       text-align: center;
-      font-size: 0.75rem;
-      margin-bottom: 1rem;
-      letter-spacing: 1px;
-      font-weight: bold;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      user-select: none;
+      letter-spacing: 0.04em;
+      transition: color 0.4s ease;
     }
+
+    body.light .ascii {
+      color: #0099cc;
+    }
+
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 3rem;
+      margin-bottom: 0.3rem;
       text-align: center;
+      color: var(--accent-color);
+      letter-spacing: 0.05em;
+      transition: color 0.4s ease;
     }
+
+    body.light h1 {
+      color: #0099cc;
+    }
+
     .tagline {
-      font-size: 1.2rem;
-      color: #888;
+      font-size: 1.3rem;
+      color: var(--accent-color-light);
       margin-bottom: 2rem;
       text-align: center;
+      font-weight: 600;
+      font-style: italic;
+      transition: color 0.4s ease;
     }
+
+    body.light .tagline {
+      color: #33aaff;
+    }
+
     section {
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
+
     h2 {
-      border-left: 3px solid #444;
-      padding-left: 0.5rem;
-      font-size: 1.4rem;
-      color: #aaa;
+      border-left: 4px solid var(--accent-color-light);
+      padding-left: 0.75rem;
+      font-size: 1.6rem;
+      color: var(--accent-color-light);
+      margin-bottom: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.05em;
+      transition: color 0.4s ease, border-color 0.4s ease;
     }
+
+    body.light h2 {
+      color: #33aaff;
+      border-color: #33aaff;
+    }
+
     ul {
       list-style: none;
       padding-left: 1rem;
     }
+
     li::before {
-      content: "> ";
-      color: #555;
+      content: "› ";
+      color: var(--accent-color);
+      font-weight: bold;
+      transition: color 0.4s ease;
     }
+
+    body.light li::before {
+      color: #0099cc;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+      font-size: 1.1rem;
+    }
+
     a {
-      color: #6cf;
+      color: var(--accent-color);
       text-decoration: none;
+      transition: color 0.4s ease;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
+    body.light a {
+      color: #0077aa;
+    }
+
     footer {
       text-align: center;
-      padding: 2rem 0;
+      padding: 1.5rem 0;
       font-size: 0.9rem;
       color: #555;
+      border-top: 1px solid #222;
+      margin-top: 2rem;
+      transition: color 0.4s ease, border-color 0.4s ease;
     }
-    .blink {
-      animation: blink 1s step-start infinite;
+
+    body.light footer {
+      color: #888;
+      border-color: #ccc;
     }
-    @keyframes blink {
-      50% { opacity: 0; }
+
+    .advertisement {
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 700;
+      color: var(--accent-color);
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+      transition: color 0.4s ease;
+    }
+
+    body.light .advertisement {
+      color: #0099cc;
+    }
+
+    /* Buttons */
+    .btn-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      background-color: var(--accent-color);
+      border: none;
+      padding: 0.6rem 1.4rem;
+      margin: 0 0.4rem;
+      font-size: 1rem;
+      color: #0a0a0a;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    button:hover {
+      background-color: var(--accent-color-light);
+      color: #000;
+    }
+
+    body.light button {
+      background-color: #0099cc;
+      color: #fff;
+    }
+
+    body.light button:hover {
+      background-color: #006699;
+    }
+
+    /* Dark/Light toggle button */
+    #toggleTheme {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      background-color: var(--accent-color);
+      color: #000;
+      box-shadow: 0 0 8px var(--accent-color);
+      transition: background-color 0.4s ease;
+      z-index: 1000;
+      user-select: none;
+    }
+
+    #toggleTheme:hover {
+      background-color: var(--accent-color-light);
+      color: #000;
+    }
+
+    body.light #toggleTheme {
+      background-color: #0099cc;
+      color: #fff;
+      box-shadow: 0 0 8px #0099cc;
+    }
+
+    body.light #toggleTheme:hover {
+      background-color: #006699;
+    }
+
+    /* Fun message area */
+    #funMessage {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-top: 0;
+      color: var(--accent-color);
+      font-weight: 700;
+      min-height: 28px;
+      transition: color 0.4s ease;
+    }
+
+    body.light #funMessage {
+      color: #0077aa;
     }
   </style>
 </head>
 <body>
+  <button id="toggleTheme" aria-label="Toggle dark/light mode">Light Mode</button>
+
   <div class="container">
-    <div class="ascii">
-      ______     ______     __     __     ______     ______     ______  
-     /\  == \   /\  ___\   /\ \   /\ \   /\  __ \   /\  == \   /\  == \ 
-     \ \  __<   \ \  __\   \ \ \  \ \ \  \ \  __ \  \ \  __<   \ \  __< 
-      \ \_\ \_\  \ \_____\  \ \_\  \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\ \_\
-       \/_/ /_/   \/_____/   \/_/   \/_/   \/_/\/_/   \/_/ /_/   \/_/ /_/
+    <div class="ascii" aria-hidden="true">
+      _____       _                       _       _ <br>
+     / ____|     | |                     | |     | |<br>
+    | (___  _   _| | ___  ___ ___    ___| |_ ___| |__   __ _ _ __  <br>
+     \___ \| | | | |/ _ \/ __/ __|  / __| __/ __| '_ \ / _` | '_ \ <br>
+     ____) | |_| | |  __/\__ \__ \  \__ \ || (__| | | | (_| | |_) |<br>
+    |_____/ \__,_|_|\___||___/___/  |___/\__\___|_| |_|\__,_| .__/ <br>
+                                                           | |    <br>
+                                                           |_|    <br>
     </div>
 
-    <h1>Salmanul Faris<span class="blink">_</span></h1>
-    <p class="tagline">just a guy who loves code, cyber, and cars.</p>
+    <h1>Salmanul Faris</h1>
+    <p class="tagline">Passionate coder & cybersecurity enthusiast — building smarter, safer digital worlds.</p>
 
-    <section>
-      <h2>about</h2>
+    <div class="btn-container" role="group" aria-label="Navigation buttons">
+      <button data-target="about">About Me</button>
+      <button data-target="skills">Skills & Expertise</button>
+      <button data-target="projects">Projects</button>
+      <button data-target="education">Education & Certifications</button>
+      <button data-target="contact">Contact</button>
+    </div>
+
+    <section id="about">
+      <h2>About Me</h2>
       <p>
-        Salmanul Faris is a curious and passionate coder, cybersecurity enthusiast, and physics graduate. With a background in MSc and BSc Physics, he loves exploring how technology works—from building web applications to reverse engineering binaries. Currently, he is building a versatile cross-platform billing software and is always open to creating custom apps, websites, and software solutions. His journey blends building, breaking, and striving to make the digital world safer and smarter.
+        MSc Physics graduate fascinated by the inner workings of technology — from crafting sleek web apps to reverse engineering complex binaries. Currently developing a cross-platform billing software. Feel free to reach out for website, app, or software development projects.
       </p>
     </section>
 
-    <section>
-      <h2>skills & certifications</h2>
+    <section id="skills" hidden>
+      <h2>Skills & Expertise</h2>
       <ul>
-        <li>Cybersecurity: Certified Penetration Tester (RedTeam Hacker Academy)</li>
-        <li>Full Stack Development: Advanced Program in Full Stack Software Engineering (NIIT Chennai)</li>
-        <li>Programming Languages: Java, Python, JavaScript</li>
+        <li>Cybersecurity: Certified Penetration Tester (CPT), Vulnerability Assessment, Network Security, Ethical Hacking, Incident Response, Malware Analysis, Wireshark packet analysis</li>
+        <li>Programming Languages: C++, Java, JavaScript, Node.js, Flutter</li>
         <li>Frontend: HTML, CSS, React</li>
-        <li>Tools: Burp Suite, Wireshark, Hashcat, VirtualBox</li>
+        <li>Tools & Platforms: Burp Suite, Wireshark, Hashcat, VirtualBox, Docker, Git</li>
       </ul>
     </section>
 
-    <section>
-      <h2>projects</h2>
+    <section id="projects" hidden>
+      <h2>Projects</h2>
       <ul>
-        <li>Cyber Defense Labs: Hands-on experiments with Denial of Service, Burp Suite, buffer overflows, and command injection.</li>
-        <li>Smart Attendance Tracker: Automated attendance management using Google Apps Script.</li>
-        <li>Unified Billing Suite: Cross-platform billing software for desktop and mobile devices.</li>
-        <li>React Showcase: Diverse React projects demonstrating frontend expertise.</li>
+        <li>Cyber Labs: Experiments with Denial of Service (Apache), Burp Suite, buffer overflow exploitation, command injection</li>
+        <li>Attendance Automation: Advanced Google Sheets attendance system using Apps Script</li>
+        <li>Cross-Platform Billing App: Unified billing software for desktop and mobile devices</li>
+        <li>React Development: Various web projects showcasing React proficiency</li>
       </ul>
     </section>
 
-    <section>
-      <h2>education</h2>
+    <section id="education" hidden>
+      <h2>Education & Certifications</h2>
       <ul>
         <li>MSc Physics (2021 – 2023)</li>
         <li>BSc Physics (2018 – 2021)</li>
+        <li>Advanced Program in Full Stack Software Engineering, NIIT Chennai</li>
+        <li>Certified Penetration Tester, RedTeam Hacker Academy</li>
       </ul>
     </section>
 
-    <section>
-      <h2>contact</h2>
+    <section id="contact" hidden>
+      <h2>Contact</h2>
       <ul>
-        <li>Phone: +91 99627 26106</li>
         <li>Email: <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
+        <li>Phone: <a href="tel:+919962726106">+91 99627 26106</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer">p-salmanul-faris</a></li>
         <li>GitHub: <a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer">github.com/salman2610</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer">linkedin.com/in/p-salmanul-faris-68b733249</a></li>
       </ul>
+      <p class="advertisement">Contact me for custom websites, apps, and software development!</p>
     </section>
+
+    <p id="funMessage" aria-live="polite"></p>
 
     <footer>
       &copy; 2025 Salmanul Faris
     </footer>
   </div>
+
+  <script>
+    // Dark/Light toggle
+    const toggleBtn = document.getElementById('toggleTheme');
+    const body = document.body;
+
+    function updateToggleText() {
+      toggleBtn.textContent = body.classList.contains('light') ? 'Dark Mode' : 'Light Mode';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('light');
+      updateToggleText();
+    });
+
+    updateToggleText();
+
+    // Section buttons and fun message
+    const buttons = document.querySelectorAll('.btn-container button');
+    const sections = document.querySelectorAll('section');
+    const funMessage = document.getElementById('funMessage');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Show target section, hide others
+        const targetId = btn.getAttribute('data-target');
+        sections.forEach(sec => {
+          if (sec.id === targetId) {
+            sec.hidden = false;
+            sec.scrollIntoView({behavior: 'smooth', block: 'start'});
+          } else {
+            sec.hidden = true;
+          }
+        });
+
+        // Fun messages for each button
+        const messages = {
+          about: "Curiosity fuels everything I build.",
+          skills: "Skills sharpened with code and challenge.",
+          projects: "Projects: where ideas turn into reality.",
+          education: "Always learning, always growing.",
+          contact: "Let's create something awesome together!"
+        };
+
+        funMessage.textContent = messages[targetId] || '';
+        // small fun animation (flash color)
+        funMessage.style.color = '#00e5ff';
+        setTimeout(() => {
+          funMessage.style.color = body.classList.contains('light') ? '#0077aa' : '#00e5ff';
+        }, 800);
+      });
+    });
+
+    // Show About Me by default on load
+    window.addEventListener('DOMContentLoaded', () => {
+      buttons[0].click();
+    });
+  </script>
 </body>
 </html>
