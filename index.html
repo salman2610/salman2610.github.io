@@ -9,12 +9,17 @@
 
     :root {
       --bg-dark: #0a0a0a;
-      --text-dark: #e0e0e0;
-      --accent-dark: #00e5ff;
+      --text-dark: #e6e6e6;
+      --accent-dark: #f0f0f0;
 
       --bg-light: #f9f9f9;
       --text-light: #111111;
-      --accent-light: #0077cc;
+      --accent-light: #444444;
+    }
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
     }
 
     body {
@@ -26,8 +31,11 @@
       transition: background-color 0.5s, color 0.5s;
       min-height: 100vh;
       line-height: 1.5;
-      cursor: default;
       overflow-x: hidden;
+      position: relative;
+      user-select: none;
+      cursor: default;
+      overflow-y: scroll;
     }
 
     body.light {
@@ -35,52 +43,90 @@
       color: var(--text-light);
     }
 
-    /* Container removed, full width with max width */
     main {
       max-width: 900px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      background: rgba(0,0,0,0.35);
+      border-radius: 8px;
+      padding: 2rem 2.5rem;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+      transition: background 0.5s ease;
     }
 
-    /* ASCII Art styling */
-    .ascii {
-      font-size: 0.95rem;
-      line-height: 1.05;
-      white-space: pre;
-      text-align: center;
-      user-select: none;
-      letter-spacing: 0.03em;
-      color: var(--accent-dark);
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 0 1px var(--accent-dark));
-      transition: color 0.5s, filter 0.5s;
+    body.light main {
+      background: rgba(255,255,255,0.6);
+      box-shadow: 0 0 15px rgba(200,200,200,0.5);
     }
 
-    body.light .ascii {
-      color: var(--accent-light);
-      filter: drop-shadow(0 0 1px var(--accent-light));
-    }
-
+    /* Heading glitch/neon effect */
     h1 {
-      font-size: 3rem;
+      font-size: 3.6rem;
+      font-weight: 900;
       text-align: center;
+      letter-spacing: 0.12em;
       color: var(--accent-dark);
-      margin-bottom: 0.2rem;
-      letter-spacing: 0.07em;
-      transition: color 0.5s;
+      position: relative;
+      user-select: none;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 6px #fff,
+        0 0 12px #ddd,
+        0 0 18px #bbb,
+        0 0 24px #999,
+        0 0 36px #777,
+        0 0 48px #555;
+      transition: color 0.5s ease;
     }
 
     body.light h1 {
       color: var(--accent-light);
+      text-shadow:
+        0 0 4px #aaa,
+        0 0 10px #888,
+        0 0 18px #666,
+        0 0 24px #444;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 12px;
+      height: 22px;
+      margin-left: 5px;
+      vertical-align: bottom;
+      font-weight: 900;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: var(--accent-dark);
+      animation: blinkUnderscore 1.2s steps(2, start) infinite;
+      user-select: none;
+      font-family: monospace;
+    }
+
+    body.light .cursor {
+      color: var(--accent-light);
+    }
+
+    @keyframes blinkUnderscore {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.01%, 100% {
+        opacity: 0;
+      }
     }
 
     .tagline {
-      text-align: center;
-      font-size: 1.25rem;
       font-style: italic;
+      text-align: center;
       color: var(--accent-dark);
-      margin-bottom: 3rem;
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
       user-select: none;
-      transition: color 0.5s;
+      transition: color 0.5s ease;
     }
 
     body.light .tagline {
@@ -89,19 +135,19 @@
 
     section {
       margin-bottom: 3rem;
-      padding: 0 1rem;
+      padding: 0 0.5rem;
     }
 
     h2 {
-      border-left: 5px solid var(--accent-dark);
-      padding-left: 0.8rem;
-      font-size: 1.6rem;
+      border-left: 6px solid var(--accent-dark);
+      padding-left: 1rem;
+      font-size: 1.7rem;
       color: var(--accent-dark);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-      transition: border-color 0.5s, color 0.5s;
+      letter-spacing: 0.07em;
+      margin-bottom: 1.2rem;
       user-select: none;
+      transition: border-color 0.5s ease, color 0.5s ease;
     }
 
     body.light h2 {
@@ -110,21 +156,22 @@
     }
 
     ul {
-      list-style-type: none;
-      padding-left: 1.3rem;
+      list-style: none;
+      padding-left: 1.5rem;
     }
 
     li {
-      margin-bottom: 0.6rem;
-      font-size: 1.1rem;
+      font-size: 1.12rem;
+      line-height: 1.5;
+      margin-bottom: 0.7rem;
     }
 
     li::before {
       content: "› ";
       color: var(--accent-dark);
       font-weight: bold;
-      transition: color 0.5s;
       user-select: none;
+      transition: color 0.5s ease;
     }
 
     body.light li::before {
@@ -134,11 +181,13 @@
     a {
       color: var(--accent-dark);
       text-decoration: none;
-      transition: color 0.5s;
+      transition: color 0.5s ease;
     }
 
-    a:hover {
+    a:hover,
+    a:focus {
       text-decoration: underline;
+      outline: none;
     }
 
     body.light a {
@@ -153,15 +202,15 @@
       background: none;
       border: 2px solid var(--accent-dark);
       color: var(--accent-dark);
-      padding: 0.3rem 0.9rem;
+      padding: 0.35rem 1rem;
       font-family: 'Share Tech Mono', monospace;
       font-weight: 700;
-      font-size: 0.9rem;
-      border-radius: 5px;
+      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.4s;
       user-select: none;
-      z-index: 1000;
+      z-index: 10;
+      transition: all 0.4s ease;
     }
 
     #toggleTheme:hover {
@@ -179,42 +228,16 @@
       color: var(--bg-light);
     }
 
-    /* Blinking cursor animation */
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      height: 18px;
-      background-color: var(--accent-dark);
-      margin-left: 5px;
-      animation: blink 1.2s infinite;
-      vertical-align: bottom;
-      border-radius: 2px;
-      transition: background-color 0.5s;
-    }
-
-    body.light .cursor {
-      background-color: var(--accent-light);
-    }
-
-    @keyframes blink {
-      0%, 50% {
-        opacity: 1;
-      }
-      50.01%, 100% {
-        opacity: 0;
-      }
-    }
-
-    /* Advertisement */
+    /* Advertisement text */
     .advertisement {
       text-align: center;
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       color: var(--accent-dark);
-      user-select: none;
-      margin-top: -1rem;
+      margin-top: -1.5rem;
       margin-bottom: 4rem;
-      transition: color 0.5s;
+      user-select: none;
+      transition: color 0.5s ease;
     }
 
     body.light .advertisement {
@@ -225,49 +248,72 @@
     footer {
       text-align: center;
       font-size: 0.9rem;
-      color: #555;
+      color: #666;
       user-select: none;
-      padding-bottom: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+      transition: color 0.5s ease;
     }
 
     body.light footer {
-      color: #888;
+      color: #aaa;
     }
 
     /* Responsive */
     @media (max-width: 480px) {
       h1 {
-        font-size: 2.2rem;
+        font-size: 2.6rem;
       }
 
       .tagline {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
     }
+
+    /* Matrix style background */
+
+    canvas#matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      mix-blend-mode: difference; /* subtle dark effect */
+      opacity: 0.12;
+      filter: grayscale(1);
+      background: transparent;
+      transition: opacity 0.5s ease;
+    }
+
+    body.light canvas#matrixCanvas {
+      mix-blend-mode: normal;
+      opacity: 0.08;
+      filter: grayscale(0.5) brightness(1.1);
+    }
+
   </style>
 </head>
 <body>
   <button id="toggleTheme" aria-label="Toggle dark/light mode">Light Mode</button>
 
-  <main>
-    <div class="ascii" aria-hidden="true">
-      _____       _                       _       _ <br>
-     / ____|     | |                     | |     | |<br>
-    | (___  _   _| | ___  ___ ___    ___| |_ ___| |__   __ _ _ __  <br>
-     \___ \| | | | |/ _ \/ __/ __|  / __| __/ __| '_ \ / _` | '_ \ <br>
-     ____) | |_| | |  __/\__ \__ \  \__ \ || (__| | | | (_| | |_) |<br>
-    |_____/ \__,_|_|\___||___/___/  |___/\__\___|_| |_|\__,_| .__/ <br>
-                                                           | |    <br>
-                                                           |_|    <br>
-    </div>
+  <canvas id="matrixCanvas"></canvas>
 
-    <h1>Salmanul Faris<span class="cursor"></span></h1>
+  <main>
+    <h1>Salmanul Faris<span class="cursor">_</span></h1>
     <p class="tagline">Passionate coder & cybersecurity enthusiast — building smarter, safer digital worlds.</p>
 
     <section id="about">
       <h2>About Me</h2>
       <p>
-        MSc Physics graduate fascinated by the inner workings of technology — from crafting sleek web apps to reverse engineering complex binaries. Currently developing a cross-platform billing software. Feel free to reach out for website, app, or software development projects.
+        I am a dedicated MSc Physics graduate with a deep fascination for technology's inner workings. Over the years, I have immersed myself in developing intuitive web applications, reverse engineering complex binaries, and diving deep into cybersecurity challenges.
+        <br /><br />
+        Currently, I’m focused on building a versatile cross-platform billing software tailored to both desktop and mobile users. I’m always eager to take on new projects, whether it’s creating websites, apps, or custom software solutions.
+        <br /><br />
+        When not coding, you’ll find me exploring the latest cybersecurity trends, sharpening my skills, or contributing to open-source communities. Let’s connect and build something awesome together!
       </p>
     </section>
 
@@ -318,6 +364,7 @@
   </footer>
 
   <script>
+    // Dark/light toggle button
     const toggleBtn = document.getElementById('toggleTheme');
     const body = document.body;
 
@@ -331,6 +378,59 @@
     });
 
     updateToggleText();
+
+    // Matrix style background effect
+
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const fontSize = 16;
+    const columns = Math.floor(width / fontSize);
+    const drops = [];
+
+    // Initialize drops
+    for (let x = 0; x < columns; x++) {
+      drops[x] = Math.random() * height;
+    }
+
+    function draw() {
+      // semi-transparent background for trail effect
+      ctx.fillStyle = body.classList.contains('light') ? 'rgba(255, 255, 255, 0.05)' : 'rgba(10, 10, 10, 0.05)';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = body.classList.contains('light') ? '#888' : '#ddd';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        // random ascii characters (letters, numbers, symbols)
+        const text = String.fromCharCode(
+          33 + Math.floor(Math.random() * 94)
+        );
+
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    window.addEventListener('resize', resize);
+    setInterval(draw, 40);
   </script>
 </body>
 </html>
