@@ -1,160 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Salmanul Faris | Cybersecurity Engineer</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-    body, html {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: black;
-      color: white;
-      font-family: 'Share Tech Mono', monospace;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salmanul Faris | Cybersecurity & Development</title>
+<meta name="description" content="Cybersecurity specialist and full-stack developer with physics background">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@400;600&display=swap');
+  
+  :root {
+    --neon-green: #0aff0a;
+    --neon-blue: #00f0ff;
+    --neon-pink: #ff2a6d;
+    --dark-bg: #0a0a12;
+    --text-primary: #e0e0ff;
+    --text-secondary: #b0b0ff;
+    --card-bg: rgba(10, 10, 30, 0.85);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Oxanium', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Matrix Background */
+  #matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    opacity: 0.15;
+  }
+  
+  .container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    z-index: 2;
+  }
+  
+  /* Header with Glitch Effect */
+  .header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 3.5rem;
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(10, 255, 10, 0.5);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .name::before, .name::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    overflow: hidden;
+  }
+  
+  .name::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00ff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+  
+  .name::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+  }
+  
+  @keyframes glitch-anim-1 {
+    0% { clip: rect(32px, 9999px, 78px, 0); }
+    20% { clip: rect(13px, 9999px, 37px, 0); }
+    40% { clip: rect(45px, 9999px, 66px, 0); }
+    60% { clip: rect(22px, 9999px, 89px, 0); }
+    80% { clip: rect(55px, 9999px, 99px, 0); }
+    100% { clip: rect(11px, 9999px, 98px, 0); }
+  }
+  
+  @keyframes glitch-anim-2 {
+    0% { clip: rect(65px, 9999px, 119px, 0); }
+    20% { clip: rect(79px, 9999px, 132px, 0); }
+    40% { clip: rect(27px, 9999px, 115px, 0); }
+    60% { clip: rect(92px, 9999px, 58px, 0); }
+    80% { clip: rect(3px, 9999px, 96px, 0); }
+    100% { clip: rect(82px, 9999px, 127px, 0); }
+  }
+  
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    background: var(--neon-pink);
+    margin-left: 5px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  .tagline {
+    font-size: 1.4rem;
+    color: var(--neon-blue);
+    margin-top: 0.5rem;
+  }
+  
+  /* Sections */
+  section {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  h2 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-blue);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+  }
+  
+  p, li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  ul {
+    list-style-position: inside;
+  }
+  
+  li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+  
+  li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--neon-pink);
+  }
+  
+  /* Keywords */
+  strong, b {
+    color: var(--neon-green);
+    font-weight: 600;
+  }
+  
+  /* Links */
+  a {
+    color: var(--neon-blue);
+    text-decoration: none;
+    position: relative;
+  }
+  
+  a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--neon-blue);
+    transition: width 0.3s ease;
+  }
+  
+  a:hover::after {
+    width: 100%;
+  }
+  
+  /* Hire Me Button */
+  .hire-me {
+    display: inline-block;
+    background: var(--neon-pink);
+    color: #000;
+    padding: 0.8rem 1.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .hire-me:hover {
+    background: #ff0a5e;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 42, 109, 0.8);
+  }
+  
+  /* Contact Icons */
+  .contact-methods {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .contact-icon {
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+  }
+  
+  .contact-icon:hover {
+    color: var(--neon-blue);
+    transform: translateY(-3px);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
     }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+    
+    .name {
+      font-size: 2.5rem;
     }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      padding: 2rem;
-      max-width: 850px;
-      margin: auto;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3rem;
-      color: #00ffcc;
-      text-shadow: 0 0 10px #00ffcc;
-      margin-bottom: 0.5rem;
-    }
-
-    h2 {
-      color: #00ffcc;
-      margin-top: 2rem;
-    }
-
-    p, li {
+    
+    .tagline {
       font-size: 1.2rem;
-      line-height: 1.6;
     }
-
-    ul {
-      margin-top: 0.5rem;
-      padding-left: 1.5rem;
-      text-align: left;
-      display: inline-block;
+    
+    section {
+      padding: 1.5rem;
     }
-
-    .hire-button {
-      margin-top: 2rem;
-      padding: 0.7rem 1.5rem;
-      font-size: 1.1rem;
-      background: #00ffcc;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #00ffcc;
-      transition: transform 0.2s;
-    }
-
-    .hire-button:hover {
-      transform: scale(1.05);
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
-  <div class="content">
-    <h1>SALMANUL FARIS</h1>
-    <p>Cybersecurity Engineer | Full-Stack Developer | Physics Researcher</p>
+  <!-- Matrix Background -->
+  <canvas id="matrix"></canvas>
 
-    <h2>Certifications</h2>
-    <ul>
-      <li>Advanced Program in Full Stack Software Engineering – NIIT Chennai</li>
-      <li>Certified Penetration Tester – RedTeam Hacker Academy</li>
-    </ul>
+  <div class="container">
+    <header class="header">
+      <div class="name" data-text="SALMANUL_FARIS">SALMANUL_FARIS<span class="cursor"></span></div>
+      <p class="tagline">Cybersecurity Engineer | Full-Stack Developer | Physics Researcher</p>
+    </header>
 
-    <h2>Education</h2>
-    <ul>
-      <li>B.Sc. Physics (2018–2021) – The New College, Chennai</li>
-      <li>M.Sc. Physics (2021–2023) – The New College, Chennai</li>
-    </ul>
+    <section id="about">
+      <h2>// ABOUT</h2>
+      <p>
+        <strong>Cybersecurity specialist</strong> and <strong>full-stack developer</strong> with advanced training in penetration testing and software engineering. Combines <strong>technical expertise</strong> with <strong>analytical physics background</strong> to build secure, high-performance applications.
+      </p>
+      <p>
+        Available for <strong>consulting projects</strong> including web development, application security, and custom software solutions.
+      </p>
+      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
+    </section>
 
-    <p>You can query me for creating <strong>apps</strong>, <strong>websites</strong>, and <strong>software solutions</strong>.</p>
+    <section id="certifications">
+      <h2>// CERTIFICATIONS</h2>
+      <ul>
+        <li><strong>Advanced Programming & Fullstack Software Engineering</strong> - NIIT Chennai</li>
+        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy</li>
+      </ul>
+    </section>
 
-    <button class="hire-button">Hire Me</button>
+    <section id="education">
+      <h2>// EDUCATION</h2>
+      <ul>
+        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
+        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
+      </ul>
+    </section>
+
+    <section id="expertise">
+      <h2>// CORE EXPERTISE</h2>
+      <ul>
+        <li><strong>Penetration Testing:</strong> Network security, vulnerability assessment, ethical hacking</li>
+        <li><strong>Full-Stack Development:</strong> JavaScript (Node.js, React), Python, Java, C++</li>
+        <li><strong>Security Tools:</strong> Burp Suite, Wireshark, Metasploit, Hashcat</li>
+        <li><strong>Development Tools:</strong> Docker, Git, VS Code, IntelliJ</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>// CONNECT</h2>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+919962726106">+91 99627 26106</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">linkedin.com/in/p-salmanul-faris</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/salman2610" target="_blank">github.com/salman2610</a></li>
+      </ul>
+
+      <div class="contact-methods">
+        <a href="https://github.com/salman2610" target="_blank" class="contact-icon">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" class="contact-icon">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:salmanulfariss642@gmail.com" class="contact-icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </section>
   </div>
 
+  <!-- Font Awesome for icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
   <script>
-    const canvas = document.getElementById('stars');
+    // Matrix Background
+    const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
-
-    let w, h;
-    let stars = [];
-
-    function resizeCanvas() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-
-    function Star() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h;
-      this.z = Math.random() * w;
-
-      this.move = function() {
-        this.z -= 2;
-        if (this.z <= 0) {
-          this.z = w;
-          this.x = Math.random() * w;
-          this.y = Math.random() * h;
-        }
-      };
-
-      this.show = function() {
-        let sx = (this.x - w / 2) * (w / this.z) + w / 2;
-        let sy = (this.y - h / 2) * (w / this.z) + h / 2;
-        let r = w / this.z;
-        ctx.beginPath();
-        ctx.arc(sx, sy, r, 0, 2 * Math.PI);
-        ctx.fillStyle = '#0f0';
-        ctx.fill();
-      };
-    }
-
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const chars = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+    
     function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-      ctx.fillRect(0, 0, w, h);
-      for (let i = 0; i < stars.length; i++) {
-        stars[i].move();
-        stars[i].show();
+      ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = '#0aff0a';
+      ctx.font = fontSize + 'px "Share Tech Mono"';
+      
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
       }
-      requestAnimationFrame(draw);
     }
-
-    function init() {
-      resizeCanvas();
-      stars = [];
-      for (let i = 0; i < 800; i++) {
-        stars.push(new Star());
-      }
-      draw();
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    init();
+    
+    setInterval(draw, 50);
+    
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 </body>
 </html>
