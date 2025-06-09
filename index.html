@@ -2,419 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Salmanul Faris</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     :root {
-      --bg-dark: #0a0a0a;
-      --text-dark: #e6e6e6;
-      --accent-dark: #f0f0f0;
-
-      --bg-light: #f9f9f9;
-      --text-light: #111111;
-      --accent-light: #444444;
+      --bg: #0a0a0a;
+      --text: #e6e6e6;
+      --accent: #00ffea;
+      --glow: #00ff00;
     }
 
-    /* Reset */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
       font-family: 'Share Tech Mono', monospace;
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-      padding: 3rem 1rem 5rem;
-      transition: background-color 0.5s, color 0.5s;
-      min-height: 100vh;
-      line-height: 1.5;
       overflow-x: hidden;
-      position: relative;
-      user-select: none;
-      cursor: default;
-      overflow-y: scroll;
     }
 
-    body.light {
-      background-color: var(--bg-light);
-      color: var(--text-light);
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 100vh;
     }
 
     main {
+      position: relative;
+      z-index: 1;
       max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-      background: rgba(0,0,0,0.35);
-      border-radius: 8px;
-      padding: 2rem 2.5rem;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 12px rgba(0,0,0,0.5);
-      transition: background 0.5s ease;
+      margin: auto;
+      padding: 2rem;
     }
 
-    body.light main {
-      background: rgba(255,255,255,0.6);
-      box-shadow: 0 0 15px rgba(200,200,200,0.5);
-    }
-
-    /* Heading glitch/neon effect */
-    h1 {
-      font-size: 3.6rem;
-      font-weight: 900;
+    .glitch {
+      font-size: 3rem;
+      color: white;
       text-align: center;
-      letter-spacing: 0.12em;
-      color: var(--accent-dark);
       position: relative;
-      user-select: none;
-      margin-bottom: 0.3rem;
-      text-transform: uppercase;
+      animation: glitch 1s infinite linear alternate-reverse;
       text-shadow:
-        0 0 6px #fff,
-        0 0 12px #ddd,
-        0 0 18px #bbb,
-        0 0 24px #999,
-        0 0 36px #777,
-        0 0 48px #555;
-      transition: color 0.5s ease;
+        2px 2px var(--accent),
+        -2px -2px var(--glow);
     }
 
-    body.light h1 {
-      color: var(--accent-light);
-      text-shadow:
-        0 0 4px #aaa,
-        0 0 10px #888,
-        0 0 18px #666,
-        0 0 24px #444;
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      60% { transform: translate(-1px, -1px); }
+      80% { transform: translate(1px, 1px); }
+      100% { transform: translate(0); }
     }
 
     .cursor {
       display: inline-block;
-      width: 12px;
-      height: 22px;
-      margin-left: 5px;
-      vertical-align: bottom;
-      font-weight: 900;
+      font-weight: bold;
       font-size: 2.5rem;
-      line-height: 1;
-      color: var(--accent-dark);
-      animation: blinkUnderscore 1.2s steps(2, start) infinite;
-      user-select: none;
-      font-family: monospace;
+      color: var(--accent);
+      animation: blink 1s steps(2, start) infinite;
     }
 
-    body.light .cursor {
-      color: var(--accent-light);
-    }
-
-    @keyframes blinkUnderscore {
-      0%, 50% {
-        opacity: 1;
-      }
-      50.01%, 100% {
-        opacity: 0;
-      }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .tagline {
-      font-style: italic;
       text-align: center;
-      color: var(--accent-dark);
-      font-size: 1.3rem;
-      margin-bottom: 2.5rem;
-      user-select: none;
-      transition: color 0.5s ease;
-    }
-
-    body.light .tagline {
-      color: var(--accent-light);
-    }
-
-    section {
-      margin-bottom: 3rem;
-      padding: 0 0.5rem;
+      font-style: italic;
+      color: #aaa;
+      margin: 1rem 0 2rem;
     }
 
     h2 {
-      border-left: 6px solid var(--accent-dark);
-      padding-left: 1rem;
-      font-size: 1.7rem;
-      color: var(--accent-dark);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid var(--accent);
+      padding-left: 0.5rem;
+      color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 1.2rem;
-      user-select: none;
-      transition: border-color 0.5s ease, color 0.5s ease;
-    }
-
-    body.light h2 {
-      border-color: var(--accent-light);
-      color: var(--accent-light);
     }
 
     ul {
       list-style: none;
-      padding-left: 1.5rem;
+      padding-left: 1rem;
     }
 
     li {
-      font-size: 1.12rem;
-      line-height: 1.5;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.5rem;
     }
 
     li::before {
-      content: "› ";
-      color: var(--accent-dark);
+      content: \"➤ \";
+      color: var(--accent);
       font-weight: bold;
-      user-select: none;
-      transition: color 0.5s ease;
     }
 
-    body.light li::before {
-      color: var(--accent-light);
+    b {
+      color: var(--accent);
     }
 
     a {
-      color: var(--accent-dark);
+      color: var(--accent);
       text-decoration: none;
-      transition: color 0.5s ease;
     }
 
-    a:hover,
-    a:focus {
+    a:hover {
       text-decoration: underline;
-      outline: none;
     }
 
-    body.light a {
-      color: var(--accent-light);
-    }
-
-    /* Dark/Light toggle */
-    #toggleTheme {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: 2px solid var(--accent-dark);
-      color: var(--accent-dark);
-      padding: 0.35rem 1rem;
-      font-family: 'Share Tech Mono', monospace;
-      font-weight: 700;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      user-select: none;
-      z-index: 10;
-      transition: all 0.4s ease;
-    }
-
-    #toggleTheme:hover {
-      background-color: var(--accent-dark);
-      color: var(--bg-dark);
-    }
-
-    body.light #toggleTheme {
-      border-color: var(--accent-light);
-      color: var(--accent-light);
-    }
-
-    body.light #toggleTheme:hover {
-      background-color: var(--accent-light);
-      color: var(--bg-light);
-    }
-
-    /* Advertisement text */
-    .advertisement {
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.18rem;
-      color: var(--accent-dark);
-      margin-top: -1.5rem;
-      margin-bottom: 4rem;
-      user-select: none;
-      transition: color 0.5s ease;
-    }
-
-    body.light .advertisement {
-      color: var(--accent-light);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      user-select: none;
-      margin-top: 2rem;
+    p {
       margin-bottom: 1rem;
-      font-style: italic;
-      transition: color 0.5s ease;
     }
-
-    body.light footer {
-      color: #aaa;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2.6rem;
-      }
-
-      .tagline {
-        font-size: 1.1rem;
-      }
-    }
-
-    /* Matrix style background */
-
-    canvas#matrixCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      user-select: none;
-      mix-blend-mode: difference; /* subtle dark effect */
-      opacity: 0.12;
-      filter: grayscale(1);
-      background: transparent;
-      transition: opacity 0.5s ease;
-    }
-
-    body.light canvas#matrixCanvas {
-      mix-blend-mode: normal;
-      opacity: 0.08;
-      filter: grayscale(0.5) brightness(1.1);
-    }
-
   </style>
 </head>
 <body>
-  <button id="toggleTheme" aria-label="Toggle dark/light mode">Light Mode</button>
-
   <canvas id="matrixCanvas"></canvas>
-
   <main>
-    <h1>Salmanul Faris<span class="cursor">_</span></h1>
-    <p class="tagline">Passionate coder & cybersecurity enthusiast — building smarter, safer digital worlds.</p>
+    <h1 class="glitch">Salmanul Faris<span class="cursor">_</span></h1>
+    <p class="tagline">Fueling digital futures with <b>code</b>, <b>creativity</b> & <b>cybersecurity</b>.</p>
 
-    <section id="about">
+    <section>
       <h2>About Me</h2>
       <p>
-        I am a dedicated MSc Physics graduate with a deep fascination for technology's inner workings. Over the years, I have immersed myself in developing intuitive web applications, reverse engineering complex binaries, and diving deep into cybersecurity challenges.
-        <br /><br />
-        Currently, I’m focused on building a versatile cross-platform billing software tailored to both desktop and mobile users. I’m always eager to take on new projects, whether it’s creating websites, apps, or custom software solutions.
-        <br /><br />
-        When not coding, you’ll find me exploring the latest cybersecurity trends, sharpening my skills, or contributing to open-source communities. Let’s connect and build something awesome together!
+        I'm a passionate <b>tech explorer</b> and MSc Physics graduate with a flair for <b>ethical hacking</b> and full-stack development. I specialize in making systems both functional and secure. Whether it's building apps or diving into exploits, I thrive in the intersection of <b>logic</b> and <b>creativity</b>. Currently developing a <b>cross-platform billing solution</b>. Hit me up for <b>custom websites</b>, <b>mobile apps</b>, and <b>software development</b>.
       </p>
     </section>
 
-    <section id="skills">
-      <h2>Skills & Expertise</h2>
+    <section>
+      <h2>Skills</h2>
       <ul>
-        <li>Cybersecurity: Certified Penetration Tester (CPT), Vulnerability Assessment, Network Security, Ethical Hacking, Incident Response, Malware Analysis, Wireshark packet analysis</li>
-        <li>Programming Languages: C++, Java, JavaScript, Node.js, Flutter</li>
-        <li>Frontend: HTML, CSS, React</li>
-        <li>Tools & Platforms: Burp Suite, Wireshark, Hashcat, VirtualBox, Docker, Git</li>
+        <li><b>Languages:</b> C++, Java, JavaScript, Node.js, Flutter</li>
+        <li><b>Frontend:</b> HTML, CSS, React</li>
+        <li><b>Cybersec:</b> VAPT, Web Exploitation, Burp Suite, Hashcat, Wireshark, Buffer Overflow</li>
+        <li><b>Tools:</b> VirtualBox, Git, Google Apps Script</li>
       </ul>
     </section>
 
-    <section id="projects">
+    <section>
+      <h2>Education</h2>
+      <ul>
+        <li><b>MSc Physics</b> (2021–2023)</li>
+        <li><b>BSc Physics</b> (2018–2021)</li>
+        <li><b>Advanced Full Stack Software Engineering</b> – NIIT Chennai</li>
+        <li><b>Certified Penetration Tester</b> – RedTeam Hacker Academy</li>
+      </ul>
+    </section>
+
+    <section>
       <h2>Projects</h2>
       <ul>
-        <li>Cyber Labs: Experiments with Denial of Service (Apache), Burp Suite, buffer overflow exploitation, command injection</li>
-        <li>Attendance Automation: Advanced Google Sheets attendance system using Apps Script</li>
-        <li>Cross-Platform Billing App: Unified billing software for desktop and mobile devices</li>
-        <li>React Development: Various web projects showcasing React proficiency</li>
+        <li><b>Cyber Labs:</b> DoS, Buffer Overflow, Web Attacks</li>
+        <li><b>SmartTrack:</b> Sheet-based Attendance Automation</li>
+        <li><b>BillMaster:</b> All-in-one billing software (desktop & mobile)</li>
+        <li><b>React Arsenal:</b> Mini tools & app demos built using React</li>
       </ul>
     </section>
 
-    <section id="education">
-      <h2>Education & Certifications</h2>
-      <ul>
-        <li>MSc Physics (2021 – 2023)</li>
-        <li>BSc Physics (2018 – 2021)</li>
-        <li>Advanced Program in Full Stack Software Engineering, NIIT Chennai</li>
-        <li>Certified Penetration Tester, RedTeam Hacker Academy</li>
-      </ul>
-    </section>
-
-    <section id="contact">
+    <section>
       <h2>Contact</h2>
       <ul>
-        <li>Email: <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
-        <li>Phone: <a href="tel:+919962726106">+91 99627 26106</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer">p-salmanul-faris</a></li>
-        <li>GitHub: <a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer">github.com/salman2610</a></li>
+        <li><b>Email:</b> <a href=\"mailto:salmanulfariss642@gmail.com\">salmanulfariss642@gmail.com</a></li>
+        <li><b>Phone:</b> +91 99627 26106</li>
+        <li><b>LinkedIn:</b> <a href=\"https://www.linkedin.com/in/p-salmanul-faris-68b733249\" target=\"_blank\">/p-salmanul-faris</a></li>
+        <li><b>GitHub:</b> <a href=\"https://github.com/salman2610\" target=\"_blank\">github.com/salman2610</a></li>
       </ul>
-      <p class="advertisement">Contact me for custom websites, apps, and software development!</p>
     </section>
   </main>
 
-  <footer>
-    &copy; 2025 Salmanul Faris
-  </footer>
-
   <script>
-    // Dark/light toggle button
-    const toggleBtn = document.getElementById('toggleTheme');
-    const body = document.body;
+    const canvas = document.getElementById(\"matrixCanvas\");
+    const ctx = canvas.getContext(\"2d\");
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-    function updateToggleText() {
-      toggleBtn.textContent = body.classList.contains('light') ? 'Dark Mode' : 'Light Mode';
-    }
-
-    toggleBtn.addEventListener('click', () => {
-      body.classList.toggle('light');
-      updateToggleText();
-    });
-
-    updateToggleText();
-
-    // Matrix style background effect
-
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    const fontSize = 16;
-    const columns = Math.floor(width / fontSize);
-    const drops = [];
-
-    // Initialize drops
-    for (let x = 0; x < columns; x++) {
-      drops[x] = Math.random() * height;
-    }
+    const letters = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@$%&\".split(\"\");
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
 
     function draw() {
-      // semi-transparent background for trail effect
-      ctx.fillStyle = body.classList.contains('light') ? 'rgba(255, 255, 255, 0.05)' : 'rgba(10, 10, 10, 0.05)';
-      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = \"rgba(10, 10, 10, 0.1)\";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = body.classList.contains('light') ? '#888' : '#ddd';
-      ctx.font = fontSize + 'px monospace';
+      ctx.fillStyle = \"#00FF00\";
+      ctx.font = fontSize + \"px monospace\";
 
       for (let i = 0; i < drops.length; i++) {
-        // random ascii characters (letters, numbers, symbols)
-        const text = String.fromCharCode(
-          33 + Math.floor(Math.random() * 94)
-        );
-
+        const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
 
@@ -422,15 +210,8 @@
       }
     }
 
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    window.addEventListener('resize', resize);
-    setInterval(draw, 40);
+    setInterval(draw, 35);
+    window.addEventListener(\"resize\", () => location.reload());
   </script>
 </body>
 </html>
