@@ -8,128 +8,110 @@
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     :root {
-      --bg-color-light: #f0f0f0;
-      --text-color-light: #111;
-      --bg-color-dark: #0a0a0a;
-      --text-color-dark: #e0e0e0;
-      --accent-color: #00e5ff;
-      --accent-color-light: #44ffff;
-      --accent-color-dark: #1de9b6;
+      --bg-dark: #0a0a0a;
+      --text-dark: #e0e0e0;
+      --accent-dark: #00e5ff;
+
+      --bg-light: #f9f9f9;
+      --text-light: #111111;
+      --accent-light: #0077cc;
     }
 
     body {
       margin: 0;
-      padding: 0;
-      background-color: var(--bg-color-dark);
-      color: var(--text-color-dark);
       font-family: 'Share Tech Mono', monospace;
-      line-height: 1.6;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      padding: 3rem 1rem 5rem;
+      transition: background-color 0.5s, color 0.5s;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 2rem 1rem;
-      transition: background-color 0.4s ease, color 0.4s ease;
+      line-height: 1.5;
+      cursor: default;
+      overflow-x: hidden;
     }
 
     body.light {
-      background-color: var(--bg-color-light);
-      color: var(--text-color-light);
+      background-color: var(--bg-light);
+      color: var(--text-light);
     }
 
-    .container {
+    /* Container removed, full width with max width */
+    main {
       max-width: 900px;
-      width: 100%;
-      background: #111;
-      border-radius: 8px;
-      box-shadow: 0 0 12px var(--accent-color);
-      padding: 2rem 3rem;
-      box-sizing: border-box;
-      transition: background-color 0.4s ease, color 0.4s ease;
+      margin: 0 auto;
     }
 
-    body.light .container {
-      background: #fff;
-      box-shadow: 0 0 15px #00aaff44;
-    }
-
+    /* ASCII Art styling */
     .ascii {
+      font-size: 0.95rem;
+      line-height: 1.05;
       white-space: pre;
-      color: var(--accent-color-dark);
-      font-size: 1rem;
       text-align: center;
-      margin-bottom: 1.5rem;
-      line-height: 1.1;
       user-select: none;
-      letter-spacing: 0.04em;
-      transition: color 0.4s ease;
+      letter-spacing: 0.03em;
+      color: var(--accent-dark);
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 1px var(--accent-dark));
+      transition: color 0.5s, filter 0.5s;
     }
 
     body.light .ascii {
-      color: #0099cc;
+      color: var(--accent-light);
+      filter: drop-shadow(0 0 1px var(--accent-light));
     }
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 0.3rem;
       text-align: center;
-      color: var(--accent-color);
-      letter-spacing: 0.05em;
-      transition: color 0.4s ease;
+      color: var(--accent-dark);
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.07em;
+      transition: color 0.5s;
     }
 
     body.light h1 {
-      color: #0099cc;
+      color: var(--accent-light);
     }
 
     .tagline {
-      font-size: 1.3rem;
-      color: var(--accent-color-light);
-      margin-bottom: 2rem;
       text-align: center;
-      font-weight: 600;
+      font-size: 1.25rem;
       font-style: italic;
-      transition: color 0.4s ease;
+      color: var(--accent-dark);
+      margin-bottom: 3rem;
+      user-select: none;
+      transition: color 0.5s;
     }
 
     body.light .tagline {
-      color: #33aaff;
+      color: var(--accent-light);
     }
 
     section {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
     }
 
     h2 {
-      border-left: 4px solid var(--accent-color-light);
-      padding-left: 0.75rem;
+      border-left: 5px solid var(--accent-dark);
+      padding-left: 0.8rem;
       font-size: 1.6rem;
-      color: var(--accent-color-light);
-      margin-bottom: 0.8rem;
+      color: var(--accent-dark);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      transition: color 0.4s ease, border-color 0.4s ease;
+      margin-bottom: 1rem;
+      transition: border-color 0.5s, color 0.5s;
+      user-select: none;
     }
 
     body.light h2 {
-      color: #33aaff;
-      border-color: #33aaff;
+      border-color: var(--accent-light);
+      color: var(--accent-light);
     }
 
     ul {
-      list-style: none;
-      padding-left: 1rem;
-    }
-
-    li::before {
-      content: "› ";
-      color: var(--accent-color);
-      font-weight: bold;
-      transition: color 0.4s ease;
-    }
-
-    body.light li::before {
-      color: #0099cc;
+      list-style-type: none;
+      padding-left: 1.3rem;
     }
 
     li {
@@ -137,10 +119,22 @@
       font-size: 1.1rem;
     }
 
+    li::before {
+      content: "› ";
+      color: var(--accent-dark);
+      font-weight: bold;
+      transition: color 0.5s;
+      user-select: none;
+    }
+
+    body.light li::before {
+      color: var(--accent-light);
+    }
+
     a {
-      color: var(--accent-color);
+      color: var(--accent-dark);
       text-decoration: none;
-      transition: color 0.4s ease;
+      transition: color 0.5s;
     }
 
     a:hover {
@@ -148,129 +142,114 @@
     }
 
     body.light a {
-      color: #0077aa;
+      color: var(--accent-light);
     }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem 0;
-      font-size: 0.9rem;
-      color: #555;
-      border-top: 1px solid #222;
-      margin-top: 2rem;
-      transition: color 0.4s ease, border-color 0.4s ease;
-    }
-
-    body.light footer {
-      color: #888;
-      border-color: #ccc;
-    }
-
-    .advertisement {
-      margin-top: -1rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      font-weight: 700;
-      color: var(--accent-color);
-      font-size: 1.1rem;
-      letter-spacing: 0.03em;
-      transition: color 0.4s ease;
-    }
-
-    body.light .advertisement {
-      color: #0099cc;
-    }
-
-    /* Buttons */
-    .btn-container {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    button {
-      background-color: var(--accent-color);
-      border: none;
-      padding: 0.6rem 1.4rem;
-      margin: 0 0.4rem;
-      font-size: 1rem;
-      color: #0a0a0a;
-      font-weight: 700;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      user-select: none;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    button:hover {
-      background-color: var(--accent-color-light);
-      color: #000;
-    }
-
-    body.light button {
-      background-color: #0099cc;
-      color: #fff;
-    }
-
-    body.light button:hover {
-      background-color: #006699;
-    }
-
-    /* Dark/Light toggle button */
+    /* Dark/Light toggle */
     #toggleTheme {
       position: fixed;
       top: 1rem;
       right: 1rem;
-      padding: 0.5rem 1rem;
+      background: none;
+      border: 2px solid var(--accent-dark);
+      color: var(--accent-dark);
+      padding: 0.3rem 0.9rem;
       font-family: 'Share Tech Mono', monospace;
       font-weight: 700;
       font-size: 0.9rem;
       border-radius: 5px;
-      border: none;
       cursor: pointer;
-      background-color: var(--accent-color);
-      color: #000;
-      box-shadow: 0 0 8px var(--accent-color);
-      transition: background-color 0.4s ease;
-      z-index: 1000;
+      transition: all 0.4s;
       user-select: none;
+      z-index: 1000;
     }
 
     #toggleTheme:hover {
-      background-color: var(--accent-color-light);
-      color: #000;
+      background-color: var(--accent-dark);
+      color: var(--bg-dark);
     }
 
     body.light #toggleTheme {
-      background-color: #0099cc;
-      color: #fff;
-      box-shadow: 0 0 8px #0099cc;
+      border-color: var(--accent-light);
+      color: var(--accent-light);
     }
 
     body.light #toggleTheme:hover {
-      background-color: #006699;
+      background-color: var(--accent-light);
+      color: var(--bg-light);
     }
 
-    /* Fun message area */
-    #funMessage {
+    /* Blinking cursor animation */
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background-color: var(--accent-dark);
+      margin-left: 5px;
+      animation: blink 1.2s infinite;
+      vertical-align: bottom;
+      border-radius: 2px;
+      transition: background-color 0.5s;
+    }
+
+    body.light .cursor {
+      background-color: var(--accent-light);
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.01%, 100% {
+        opacity: 0;
+      }
+    }
+
+    /* Advertisement */
+    .advertisement {
       text-align: center;
-      font-size: 1.1rem;
-      margin-top: 0;
-      color: var(--accent-color);
       font-weight: 700;
-      min-height: 28px;
-      transition: color 0.4s ease;
+      font-size: 1.15rem;
+      color: var(--accent-dark);
+      user-select: none;
+      margin-top: -1rem;
+      margin-bottom: 4rem;
+      transition: color 0.5s;
     }
 
-    body.light #funMessage {
-      color: #0077aa;
+    body.light .advertisement {
+      color: var(--accent-light);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      user-select: none;
+      padding-bottom: 2rem;
+    }
+
+    body.light footer {
+      color: #888;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .tagline {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <button id="toggleTheme" aria-label="Toggle dark/light mode">Light Mode</button>
 
-  <div class="container">
+  <main>
     <div class="ascii" aria-hidden="true">
       _____       _                       _       _ <br>
      / ____|     | |                     | |     | |<br>
@@ -282,16 +261,8 @@
                                                            |_|    <br>
     </div>
 
-    <h1>Salmanul Faris</h1>
+    <h1>Salmanul Faris<span class="cursor"></span></h1>
     <p class="tagline">Passionate coder & cybersecurity enthusiast — building smarter, safer digital worlds.</p>
-
-    <div class="btn-container" role="group" aria-label="Navigation buttons">
-      <button data-target="about">About Me</button>
-      <button data-target="skills">Skills & Expertise</button>
-      <button data-target="projects">Projects</button>
-      <button data-target="education">Education & Certifications</button>
-      <button data-target="contact">Contact</button>
-    </div>
 
     <section id="about">
       <h2>About Me</h2>
@@ -300,7 +271,7 @@
       </p>
     </section>
 
-    <section id="skills" hidden>
+    <section id="skills">
       <h2>Skills & Expertise</h2>
       <ul>
         <li>Cybersecurity: Certified Penetration Tester (CPT), Vulnerability Assessment, Network Security, Ethical Hacking, Incident Response, Malware Analysis, Wireshark packet analysis</li>
@@ -310,7 +281,7 @@
       </ul>
     </section>
 
-    <section id="projects" hidden>
+    <section id="projects">
       <h2>Projects</h2>
       <ul>
         <li>Cyber Labs: Experiments with Denial of Service (Apache), Burp Suite, buffer overflow exploitation, command injection</li>
@@ -320,7 +291,7 @@
       </ul>
     </section>
 
-    <section id="education" hidden>
+    <section id="education">
       <h2>Education & Certifications</h2>
       <ul>
         <li>MSc Physics (2021 – 2023)</li>
@@ -330,7 +301,7 @@
       </ul>
     </section>
 
-    <section id="contact" hidden>
+    <section id="contact">
       <h2>Contact</h2>
       <ul>
         <li>Email: <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
@@ -340,16 +311,13 @@
       </ul>
       <p class="advertisement">Contact me for custom websites, apps, and software development!</p>
     </section>
+  </main>
 
-    <p id="funMessage" aria-live="polite"></p>
-
-    <footer>
-      &copy; 2025 Salmanul Faris
-    </footer>
-  </div>
+  <footer>
+    &copy; 2025 Salmanul Faris
+  </footer>
 
   <script>
-    // Dark/Light toggle
     const toggleBtn = document.getElementById('toggleTheme');
     const body = document.body;
 
@@ -363,47 +331,6 @@
     });
 
     updateToggleText();
-
-    // Section buttons and fun message
-    const buttons = document.querySelectorAll('.btn-container button');
-    const sections = document.querySelectorAll('section');
-    const funMessage = document.getElementById('funMessage');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Show target section, hide others
-        const targetId = btn.getAttribute('data-target');
-        sections.forEach(sec => {
-          if (sec.id === targetId) {
-            sec.hidden = false;
-            sec.scrollIntoView({behavior: 'smooth', block: 'start'});
-          } else {
-            sec.hidden = true;
-          }
-        });
-
-        // Fun messages for each button
-        const messages = {
-          about: "Curiosity fuels everything I build.",
-          skills: "Skills sharpened with code and challenge.",
-          projects: "Projects: where ideas turn into reality.",
-          education: "Always learning, always growing.",
-          contact: "Let's create something awesome together!"
-        };
-
-        funMessage.textContent = messages[targetId] || '';
-        // small fun animation (flash color)
-        funMessage.style.color = '#00e5ff';
-        setTimeout(() => {
-          funMessage.style.color = body.classList.contains('light') ? '#0077aa' : '#00e5ff';
-        }, 800);
-      });
-    });
-
-    // Show About Me by default on load
-    window.addEventListener('DOMContentLoaded', () => {
-      buttons[0].click();
-    });
   </script>
 </body>
 </html>
