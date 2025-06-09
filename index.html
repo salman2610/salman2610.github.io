@@ -1,396 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Salmanul Faris</title>
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Salman's Developer Portfolio | CS Student | AI Enthusiast">
+    <title>Salman | Developer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --text: #1e293b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+        }
 
-  /* Reset */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text: #f1f5f9;
+                --bg: #0f172a;
+                --card: #1e293b;
+            }
+        }
 
-  html, body {
-    height: 100%;
-    background: #000;
-    color: #ddd;
-    font-family: 'Courier New', Courier, monospace;
-    overflow-x: hidden;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s ease;
+        }
 
-  /* Matrix background */
-  canvas#matrix {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    z-index: 0;
-    background: #000;
-  }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 20%);
+        }
 
-  /* Container */
-  .container {
-    position: relative;
-    max-width: 800px;
-    margin: 3rem auto 5rem;
-    padding: 1.5rem 2rem;
-    background-color: rgba(0,0,0,0.75);
-    border: 1px solid #0f0;
-    box-shadow: 0 0 15px #0f0aa0;
-    border-radius: 8px;
-    z-index: 10;
-  }
+        header {
+            margin-bottom: 3rem;
+        }
 
-  /* Typing + glitch effect */
-  .title-wrapper {
-    position: relative;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 0.3rem;
-    letter-spacing: 0.06em;
-  }
-  .title-wrapper .glitch {
-    position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    color: #0f0;
-    clip-path: polygon(0 2%, 100% 2%, 100% 25%, 0 25%);
-    animation: glitchAnim1 2s infinite linear alternate-reverse;
-    opacity: 0.6;
-  }
-  .title-wrapper .glitch:nth-child(2) {
-    clip-path: polygon(0 75%, 100% 75%, 100% 98%, 0 98%);
-    animation: glitchAnim2 3s infinite linear alternate;
-    opacity: 0.5;
-  }
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
 
-  @keyframes glitchAnim1 {
-    0%   {transform: translate(-2px, -2px);}
-    25%  {transform: translate(2px, 2px);}
-    50%  {transform: translate(-2px, 2px);}
-    75%  {transform: translate(2px, -2px);}
-    100% {transform: translate(-2px, -2px);}
-  }
-  @keyframes glitchAnim2 {
-    0%   {transform: translate(2px, 2px);}
-    25%  {transform: translate(-2px, -2px);}
-    50%  {transform: translate(2px, -2px);}
-    75%  {transform: translate(-2px, 2px);}
-    100% {transform: translate(2px, 2px);}
-  }
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
 
-  /* Typing effect */
-  .typed-name {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 0.15em solid #0f0;
-    animation: typing 3.5s steps(18) 1 forwards, blink-caret 1s step-end infinite;
-  }
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 18ch; }
-  }
-  @keyframes blink-caret {
-    0%, 100% { border-color: transparent }
-    50% { border-color: #0f0 }
-  }
+        .links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
 
-  .tagline {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: #aaa;
-  }
+        .links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 2px;
+        }
 
-  /* Sections */
-  section {
-    margin-bottom: 2rem;
-  }
-  h2 {
-    border-left: 4px solid #0f0;
-    padding-left: 0.6rem;
-    font-size: 1.6rem;
-    color: #0f0;
-    margin-bottom: 1rem;
-  }
-  p, li {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: #ddd;
-  }
-  li {
-    margin-bottom: 0.5rem;
-  }
-  ul {
-    padding-left: 1.5rem;
-  }
-  /* Bold keywords */
-  b, strong {
-    color: #0f0;
-  }
+        .links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
 
-  /* Links */
-  a {
-    color: #0f0;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
+        .links a:hover::after {
+            width: 100%;
+        }
 
-  /* Dark/Light toggle */
-  #toggle-theme {
-    position: fixed;
-    top: 1rem; right: 1rem;
-    background: transparent;
-    border: 2px solid #0f0;
-    color: #0f0;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    padding: 0.4rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    z-index: 20;
-    transition: all 0.3s ease;
-    user-select: none;
-  }
-  #toggle-theme:hover {
-    background: #0f0;
-    color: #000;
-  }
+        .projects {
+            display: grid;
+            gap: 1.5rem;
+        }
 
-  /* Footer */
-  footer {
-    text-align: center;
-    color: #444;
-    font-size: 0.9rem;
-    margin-top: 3rem;
-  }
+        .project-card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-  /* Floating Hire Me badge */
-  .hire-me {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: #0f0;
-    color: #000;
-    padding: 0.7rem 1.2rem;
-    font-weight: bold;
-    font-family: 'Courier New', monospace;
-    cursor: pointer;
-    border-radius: 30px;
-    box-shadow: 0 0 15px #0f0;
-    user-select: none;
-    z-index: 20;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-  }
-  .hire-me:hover {
-    background: #00cc00;
-  }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
 
-  /* Social icons container */
-  .social {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 0.8rem;
-  }
-  .social a {
-    color: #0f0;
-    font-size: 1.8rem;
-    transition: color 0.3s ease;
-  }
-  .social a:hover {
-    color: #00cc00;
-  }
+        .project-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
 
-  /* Responsive */
-  @media (max-width: 600px) {
-    .container {
-      margin: 2rem 1rem 4rem;
-      padding: 1rem 1.2rem;
-    }
-    .title-wrapper {
-      font-size: 2.2rem;
-    }
-    #toggle-theme {
-      top: 0.6rem; right: 0.6rem;
-      padding: 0.3rem 0.8rem;
-      font-size: 0.9rem;
-    }
-    .hire-me {
-      bottom: 1rem; right: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-  }
-</style>
+        .project-card .tech {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 3rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Terminal animation */
+        #terminal {
+            font-family: 'Space Mono', monospace;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1rem;
+            background: var(--primary);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Salman</h1>
+        <p class="tagline">CS Student | AI Enthusiast | Developer</p>
+        
+        <div id="terminal">
+            <span id="typed-text"></span><span class="cursor"></span>
+        </div>
+        
+        <div class="links">
+            <a href="https://github.com/salman2610" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+            <a href="https://twitter.com/yourhandle" target="_blank">Twitter</a>
+        </div>
+    </header>
 
-<!-- Matrix Canvas -->
-<canvas id="matrix"></canvas>
+    <main class="projects">
+        <div class="project-card">
+            <h3>Project One</h3>
+            <p>A brief description of your first project and what it does.</p>
+            <span class="tech">Python</span>
+        </div>
+        
+        <div class="project-card">
+            <h3>Project Two</h3>
+            <p>Description of your second project with its key features.</p>
+            <span class="tech">JavaScript</span>
+        </div>
+    </main>
 
-<!-- Dark/Light toggle -->
-<button id="toggle-theme" aria-label="Toggle Dark/Light Mode">LIGHT MODE</button>
+    <footer>
+        &copy; 2023 Built with ❤️ by Salman
+    </footer>
 
-<!-- Main content container -->
-<div class="container" role="main" aria-label="Personal website of Salmanul Faris">
+    <script>
+        // Terminal-like typing animation
+        const texts = [
+            "Welcome to my portfolio.",
+            "I build things with code.",
+            "Let's create something amazing."
+        ];
+        let count = 0;
+        let index = 0;
+        let currentText = '';
+        let letter = '';
 
-  <!-- Title with typing + glitch -->
-  <div class="title-wrapper" aria-label="Name and tagline">
-    <span class="typed-name" aria-live="polite" aria-atomic="true" aria-relevant="text">Salmanul Faris</span>
-    <span class="glitch" aria-hidden="true">Salmanul Faris</span>
-    <span class="glitch" aria-hidden="true">Salmanul Faris</span>
-  </div>
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            
+            document.getElementById('typed-text').textContent = letter;
+            
+            if (letter.length === currentText.length) {
+                setTimeout(() => {
+                    count++;
+                    index = 0;
+                    setTimeout(type, 1000);
+                }, 2000);
+            } else {
+                setTimeout(type, 100);
+            }
+        })();
 
-  <!-- Tagline -->
-  <p class="tagline">Petrolhead & Cybersecurity coder. Building secure digital futures.</p>
-
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      MSc Physics graduate passionate about technology and cybersecurity. Fascinated by everything from web applications to reverse engineering binaries. Constantly learning, building, breaking, and making the digital world safer. Currently focused on developing cross-platform billing software.
-    </p>
-    <p>
-      You can query me for creating <strong>websites, apps, and software</strong> tailored to your needs.
-    </p>
-    <p>
-      Education:
-      <br><strong>BSc Physics</strong> (2018–2021), <strong>MSc Physics</strong> (2021–2023).
-    </p>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Cybersecurity:</strong> Certified Penetration Tester (CPT), Network Security, Vulnerability Assessment, Ethical Hacking, Incident Response, Wireshark analysis, Cryptography basics</li>
-      <li><strong>Programming Languages:</strong> C++, Java, JavaScript, Node.js, Flutter</li>
-      <li><strong>Frontend:</strong> HTML, CSS, React, Responsive Design</li>
-      <li><strong>Tools:</strong> Burp Suite, Wireshark, Hashcat, VirtualBox, Git, Docker</li>
-    </ul>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul>
-      <li><strong>Cyber Labs:</strong> Hands-on experiments with DoS attacks (Apache), Burp Suite, buffer overflows, command injection</li>
-      <li><strong>Google Sheets Attendance System:</strong> Automated attendance tracking using Google Apps Script</li>
-      <li><strong>Cross-Platform Billing App:</strong> Billing software for desktop and mobile platforms</li>
-      <li><strong>React Development Projects:</strong> Various React apps demonstrating frontend proficiency</li>
-    </ul>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <ul>
-      <li><strong>Email:</strong> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
-      <li><strong>Phone:</strong> <a href="tel:+919962726106">+91 99627 26106</a></li>
-      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer">p-salmanul-faris</a></li>
-      <li><strong>GitHub:</strong> <a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer">github.com/salman2610</a></li>
-    </ul>
-
-    <div class="social" aria-label="Social links">
-      <a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="mailto:salmanulfariss642@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 Salmanul Faris
-  </footer>
-</div>
-
-<!-- Floating Hire Me Badge -->
-<a href="tel:+919962726106" class="hire-me" aria-label="Hire Salmanul Faris">Hire Me</a>
-
-<script>
-  // MATRIX RAIN BACKGROUND
-  const canvas = document.getElementById('matrix');
-  const ctx = canvas.getContext('2d');
-
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%+-/~{[|`]}".split("");
-  const fontSize = 16;
-  const columns = Math.floor(width / fontSize);
-
-  const drops = Array(columns).fill(1);
-
-  function draw() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, width, height);
-
-    ctx.fillStyle = '#0f0';
-    ctx.font = fontSize + "px Courier New";
-
-    for (let i = 0; i < drops.length; i++) {
-      const text = letters[Math.floor(Math.random() * letters.length)];
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-      if (drops[i] * fontSize > height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-  setInterval(draw, 50);
-
-  window.addEventListener('resize', () => {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-  });
-
-  // DARK/LIGHT MODE TOGGLE
-  const toggleBtn = document.getElementById('toggle-theme');
-  const body = document.body;
-  toggleBtn.addEventListener('click', () => {
-    if (body.classList.contains('light')) {
-      body.classList.remove('light');
-      toggleBtn.textContent = 'LIGHT MODE';
-      // revert colors for dark mode
-      document.querySelector('.container').style.backgroundColor = 'rgba(0,0,0,0.75)';
-      document.querySelector('.container').style.borderColor = '#0f0';
-      document.querySelector('.container').style.boxShadow = '0 0 15px #0f0aa0';
-      document.querySelector('h2').style.color = '#0f0';
-      document.querySelector('#toggle-theme').style.color = '#0f0';
-      document.querySelector('#toggle-theme').style.borderColor = '#0f0';
-      document.querySelector('.hire-me').style.backgroundColor = '#0f0';
-      document.querySelector('.hire-me').style.color = '#000';
-      // text color
-      document.querySelector('.container').style.color = '#ddd';
-    } else {
-      body.classList.add('light');
-      toggleBtn.textContent = 'DARK MODE';
-      // light mode colors
-      document.querySelector('.container').style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-      document.querySelector('.container').style.borderColor = '#555';
-      document.querySelector('.container').style.boxShadow = '0 0 20px #888';
-      document.querySelector('h2').style.color = '#444';
-      document.querySelector('#toggle-theme').style.color = '#444';
-      document.querySelector('#toggle-theme').style.borderColor = '#444';
-      document.querySelector('.hire-me').style.backgroundColor = '#222';
-      document.querySelector('.hire-me').style.color = '#eee';
-      document.querySelector('.container').style.color = '#222';
-    }
-  });
-</script>
-
+        // Dark mode toggle (optional)
+        function toggleDarkMode() {
+            const root = document.documentElement;
+            const currentBg = getComputedStyle(root).getPropertyValue('--bg').trim();
+            
+            if (currentBg === '#f8fafc') {
+                root.style.setProperty('--text', '#f1f5f9');
+                root.style.setProperty('--bg', '#0f172a');
+                root.style.setProperty('--card', '#1e293b');
+            } else {
+                root.style.setProperty('--text', '#1e293b');
+                root.style.setProperty('--bg', '#f8fafc');
+                root.style.setProperty('--card', '#ffffff');
+            }
+        }
+    </script>
 </body>
 </html>
