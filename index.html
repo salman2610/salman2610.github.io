@@ -2,41 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salmanul Faris</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
     :root {
-      --bg: #0a0a0a;
-      --text: #e6e6e6;
-      --accent: #00ffea;
-      --glow: #00ff00;
+      --bg: #000000;
+      --fg: #e0e0e0;
+      --dim: #888;
+      --accent: #0f0;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    body.light {
+      --bg: #f0f0f0;
+      --fg: #111;
+      --dim: #555;
+      --accent: #090;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      margin: 0;
+      padding: 0;
       font-family: 'Share Tech Mono', monospace;
+      background-color: var(--bg);
+      color: var(--fg);
       overflow-x: hidden;
     }
 
-    canvas {
+    .matrix {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
+      background: black;
     }
 
-    main {
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .container {
       position: relative;
       z-index: 1;
       max-width: 900px;
@@ -44,53 +55,53 @@
       padding: 2rem;
     }
 
-    .glitch {
-      font-size: 3rem;
-      color: white;
+    .name {
+      font-size: 2.8rem;
       text-align: center;
-      position: relative;
-      animation: glitch 1s infinite linear alternate-reverse;
-      text-shadow:
-        2px 2px var(--accent),
-        -2px -2px var(--glow);
+      letter-spacing: 1px;
+      color: var(--fg);
+      text-shadow: 0 0 5px var(--accent);
+    }
+
+    .glitch {
+      display: inline-block;
+      animation: glitch 1.5s infinite;
     }
 
     @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-1px, 1px); }
-      40% { transform: translate(1px, -1px); }
-      60% { transform: translate(-1px, -1px); }
-      80% { transform: translate(1px, 1px); }
-      100% { transform: translate(0); }
+      0% { text-shadow: 2px 0 red, -2px 0 cyan; }
+      20% { text-shadow: -2px 0 red, 2px 0 cyan; }
+      40% { text-shadow: 2px 2px red, -2px -2px cyan; }
+      60% { text-shadow: -2px -2px red, 2px 2px cyan; }
+      80% { text-shadow: 0px 2px red, 0px -2px cyan; }
+      100% { text-shadow: 2px 0 red, -2px 0 cyan; }
     }
 
-    .cursor {
-      display: inline-block;
-      font-weight: bold;
-      font-size: 2.5rem;
-      color: var(--accent);
-      animation: blink 1s steps(2, start) infinite;
+    .typing::after {
+      content: "_";
+      animation: blink 1s step-start infinite;
     }
 
     @keyframes blink {
-      0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
 
     .tagline {
       text-align: center;
-      font-style: italic;
-      color: #aaa;
-      margin: 1rem 0 2rem;
+      font-size: 1.2rem;
+      color: var(--dim);
+      margin-bottom: 2rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
     }
 
     h2 {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      border-left: 5px solid var(--accent);
-      padding-left: 0.5rem;
+      font-size: 1.3rem;
       color: var(--accent);
-      text-transform: uppercase;
+      border-left: 4px solid var(--dim);
+      padding-left: 0.5rem;
     }
 
     ul {
@@ -98,14 +109,9 @@
       padding-left: 1rem;
     }
 
-    li {
-      margin-bottom: 0.5rem;
-    }
-
     li::before {
-      content: \"➤ \";
+      content: "› ";
       color: var(--accent);
-      font-weight: bold;
     }
 
     b {
@@ -121,97 +127,146 @@
       text-decoration: underline;
     }
 
-    p {
-      margin-bottom: 1rem;
+    .social-icons {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .social-icons a {
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: transform 0.2s;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .toggle {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      z-index: 1000;
+      background: none;
+      color: var(--accent);
+      font-size: 1.2rem;
+      border: 1px solid var(--accent);
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--dim);
+      font-size: 0.9rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
 <body>
-  <canvas id="matrixCanvas"></canvas>
-  <main>
-    <h1 class="glitch">Salmanul Faris<span class="cursor">_</span></h1>
-    <p class="tagline">Fueling digital futures with <b>code</b>, <b>creativity</b> & <b>cybersecurity</b>.</p>
+  <button class="toggle" onclick="toggleMode()">Toggle Mode</button>
+  <canvas id="matrix"></canvas>
+  <div class="container">
+    <h1 class="name"><span class="glitch typing">Salmanul Faris</span></h1>
+    <p class="tagline">Digital explorer, cyber tinkerer, petrolhead, and code whisperer.</p>
 
     <section>
       <h2>About Me</h2>
-      <p>
-        I'm a passionate <b>tech explorer</b> and MSc Physics graduate with a flair for <b>ethical hacking</b> and full-stack development. I specialize in making systems both functional and secure. Whether it's building apps or diving into exploits, I thrive in the intersection of <b>logic</b> and <b>creativity</b>. Currently developing a <b>cross-platform billing solution</b>. Hit me up for <b>custom websites</b>, <b>mobile apps</b>, and <b>software development</b>.
-      </p>
+      <p><b>MSc Physics</b> graduate passionate about <b>cybersecurity</b>, <b>software development</b>, and <b>reverse engineering</b>. I enjoy building full-stack apps, auditing systems, and automating the boring stuff. Currently working on a powerful cross-platform billing solution. Need an app, website, or tool? <b>Contact me</b> — I can build it.</p>
     </section>
 
     <section>
       <h2>Skills</h2>
       <ul>
-        <li><b>Languages:</b> C++, Java, JavaScript, Node.js, Flutter</li>
-        <li><b>Frontend:</b> HTML, CSS, React</li>
-        <li><b>Cybersec:</b> VAPT, Web Exploitation, Burp Suite, Hashcat, Wireshark, Buffer Overflow</li>
-        <li><b>Tools:</b> VirtualBox, Git, Google Apps Script</li>
+        <li><b>Cybersecurity</b>: CPT Certified, Web App Security, DoS Testing, Burp Suite, Wireshark, Hashcat</li>
+        <li><b>Languages</b>: C++, Java, JavaScript, Node.js, Flutter</li>
+        <li><b>Frontend</b>: HTML, CSS, React</li>
+        <li><b>Tools</b>: VirtualBox, GitHub, Google Apps Script</li>
       </ul>
     </section>
 
     <section>
-      <h2>Education</h2>
+      <h2>Certifications</h2>
       <ul>
-        <li><b>MSc Physics</b> (2021–2023)</li>
-        <li><b>BSc Physics</b> (2018–2021)</li>
-        <li><b>Advanced Full Stack Software Engineering</b> – NIIT Chennai</li>
-        <li><b>Certified Penetration Tester</b> – RedTeam Hacker Academy</li>
+        <li>Certified Penetration Tester – RedTeam Hacker Academy</li>
+        <li>Advanced Program in Full Stack Software Engineering – NIIT Chennai</li>
       </ul>
     </section>
 
     <section>
       <h2>Projects</h2>
       <ul>
-        <li><b>Cyber Labs:</b> DoS, Buffer Overflow, Web Attacks</li>
-        <li><b>SmartTrack:</b> Sheet-based Attendance Automation</li>
-        <li><b>BillMaster:</b> All-in-one billing software (desktop & mobile)</li>
-        <li><b>React Arsenal:</b> Mini tools & app demos built using React</li>
+        <li><b>Cyber Labs</b>: Real-world DoS, buffer overflow, and injection testing setups</li>
+        <li><b>Smart Track</b>: Google Sheets-based tracking with Apps Script automation</li>
+        <li><b>XBill Pro</b>: A modern billing app for desktop and mobile</li>
+        <li><b>ReactWorks</b>: Collection of useful and clean React.js components</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul>
+        <li>B.Sc. Physics – 2018 to 2021</li>
+        <li>M.Sc. Physics – 2021 to 2023</li>
       </ul>
     </section>
 
     <section>
       <h2>Contact</h2>
       <ul>
-        <li><b>Email:</b> <a href=\"mailto:salmanulfariss642@gmail.com\">salmanulfariss642@gmail.com</a></li>
-        <li><b>Phone:</b> +91 99627 26106</li>
-        <li><b>LinkedIn:</b> <a href=\"https://www.linkedin.com/in/p-salmanul-faris-68b733249\" target=\"_blank\">/p-salmanul-faris</a></li>
-        <li><b>GitHub:</b> <a href=\"https://github.com/salman2610\" target=\"_blank\">github.com/salman2610</a></li>
+        <li><b>Email</b>: <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
+        <li><b>Phone</b>: 9962726106</li>
+        <li><b>LinkedIn</b>: <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">View Profile</a></li>
+        <li><b>GitHub</b>: <a href="https://github.com/salman2610" target="_blank">github.com/salman2610</a></li>
       </ul>
     </section>
-  </main>
+
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/salman2610" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:salmanulfariss642@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <footer>
+      &copy; 2025 Salmanul Faris. Open to freelance projects & collabs.
+    </footer>
+  </div>
 
   <script>
-    const canvas = document.getElementById(\"matrixCanvas\");
-    const ctx = canvas.getContext(\"2d\");
+    // Matrix animation
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-    const letters = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@$%&\".split(\"\");
+    const chars = "01";
     const fontSize = 14;
     const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
+    const drops = Array.from({ length: columns }, () => 1);
 
-    function draw() {
-      ctx.fillStyle = \"rgba(10, 10, 10, 0.1)\";
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = \"#00FF00\";
-      ctx.font = fontSize + \"px monospace\";
-
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
       for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
+        const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
           drops[i] = 0;
         }
-
         drops[i]++;
       }
     }
 
-    setInterval(draw, 35);
-    window.addEventListener(\"resize\", () => location.reload());
+    setInterval(drawMatrix, 50);
+
+    // Toggle theme
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
   </script>
 </body>
 </html>
