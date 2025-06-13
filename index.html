@@ -51,80 +51,39 @@
     z-index: 2;
   }
   
-  /* 1. Interactive Terminal */
-  #terminal {
-    background: rgba(0, 20, 20, 0.7);
-    border: 1px solid var(--neon-green);
-    border-radius: 4px;
-    padding: 1rem;
+  /* Header */
+  .header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .name {
     font-family: 'Share Tech Mono', monospace;
-    margin: 2rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  #terminal::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 30px;
-    background: rgba(0, 80, 80, 0.3);
-    border-bottom: 1px solid var(--neon-green);
-  }
-  
-  #command {
+    font-size: 3.5rem;
     color: var(--neon-green);
-  }
-  
-  #typed-text {
-    color: var(--neon-blue);
-  }
-  
-  #cursor {
-    display: inline-block;
-    width: 8px;
-    height: 1em;
-    background: var(--neon-pink);
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-  }
-  
-  /* 2. Holographic Business Card */
-  .business-card {
-    background: var(--card-bg);
-    border: 1px solid var(--neon-blue);
-    padding: 1.5rem;
-    margin: 2rem auto;
-    max-width: 400px;
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    transition: transform 1s;
+    text-shadow: 0 0 10px rgba(10, 255, 10, 0.5);
+    margin-bottom: 0.5rem;
     position: relative;
-    cursor: pointer;
   }
   
-  .business-card:hover {
-    transform: rotateY(180deg);
+  .name::after {
+    content: '_';
+    color: var(--neon-pink);
+    animation: blink 1s step-end infinite;
   }
   
-  .card-front, .card-back {
-    backface-visibility: hidden;
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
   
-  .card-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 1.5rem;
-    transform: rotateY(180deg);
-    background: rgba(10, 20, 40, 0.9);
+  .tagline {
+    font-size: 1.4rem;
+    color: var(--neon-blue);
+    margin-top: 0.5rem;
   }
   
-  /* 4. Glitchy Sections */
+  /* Sections */
   section {
     background: var(--card-bg);
     border: 1px solid rgba(0, 240, 255, 0.1);
@@ -132,113 +91,223 @@
     padding: 2rem;
     margin-bottom: 2rem;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
   
   section:hover {
     border-color: var(--neon-blue);
     box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-    animation: glitch 0.5s linear infinite;
   }
   
-  @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(2px, -2px); }
-    60% { transform: translate(-2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-  }
-  
-  /* 9. Radar Scan */
-  .radar {
+  h2 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-blue);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
     position: relative;
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    border: 2px solid var(--neon-green);
-    margin: 2rem auto;
-    overflow: hidden;
   }
   
-  .radar::before {
+  h2::after {
     content: '';
     position: absolute;
-    top: 0;
+    bottom: -5px;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: conic-gradient(
-      transparent 0deg 30deg,
-      rgba(0, 255, 100, 0.2) 30deg 60deg,
-      transparent 60deg
-    );
-    animation: radar-scan 4s linear infinite;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
   
-  .radar::after {
-    content: '';
+  p, li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  ul {
+    list-style-position: inside;
+  }
+  
+  li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+  
+  li::before {
+    content: '▹';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    border-radius: 50%;
-    border: 1px solid var(--neon-green);
+    left: 0;
+    color: var(--neon-pink);
   }
   
-  @keyframes radar-scan {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  /* Keywords */
+  strong, b {
+    color: var(--neon-green);
+    font-weight: 600;
   }
   
-  /* Existing styles... */
-  /* (Keep all your existing styles from previous version) */
+  /* Enhanced Contact Section */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .contact-card {
+    background: rgba(0, 30, 40, 0.5);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+  }
+  
+  .contact-card h3 {
+    color: var(--neon-green);
+    margin-bottom: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  /* Hire Me Button */
+  .hire-me {
+    display: inline-block;
+    background: var(--neon-pink);
+    color: #000;
+    padding: 0.8rem 1.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .hire-me:hover {
+    background: #ff0a5e;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 42, 109, 0.8);
+  }
+  
+  /* Social Links */
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+  
+  .social-links a {
+    color: var(--neon-blue);
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    color: var(--neon-green);
+    transform: translateY(-3px);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+    }
+    
+    .name {
+      font-size: 2.5rem;
+    }
+    
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
-  <!-- 3. Enhanced Binary Rain -->
+  <!-- Matrix Background -->
   <canvas id="matrix"></canvas>
 
   <div class="container">
     <header class="header">
-      <div class="name" data-text="SALMANUL_FARIS">SALMANUL_FARIS<span class="cursor"></span></div>
+      <h1 class="name">SALMANUL FARIS</h1>
       <p class="tagline">Cybersecurity Engineer | Full-Stack Developer</p>
     </header>
 
-    <!-- 1. Interactive Terminal -->
-    <div id="terminal">
-      <div id="command">guest@portfolio:~$ <span id="typed-text"></span><span id="cursor"></span></div>
-    </div>
-
-    <!-- 2. Holographic Business Card -->
-    <div class="business-card">
-      <div class="card-front">
-        <h3>SALMANUL FARIS</h3>
-        <p>Cybersecurity Specialist</p>
-        <p>>_ Ready to secure your systems</p>
-      </div>
-      <div class="card-back">
-        <h3>CONTACT</h3>
-        <p>Email: salmanulfariss642@gmail.com</p>
-        <p>Phone: +91 99627 26106</p>
-      </div>
-    </div>
-
     <section id="about">
       <h2>// ABOUT</h2>
-      <p>Certified penetration tester and full-stack developer with physics background...</p>
+      <p>
+        <strong>Certified penetration tester</strong> and <strong>full-stack developer</strong> with advanced training from <strong>NIIT Chennai</strong> and <strong>RedTeam Hacker Academy</strong>. Combines <strong>technical expertise</strong> with <strong>analytical physics background</strong> to build secure, high-performance applications.
+      </p>
+      <p>
+        Passionate about <strong>ethical hacking</strong>, <strong>secure coding practices</strong>, and <strong>emerging cybersecurity threats</strong>. Available for consulting projects including web development, application security, and custom software solutions.
+      </p>
       <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
     </section>
 
-    <!-- 9. Radar Scan -->
-    <div class="radar"></div>
+    <section id="certifications">
+      <h2>// CERTIFICATIONS</h2>
+      <ul>
+        <li><strong>Advanced Programming & Fullstack Software Engineering</strong> - NIIT Chennai</li>
+        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy</li>
+      </ul>
+    </section>
 
-    <!-- Other sections... -->
+    <section id="education">
+      <h2>// EDUCATION</h2>
+      <ul>
+        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
+        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
+      </ul>
+    </section>
+
+    <section id="skills">
+      <h2>// TECHNICAL SKILLS</h2>
+      <ul>
+        <li><strong>Cybersecurity:</strong> Penetration Testing, Vulnerability Assessment, Ethical Hacking</li>
+        <li><strong>Programming:</strong> JavaScript (Node.js, React), Python, C++, Java</li>
+        <li><strong>Tools:</strong> Burp Suite, Wireshark, Metasploit, Docker, Git</li>
+        <li><strong>Development:</strong> Full-Stack Web Apps, Cross-Platform Solutions</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>// CONNECT</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>EMAIL</h3>
+          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <h3>PHONE</h3>
+          <a href="tel:+919962726106">+91 99627 26106</a>
+        </div>
+        <div class="contact-card">
+          <h3>LINKEDIN</h3>
+          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
+        </div>
+        <div class="contact-card">
+          <h3>GITHUB</h3>
+          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="https://github.com/salman2610" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:salmanulfariss642@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </section>
   </div>
 
+  <!-- Font Awesome for icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
   <script>
     // Enhanced Matrix Background
     const canvas = document.getElementById('matrix');
@@ -256,20 +325,12 @@
       ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Regular green binary
       ctx.fillStyle = '#0aff0a';
       ctx.font = fontSize + 'px "Share Tech Mono"';
       
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        
-        // Random red alerts
-        if(Math.random() > 0.985) {
-          ctx.fillStyle = '#ff2a6d';
-          ctx.fillText('ALERT', i * fontSize, drops[i] * fontSize);
-          ctx.fillStyle = '#0aff0a';
-        }
         
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
@@ -280,45 +341,26 @@
     
     setInterval(draw, 50);
     
-    // Terminal Typing Effect
-    const commands = [
-      "whoami",
-      "ls -la projects/",
-      "cat skills.txt",
-      "connect --client"
-    ];
-    let cmdIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    
-    function typeTerminal() {
-      const currentCmd = commands[cmdIndex];
-      const displayText = isDeleting 
-        ? currentCmd.substring(0, charIndex - 1)
-        : currentCmd.substring(0, charIndex + 1);
-      
-      document.getElementById('typed-text').textContent = displayText;
-      
-      if(!isDeleting && charIndex === currentCmd.length) {
-        isDeleting = true;
-        setTimeout(typeTerminal, 2000);
-      } else if(isDeleting && charIndex === 0) {
-        isDeleting = false;
-        cmdIndex = (cmdIndex + 1) % commands.length;
-        setTimeout(typeTerminal, 500);
-      } else {
-        const typeSpeed = isDeleting ? 100 : 150;
-        charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
-        setTimeout(typeTerminal, typeSpeed);
-      }
-    }
-    
-    // Start animations
-    typeTerminal();
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    // Typewriter effect for name
+    const name = document.querySelector('.name');
+    const originalText = name.textContent;
+    name.textContent = '';
+    let i = 0;
+    
+    function typeWriter() {
+      if (i < originalText.length) {
+        name.textContent += originalText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    
+    setTimeout(typeWriter, 1000);
   </script>
 </body>
 </html>
