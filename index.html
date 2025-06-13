@@ -14,7 +14,7 @@
     --neon-purple: #bc13fe;
     --dark-bg: #0a0a12;
     --text-primary: #e0e0ff;
-    --card-bg: rgba(10, 10, 30, 0.85);
+    --card-bg: rgba(10, 10, 30, 0.7); /* More transparent */
   }
   
   * {
@@ -52,7 +52,7 @@
     z-index: 2;
   }
   
-  /* Enhanced Name Styling */
+  /* Name Styling */
   .header {
     margin-bottom: 3rem;
     text-align: center;
@@ -90,30 +90,22 @@
     font-size: 1.4rem;
     color: var(--neon-blue);
     margin-top: 0.5rem;
-    position: relative;
-    display: inline-block;
   }
   
-  .tagline::before,
-  .tagline::after {
-    content: '>';
-    color: var(--neon-green);
-    margin: 0 0.5rem;
-  }
-  
-  /* Enhanced Sections */
+  /* Section Styling - More Transparent */
   section {
     background: var(--card-bg);
-    border: 1px solid rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.2);
     border-radius: 8px;
     padding: 2.5rem;
     margin-bottom: 2rem;
     transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
   }
   
   section:hover {
     border-color: var(--neon-blue);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
   }
   
   #about {
@@ -138,28 +130,67 @@
     background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
   
-  p, li {
-    margin-bottom: 1rem;
+  /* Restored 3D Contact Boxes */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
   }
   
-  ul {
-    list-style-position: inside;
-  }
-  
-  li {
-    margin-bottom: 0.8rem;
+  .contact-card {
+    background: rgba(0, 30, 40, 0.5);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
     position: relative;
-    padding-left: 1.2rem;
+    transform-style: preserve-3d;
+    perspective: 1000px;
   }
   
-  li::before {
-    content: '▹';
+  .contact-card::before {
+    content: '';
     position: absolute;
+    top: 0;
     left: 0;
-    color: var(--neon-pink);
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(0, 240, 255, 0.1) 50%,
+      transparent 100%
+    );
+    transform: translateZ(20px);
   }
   
-  /* Enhanced Hire Me Button */
+  .contact-card:hover {
+    transform: translateY(-5px) rotateX(5deg);
+    box-shadow: 0 10px 20px rgba(0, 240, 255, 0.3);
+  }
+  
+  .contact-card h3 {
+    color: var(--neon-green);
+    margin-bottom: 0.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .contact-card a {
+    color: var(--text-primary);
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+  
+  .contact-card a:hover {
+    color: var(--neon-blue);
+  }
+  
+  /* Flashing Hire Me Button */
   .hire-me {
     display: inline-block;
     background: var(--neon-pink);
@@ -195,58 +226,6 @@
         0 0 40px rgba(255, 42, 109, 0.8);
       transform: translateY(-3px);
     }
-  }
-  
-  .hire-me::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      transparent 45%,
-      rgba(255, 255, 255, 0.3) 50%,
-      transparent 55%
-    );
-    transform: rotate(30deg);
-    animation: shine 2s infinite;
-  }
-  
-  .hire-me:hover {
-    animation: none;
-    box-shadow: 
-      0 0 25px rgba(255, 42, 109, 1),
-      0 0 50px rgba(255, 42, 109, 0.8);
-    transform: translateY(-3px);
-  }
-  
-  @keyframes shine {
-    0% { transform: translateX(-100%) rotate(30deg); }
-    100% { transform: translateX(100%) rotate(30deg); }
-  }
-  
-  /* Project Cards */
-  .project-card {
-    background: rgba(0, 20, 30, 0.6);
-    border: 1px solid var(--neon-blue);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
-  }
-  
-  .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
-    border-color: var(--neon-green);
-  }
-  
-  .project-card h3 {
-    color: var(--neon-green);
-    margin-bottom: 0.8rem;
-    font-family: 'Share Tech Mono', monospace;
   }
   
   /* Responsive */
@@ -306,26 +285,34 @@
       <h2>// PROJECTS</h2>
       <div class="project-card">
         <h3>Security Research Lab</h3>
-        <p>Developed interactive simulations of common attack vectors with defense mechanisms, including DoS attacks, Burp Suite implementations, and buffer overflow experiments.</p>
+        <p>Developed interactive simulations of common attack vectors with defense mechanisms.</p>
       </div>
       <div class="project-card">
         <h3>Enterprise Billing System</h3>
-        <p>Cross-platform solution with built-in security auditing and anomaly detection features for business applications.</p>
-      </div>
-      <div class="project-card">
-        <h3>Automated Pentesting Tools</h3>
-        <p>Custom scripts for vulnerability scanning and security analysis, designed to streamline penetration testing workflows.</p>
+        <p>Cross-platform solution with built-in security auditing features.</p>
       </div>
     </section>
 
     <section id="contact">
       <h2>// CONNECT</h2>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
-        <li><strong>Phone:</strong> <a href="tel:+919962726106">+91 99627 26106</a></li>
-        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">linkedin.com/in/p-salmanul-faris</a></li>
-        <li><strong>GitHub:</strong> <a href="https://github.com/salman2610" target="_blank">github.com/salman2610</a></li>
-      </ul>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>EMAIL</h3>
+          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <h3>PHONE</h3>
+          <a href="tel:+919962726106">+91 99627 26106</a>
+        </div>
+        <div class="contact-card">
+          <h3>LINKEDIN</h3>
+          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
+        </div>
+        <div class="contact-card">
+          <h3>GITHUB</h3>
+          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -392,26 +379,6 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
-    
-    // Name typing effect
-    const name = document.querySelector('.name');
-    const nameInitial = document.querySelector('.name-initial');
-    const originalText = name.textContent;
-    name.textContent = '';
-    let i = 0;
-    
-    function typeWriter() {
-      if (i < originalText.length) {
-        name.textContent += originalText.charAt(i);
-        i++;
-        setTimeout(typeWriter, 100);
-      }
-    }
-    
-    setTimeout(() => {
-      nameInitial.style.opacity = '1';
-      setTimeout(typeWriter, 500);
-    }, 500);
   </script>
 </body>
 </html>
