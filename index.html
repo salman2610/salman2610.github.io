@@ -98,10 +98,9 @@
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: 0;
+    width: 100%;
     height: 3px;
     background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
-    animation: underline-grow 1.5s forwards 3.5s;
   }
   
   .tagline {
@@ -280,10 +279,6 @@
     }
   }
   
-  @keyframes underline-grow {
-    to { width: 100%; }
-  }
-  
   /* Responsive */
   @media (max-width: 768px) {
     .container {
@@ -420,48 +415,20 @@
       canvas.height = window.innerHeight;
     });
 
-    // Advanced Name Typing Effect
+    // Name Typing Effect (types once and stays)
     const fullName = "P. SALMANUL FARIS";
     const nameElement = document.getElementById('typed-name');
     let nameIndex = 0;
-    let isDeleting = false;
-    let isPausing = false;
     
     function typeName() {
-      const currentText = nameElement.textContent;
-      
-      if (!isDeleting && !isPausing) {
-        // Typing forward
-        nameElement.textContent = fullName.substring(0, nameIndex + 1);
+      if (nameIndex < fullName.length) {
+        nameElement.textContent += fullName.charAt(nameIndex);
         nameIndex++;
-        
-        if (nameIndex === fullName.length) {
-          isPausing = true;
-          setTimeout(() => {
-            isPausing = false;
-            isDeleting = true;
-          }, 1500);
-        }
-      } else if (isDeleting && !isPausing) {
-        // Deleting
-        nameElement.textContent = fullName.substring(0, nameIndex - 1);
-        nameIndex--;
-        
-        if (nameIndex === 0) {
-          isDeleting = false;
-          isPausing = true;
-          setTimeout(() => {
-            isPausing = false;
-          }, 500);
-        }
+        setTimeout(typeName, 100 + Math.random() * 50);
+      } else {
+        // Remove cursor after typing completes
+        document.querySelector('.name-cursor').style.display = 'none';
       }
-      
-      // Random speed variation for more natural typing
-      const typingSpeed = 100 + Math.random() * 50;
-      const deletingSpeed = 50 + Math.random() * 30;
-      const speed = isDeleting ? deletingSpeed : typingSpeed;
-      
-      setTimeout(typeName, isPausing ? 1000 : speed);
     }
     
     // Start the typing effect after 1 second
