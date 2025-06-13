@@ -278,23 +278,71 @@
         0 0 40px rgba(255, 42, 109, 0.8);
     }
   }
-  
-  /* Responsive */
+
+  /* ==================== */
+  /* MOBILE RESPONSIVENESS */
+  /* ==================== */
   @media (max-width: 768px) {
     .container {
-      padding: 1.5rem;
+      padding: 1.2rem;
     }
     
     .name {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+    
+    .tagline {
+      font-size: 1.1rem;
     }
     
     section {
-      padding: 1.5rem;
+      padding: 1.3rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    .terminal {
+      padding: 1.2rem 1rem;
+    }
+    
+    .command-output {
+      font-size: 0.9rem;
     }
     
     .contact-grid {
       grid-template-columns: 1fr;
+    }
+    
+    .hire-me {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .name {
+      font-size: 1.8rem;
+    }
+    
+    .terminal::before {
+      padding: 0.2rem 1rem;
+      font-size: 0.7rem;
+    }
+    
+    .contact-card {
+      padding: 1.2rem;
+    }
+    
+    .contact-card h3 {
+      font-size: 1rem;
+    }
+    
+    .contact-card a {
+      padding-left: 1.5rem;
+      font-size: 0.9rem;
     }
   }
 </style>
@@ -382,13 +430,17 @@
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
     
     const chars = "01";
     const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
-    const drops = Array(columns).fill(1);
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
     
     function draw() {
       ctx.fillStyle = 'rgba(10, 10, 18, 0.04)';
@@ -411,8 +463,9 @@
     setInterval(draw, 50);
     
     window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      resizeCanvas();
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
     });
 
     // Name Typing Effect (types once and stays)
