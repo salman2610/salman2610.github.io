@@ -15,7 +15,7 @@
     --neon-purple: #bc13fe;
     --dark-bg: #0a0a12;
     --text-primary: #e0e0ff;
-    --card-bg: rgba(10, 10, 30, 0.6); /* More transparent */
+    --card-bg: rgba(10, 10, 30, 0.5); /* Ultra transparent */
   }
   
   * {
@@ -42,7 +42,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 0;
-    opacity: 0.15;
+    opacity: 0.2;
   }
   
   .container {
@@ -53,11 +53,15 @@
     z-index: 2;
   }
   
-  /* Name Styling */
+  /* Cool Name Typing Effect */
   .header {
     margin-bottom: 3rem;
     text-align: center;
     position: relative;
+  }
+  
+  .name-container {
+    min-height: 4.5rem;
   }
   
   .name {
@@ -67,24 +71,17 @@
     text-shadow: 0 0 10px rgba(10, 255, 10, 0.5);
     margin-bottom: 0.5rem;
     position: relative;
+    display: inline-block;
   }
   
-  .name-initial {
-    color: var(--neon-green);
-    font-size: 3.5rem;
-    margin-right: 0.3rem;
-  }
-  
-  .name::after {
-    content: '_';
-    color: var(--neon-pink);
-    animation: blink 1s step-end infinite;
+  .name-cursor {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1.2em;
+    background: var(--neon-pink);
     margin-left: 0.3rem;
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
   }
   
   .tagline {
@@ -93,24 +90,67 @@
     margin-top: 0.5rem;
   }
   
+  /* Terminal Simulation */
+  .terminal {
+    background: rgba(0, 15, 20, 0.4);
+    border: 1px solid var(--neon-green);
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .terminal::before {
+    content: 'TERMINAL';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.3rem 1.5rem;
+    background: rgba(0, 80, 80, 0.3);
+    color: var(--neon-green);
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--neon-green);
+  }
+  
+  .terminal-content {
+    margin-top: 1.5rem;
+  }
+  
+  .command-line {
+    color: var(--neon-green);
+  }
+  
+  .command-output {
+    color: var(--neon-blue);
+    white-space: pre-wrap;
+    margin: 0.5rem 0 1.5rem;
+  }
+  
+  .terminal-cursor {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1em;
+    background: var(--neon-pink);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+  
   /* Ultra Transparent Sections */
   section {
     background: var(--card-bg);
-    border: 1px solid rgba(0, 240, 255, 0.2);
+    border: 1px solid rgba(0, 240, 255, 0.15);
     border-radius: 8px;
     padding: 2rem;
     margin-bottom: 2rem;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(2px);
   }
   
   section:hover {
     border-color: var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-  }
-  
-  #about {
-    font-size: 1.15rem;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
   }
   
   h2 {
@@ -131,7 +171,7 @@
     background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
   
-  /* Enhanced Contact Cards with Logos */
+  /* Contact Cards with Logos */
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -140,18 +180,16 @@
   }
   
   .contact-card {
-    background: rgba(0, 20, 30, 0.4);
+    background: rgba(0, 20, 30, 0.3);
     border: 1px solid var(--neon-blue);
     border-radius: 8px;
     padding: 1.5rem;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
   
   .contact-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.2);
   }
   
   .contact-card h3 {
@@ -176,7 +214,7 @@
     color: var(--neon-blue);
   }
   
-  /* Icons for contact methods */
+  /* Icons */
   .email-icon { color: #D44638; }
   .phone-icon { color: #25D366; }
   .linkedin-icon { color: #0A66C2; }
@@ -203,6 +241,11 @@
     font-size: 1.1rem;
   }
   
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
   @keyframes pulse {
     0% {
       box-shadow: 
@@ -222,7 +265,7 @@
       padding: 1.5rem;
     }
     
-    .name, .name-initial {
+    .name {
       font-size: 2.5rem;
     }
     
@@ -242,9 +285,19 @@
 
   <div class="container">
     <header class="header">
-      <h1 class="name"><span class="name-initial">P.</span>Salmanul Faris</h1>
+      <div class="name-container">
+        <div class="name" id="typed-name"></div><span class="name-cursor"></span>
+      </div>
       <p class="tagline">Cybersecurity Enthusiast | Web/App Developer | Physicist</p>
     </header>
+
+    <!-- Terminal Simulation -->
+    <div class="terminal">
+      <div class="terminal-content">
+        <div class="command-line">user@portfolio:~$ <span id="terminal-command"></span><span class="terminal-cursor"></span></div>
+        <div class="command-output" id="terminal-output"></div>
+      </div>
+    </div>
 
     <section id="about">
       <h2>// ABOUT</h2>
@@ -305,7 +358,7 @@
   </div>
 
   <script>
-    // Enhanced Binary Rain with ALERT messages
+    // Enhanced Binary Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     
@@ -341,6 +394,73 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    // Name Typing Effect
+    const name = "P. Salmanul Faris";
+    const nameElement = document.getElementById('typed-name');
+    let nameIndex = 0;
+    
+    function typeName() {
+      if (nameIndex < name.length) {
+        nameElement.textContent += name.charAt(nameIndex);
+        nameIndex++;
+        setTimeout(typeName, 100);
+      }
+    }
+    
+    setTimeout(typeName, 1000);
+    
+    // Terminal Simulation
+    const commands = [
+      { cmd: "whoami", output: "p-salmanul-faris\nCybersecurity Engineer | Full-Stack Developer | Physicist" },
+      { cmd: "ls projects", output: "security-research-lab/\nenterprise-billing/\nautomated-pentesting-tools/" },
+      { cmd: "cat skills.txt", output: "• Penetration Testing\n• Full-Stack Development\n• Network Security\n• Python/JavaScript/C++" },
+      { cmd: "connect --client", output: "Ready for consulting projects:\n> Web Development\n> App Security\n> Custom Software" }
+    ];
+    
+    let cmdIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isWaiting = false;
+    
+    function typeTerminal() {
+      const current = commands[cmdIndex % commands.length];
+      const commandElement = document.getElementById('terminal-command');
+      const outputElement = document.getElementById('terminal-output');
+      
+      if (isDeleting) {
+        commandElement.textContent = current.cmd.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+          isDeleting = false;
+          cmdIndex++;
+          isWaiting = true;
+          setTimeout(typeTerminal, 1000);
+          return;
+        }
+      } else if (isWaiting) {
+        outputElement.textContent = '';
+        isWaiting = false;
+      } else if (charIndex <= current.cmd.length) {
+        commandElement.textContent = current.cmd.substring(0, charIndex);
+        charIndex++;
+        
+        if (charIndex > current.cmd.length) {
+          outputElement.textContent = current.output;
+          isWaiting = true;
+          setTimeout(() => {
+            isDeleting = true;
+            isWaiting = false;
+          }, 2000);
+          return;
+        }
+      }
+      
+      setTimeout(typeTerminal, isDeleting ? 50 : 100);
+    }
+    
+    setTimeout(typeTerminal, 2000);
   </script>
 </body>
 </html>
