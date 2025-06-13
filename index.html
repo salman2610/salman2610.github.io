@@ -62,23 +62,16 @@
   .name {
     font-family: 'Share Tech Mono', monospace;
     font-size: 3.5rem;
-    background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 10px rgba(10, 255, 255, 0.3);
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(10, 255, 10, 0.5);
     margin-bottom: 0.5rem;
     position: relative;
-    display: inline-block;
   }
   
-  .name::before {
-    content: 'P.';
-    position: absolute;
-    left: -1.5rem;
-    color: var(--neon-purple);
-    font-size: 2.5rem;
-    top: 0.2rem;
+  .name-initial {
+    color: var(--neon-green);
+    font-size: 3.5rem;
+    margin-right: 0.3rem;
   }
   
   .name::after {
@@ -108,25 +101,103 @@
     margin: 0 0.5rem;
   }
   
-  /* Enhanced Contact Cards */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+  /* Enhanced Sections */
+  section {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    border-radius: 8px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
   }
   
-  .contact-card {
-    background: rgba(0, 20, 30, 0.6);
-    border: 1px solid var(--neon-blue);
-    border-radius: 8px;
-    padding: 1.5rem;
+  section:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  }
+  
+  #about {
+    font-size: 1.15rem;
+  }
+  
+  h2 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-blue);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+  }
+  
+  p, li {
+    margin-bottom: 1rem;
+  }
+  
+  ul {
+    list-style-position: inside;
+  }
+  
+  li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+  
+  li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--neon-pink);
+  }
+  
+  /* Enhanced Hire Me Button */
+  .hire-me {
+    display: inline-block;
+    background: var(--neon-pink);
+    color: #000;
+    padding: 1rem 2rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 
+      0 0 10px rgba(255, 42, 109, 0.8),
+      0 0 20px rgba(255, 42, 109, 0.6);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    animation: pulse 1.5s infinite alternate;
+    font-size: 1.1rem;
   }
   
-  .contact-card::before {
+  @keyframes pulse {
+    0% {
+      box-shadow: 
+        0 0 10px rgba(255, 42, 109, 0.8),
+        0 0 20px rgba(255, 42, 109, 0.6);
+      transform: translateY(0);
+    }
+    100% {
+      box-shadow: 
+        0 0 20px rgba(255, 42, 109, 1),
+        0 0 40px rgba(255, 42, 109, 0.8);
+      transform: translateY(-3px);
+    }
+  }
+  
+  .hire-me::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -136,11 +207,19 @@
     background: linear-gradient(
       to bottom right,
       transparent 45%,
-      rgba(0, 240, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.3) 50%,
       transparent 55%
     );
     transform: rotate(30deg);
-    animation: shine 3s infinite;
+    animation: shine 2s infinite;
+  }
+  
+  .hire-me:hover {
+    animation: none;
+    box-shadow: 
+      0 0 25px rgba(255, 42, 109, 1),
+      0 0 50px rgba(255, 42, 109, 0.8);
+    transform: translateY(-3px);
   }
   
   @keyframes shine {
@@ -148,32 +227,42 @@
     100% { transform: translateX(100%) rotate(30deg); }
   }
   
-  .contact-card:hover {
+  /* Project Cards */
+  .project-card {
+    background: rgba(0, 20, 30, 0.6);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
     border-color: var(--neon-green);
   }
   
-  .contact-card h3 {
+  .project-card h3 {
     color: var(--neon-green);
     margin-bottom: 0.8rem;
     font-family: 'Share Tech Mono', monospace;
-    position: relative;
   }
   
-  .contact-card a {
-    color: var(--text-primary);
-    text-decoration: none;
-    position: relative;
-    transition: color 0.3s;
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.5rem;
+    }
+    
+    .name, .name-initial {
+      font-size: 2.5rem;
+    }
+    
+    section {
+      padding: 1.8rem;
+    }
   }
-  
-  .contact-card a:hover {
-    color: var(--neon-blue);
-  }
-  
-  /* Rest of your styles... */
-  /* (Previous section styles remain the same) */
 </style>
 </head>
 <body>
@@ -182,7 +271,7 @@
 
   <div class="container">
     <header class="header">
-      <h1 class="name">Salmanul Faris</h1>
+      <h1 class="name"><span class="name-initial">P.</span>Salmanul Faris</h1>
       <p class="tagline">Cybersecurity Enthusiast | Web/App Developer | Physicist</p>
     </header>
 
@@ -197,28 +286,46 @@
       <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
     </section>
 
-    <!-- Other sections remain the same -->
-    
+    <section id="certifications">
+      <h2>// CERTIFICATIONS</h2>
+      <ul>
+        <li><strong>Advanced Programming & Fullstack Software Engineering</strong> - NIIT Chennai</li>
+        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy</li>
+      </ul>
+    </section>
+
+    <section id="education">
+      <h2>// EDUCATION</h2>
+      <ul>
+        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
+        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>// PROJECTS</h2>
+      <div class="project-card">
+        <h3>Security Research Lab</h3>
+        <p>Developed interactive simulations of common attack vectors with defense mechanisms, including DoS attacks, Burp Suite implementations, and buffer overflow experiments.</p>
+      </div>
+      <div class="project-card">
+        <h3>Enterprise Billing System</h3>
+        <p>Cross-platform solution with built-in security auditing and anomaly detection features for business applications.</p>
+      </div>
+      <div class="project-card">
+        <h3>Automated Pentesting Tools</h3>
+        <p>Custom scripts for vulnerability scanning and security analysis, designed to streamline penetration testing workflows.</p>
+      </div>
+    </section>
+
     <section id="contact">
       <h2>// CONNECT</h2>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h3>EMAIL</h3>
-          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
-        </div>
-        <div class="contact-card">
-          <h3>PHONE</h3>
-          <a href="tel:+919962726106">+91 99627 26106</a>
-        </div>
-        <div class="contact-card">
-          <h3>LINKEDIN</h3>
-          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
-        </div>
-        <div class="contact-card">
-          <h3>GITHUB</h3>
-          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
-        </div>
-      </div>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+919962726106">+91 99627 26106</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">linkedin.com/in/p-salmanul-faris</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/salman2610" target="_blank">github.com/salman2610</a></li>
+      </ul>
     </section>
   </div>
 
@@ -288,6 +395,7 @@
     
     // Name typing effect
     const name = document.querySelector('.name');
+    const nameInitial = document.querySelector('.name-initial');
     const originalText = name.textContent;
     name.textContent = '';
     let i = 0;
@@ -300,7 +408,10 @@
       }
     }
     
-    setTimeout(typeWriter, 1000);
+    setTimeout(() => {
+      nameInitial.style.opacity = '1';
+      setTimeout(typeWriter, 500);
+    }, 500);
   </script>
 </body>
 </html>
