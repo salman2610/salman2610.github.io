@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P. Salmanul Faris | Cybersecurity Enthusiast, Web/App Developer, Physicist</title>
+<title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
   
   :root {
@@ -15,7 +15,7 @@
     --neon-purple: #bc13fe;
     --dark-bg: #0a0a12;
     --text-primary: #e0e0ff;
-    --card-bg: rgba(10, 10, 30, 0.5); /* Ultra transparent */
+    --card-bg: rgba(10, 10, 30, 0.5);
   }
   
   * {
@@ -53,7 +53,7 @@
     z-index: 2;
   }
   
-  /* Cool Name Typing Effect */
+  /* Cyberpunk Name Effect */
   .header {
     margin-bottom: 3rem;
     text-align: center;
@@ -61,15 +61,23 @@
   }
   
   .name-container {
-    min-height: 4.5rem;
+    min-height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .name {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 3.5rem;
-    color: var(--neon-green);
-    text-shadow: 0 0 10px rgba(10, 255, 10, 0.5);
-    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(10, 255, 255, 0.5);
+    letter-spacing: 2px;
     position: relative;
     display: inline-block;
   }
@@ -77,17 +85,30 @@
   .name-cursor {
     display: inline-block;
     width: 0.5rem;
-    height: 1.2em;
+    height: 1.4em;
     background: var(--neon-pink);
     margin-left: 0.3rem;
     animation: blink 1s step-end infinite;
-    vertical-align: text-bottom;
+    vertical-align: middle;
+    transform: translateY(-0.1em);
+  }
+  
+  .name::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    animation: underline-grow 1.5s forwards 3.5s;
   }
   
   .tagline {
     font-size: 1.4rem;
     color: var(--neon-blue);
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    font-family: 'Share Tech Mono', monospace;
   }
   
   /* Terminal Simulation */
@@ -259,6 +280,10 @@
     }
   }
   
+  @keyframes underline-grow {
+    to { width: 100%; }
+  }
+  
   /* Responsive */
   @media (max-width: 768px) {
     .container {
@@ -395,19 +420,51 @@
       canvas.height = window.innerHeight;
     });
 
-    // Name Typing Effect
-    const name = "P. Salmanul Faris";
+    // Advanced Name Typing Effect
+    const fullName = "P. SALMANUL FARIS";
     const nameElement = document.getElementById('typed-name');
     let nameIndex = 0;
+    let isDeleting = false;
+    let isPausing = false;
     
     function typeName() {
-      if (nameIndex < name.length) {
-        nameElement.textContent += name.charAt(nameIndex);
+      const currentText = nameElement.textContent;
+      
+      if (!isDeleting && !isPausing) {
+        // Typing forward
+        nameElement.textContent = fullName.substring(0, nameIndex + 1);
         nameIndex++;
-        setTimeout(typeName, 100);
+        
+        if (nameIndex === fullName.length) {
+          isPausing = true;
+          setTimeout(() => {
+            isPausing = false;
+            isDeleting = true;
+          }, 1500);
+        }
+      } else if (isDeleting && !isPausing) {
+        // Deleting
+        nameElement.textContent = fullName.substring(0, nameIndex - 1);
+        nameIndex--;
+        
+        if (nameIndex === 0) {
+          isDeleting = false;
+          isPausing = true;
+          setTimeout(() => {
+            isPausing = false;
+          }, 500);
+        }
       }
+      
+      // Random speed variation for more natural typing
+      const typingSpeed = 100 + Math.random() * 50;
+      const deletingSpeed = 50 + Math.random() * 30;
+      const speed = isDeleting ? deletingSpeed : typingSpeed;
+      
+      setTimeout(typeName, isPausing ? 1000 : speed);
     }
     
+    // Start the typing effect after 1 second
     setTimeout(typeName, 1000);
     
     // Terminal Simulation
@@ -420,44 +477,44 @@
     
     let cmdIndex = 0;
     let charIndex = 0;
-    let isDeleting = false;
-    let isWaiting = false;
+    let isCmdDeleting = false;
+    let isCmdWaiting = false;
     
     function typeTerminal() {
       const current = commands[cmdIndex % commands.length];
       const commandElement = document.getElementById('terminal-command');
       const outputElement = document.getElementById('terminal-output');
       
-      if (isDeleting) {
+      if (isCmdDeleting) {
         commandElement.textContent = current.cmd.substring(0, charIndex - 1);
         charIndex--;
         
         if (charIndex === 0) {
-          isDeleting = false;
+          isCmdDeleting = false;
           cmdIndex++;
-          isWaiting = true;
+          isCmdWaiting = true;
           setTimeout(typeTerminal, 1000);
           return;
         }
-      } else if (isWaiting) {
+      } else if (isCmdWaiting) {
         outputElement.textContent = '';
-        isWaiting = false;
+        isCmdWaiting = false;
       } else if (charIndex <= current.cmd.length) {
         commandElement.textContent = current.cmd.substring(0, charIndex);
         charIndex++;
         
         if (charIndex > current.cmd.length) {
           outputElement.textContent = current.output;
-          isWaiting = true;
+          isCmdWaiting = true;
           setTimeout(() => {
-            isDeleting = true;
-            isWaiting = false;
+            isCmdDeleting = true;
+            isCmdWaiting = false;
           }, 2000);
           return;
         }
       }
       
-      setTimeout(typeTerminal, isDeleting ? 50 : 100);
+      setTimeout(typeTerminal, isCmdDeleting ? 50 : 100);
     }
     
     setTimeout(typeTerminal, 2000);
