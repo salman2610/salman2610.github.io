@@ -261,6 +261,33 @@
     font-size: 1.1rem;
   }
   
+  /* Loading Animation for In-Progress Project */
+  .loading-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--neon-blue);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9em;
+  }
+  
+  .loading-dots {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--neon-pink);
+    animation: bounce 1.4s infinite ease-in-out;
+  }
+  
+  .dot:nth-child(1) { animation-delay: 0s; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
@@ -276,6 +303,17 @@
       box-shadow: 
         0 0 20px rgba(255, 42, 109, 1),
         0 0 40px rgba(255, 42, 109, 0.8);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 80%, 100% { 
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    40% { 
+      transform: translateY(-6px);
+      opacity: 1;
     }
   }
 
@@ -320,6 +358,10 @@
       padding: 0.8rem 1.5rem;
       font-size: 1rem;
     }
+    
+    .loading-soon {
+      font-size: 0.8em;
+    }
   }
 
   @media (max-width: 480px) {
@@ -344,6 +386,11 @@
       padding-left: 1.5rem;
       font-size: 0.9rem;
     }
+    
+    .dot {
+      width: 6px;
+      height: 6px;
+    }
   }
 </style>
 </head>
@@ -356,7 +403,7 @@
       <div class="name-container">
         <div class="name" id="typed-name"></div><span class="name-cursor"></span>
       </div>
-      <p class="tagline">Certified Penetration Tester |Cybersecurity Enthusiast | Full-Stack Developer | Physics Researcher</p>
+      <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
     </header>
 
     <!-- Terminal Simulation -->
@@ -400,7 +447,18 @@
         <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
         <li><strong>DoS Attack Simulation</strong> - Executed controlled Denial-of-Service attack on test Apache server</li>
         <li><strong>Attendance Management System</strong> - Developed secure web/mobile app for tracking attendance with biometric verification</li>
-        <li><strong>Cross-Platform Billing App</strong> - Desktop/mobile solution for small business billing processes</li>
+        <li>
+          <strong>Cross-Platform Billing App</strong> 
+          <span class="loading-soon">
+            (loading soon
+            <span class="loading-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </span>)
+          </span>
+          - Desktop/mobile solution for small business billing processes
+        </li>
         <li><strong>Network Vulnerability Scanner</strong> - Custom tool for automated security assessments</li>
         <li><strong>M.Sc Research Project</strong> - Acoustic study of aqueous solutions containing antibiotics and insulin</li>
       </ul>
