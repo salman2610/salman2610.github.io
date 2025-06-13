@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salmanul Faris | Cybersecurity & Development</title>
-<meta name="description" content="Cybersecurity specialist and full-stack developer with physics background">
+<title>Salmanul Faris | Cybersecurity Engineer</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@400;600&display=swap');
   
@@ -14,7 +13,6 @@
     --neon-pink: #ff2a6d;
     --dark-bg: #0a0a12;
     --text-primary: #e0e0ff;
-    --text-secondary: #b0b0ff;
     --card-bg: rgba(10, 10, 30, 0.85);
   }
   
@@ -31,25 +29,7 @@
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
-  }
-
-  /* CRT Effect */
-  body::after {
-    content: "";
-    position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    background: 
-      linear-gradient(rgba(0,255,0,0.1) 0 0 / 100% 2px,
-      rgba(0,0,0,0.2);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: overlay;
-    animation: scanline 8s linear infinite;
-  }
-
-  @keyframes scanline {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
+    min-height: 100vh;
   }
   
   /* Matrix Background */
@@ -69,537 +49,198 @@
     margin: 0 auto;
     padding: 2rem;
     z-index: 2;
-    border: 1px solid rgba(0, 240, 255, 0.1);
-    border-image: 
-      linear-gradient(
-        to bottom right,
-        transparent 60%,
-        var(--neon-blue) 100%
-      ) 1;
   }
   
-  /* Header with Glitch Effect */
-  .header {
-    margin-bottom: 3rem;
-    text-align: center;
-    position: relative;
-  }
-  
-  .name {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 3.5rem;
-    color: var(--neon-green);
-    text-shadow: 0 0 10px rgba(10, 255, 10, 0.5);
-    position: relative;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .name::before, .name::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--dark-bg);
-    overflow: hidden;
-  }
-  
-  .name::before {
-    left: 2px;
-    text-shadow: -2px 0 #ff00ff;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-  }
-  
-  .name::after {
-    left: -2px;
-    text-shadow: -2px 0 #00ffff;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim-2 2s infinite linear alternate-reverse;
-  }
-  
-  @keyframes glitch-anim-1 {
-    0% { clip: rect(32px, 9999px, 78px, 0); }
-    20% { clip: rect(13px, 9999px, 37px, 0); }
-    40% { clip: rect(45px, 9999px, 66px, 0); }
-    60% { clip: rect(22px, 9999px, 89px, 0); }
-    80% { clip: rect(55px, 9999px, 99px, 0); }
-    100% { clip: rect(11px, 9999px, 98px, 0); }
-  }
-  
-  @keyframes glitch-anim-2 {
-    0% { clip: rect(65px, 9999px, 119px, 0); }
-    20% { clip: rect(79px, 9999px, 132px, 0); }
-    40% { clip: rect(27px, 9999px, 115px, 0); }
-    60% { clip: rect(92px, 9999px, 58px, 0); }
-    80% { clip: rect(3px, 9999px, 96px, 0); }
-    100% { clip: rect(82px, 9999px, 127px, 0); }
-  }
-  
-  .cursor {
-    display: inline-block;
-    width: 10px;
-    height: 1.2em;
-    background: var(--neon-pink);
-    margin-left: 5px;
-    vertical-align: text-bottom;
-    animation: blink 1s step-end infinite;
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  
-  .tagline {
-    font-size: 1.4rem;
-    color: var(--neon-blue);
-    margin-top: 0.5rem;
-  }
-
-  /* Interactive Terminal */
+  /* 1. Interactive Terminal */
   #terminal {
     background: rgba(0, 20, 20, 0.7);
     border: 1px solid var(--neon-green);
+    border-radius: 4px;
     padding: 1rem;
-    margin: 2rem auto;
-    max-width: 700px;
     font-family: 'Share Tech Mono', monospace;
+    margin: 2rem 0;
     position: relative;
     overflow: hidden;
   }
-
+  
   #terminal::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 30px;
-    background: linear-gradient(to right, 
-      #ff2a6d, #00f0ff, #0aff0a);
-    opacity: 0.2;
+    background: rgba(0, 80, 80, 0.3);
+    border-bottom: 1px solid var(--neon-green);
   }
-
+  
   #command {
     color: var(--neon-green);
   }
-
+  
   #typed-text {
-    color: var(--text-primary);
-  }
-
-  /* Neon Sign */
-  .neon-sign {
-    font-family: 'Share Tech Mono', monospace;
     color: var(--neon-blue);
-    text-align: center;
-    margin: 1rem 0;
-    padding: 0.5rem;
-    position: relative;
   }
-
-  .neon-sign span {
+  
+  #cursor {
     display: inline-block;
-    text-shadow: 0 0 10px var(--neon-blue), 
-                 0 0 20px var(--neon-blue),
-                 0 0 30px var(--neon-blue);
-    animation: flicker 3s infinite alternate;
+    width: 8px;
+    height: 1em;
+    background: var(--neon-pink);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
   }
-
-  @keyframes flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-      text-shadow: 0 0 10px var(--neon-blue),
-                   0 0 20px var(--neon-blue),
-                   0 0 30px var(--neon-blue);
-    }
-    20%, 24%, 55% {        
-      text-shadow: none;
-    }
-  }
-
-  /* Skill Bars */
-  .skill-bar {
-    width: 100%;
-    background: rgba(0, 240, 255, 0.1);
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    margin: 1rem 0;
+  
+  /* 2. Holographic Business Card */
+  .business-card {
+    background: var(--card-bg);
+    border: 1px solid var(--neon-blue);
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 400px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 1s;
     position: relative;
-    overflow: hidden;
+    cursor: pointer;
   }
-
-  .skill-level {
-    height: 30px;
-    background: linear-gradient(90deg, 
-      rgba(10, 255, 10, 0.8), 
-      rgba(0, 240, 255, 0.8));
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    color: #000;
-    font-weight: bold;
-    font-family: 'Share Tech Mono', monospace;
-    width: 0;
-    transition: width 2s ease-out;
+  
+  .business-card:hover {
+    transform: rotateY(180deg);
   }
-
-  /* Sections */
+  
+  .card-front, .card-back {
+    backface-visibility: hidden;
+  }
+  
+  .card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    transform: rotateY(180deg);
+    background: rgba(10, 20, 40, 0.9);
+  }
+  
+  /* 4. Glitchy Sections */
   section {
     background: var(--card-bg);
     border: 1px solid rgba(0, 240, 255, 0.1);
     border-radius: 8px;
     padding: 2rem;
     margin-bottom: 2rem;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
   }
-
+  
   section:hover {
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+    animation: glitch 0.5s linear infinite;
   }
-
-  section::after {
-    content: "";
+  
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+  
+  /* 9. Radar Scan */
+  .radar {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 2px solid var(--neon-green);
+    margin: 2rem auto;
+    overflow: hidden;
+  }
+  
+  .radar::before {
+    content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 240, 255, 0.1),
-      transparent
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: conic-gradient(
+      transparent 0deg 30deg,
+      rgba(0, 255, 100, 0.2) 30deg 60deg,
+      transparent 60deg
     );
-    transition: left 0.7s;
-  }
-
-  section:hover::after {
-    left: 100%;
+    animation: radar-scan 4s linear infinite;
   }
   
-  h2 {
-    font-family: 'Share Tech Mono', monospace;
-    color: var(--neon-blue);
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    position: relative;
-    display: inline-block;
-  }
-  
-  h2::after {
+  .radar::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--neon-blue), transparent);
-  }
-  
-  p, li {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-  }
-  
-  ul {
-    list-style-position: inside;
-  }
-  
-  li {
-    margin-bottom: 0.8rem;
-    position: relative;
-    padding-left: 1.2rem;
-  }
-  
-  li::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--neon-pink);
-  }
-  
-  /* Keywords */
-  strong, b {
-    color: var(--neon-green);
-    font-weight: 600;
-  }
-  
-  /* Links */
-  a {
-    color: var(--neon-blue);
-    text-decoration: none;
-    position: relative;
-  }
-  
-  a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--neon-blue);
-    transition: width 0.3s ease;
-  }
-  
-  a:hover::after {
-    width: 100%;
-  }
-  
-  /* Hire Me Button */
-  .hire-me {
-    display: inline-block;
-    background: var(--neon-pink);
-    color: #000;
-    padding: 0.8rem 1.8rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: bold;
-    border-radius: 4px;
-    text-decoration: none;
-    margin-top: 1rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .hire-me:hover {
-    background: #ff0a5e;
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 42, 109, 0.8);
-  }
-
-  .hire-me::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    transform: rotate(45deg);
-    transition: all 0.5s ease;
-  }
-
-  .hire-me:hover::before {
-    left: 100%;
-  }
-
-  /* QR Code */
-  .qr-code {
-    text-align: center;
-    margin: 1rem 0;
-    padding: 10px;
-    background: white;
-    display: inline-block;
-    border: 2px solid var(--neon-green);
-  }
-
-  /* Contact Icons */
-  .contact-methods {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    justify-content: center;
-  }
-  
-  .contact-icon {
-    font-size: 1.8rem;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-    position: relative;
-  }
-  
-  .contact-icon:hover {
-    color: var(--neon-blue);
-    transform: translateY(-3px) scale(1.2);
-  }
-
-  .contact-icon::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -30px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    background: var(--card-bg);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    opacity: 0;
-    transition: opacity 0.3s;
-    white-space: nowrap;
-  }
-
-  .contact-icon:hover::after {
-    opacity: 1;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    border: 1px solid var(--neon-green);
   }
   
-  /* Responsive */
-  @media (max-width: 768px) {
-    .container {
-      padding: 1.5rem;
-    }
-    
-    .name {
-      font-size: 2.5rem;
-    }
-    
-    .tagline {
-      font-size: 1.2rem;
-    }
-    
-    section {
-      padding: 1.5rem;
-    }
-
-    #terminal {
-      font-size: 0.8rem;
-    }
+  @keyframes radar-scan {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
+  
+  /* Existing styles... */
+  /* (Keep all your existing styles from previous version) */
 </style>
 </head>
 <body>
-  <!-- Matrix Background -->
+  <!-- 3. Enhanced Binary Rain -->
   <canvas id="matrix"></canvas>
 
   <div class="container">
     <header class="header">
       <div class="name" data-text="SALMANUL_FARIS">SALMANUL_FARIS<span class="cursor"></span></div>
-      <p class="tagline">Cybersecurity Engineer | Full-Stack Developer | Physics Researcher</p>
-      
-      <!-- Neon Sign -->
-      <div class="neon-sign">
-        <span>root@cybersec:~# _</span>
-      </div>
+      <p class="tagline">Cybersecurity Engineer | Full-Stack Developer</p>
     </header>
 
-    <!-- Interactive Terminal -->
+    <!-- 1. Interactive Terminal -->
     <div id="terminal">
-      <span id="command">guest@portfolio:~$ </span>
-      <span id="typed-text"></span>
+      <div id="command">guest@portfolio:~$ <span id="typed-text"></span><span id="cursor"></span></div>
+    </div>
+
+    <!-- 2. Holographic Business Card -->
+    <div class="business-card">
+      <div class="card-front">
+        <h3>SALMANUL FARIS</h3>
+        <p>Cybersecurity Specialist</p>
+        <p>>_ Ready to secure your systems</p>
+      </div>
+      <div class="card-back">
+        <h3>CONTACT</h3>
+        <p>Email: salmanulfariss642@gmail.com</p>
+        <p>Phone: +91 99627 26106</p>
+      </div>
     </div>
 
     <section id="about">
       <h2>// ABOUT</h2>
-      <p>
-        <strong>Cybersecurity specialist</strong> and <strong>full-stack developer</strong> with advanced training in penetration testing and software engineering. Combines <strong>technical expertise</strong> with <strong>analytical physics background</strong> to build secure, high-performance applications.
-      </p>
-      <p>
-        Available for <strong>consulting projects</strong> including web development, application security, and custom software solutions.
-      </p>
+      <p>Certified penetration tester and full-stack developer with physics background...</p>
       <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
-
-      <!-- QR Code -->
-      <div style="text-align: center; margin-top: 1rem;">
-        <div class="qr-code">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=mailto:salmanulfariss642@gmail.com" alt="Contact QR">
-        </div>
-        <p style="font-size: 0.8rem;">Scan to contact</p>
-      </div>
     </section>
 
-    <section id="certifications">
-      <h2>// CERTIFICATIONS</h2>
-      <ul>
-        <li><strong>Advanced Programming & Fullstack Software Engineering</strong> - NIIT Chennai</li>
-        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy</li>
-      </ul>
-    </section>
+    <!-- 9. Radar Scan -->
+    <div class="radar"></div>
 
-    <section id="education">
-      <h2>// EDUCATION</h2>
-      <ul>
-        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
-        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
-      </ul>
-    </section>
-
-    <section id="expertise">
-      <h2>// CORE EXPERTISE</h2>
-      <ul>
-        <li><strong>Penetration Testing:</strong> Network security, vulnerability assessment, ethical hacking</li>
-        <div class="skill-bar">
-          <div class="skill-level" style="width: 90%">
-            <span>PENETRATION TESTING 90%</span>
-          </div>
-        </div>
-        
-        <li><strong>Full-Stack Development:</strong> JavaScript (Node.js, React), Python, Java, C++</li>
-        <div class="skill-bar">
-          <div class="skill-level" style="width: 85%">
-            <span>FULL-STACK DEVELOPMENT 85%</span>
-          </div>
-        </div>
-        
-        <li><strong>Security Tools:</strong> Burp Suite, Wireshark, Metasploit, Hashcat</li>
-        <div class="skill-bar">
-          <div class="skill-level" style="width: 80%">
-            <span>SECURITY TOOLS 80%</span>
-          </div>
-        </div>
-        
-        <li><strong>Development Tools:</strong> Docker, Git, VS Code, IntelliJ</li>
-        <div class="skill-bar">
-          <div class="skill-level" style="width: 88%">
-            <span>DEVELOPMENT TOOLS 88%</span>
-          </div>
-        </div>
-      </ul>
-    </section>
-
-    <section id="contact">
-      <h2>// CONNECT</h2>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li>
-        <li><strong>Phone:</strong> <a href="tel:+919962726106">+91 99627 26106</a></li>
-        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">linkedin.com/in/p-salmanul-faris</a></li>
-        <li><strong>GitHub:</strong> <a href="https://github.com/salman2610" target="_blank">github.com/salman2610</a></li>
-      </ul>
-
-      <div class="contact-methods">
-        <a href="https://github.com/salman2610" target="_blank" class="contact-icon" data-tooltip="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" class="contact-icon" data-tooltip="LinkedIn">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a href="mailto:salmanulfariss642@gmail.com" class="contact-icon" data-tooltip="Email">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="tel:+919962726106" class="contact-icon" data-tooltip="Call">
-          <i class="fas fa-phone"></i>
-        </a>
-      </div>
-
-      <!-- Voice Command UI -->
-      <div style="text-align: center; margin-top: 2rem;">
-        <button id="voice-command" class="hire-me" style="background: var(--neon-green); color: #000;">
-          <i class="fas fa-microphone"></i> Say "HIRE" to contact
-        </button>
-        <p id="voice-status" style="font-size: 0.8rem; margin-top: 0.5rem;"></p>
-      </div>
-    </section>
+    <!-- Other sections... -->
   </div>
 
-  <!-- Font Awesome for icons -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-  
   <script>
-    // Matrix Background
+    // Enhanced Matrix Background
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     
@@ -615,18 +256,19 @@
       ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
+      // Regular green binary
       ctx.fillStyle = '#0aff0a';
       ctx.font = fontSize + 'px "Share Tech Mono"';
       
       for (let i = 0; i < drops.length; i++) {
-        // Add occasional red "alert" characters
-        if(Math.random() > 0.98) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        // Random red alerts
+        if(Math.random() > 0.985) {
           ctx.fillStyle = '#ff2a6d';
           ctx.fillText('ALERT', i * fontSize, drops[i] * fontSize);
           ctx.fillStyle = '#0aff0a';
-        } else {
-          const text = chars[Math.floor(Math.random() * chars.length)];
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         }
         
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -638,135 +280,44 @@
     
     setInterval(draw, 50);
     
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
     // Terminal Typing Effect
-    const terminalText = document.getElementById('typed-text');
     const commands = [
       "whoami",
-      "ls skills",
-      "cat certifications.txt",
-      "connect --linkedin",
-      "echo 'Available for projects'",
-      "help"
+      "ls -la projects/",
+      "cat skills.txt",
+      "connect --client"
     ];
-    
-    let commandIndex = 0;
+    let cmdIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     
     function typeTerminal() {
-      const currentCommand = commands[commandIndex];
+      const currentCmd = commands[cmdIndex];
+      const displayText = isDeleting 
+        ? currentCmd.substring(0, charIndex - 1)
+        : currentCmd.substring(0, charIndex + 1);
       
-      if (isDeleting) {
-        terminalText.textContent = currentCommand.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        terminalText.textContent = currentCommand.substring(0, charIndex + 1);
-        charIndex++;
-      }
+      document.getElementById('typed-text').textContent = displayText;
       
-      if (!isDeleting && charIndex === currentCommand.length) {
+      if(!isDeleting && charIndex === currentCmd.length) {
         isDeleting = true;
-        setTimeout(typeTerminal, 1000);
-      } else if (isDeleting && charIndex === 0) {
+        setTimeout(typeTerminal, 2000);
+      } else if(isDeleting && charIndex === 0) {
         isDeleting = false;
-        commandIndex = (commandIndex + 1) % commands.length;
+        cmdIndex = (cmdIndex + 1) % commands.length;
         setTimeout(typeTerminal, 500);
       } else {
-        setTimeout(typeTerminal, isDeleting ? 50 : 100);
+        const typeSpeed = isDeleting ? 100 : 150;
+        charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+        setTimeout(typeTerminal, typeSpeed);
       }
     }
     
-    setTimeout(typeTerminal, 1000);
-
-    // Animate skill bars on scroll
-    const skillBars = document.querySelectorAll('.skill-level');
-    
-    function animateSkillBars() {
-      skillBars.forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = '0';
-        setTimeout(() => {
-          bar.style.width = width;
-        }, 100);
-      });
-    }
-    
-    // Run animation when skills section is in view
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateSkillBars();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
-    });
-
-    // Voice Command
-    const voiceBtn = document.getElementById('voice-command');
-    const voiceStatus = document.getElementById('voice-status');
-    
-    if ('webkitSpeechRecognition' in window) {
-      const recognition = new webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      
-      voiceBtn.addEventListener('click', () => {
-        recognition.start();
-        voiceStatus.textContent = "Listening... Say 'HIRE' to contact";
-        voiceStatus.style.color = var(--neon-green);
-      });
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.trim().toLowerCase();
-        if (transcript.includes('hire')) {
-          window.location.href = "mailto:salmanulfariss642@gmail.com";
-        } else {
-          voiceStatus.textContent = "Try again - say 'HIRE'";
-          voiceStatus.style.color = var(--neon-pink);
-        }
-      };
-      
-      recognition.onerror = (event) => {
-        voiceStatus.textContent = "Error occurred in recognition";
-        voiceStatus.style.color = var(--neon-pink);
-      };
-    } else {
-      voiceBtn.style.display = 'none';
-    }
-
-    // Easter Egg - Ctrl+H for hack mode
-    document.addEventListener('keydown', (e) => {
-      if(e.ctrlKey && e.key === 'h') {
-        document.body.style.filter = "hue-rotate(90deg)";
-        setTimeout(() => {
-          document.body.style.filter = "";
-        }, 1000);
-        
-        // Add fake hacking text to terminal
-        const originalText = terminalText.textContent;
-        terminalText.textContent = "Initializing hack sequence...";
-        
-        setTimeout(() => {
-          terminalText.textContent = "Bypassing firewall...";
-        }, 300);
-        
-        setTimeout(() => {
-          terminalText.textContent = "Access granted. Welcome to mainframe.";
-        }, 600);
-        
-        setTimeout(() => {
-          terminalText.textContent = originalText;
-        }, 2000);
-      }
+    // Start animations
+    typeTerminal();
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
 </body>
