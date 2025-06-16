@@ -559,46 +559,49 @@
     
     let cmdIndex = 0;
     let charIndex = 0;
-    let isCmdDeleting = false;
-    let isCmdWaiting = false;
-    
+    let isTyping = true;
+    let isDeleting = false;
+    let currentCommand = commands[cmdIndex];
+
     function typeTerminal() {
-      const current = commands[cmdIndex % commands.length];
       const commandElement = document.getElementById('terminal-command');
       const outputElement = document.getElementById('terminal-output');
       
-      if (isCmdDeleting) {
-        commandElement.textContent = current.cmd.substring(0, charIndex - 1);
-        charIndex--;
-        
-        if (charIndex === 0) {
-          isCmdDeleting = false;
-          cmdIndex++;
-          isCmdWaiting = true;
-          setTimeout(typeTerminal, 1000);
-          return;
+      if (isTyping) {
+        // Typing the command
+        if (charIndex <= currentCommand.cmd.length) {
+          commandElement.textContent = currentCommand.cmd.substring(0, charIndex);
+          charIndex++;
+          setTimeout(typeTerminal, 100); // Typing speed
+        } else {
+          // Show output after command is fully typed
+          outputElement.textContent = currentCommand.output;
+          isTyping = false;
+          setTimeout(typeTerminal, 7000); // 7 second display time
         }
-      } else if (isCmdWaiting) {
-        outputElement.textContent = '';
-        isCmdWaiting = false;
-      } else if (charIndex <= current.cmd.length) {
-        commandElement.textContent = current.cmd.substring(0, charIndex);
-        charIndex++;
-        
-        if (charIndex > current.cmd.length) {
-          outputElement.textContent = current.output;
-          isCmdWaiting = true;
-          setTimeout(() => {
-            isCmdDeleting = true;
-            isCmdWaiting = false;
-          }, 2000);
-          return;
+      } else if (isDeleting) {
+        // Deleting the command (backspace effect)
+        if (charIndex > 0) {
+          commandElement.textContent = currentCommand.cmd.substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(typeTerminal, 50); // Faster backspace speed
+        } else {
+          // Move to next command
+          outputElement.textContent = '';
+          isDeleting = false;
+          cmdIndex = (cmdIndex + 1) % commands.length;
+          currentCommand = commands[cmdIndex];
+          isTyping = true;
+          setTimeout(typeTerminal, 500); // Brief pause before next command
         }
+      } else {
+        // Start deleting after display time
+        isDeleting = true;
+        setTimeout(typeTerminal, 50);
       }
-      
-      setTimeout(typeTerminal, isCmdDeleting ? 50 : 100);
     }
-    
+
+    // Start the terminal simulation after 2 seconds
     setTimeout(typeTerminal, 2000);
   </script>
 </body>
