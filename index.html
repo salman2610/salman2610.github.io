@@ -34,7 +34,7 @@
     min-height: 100vh;
   }
   
-  /* Enhanced Matrix Background */
+  /* Matrix Background */
   #matrix {
     position: fixed;
     top: 0;
@@ -52,8 +52,6 @@
     padding: 2rem;
     z-index: 2;
   }
-  
-  /* Cyberpunk Name Effect */
   .header {
     margin-bottom: 3rem;
     text-align: center;
@@ -109,8 +107,6 @@
     margin-top: 1rem;
     font-family: 'Share Tech Mono', monospace;
   }
-  
-  /* Terminal Simulation */
   .terminal {
     background: rgba(0, 15, 20, 0.4);
     border: 1px solid var(--neon-green);
@@ -157,8 +153,6 @@
     animation: blink 1s step-end infinite;
     vertical-align: middle;
   }
-  
-  /* Ultra Transparent Sections */
   section {
     background: var(--card-bg);
     border: 1px solid rgba(0, 240, 255, 0.15);
@@ -317,9 +311,6 @@
     }
   }
 
-  /* ==================== */
-  /* MOBILE RESPONSIVENESS */
-  /* ==================== */
   @media (max-width: 768px) {
     .container {
       padding: 1.2rem;
@@ -395,7 +386,6 @@
 </style>
 </head>
 <body>
-  <!-- Enhanced Binary Rain -->
   <canvas id="matrix"></canvas>
 
   <div class="container">
@@ -405,8 +395,6 @@
       </div>
       <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
     </header>
-
-    <!-- Terminal Simulation -->
     <div class="terminal">
       <div class="terminal-content">
         <div class="command-line">user@portfolio:~$ <span id="terminal-command"></span><span class="terminal-cursor"></span></div>
@@ -488,7 +476,6 @@
   </div>
 
   <script>
-    // Enhanced Binary Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     
@@ -529,8 +516,6 @@
       columns = Math.floor(canvas.width / fontSize);
       drops = Array(columns).fill(1);
     });
-
-    // Name Typing Effect (types once and stays)
     const fullName = "P. SALMANUL FARIS";
     const nameElement = document.getElementById('typed-name');
     let nameIndex = 0;
@@ -540,16 +525,11 @@
         nameElement.textContent += fullName.charAt(nameIndex);
         nameIndex++;
         setTimeout(typeName, 100 + Math.random() * 50);
-      } else {
-        // Remove cursor after typing completes
-        document.querySelector('.name-cursor').style.display = 'none';
+      } else {        document.querySelector('.name-cursor').style.display = 'none';
       }
     }
-    
-    // Start the typing effect after 1 second
     setTimeout(typeName, 1000);
-    
-    // Terminal Simulation
+  
     const commands = [
       { cmd: "whoami", output: "p-salmanul-faris\nCertified Penetration Tester | Full-Stack Developer" },
       { cmd: "ls projects", output: "sunset-pentesting/\ndos-simulation/\nattendance-system/\nbilling-app/\nvulnerability-scanner/" },
@@ -568,40 +548,33 @@
       const outputElement = document.getElementById('terminal-output');
       
       if (isTyping) {
-        // Typing the command
         if (charIndex <= currentCommand.cmd.length) {
           commandElement.textContent = currentCommand.cmd.substring(0, charIndex);
           charIndex++;
-          setTimeout(typeTerminal, 100); // Typing speed
+          setTimeout(typeTerminal, 100); 
         } else {
-          // Show output after command is fully typed
           outputElement.textContent = currentCommand.output;
           isTyping = false;
-          setTimeout(typeTerminal, 7000); // 7 second display time
+          setTimeout(typeTerminal, 7000); 
         }
       } else if (isDeleting) {
-        // Deleting the command (backspace effect)
         if (charIndex > 0) {
           commandElement.textContent = currentCommand.cmd.substring(0, charIndex - 1);
           charIndex--;
-          setTimeout(typeTerminal, 50); // Faster backspace speed
+          setTimeout(typeTerminal, 50); 
         } else {
-          // Move to next command
           outputElement.textContent = '';
           isDeleting = false;
           cmdIndex = (cmdIndex + 1) % commands.length;
           currentCommand = commands[cmdIndex];
           isTyping = true;
-          setTimeout(typeTerminal, 500); // Brief pause before next command
+          setTimeout(typeTerminal, 500); 
         }
       } else {
-        // Start deleting after display time
         isDeleting = true;
         setTimeout(typeTerminal, 50);
       }
     }
-
-    // Start the terminal simulation after 2 seconds
     setTimeout(typeTerminal, 2000);
   </script>
 </body>
