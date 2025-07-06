@@ -546,7 +546,7 @@
       
       <!-- Resume Buttons -->
       <div class="resume-actions">
-        <a href="resume.pdf" class="resume-btn" download>
+        <a href="P.Salmanulfaris_ResumeCPT.pdf" class="resume-btn" download="P.Salmanulfaris_Resume_CPT.pdf">
           <i class="fas fa-file-pdf"></i> Download Resume (PDF)
         </a>
         <button id="view-resume-btn" class="resume-btn">
@@ -700,7 +700,7 @@
     const pdfContent = `
       <span class="pdf-close">&times;</span>
       <div class="pdf-container">
-        <embed src="resume.pdf#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%" />
+        <embed src="P.Salmanulfaris_ResumeCPT.pdf#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%" />
       </div>
     `;
 
@@ -710,13 +710,13 @@
     // Open modal
     viewResumeBtn.addEventListener('click', () => {
       pdfModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      document.body.style.overflow = 'hidden';
     });
 
     // Close modal
     pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
       pdfModal.style.display = 'none';
-      document.body.style.overflow = 'auto'; // Re-enable scrolling
+      document.body.style.overflow = 'auto';
     });
 
     // Close when clicking outside
@@ -734,6 +734,16 @@
         document.body.style.overflow = 'auto';
       }
     });
+
+    // Mobile fallback to download
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      const viewBtn = document.getElementById('view-resume-btn');
+      viewBtn.addEventListener('click', (e) => {
+        if(confirm("For best experience on mobile, we recommend downloading the PDF. Download now?")) {
+          window.location.href = "P.Salmanulfaris_ResumeCPT.pdf";
+        }
+      });
+    }
   </script>
 </body>
 </html>
