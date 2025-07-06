@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P. SALMANUL FARIS |  Penetration Tester & Full-Stack Developer</title>
+<title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
@@ -34,7 +34,7 @@
     min-height: 100vh;
   }
   
-  /* Matrix Background */
+  /* Enhanced Matrix Background */
   #matrix {
     position: fixed;
     top: 0;
@@ -52,6 +52,8 @@
     padding: 2rem;
     z-index: 2;
   }
+  
+  /* Cyberpunk Name Effect */
   .header {
     margin-bottom: 3rem;
     text-align: center;
@@ -107,6 +109,8 @@
     margin-top: 1rem;
     font-family: 'Share Tech Mono', monospace;
   }
+  
+  /* Terminal Simulation */
   .terminal {
     background: rgba(0, 15, 20, 0.4);
     border: 1px solid var(--neon-green);
@@ -153,6 +157,8 @@
     animation: blink 1s step-end infinite;
     vertical-align: middle;
   }
+  
+  /* Ultra Transparent Sections */
   section {
     background: var(--card-bg);
     border: 1px solid rgba(0, 240, 255, 0.15);
@@ -254,7 +260,75 @@
     animation: pulse 1.5s infinite alternate;
     font-size: 1.1rem;
   }
-  
+
+  /* Resume Button Styles */
+  .resume-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .resume-btn {
+    background: var(--neon-purple);
+    color: #000;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+  }
+
+  .resume-btn:hover {
+    background: #c73cfe;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
+  }
+
+  /* PDF Viewer Modal */
+  .pdf-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pdf-container {
+    width: 80%;
+    height: 90%;
+    background: var(--dark-bg);
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .pdf-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--neon-pink);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.3s;
+  }
+
+  .pdf-close:hover {
+    transform: scale(1.2);
+  }
+
   /* Loading Animation for In-Progress Project */
   .loading-soon {
     display: inline-flex;
@@ -311,6 +385,9 @@
     }
   }
 
+  /* ==================== */
+  /* MOBILE RESPONSIVENESS */
+  /* ==================== */
   @media (max-width: 768px) {
     .container {
       padding: 1.2rem;
@@ -353,6 +430,11 @@
     .loading-soon {
       font-size: 0.8em;
     }
+
+    .pdf-container {
+      width: 95%;
+      height: 80%;
+    }
   }
 
   @media (max-width: 480px) {
@@ -382,10 +464,15 @@
       width: 6px;
       height: 6px;
     }
+
+    .resume-actions {
+      flex-direction: column;
+    }
   }
 </style>
 </head>
 <body>
+  <!-- Enhanced Binary Rain -->
   <canvas id="matrix"></canvas>
 
   <div class="container">
@@ -395,6 +482,8 @@
       </div>
       <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
     </header>
+
+    <!-- Terminal Simulation -->
     <div class="terminal">
       <div class="terminal-content">
         <div class="command-line">user@portfolio:~$ <span id="terminal-command"></span><span class="terminal-cursor"></span></div>
@@ -454,6 +543,18 @@
 
     <section id="contact">
       <h2>// CONNECT</h2>
+      
+      <!-- Resume Buttons -->
+      <div class="resume-actions">
+        <a href="resume.pdf" class="resume-btn" download>
+          <i class="fas fa-file-pdf"></i> Download Resume (PDF)
+        </a>
+        <button id="view-resume-btn" class="resume-btn">
+          <i class="fas fa-eye"></i> View Resume
+        </button>
+      </div>
+
+      <!-- Contact Cards -->
       <div class="contact-grid">
         <div class="contact-card">
           <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
@@ -475,7 +576,10 @@
     </section>
   </div>
 
+  <!-- PDF Viewer Modal (Dynamically Inserted) -->
+  
   <script>
+    // Enhanced Binary Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     
@@ -516,6 +620,8 @@
       columns = Math.floor(canvas.width / fontSize);
       drops = Array(columns).fill(1);
     });
+
+    // Name Typing Effect (types once and stays)
     const fullName = "P. SALMANUL FARIS";
     const nameElement = document.getElementById('typed-name');
     let nameIndex = 0;
@@ -525,57 +631,109 @@
         nameElement.textContent += fullName.charAt(nameIndex);
         nameIndex++;
         setTimeout(typeName, 100 + Math.random() * 50);
-      } else {        document.querySelector('.name-cursor').style.display = 'none';
+      } else {
+        // Remove cursor after typing completes
+        document.querySelector('.name-cursor').style.display = 'none';
       }
     }
+    
+    // Start the typing effect after 1 second
     setTimeout(typeName, 1000);
-  
+    
+    // Terminal Simulation
     const commands = [
       { cmd: "whoami", output: "p-salmanul-faris\nCertified Penetration Tester | Full-Stack Developer" },
       { cmd: "ls projects", output: "sunset-pentesting/\ndos-simulation/\nattendance-system/\nbilling-app/\nvulnerability-scanner/" },
       { cmd: "cat skills.txt", output: "• Penetration Testing\n• Network Security\n• Python/Java/C++\n• Burp Suite/Nmap/Metasploit" },
-      { cmd: "connect --client", output: "Available for:\n> Security Assessments\n> Secure Development\n> Web/App Developments" }
+      { cmd: "connect --client", output: "Available for:\n> Security Assessments\n> Secure Development\n> Consulting Projects" }
     ];
     
     let cmdIndex = 0;
     let charIndex = 0;
-    let isTyping = true;
-    let isDeleting = false;
-    let currentCommand = commands[cmdIndex];
-
+    let isCmdDeleting = false;
+    let isCmdWaiting = false;
+    
     function typeTerminal() {
+      const current = commands[cmdIndex % commands.length];
       const commandElement = document.getElementById('terminal-command');
       const outputElement = document.getElementById('terminal-output');
       
-      if (isTyping) {
-        if (charIndex <= currentCommand.cmd.length) {
-          commandElement.textContent = currentCommand.cmd.substring(0, charIndex);
-          charIndex++;
-          setTimeout(typeTerminal, 100); 
-        } else {
-          outputElement.textContent = currentCommand.output;
-          isTyping = false;
-          setTimeout(typeTerminal, 7000); 
+      if (isCmdDeleting) {
+        commandElement.textContent = current.cmd.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+          isCmdDeleting = false;
+          cmdIndex++;
+          isCmdWaiting = true;
+          setTimeout(typeTerminal, 1000);
+          return;
         }
-      } else if (isDeleting) {
-        if (charIndex > 0) {
-          commandElement.textContent = currentCommand.cmd.substring(0, charIndex - 1);
-          charIndex--;
-          setTimeout(typeTerminal, 50); 
-        } else {
-          outputElement.textContent = '';
-          isDeleting = false;
-          cmdIndex = (cmdIndex + 1) % commands.length;
-          currentCommand = commands[cmdIndex];
-          isTyping = true;
-          setTimeout(typeTerminal, 500); 
+      } else if (isCmdWaiting) {
+        outputElement.textContent = '';
+        isCmdWaiting = false;
+      } else if (charIndex <= current.cmd.length) {
+        commandElement.textContent = current.cmd.substring(0, charIndex);
+        charIndex++;
+        
+        if (charIndex > current.cmd.length) {
+          outputElement.textContent = current.output;
+          isCmdWaiting = true;
+          setTimeout(() => {
+            isCmdDeleting = true;
+            isCmdWaiting = false;
+          }, 2000);
+          return;
         }
-      } else {
-        isDeleting = true;
-        setTimeout(typeTerminal, 50);
       }
+      
+      setTimeout(typeTerminal, isCmdDeleting ? 50 : 100);
     }
+    
     setTimeout(typeTerminal, 2000);
+
+    // PDF Viewer Functionality
+    const viewResumeBtn = document.getElementById('view-resume-btn');
+    const pdfModal = document.createElement('div');
+    pdfModal.className = 'pdf-modal';
+
+    const pdfContent = `
+      <span class="pdf-close">&times;</span>
+      <div class="pdf-container">
+        <embed src="resume.pdf#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%" />
+      </div>
+    `;
+
+    pdfModal.innerHTML = pdfContent;
+    document.body.appendChild(pdfModal);
+
+    // Open modal
+    viewResumeBtn.addEventListener('click', () => {
+      pdfModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    });
+
+    // Close modal
+    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
+      pdfModal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    });
+
+    // Close when clicking outside
+    pdfModal.addEventListener('click', (e) => {
+      if (e.target === pdfModal) {
+        pdfModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pdfModal.style.display === 'flex') {
+        pdfModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
   </script>
 </body>
 </html>
