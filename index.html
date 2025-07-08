@@ -16,6 +16,8 @@
     --dark-bg: #0a0a12;
     --text-primary: #e0e0ff;
     --card-bg: rgba(10, 10, 30, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
   }
   
   * {
@@ -47,7 +49,7 @@
   
   .container {
     position: relative;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
     z-index: 2;
@@ -115,83 +117,166 @@
     letter-spacing: 1px;
   }
 
-  /* NEW 3D Terminal */
-  .cyber-terminal {
-    border: 1px solid var(--neon-green);
-    background: rgba(0, 15, 20, 0.7);
-    border-radius: 8px;
+  /* Interactive Projects Section */
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .project-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
     padding: 2rem;
-    margin: 3rem 0;
     position: relative;
     overflow: hidden;
-    height: 600px;
-    perspective: 1000px;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(50px);
+    opacity: 0;
+    will-change: transform, opacity;
   }
 
-  .terminal-screen {
-    height: 70%;
-    position: relative;
-    transform-style: preserve-3d;
+  .project-card.visible {
+    transform: translateY(0);
+    opacity: 1;
   }
 
-  .command-line {
-    color: var(--neon-green);
-    font-family: 'Share Tech Mono', monospace;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 10px;
-    height: 1em;
-    background: var(--neon-pink);
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-  }
-
-  #output3d {
-    height: 80%;
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    margin-top: 1rem;
-    position: relative;
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    border-radius: 4px;
-    overflow: hidden;
+    height: 100%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(0, 240, 255, 0.1),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
   }
 
-  .terminal-buttons {
+  .project-card:hover::before {
+    transform: translateX(100%);
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+
+  .project-card h3 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-blue);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .project-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+  }
+
+  .project-card p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: rgba(224, 224, 255, 0.9);
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-tag {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--neon-blue);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+  }
+
+  .project-links {
     display: flex;
     gap: 1rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
   }
 
-  .hack-btn {
-    background: transparent;
-    border: 1px solid var(--neon-purple);
-    color: var(--neon-blue);
-    padding: 0.8rem 1.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    cursor: pointer;
-    transition: all 0.3s;
-    border-radius: 4px;
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
     font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .hack-btn:hover {
-    text-shadow: 0 0 10px var(--neon-pink);
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(188, 19, 254, 0.5);
-  }
-
-  .mobile-fallback {
-    display: none;
-    text-align: center;
-    padding: 2rem;
+  .project-link:hover {
+    background: rgba(0, 240, 255, 0.2);
     color: var(--neon-blue);
-    font-family: 'Share Tech Mono';
+    transform: translateY(-2px);
+  }
+
+  .project-link i {
+    font-size: 1rem;
+  }
+
+  /* Floating Decorative Elements */
+  .floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  .circle-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--neon-purple);
+    top: 10%;
+    left: 5%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .circle-2 {
+    width: 200px;
+    height: 200px;
+    background: var(--neon-blue);
+    bottom: 15%;
+    right: 10%;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+
+  .circle-3 {
+    width: 150px;
+    height: 150px;
+    background: var(--neon-pink);
+    top: 40%;
+    right: 20%;
+    animation: float 5s ease-in-out infinite 2s;
   }
 
   /* Content Sections */
@@ -371,15 +456,9 @@
     }
   }
 
-  @keyframes bounce {
-    0%, 80%, 100% { 
-      transform: translateY(0);
-      opacity: 0.5;
-    }
-    40% { 
-      transform: translateY(-6px);
-      opacity: 1;
-    }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
   }
 
   /* Mobile Responsiveness */
@@ -396,17 +475,8 @@
       font-size: 1.1rem;
     }
     
-    .cyber-terminal {
-      height: auto;
-      padding: 1.5rem;
-    }
-    
-    #output3d {
-      height: 300px;
-    }
-    
-    .terminal-buttons {
-      flex-direction: column;
+    .projects-container {
+      grid-template-columns: 1fr;
     }
     
     section {
@@ -421,8 +491,8 @@
       grid-template-columns: 1fr;
     }
     
-    .mobile-fallback {
-      display: block;
+    .floating-circle {
+      display: none;
     }
   }
 
@@ -449,6 +519,11 @@
 <body>
   <!-- Matrix Background -->
   <canvas id="matrix"></canvas>
+  
+  <!-- Floating Decorative Elements -->
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
 
   <div class="container">
     <header class="header">
@@ -458,30 +533,6 @@
       </div>
       <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
     </header>
-
-    <!-- NEW 3D Interactive Terminal -->
-    <div class="cyber-terminal">
-      <div class="terminal-screen">
-        <div class="command-line">
-          <span class="prompt">root@cybersec:~$</span>
-          <span id="typedCommand"> _</span>
-          <span class="cursor"></span>
-        </div>
-        <div id="output3d">
-          <div class="mobile-fallback">
-            <p>3D visualization disabled on mobile</p>
-            <p>Select projects below ↓</p>
-          </div>
-          <!-- Three.js canvas will be inserted here -->
-        </div>
-      </div>
-      <div class="terminal-buttons">
-        <button class="hack-btn" data-project="sunset">[1] SUNSET_PENTEST</button>
-        <button class="hack-btn" data-project="dos">[2] DOS_SIMULATION</button>
-        <button class="hack-btn" data-project="attendance">[3] ATTENDANCE_SYS</button>
-        <button class="hack-btn" data-project="reset">[0] RESET_VIEW</button>
-      </div>
-    </div>
 
     <!-- About Section -->
     <section id="about">
@@ -516,13 +567,84 @@
     <!-- Projects Section -->
     <section id="projects">
       <h2>// PROJECTS</h2>
-      <ul>
-        <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
-        <li><strong>DoS Attack Simulation</strong> - Executed controlled Denial-of-Service attack on test Apache server</li>
-        <li><strong>Attendance Management System</strong> - Developed secure web/mobile app for tracking attendance with biometric verification</li>
-        <li><strong>Network Vulnerability Scanner</strong> - Custom tool for automated security assessments</li>
-        <li><strong>M.Sc Research Project</strong> - Acoustic study of aqueous solutions containing antibiotics and insulin</li>
-      </ul>
+      <div class="projects-container">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <h3>Custom Ubuntu Pentesting Machine</h3>
+          <p>Configured customized Ubuntu environment with specialized ethical hacking tools and security configurations for penetration testing.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Ubuntu</span>
+            <span class="tech-tag">Kali Tools</span>
+            <span class="tech-tag">Bash</span>
+            <span class="tech-tag">Nmap</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-eye"></i> View Demo</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        
+        <!-- Project 2 -->
+        <div class="project-card">
+          <h3>DoS Attack Simulation</h3>
+          <p>Developed a controlled Denial-of-Service attack simulation to test Apache server resilience and document defense strategies.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Apache</span>
+            <span class="tech-tag">Network Security</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-file-alt"></i> Case Study</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        
+        <!-- Project 3 -->
+        <div class="project-card">
+          <h3>Attendance Management System</h3>
+          <p>Secure web/mobile application for tracking attendance with biometric verification and real-time reporting.</p>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">Biometrics</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        
+        <!-- Project 4 -->
+        <div class="project-card">
+          <h3>Network Vulnerability Scanner</h3>
+          <p>Custom tool for automated security assessments that identifies vulnerabilities in network configurations.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Nmap</span>
+            <span class="tech-tag">Security</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-download"></i> Download</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        
+        <!-- Project 5 -->
+        <div class="project-card">
+          <h3>Acoustic Research Project</h3>
+          <p>M.Sc research studying acoustic properties of aqueous solutions containing antibiotics and insulin.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Physics</span>
+            <span class="tech-tag">Research</span>
+            <span class="tech-tag">Data Analysis</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-file-pdf"></i> Paper</a>
+            <a href="#" class="project-link"><i class="fas fa-chart-line"></i> Data</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Contact Section -->
@@ -561,9 +683,6 @@
     </section>
   </div>
 
-  <!-- Three.js Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
   <script>
     // ======================
     // Matrix Background
@@ -605,165 +724,31 @@
     window.addEventListener('resize', resizeCanvas);
 
     // ======================
-    // 3D Terminal System
+    // Scroll Animations
     // ======================
-    let scene, camera, renderer, activeShape;
-
-    function init3D() {
-      // Skip on mobile
-      if (/Mobi|Android/i.test(navigator.userAgent)) return;
+    function animateOnScroll() {
+      const projectCards = document.querySelectorAll('.project-card');
       
-      const container = document.getElementById('output3d');
-      
-      // 1. Create Scene
-      scene = new THREE.Scene();
-      scene.background = null;
-      
-      // 2. Set Up Camera
-      camera = new THREE.PerspectiveCamera(
-        75, 
-        container.clientWidth / container.clientHeight, 
-        0.1, 
-        1000
-      );
-      camera.position.z = 3;
-      
-      // 3. Initialize Renderer
-      renderer = new THREE.WebGLRenderer({ 
-        antialias: true, 
-        alpha: true,
-        powerPreference: "high-performance"
-      });
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      container.appendChild(renderer.domElement);
-      
-      // 4. Add Ambient Light
-      const light = new THREE.AmbientLight(0x404040, 2);
-      scene.add(light);
-      
-      // 5. Create Default Shape
-      createShape('box');
-      
-      // 6. Animation Loop
-      function animate() {
-        requestAnimationFrame(animate);
-        if (activeShape) {
-          activeShape.rotation.x += 0.005;
-          activeShape.rotation.y += 0.01;
-        }
-        renderer.render(scene, camera);
-      }
-      animate();
-      
-      // 7. Handle Resizing
-      window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-      });
-    }
-
-    function createShape(type) {
-      // Clear previous shape
-      if (activeShape) scene.remove(activeShape);
-      
-      let geometry;
-      const material = new THREE.MeshBasicMaterial({ 
-        color: 0x00f0ff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.8
-      });
-      
-      switch(type) {
-        case 'sunset':
-          geometry = new THREE.IcosahedronGeometry(1.2, 1);
-          material.color.setHex(0xff2a6d);
-          break;
-        case 'dos':
-          geometry = new THREE.TorusKnotGeometry(0.8, 0.3, 100, 16);
-          material.color.setHex(0xbc13fe);
-          break;
-        case 'attendance':
-          geometry = new THREE.ConeGeometry(1, 2, 32);
-          material.color.setHex(0x0aff0a);
-          break;
-        case 'reset':
-          geometry = new THREE.OctahedronGeometry(1.5);
-          material.color.setHex(0x00f0ff);
-          break;
-        default:
-          geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-      }
-      
-      activeShape = new THREE.Mesh(geometry, material);
-      scene.add(activeShape);
-      
-      // Special intro animation for reset
-      if (type === 'reset') {
-        gsap.to(activeShape.rotation, {
-          x: Math.PI * 2,
-          y: Math.PI * 2,
-          duration: 2,
-          ease: "power2.out"
-        });
-      }
-    }
-
-    // ======================
-    // Terminal Typing Effect
-    // ======================
-    const commands = {
-      idle: "_",
-      sunset: "access pentest_env --name=sunset --tools=kali,nmap,metasploit",
-      dos: "simulate attack --type=dos --target=apache_test",
-      attendance: "run attendance_system --auth=biometric --platform=mobile",
-      reset: "system reset --clear_cache"
-    };
-    
-    const typedCommand = document.getElementById('typedCommand');
-    
-    function typeText(text, speed = 30) {
-      let i = 0;
-      typedCommand.textContent = "";
-      
-      function typing() {
-        if (i < text.length) {
-          // Simulate occasional typing errors
-          if (Math.random() > 0.95) {
-            typedCommand.textContent += String.fromCharCode(97 + Math.floor(Math.random() * 26));
-            setTimeout(() => {
-              typedCommand.textContent = typedCommand.textContent.slice(0, -1);
-              typing();
-            }, 50);
-          } else {
-            typedCommand.textContent += text.charAt(i);
-            i++;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
           }
-          setTimeout(typing, speed);
-        }
-      }
-      typing();
-    }
-
-    // ======================
-    // Button Interactivity
-    // ======================
-    document.querySelectorAll('.hack-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const project = btn.dataset.project;
-        typeText(commands[project]);
-        
-        if (!/Mobi|Android/i.test(navigator.userAgent)) {
-          createShape(project);
-        } else {
-          // Mobile fallback: Scroll to project description
-          document.getElementById('projects').scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
       });
-    });
+      
+      projectCards.forEach(card => {
+        observer.observe(card);
+        
+        // Add hover effect with slight delay for each card
+        const delay = Math.random() * 0.5;
+        card.style.transitionDelay = `${delay}s`;
+      });
+    }
 
     // ======================
     // PDF Viewer Functionality
@@ -780,19 +765,73 @@
     `;
     document.body.appendChild(pdfModal);
 
+    // Add styles for the PDF modal
+    const style = document.createElement('style');
+    style.textContent = `
+      .pdf-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .pdf-modal.active {
+        display: flex;
+        opacity: 1;
+      }
+      .pdf-container {
+        width: 80%;
+        height: 90%;
+        background: #111;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+        position: relative;
+      }
+      .pdf-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1;
+      }
+      .pdf-close:hover {
+        color: var(--neon-pink);
+        transform: scale(1.2);
+      }
+      @media (max-width: 768px) {
+        .pdf-container {
+          width: 95%;
+          height: 80%;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
     viewResumeBtn.addEventListener('click', () => {
-      pdfModal.style.display = 'flex';
+      pdfModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     });
 
     pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
-      pdfModal.style.display = 'none';
+      pdfModal.classList.remove('active');
       document.body.style.overflow = 'auto';
     });
 
     pdfModal.addEventListener('click', (e) => {
       if (e.target === pdfModal) {
-        pdfModal.style.display = 'none';
+        pdfModal.classList.remove('active');
         document.body.style.overflow = 'auto';
       }
     });
@@ -801,8 +840,7 @@
     // Initialize Everything
     // ======================
     window.addEventListener('load', () => {
-      init3D();
-      typeText(commands.idle, 100);
+      animateOnScroll();
       
       // Easter egg: Konami code
       const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
