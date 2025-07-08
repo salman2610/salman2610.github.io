@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P. SALMANUL FARIS | Immersive Cybersecurity Portfolio</title>
+<title>P. SALMANUL FARIS | Interactive Cybersecurity Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
   
   :root {
@@ -73,16 +75,15 @@
   }
 
   .name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Major Mono Display', monospace;
     font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 400;
     background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-shadow: 0 0 10px rgba(10, 255, 255, 0.5);
-    letter-spacing: 2px;
+    letter-spacing: -3px;
     position: relative;
     display: inline-block;
     transform-style: preserve-3d;
@@ -156,36 +157,34 @@
     left: 100%;
   }
 
-  /* 3D Project Gallery */
-  .project-stage {
+  /* Redesigned Projects Section */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .project-card {
     position: relative;
-    height: 80vh;
-    width: 100%;
-    margin: 5rem 0;
-    perspective: 2000px;
-    overflow: hidden;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(10,10,30,0.8) 0%, rgba(0,5,15,0.9) 100%);
-    border: 1px solid rgba(0, 240, 255, 0.1);
-    box-shadow: 0 0 60px rgba(0, 240, 255, 0.05);
-  }
-
-  .project-card-3d {
-    position: absolute;
-    width: 300px;
     height: 400px;
-    transform-style: preserve-3d;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                box-shadow 0.8s ease;
-    cursor: pointer;
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(0, 15, 30, 0.6);
+    background: var(--glass-bg);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    transform: translateY(50px);
+    opacity: 0;
   }
 
-  .project-card-3d::before {
+  .project-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .project-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -201,211 +200,194 @@
     pointer-events: none;
   }
 
-  .project-card-3d:hover {
-    box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
-    transform: translateZ(50px) !important;
-  }
-
-  .project-card-3d.active {
-    z-index: 10 !important;
-    transform: translateZ(100px) scale(1.05) !important;
-    box-shadow: 0 0 80px rgba(0, 240, 255, 0.4);
-  }
-
-  .project-content {
-    position: relative;
-    height: 100%;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  /* Project Navigation */
-  .project-nav {
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    z-index: 20;
-  }
-
-  .project-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(0, 240, 255, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .project-dot.active {
-    background: var(--neon-blue);
-    transform: scale(1.4);
-    box-shadow: 0 0 10px var(--neon-blue);
-  }
-
-  /* Project Details Panel */
-  .project-details {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 5, 15, 0.98);
-    backdrop-filter: blur(20px);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.6s ease;
-  }
-
-  .project-details.active {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  /* About Section - Glass Morphism */
-  .about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-
-  .about-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 2rem;
-    transition: all 0.4s ease;
-    transform: translateY(50px);
-    opacity: 0;
-  }
-
-  .about-card.visible {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .about-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 240, 255, 0.15);
+  .project-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 50px rgba(0, 240, 255, 0.3);
     border-color: var(--neon-blue);
   }
 
-  /* Timeline Section */
-  .timeline {
-    position: relative;
-    max-width: 1000px;
-    margin: 4rem auto;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(to bottom, 
-      transparent, 
-      var(--neon-blue), 
-      transparent);
-    transform: translateX(-50%);
-  }
-
-  .timeline-item {
-    position: relative;
-    margin-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.6s ease;
-  }
-
-  .timeline-content {
-    position: relative;
-    width: calc(50% - 40px);
+  .project-header {
+    height: 40%;
     padding: 2rem;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
-  .timeline-item:nth-child(odd) .timeline-content {
-    left: 0;
-  }
-
-  .timeline-item:nth-child(even) .timeline-content {
-    left: calc(50% + 40px);
-  }
-
-  .timeline-content::before {
+  .project-header::after {
     content: '';
     position: absolute;
-    top: 30px;
-    width: 20px;
-    height: 20px;
-    background: var(--neon-purple);
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(188, 19, 254, 0.2);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
 
-  .timeline-item:nth-child(odd) .timeline-content::before {
-    right: -50px;
+  .project-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
   }
 
-  .timeline-item:nth-child(even) .timeline-content::before {
-    left: -50px;
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    z-index: 2;
+    position: relative;
   }
 
-  .timeline-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+  .tech-tag {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--neon-blue);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    border: 1px solid rgba(0, 240, 255, 0.3);
   }
 
-  /* Contact Section - Interactive Grid */
-  .contact-grid {
+  .project-body {
+    padding: 2rem;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-description {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .project-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .project-btn-primary {
+    background: var(--neon-blue);
+    color: #000;
+  }
+
+  .project-btn-secondary {
+    background: transparent;
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+  }
+
+  .project-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4);
+  }
+
+  /* 3D Cube Contact Cards */
+  .contact-cubes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 3rem;
+    perspective: 1000px;
   }
 
-  .contact-card {
+  .contact-cube {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+    cursor: pointer;
+  }
+
+  .contact-cube:hover {
+    transform: rotateY(180deg);
+  }
+
+  .cube-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 2rem;
-    transition: all 0.4s ease;
-    transform: scale(0.95);
-    opacity: 0;
+    backface-visibility: hidden;
+    transition: all 0.5s ease;
   }
 
-  .contact-card.visible {
-    transform: scale(1);
-    opacity: 1;
+  .cube-front {
+    transform: rotateY(0deg);
   }
 
-  .contact-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
-    border-color: var(--neon-blue);
+  .cube-back {
+    transform: rotateY(180deg);
+    background: rgba(0, 15, 30, 0.8);
+  }
+
+  .contact-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-label {
+    font-family: 'Share Tech Mono', monospace;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .contact-value {
+    text-align: center;
+    word-break: break-all;
+  }
+
+  /* Resume Section */
+  .resume-section {
+    text-align: center;
+    margin: 4rem 0;
+  }
+
+  .resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem 2.5rem;
+    background: var(--neon-purple);
+    color: #000;
+    border-radius: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+    margin-top: 2rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .resume-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(188, 19, 254, 0.7);
   }
 
   /* Animations */
@@ -429,28 +411,13 @@
       padding: 1.5rem;
     }
 
-    .project-stage {
-      height: 60vh;
+    .projects-grid {
+      grid-template-columns: 1fr;
     }
 
-    .project-card-3d {
-      width: 250px;
-      height: 350px;
-    }
-
-    .timeline::before {
-      left: 30px;
-    }
-
-    .timeline-item:nth-child(even) .timeline-content,
-    .timeline-item:nth-child(odd) .timeline-content {
-      width: calc(100% - 80px);
-      left: 60px;
-    }
-
-    .timeline-item:nth-child(even) .timeline-content::before,
-    .timeline-item:nth-child(odd) .timeline-content::before {
-      left: -40px;
+    .project-card {
+      height: auto;
+      min-height: 400px;
     }
   }
 
@@ -465,9 +432,8 @@
       text-align: center;
     }
 
-    .project-card-3d {
-      width: 220px;
-      height: 320px;
+    .project-actions {
+      flex-direction: column;
     }
   }
 </style>
@@ -480,7 +446,7 @@
     <!-- Header Section -->
     <header class="header">
       <div class="name-container">
-        <h1 class="name">P. SALMANUL FARIS</h1>
+        <h1 class="name">P.SALMANUL FARIS</h1>
       </div>
       <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
       
@@ -497,112 +463,265 @@
     <section id="about">
       <h2>// ABOUT ME</h2>
       <div class="about-grid">
-        <div class="about-card">
-          <h3><i class="fas fa-shield-alt" style="color: var(--neon-green);"></i> Cybersecurity</h3>
-          <p>Certified penetration tester specializing in ethical hacking, vulnerability assessment, and secure system design.</p>
-          <ul>
-            <li>RedTeam Hacker Academy Certified</li>
-            <li>Network security protocols</li>
-            <li>Penetration testing methodologies</li>
-          </ul>
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(10,10,30,0.7) 0%, rgba(255,42,109,0.2) 100%);">
+            <h3 class="project-title"><i class="fas fa-shield-alt"></i> Cybersecurity</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Penetration Testing</span>
+              <span class="tech-tag">Network Security</span>
+              <span class="tech-tag">Ethical Hacking</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Certified penetration tester specializing in ethical hacking, vulnerability assessment, and secure system design with RedTeam Hacker Academy certification.</p>
+            </div>
+            <div class="project-actions">
+              <a href="#projects" class="project-btn project-btn-primary">
+                <i class="fas fa-laptop-code"></i> View Projects
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="about-card">
-          <h3><i class="fas fa-code" style="color: var(--neon-blue);"></i> Development</h3>
-          <p>Full-stack developer with experience building secure web applications and automation tools.</p>
-          <ul>
-            <li>Python, JavaScript, Java, C++</li>
-            <li>React, Node.js, MongoDB</li>
-            <li>Secure coding practices</li>
-          </ul>
+        
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(10,10,30,0.7) 0%, rgba(0,240,255,0.2) 100%);">
+            <h3 class="project-title"><i class="fas fa-code"></i> Development</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Full Stack</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Full-stack developer with experience building secure web applications, automation tools, and custom solutions with modern technologies.</p>
+            </div>
+            <div class="project-actions">
+              <a href="#projects" class="project-btn project-btn-primary">
+                <i class="fas fa-project-diagram"></i> See Work
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="about-card">
-          <h3><i class="fas fa-atom" style="color: var(--neon-purple);"></i> Research</h3>
-          <p>Physics researcher with strong analytical skills applied to cybersecurity problem-solving.</p>
-          <ul>
-            <li>M.Sc in Physics</li>
-            <li>Acoustic properties research</li>
-            <li>Data analysis & modeling</li>
-          </ul>
+        
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(10,10,30,0.7) 0%, rgba(188,19,254,0.2) 100%);">
+            <h3 class="project-title"><i class="fas fa-atom"></i> Research</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Physics</span>
+              <span class="tech-tag">Data Analysis</span>
+              <span class="tech-tag">Acoustics</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Physics researcher with M.Sc degree and experience in acoustic properties analysis, bringing analytical rigor to cybersecurity challenges.</p>
+            </div>
+            <div class="project-actions">
+              <a href="#experience" class="project-btn project-btn-primary">
+                <i class="fas fa-graduation-cap"></i> Education
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects">
-      <h2>// PROJECT EXPERIENCE</h2>
+      <h2>// PROJECT SHOWCASE</h2>
       
-      <div class="project-stage" id="projectStage">
-        <!-- 3D Project Cards will be positioned here by JavaScript -->
-      </div>
-      
-      <div class="project-nav" id="projectNav">
-        <!-- Navigation dots will be added by JavaScript -->
-      </div>
-      
-      <!-- Project Details Overlay -->
-      <div class="project-details" id="projectDetails">
-        <div class="container">
-          <button id="closeDetails" style="position:absolute;top:2rem;right:2rem;background:none;border:none;color:var(--neon-blue);font-size:2rem;cursor:pointer;">×</button>
-          <div id="detailsContent"></div>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(255,42,109,0.2) 0%, rgba(10,10,30,0.8) 100%);">
+            <h3 class="project-title">SUNSET PENTEST</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Ubuntu</span>
+              <span class="tech-tag">Kali Tools</span>
+              <span class="tech-tag">Bash</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Customized Ubuntu environment with 50+ security tools preconfigured for ethical hacking and penetration testing workflows.</p>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="project-btn project-btn-primary">
+                <i class="fas fa-eye"></i> View Demo
+              </a>
+              <a href="#" class="project-btn project-btn-secondary">
+                <i class="fas fa-code"></i> Source Code
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(188,19,254,0.2) 0%, rgba(10,10,30,0.8) 100%);">
+            <h3 class="project-title">DOS SIMULATOR</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Scapy</span>
+              <span class="tech-tag">Security</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Controlled denial-of-service attack simulation framework for testing server resilience and defense mechanisms.</p>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="project-btn project-btn-primary">
+                <i class="fas fa-file-alt"></i> Case Study
+              </a>
+              <a href="#" class="project-btn project-btn-secondary">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(0,240,255,0.2) 0%, rgba(10,10,30,0.8) 100%);">
+            <h3 class="project-title">ATTENDANCE SYSTEM</h3>
+            <div class="project-tech">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">MongoDB</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Secure web/mobile application for tracking attendance with biometric verification and real-time reporting.</p>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="project-btn project-btn-primary">
+                <i class="fas fa-external-link-alt"></i> Live Demo
+              </a>
+              <a href="#" class="project-btn project-btn-secondary">
+                <i class="fas fa-code-branch"></i> Fork
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Experience/Education Section -->
+    <!-- Experience Section -->
     <section id="experience">
       <h2>// EXPERIENCE & EDUCATION</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <h3>Certified Penetration Tester</h3>
-            <p>RedTeam Hacker Academy | 2024</p>
-            <p>Advanced training in ethical hacking and penetration testing methodologies.</p>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(10,10,30,0.7) 0%, rgba(255,42,109,0.2) 100%);">
+            <h3 class="project-title">Certified Penetration Tester</h3>
+            <div class="project-tech">
+              <span class="tech-tag">RedTeam Hacker Academy</span>
+              <span class="tech-tag">2024</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Advanced training in ethical hacking and penetration testing methodologies, tools, and real-world scenarios.</p>
+            </div>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <h3>Full Stack Engineering</h3>
-            <p>NIIT Chennai | 2023</p>
-            <p>Advanced programming in full stack software engineering.</p>
+        
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(10,10,30,0.7) 0%, rgba(0,240,255,0.2) 100%);">
+            <h3 class="project-title">Full Stack Engineering</h3>
+            <div class="project-tech">
+              <span class="tech-tag">NIIT Chennai</span>
+              <span class="tech-tag">2023</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Advanced programming in full stack software engineering with modern web technologies.</p>
+            </div>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <h3>M.Sc Physics</h3>
-            <p>New College Chennai | 2021-2023</p>
-            <p>Specialized in acoustic research of biological solutions.</p>
+        
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, rgba(10,10,30,0.7) 0%, rgba(188,19,254,0.2) 100%);">
+            <h3 class="project-title">M.Sc Physics</h3>
+            <div class="project-tech">
+              <span class="tech-tag">New College Chennai</span>
+              <span class="tech-tag">2021-2023</span>
+            </div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <h3>B.Sc Physics</h3>
-            <p>New College Chennai | 2018-2021</p>
-            <p>Fundamental studies in physics with computer applications.</p>
+          <div class="project-body">
+            <div class="project-description">
+              <p>Specialized in acoustic research of biological solutions containing antibiotics and insulin.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Resume Download Section -->
+    <div class="resume-section">
+      <h2>// DOWNLOAD RESUME</h2>
+      <p>Get a complete overview of my skills, experience, and certifications</p>
+      <a href="P.Salmanulfaris_ResumeCPT.pdf" download="P.Salmanulfaris_Resume_CPT.pdf" class="resume-btn">
+        <i class="fas fa-file-download"></i> Download Resume (PDF)
+      </a>
+    </div>
 
     <!-- Contact Section -->
     <section id="contact">
-      <h2>// CONNECT WITH ME</h2>
+      <h2>// GET IN TOUCH</h2>
       
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h3><i class="fas fa-envelope email-icon"></i> Email</h3>
-          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
+      <div class="contact-cubes">
+        <!-- Email Cube -->
+        <div class="contact-cube">
+          <div class="cube-face cube-front">
+            <i class="fas fa-envelope contact-icon email-icon"></i>
+            <h3 class="contact-label">EMAIL</h3>
+            <p class="contact-value">Click to reveal</p>
+          </div>
+          <div class="cube-face cube-back">
+            <a href="mailto:salmanulfariss642@gmail.com" class="contact-value">salmanulfariss642@gmail.com</a>
+          </div>
         </div>
-        <div class="contact-card">
-          <h3><i class="fas fa-phone-alt phone-icon"></i> Phone</h3>
-          <a href="tel:+919962726106">+91 99627 26106</a>
+        
+        <!-- Phone Cube -->
+        <div class="contact-cube">
+          <div class="cube-face cube-front">
+            <i class="fas fa-phone-alt contact-icon phone-icon"></i>
+            <h3 class="contact-label">PHONE</h3>
+            <p class="contact-value">Click to reveal</p>
+          </div>
+          <div class="cube-face cube-back">
+            <a href="tel:+919962726106" class="contact-value">+91 99627 26106</a>
+          </div>
         </div>
-        <div class="contact-card">
-          <h3><i class="fab fa-linkedin-in linkedin-icon"></i> LinkedIn</h3>
-          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
+        
+        <!-- LinkedIn Cube -->
+        <div class="contact-cube">
+          <div class="cube-face cube-front">
+            <i class="fab fa-linkedin-in contact-icon linkedin-icon"></i>
+            <h3 class="contact-label">LINKEDIN</h3>
+            <p class="contact-value">Click to reveal</p>
+          </div>
+          <div class="cube-face cube-back">
+            <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank" class="contact-value">p-salmanul-faris</a>
+          </div>
         </div>
-        <div class="contact-card">
-          <h3><i class="fab fa-github github-icon"></i> GitHub</h3>
-          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
+        
+        <!-- GitHub Cube -->
+        <div class="contact-cube">
+          <div class="cube-face cube-front">
+            <i class="fab fa-github contact-icon github-icon"></i>
+            <h3 class="contact-label">GITHUB</h3>
+            <p class="contact-value">Click to reveal</p>
+          </div>
+          <div class="cube-face cube-back">
+            <a href="https://github.com/salman2610" target="_blank" class="contact-value">salman2610</a>
+          </div>
         </div>
       </div>
     </section>
@@ -653,249 +772,14 @@
     window.addEventListener('resize', resizeCanvas);
 
     // ======================
-    // 3D Project Gallery
-    // ======================
-    const projects = [
-      {
-        title: "SUNSET PENTEST",
-        description: "Custom Ubuntu environment with 50+ security tools preconfigured for ethical hacking",
-        tech: ["Kali Linux", "Metasploit", "Burp Suite", "Nmap"],
-        color: "#ff2a6d",
-        position: { x: -300, y: 0, z: 0 },
-        details: `<h3>Custom Pentesting Environment</h3>
-                 <p>Built a specialized Ubuntu-based penetration testing machine with:</p>
-                 <ul>
-                   <li>Custom toolchain compilation</li>
-                   <li>Automated vulnerability scanning</li>
-                   <li>Encrypted case file storage</li>
-                   <li>Custom bash aliases for rapid workflows</li>
-                 </ul>
-                 <div class="project-tech" style="margin-top:1rem;">
-                   <span class="tech-tag">Ubuntu</span>
-                   <span class="tech-tag">Bash Scripting</span>
-                   <span class="tech-tag">Security Tools</span>
-                 </div>`
-      },
-      {
-        title: "DOS SIMULATOR", 
-        description: "Controlled denial-of-service attack simulation with defense analysis",
-        tech: ["Python", "Scapy", "Apache", "Wireshark"],
-        color: "#bc13fe",
-        position: { x: 0, y: 0, z: -150 },
-        details: `<h3>Network Stress Testing</h3>
-                 <p>Developed a framework for:</p>
-                 <ul>
-                   <li>Controlled traffic flooding</li>
-                   <li>Server resilience metrics</li>
-                   <li>Mitigation strategy testing</li>
-                   <li>Detailed reporting</li>
-                 </ul>
-                 <div class="project-tech" style="margin-top:1rem;">
-                   <span class="tech-tag">Network Security</span>
-                   <span class="tech-tag">Python</span>
-                   <span class="tech-tag">Packet Analysis</span>
-                 </div>`
-      },
-      {
-        title: "ATTENDANCE SYSTEM",
-        description: "Biometric-secured attendance tracking with real-time reporting",
-        tech: ["React", "Node.js", "MongoDB", "FingerprintJS"],
-        color: "#0aff0a",
-        position: { x: 300, y: 0, z: 0 },
-        details: `<h3>Secure Attendance Management</h3>
-                 <p>Full-stack system featuring:</p>
-                 <ul>
-                   <li>Multi-factor authentication</li>
-                   <li>Tamper-proof records</li>
-                   <li>Real-time dashboard</li>
-                   <li>Biometric verification</li>
-                 </ul>
-                 <div class="project-tech" style="margin-top:1rem;">
-                   <span class="tech-tag">Full Stack</span>
-                   <span class="tech-tag">React</span>
-                   <span class="tech-tag">Security</span>
-                 </div>`
-      }
-    ];
-
-    // Initialize 3D scene
-    let projectCards = [];
-    
-    function init3DProjects() {
-      const stage = document.getElementById('projectStage');
-      
-      // Create Project Cards
-      projects.forEach((project, i) => {
-        const card = document.createElement('div');
-        card.className = 'project-card-3d';
-        card.innerHTML = `
-          <div class="project-content" style="border-top: 3px solid ${project.color}">
-            <div>
-              <h3 style="color:${project.color}">${project.title}</h3>
-              <p>${project.description}</p>
-            </div>
-            <div class="project-tech">
-              ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
-            </div>
-          </div>
-        `;
-        stage.appendChild(card);
-        
-        // Store reference for animation
-        projectCards.push({
-          element: card,
-          ...project
-        });
-        
-        // Add navigation dot
-        const dot = document.createElement('div');
-        dot.className = 'project-dot';
-        dot.dataset.index = i;
-        document.getElementById('projectNav').appendChild(dot);
-      });
-      
-      // Position Cards in 3D Space
-      positionCards();
-      
-      // Add Event Listeners
-      setupInteractivity();
-      
-      // Handle Resizing
-      window.addEventListener('resize', positionCards);
-      
-      // Start with first project focused
-      setTimeout(() => focusProject(0), 500);
-    }
-    
-    function positionCards() {
-      const stage = document.getElementById('projectStage');
-      const width = stage.clientWidth;
-      const height = stage.clientHeight;
-      
-      projectCards.forEach((card, i) => {
-        const { x, y, z } = card.position;
-        const distance = Math.sqrt(x*x + z*z);
-        const angle = Math.atan2(x, z);
-        
-        // Convert 3D position to 2D with perspective
-        const scale = 1 - distance * 0.001;
-        const left = 50 + (x / width * 500);
-        const top = 50 + (y / height * 500);
-        
-        card.element.style.transform = `
-          translate(-50%, -50%)
-          translate3d(${x}px, ${y}px, ${z}px)
-          scale(${scale})
-          rotateY(${angle}rad)
-        `;
-        
-        // Set z-index based on depth
-        card.element.style.zIndex = Math.floor(100 - distance);
-      });
-    }
-    
-    function setupInteractivity() {
-      // Click on cards
-      projectCards.forEach((card, i) => {
-        card.element.addEventListener('click', () => {
-          showProjectDetails(i);
-        });
-      });
-      
-      // Click on dots
-      document.querySelectorAll('.project-dot').forEach(dot => {
-        dot.addEventListener('click', (e) => {
-          const index = parseInt(e.target.dataset.index);
-          focusProject(index);
-        });
-      });
-      
-      // Close details
-      document.getElementById('closeDetails').addEventListener('click', () => {
-        document.getElementById('projectDetails').classList.remove('active');
-      });
-      
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (document.getElementById('projectDetails').classList.contains('active')) return;
-        
-        if (e.key === 'ArrowRight') {
-          const current = document.querySelector('.project-dot.active');
-          const next = current?.nextElementSibling || document.querySelector('.project-dot');
-          next?.click();
-        } else if (e.key === 'ArrowLeft') {
-          const current = document.querySelector('.project-dot.active');
-          const prev = current?.previousElementSibling || 
-                      document.querySelector('.project-dot:last-child');
-          prev?.click();
-        } else if (e.key === 'Escape') {
-          document.getElementById('projectDetails').classList.remove('active');
-        }
-      });
-    }
-    
-    function focusProject(index) {
-      // Update active dot
-      document.querySelectorAll('.project-dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-      
-      // Animate cards to new positions
-      projectCards.forEach((card, i) => {
-        let newPos;
-        if (i === index) {
-          // Center the selected card
-          newPos = { x: 0, y: 0, z: 0 };
-        } else if (i < index) {
-          // Move to left
-          newPos = { x: -300 - (index - i) * 100, y: 0, z: -100 };
-        } else {
-          // Move to right
-          newPos = { x: 300 + (i - index) * 100, y: 0, z: -100 };
-        }
-        
-        // Animate with GSAP
-        gsap.to(card.position, {
-          x: newPos.x,
-          y: newPos.y,
-          z: newPos.z,
-          duration: 1.2,
-          ease: "power2.out",
-          onUpdate: positionCards
-        });
-        
-        // Toggle active class
-        card.element.classList.toggle('active', i === index);
-      });
-    }
-    
-    function showProjectDetails(index) {
-      const project = projects[index];
-      const content = document.getElementById('detailsContent');
-      
-      content.innerHTML = `
-        <div style="max-width:800px;margin:0 auto;color:white;">
-          <h2 style="color:${project.color};margin-bottom:1.5rem;">${project.title}</h2>
-          ${project.details}
-          <div style="margin-top:3rem;">
-            <a href="#" style="background:${project.color};color:black;padding:0.8rem 1.5rem;border-radius:4px;text-decoration:none;font-family:'Share Tech Mono';display:inline-block;margin-right:1rem;">View Case Study</a>
-            <a href="#" style="background:transparent;color:${project.color};padding:0.8rem 1.5rem;border-radius:4px;text-decoration:none;font-family:'Share Tech Mono';display:inline-block;border:1px solid ${project.color};">GitHub Repository</a>
-          </div>
-        </div>
-      `;
-      
-      document.getElementById('projectDetails').classList.add('active');
-    }
-
-    // ======================
     // Scroll Animations
     // ======================
     function initScrollAnimations() {
       // Initialize ScrollTrigger
       gsap.registerPlugin(ScrollTrigger);
       
-      // Animate about cards
-      gsap.utils.toArray('.about-card').forEach((card, i) => {
+      // Animate project cards
+      gsap.utils.toArray('.project-card').forEach((card, i) => {
         gsap.fromTo(card, 
           { y: 50, opacity: 0 },
           {
@@ -912,35 +796,17 @@
         );
       });
       
-      // Animate timeline items
-      gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-        gsap.fromTo(item, 
-          { y: 30, opacity: 0 },
+      // Animate contact cubes
+      gsap.utils.toArray('.contact-cube').forEach((cube, i) => {
+        gsap.fromTo(cube, 
+          { rotationY: 90, opacity: 0 },
           {
-            y: 0,
+            rotationY: 0,
             opacity: 1,
             duration: 0.8,
             delay: i * 0.2,
             scrollTrigger: {
-              trigger: item,
-              start: "top 80%",
-              toggleActions: "play none none none"
-            }
-          }
-        );
-      });
-      
-      // Animate contact cards
-      gsap.utils.toArray('.contact-card').forEach((card, i) => {
-        gsap.fromTo(card, 
-          { scale: 0.95, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.6,
-            delay: i * 0.15,
-            scrollTrigger: {
-              trigger: card,
+              trigger: cube,
               start: "top 80%",
               toggleActions: "play none none none"
             }
@@ -953,26 +819,39 @@
     // Initialize Everything
     // ======================
     window.addEventListener('load', () => {
-      init3DProjects();
       initScrollAnimations();
       
-      // Auto-rotate projects when not interacting
-      let lastInteraction = Date.now();
-      const autoRotateInterval = setInterval(() => {
-        if (Date.now() - lastInteraction > 5000) { // 5 seconds since last interaction
-          const activeIndex = [...document.querySelectorAll('.project-dot')].findIndex(dot => dot.classList.contains('active'));
-          const nextIndex = (activeIndex + 1) % projects.length;
-          focusProject(nextIndex);
-        }
-      }, 3000);
+      // Add hover effect to cubes
+      document.querySelectorAll('.contact-cube').forEach(cube => {
+        cube.addEventListener('mouseenter', () => {
+          gsap.to(cube, {
+            rotationY: 180,
+            duration: 0.8,
+            ease: "back.out(1.7)"
+          });
+        });
+        
+        cube.addEventListener('mouseleave', () => {
+          gsap.to(cube, {
+            rotationY: 0,
+            duration: 0.8,
+            ease: "back.out(1.7)"
+          });
+        });
+      });
       
-      // Track user interaction
-      document.addEventListener('click', () => lastInteraction = Date.now());
-      document.addEventListener('keydown', () => lastInteraction = Date.now());
-      
-      // Cleanup on exit
-      window.addEventListener('beforeunload', () => {
-        clearInterval(autoRotateInterval);
+      // Add click effect to project cards
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+          if (e.target.tagName === 'A') return;
+          
+          gsap.to(card, {
+            scale: 0.95,
+            duration: 0.2,
+            yoyo: true,
+            repeat: 1
+          });
+        });
       });
     });
   </script>
