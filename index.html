@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -97,9 +96,7 @@
     <div class="progress"><div class="bar" id="progress-bar"></div></div>
   </div>
   <canvas id="bg"></canvas>
-  <div id="audio-toggle">🔊 Audio</div>
-
-  <section class="section" id="intro">
+  <div id="audio-toggle">🔊 Audio</div>  <section class="section" id="intro">
     <h1>P. SALMANUL FARIS</h1>
     <p>Cybersecurity Specialist | Full Stack Developer | Researcher</p>
   </section>
@@ -114,11 +111,9 @@
   <section class="section" id="contact">
     <h2>// CONTACT</h2>
     <p>Email: salmanulfariss642@gmail.com | GitHub: github.com/salman2610</p>
-  </section>
+  </section><audio id="bg-audio" src="https://files.calm.com/music/Calm-Body-Scan.mp3" loop></audio>
 
-  <audio id="bg-audio" src="https://files.calm.com/music/Calm-Body-Scan.mp3" loop></audio>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>  <script>
     // Loading Screen Logic
     let progress = 0;
     const overlay = document.getElementById('overlay');
@@ -178,6 +173,5 @@
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
-  </script>
-</body>
+  </script></body>
 </html>
