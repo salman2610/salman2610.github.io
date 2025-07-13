@@ -1,177 +1,1105 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>P. Salmanul Faris | Cybernetic Realm</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      width: 100%;
-      height: 100%;
-      font-family: 'Share Tech Mono', monospace;
-      background: black;
-      overflow-x: hidden;
-      color: #00f0ff;
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-    }
-    #overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: #00ffae;
-      font-size: 1.2rem;
-      z-index: 9999;
-    }
-    .progress {
-      width: 300px;
-      height: 15px;
-      border: 1px solid #00f0ff;
-      margin-top: 1rem;
-      position: relative;
-    }
-    .bar {
-      height: 100%;
-      background: #00f0ff;
-      width: 0%;
-      transition: width 0.1s ease-in;
-    }
-    .hidden {
-      display: none;
-    }
-    .section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 2rem;
-      text-align: center;
-    }
-    .section h1, .section h2 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, #0aff0a, #00f0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .section p {
-      font-size: 1.2rem;
-      max-width: 800px;
-    }
-    #audio-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: black;
-      border: 2px solid #00f0ff;
-      color: #00f0ff;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      z-index: 100;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER_NEXUS :: P.SALMANUL FARIS</title>
+    <style>
+        /* === NEO-CYBERPUNK CORE === */
+        :root {
+            --matrix-green: #0aff0a;
+            --hacker-blue: #00f0ff;
+            --cyber-pink: #ff2a6d;
+            --neon-purple: #bc13fe;
+            --void-black: #0a0a12;
+            --terminal-text: #e0e0ff;
+            --glow: 0 0 20px currentColor;
+            --hyper-glow: 0 0 40px currentColor;
+            --scanline: repeating-linear-gradient(
+                0deg,
+                rgba(0, 240, 255, 0.08),
+                rgba(0, 240, 255, 0.08) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            --grid: repeating-linear-gradient(
+                90deg,
+                rgba(0, 240, 255, 0.03),
+                rgba(0, 240, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 100px
+            );
+        }
+
+        @font-face {
+            font-family: 'Cyberverse';
+            src: url('https://fonts.cdnfonts.com/css/cyberverse') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Terminus';
+            src: url('https://fonts.cdnfonts.com/css/terminus-ttf') format('woff2');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--void-black);
+            color: var(--terminal-text);
+            font-family: 'Terminus', monospace;
+            overflow-x: hidden;
+            perspective: 1000px;
+            background-image: var(--scanline), var(--grid);
+        }
+
+        /* === QUANTUM MATRIX BACKGROUND === */
+        #quantum-matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* === MAIN TERMINAL INTERFACE === */
+        .cyber-terminal {
+            position: relative;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            z-index: 100;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            backdrop-filter: blur(2px);
+        }
+
+        /* === CYBERPUNK HEADER === */
+        .cyber-header {
+            display: grid;
+            place-items: center;
+            padding: 8vh 0;
+            position: relative;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            margin-bottom: 5vh;
+        }
+
+        .cyber-name {
+            font-family: 'Cyberverse', sans-serif;
+            font-size: clamp(4rem, 12vw, 8rem);
+            background: linear-gradient(135deg, var(--matrix-green), var(--hacker-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--hyper-glow);
+            letter-spacing: -4px;
+            margin-bottom: 2rem;
+            animation: quantum-glitch 5s infinite alternate;
+            position: relative;
+        }
+
+        .cyber-name::after {
+            content: 'CYBER_SECURITY_SPECIALIST';
+            position: absolute;
+            bottom: -2rem;
+            left: 0;
+            width: 100%;
+            font-size: 1.5rem;
+            color: var(--hacker-blue);
+            text-shadow: var(--glow);
+            font-family: 'Terminus', monospace;
+        }
+
+        .cyber-tagline {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--cyber-pink);
+            text-shadow: var(--glow);
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .cyber-tagline::after {
+            content: '_';
+            animation: blink 0.8s step-end infinite;
+        }
+
+        /* === HOLOGRAPHIC NAVIGATION === */
+        .holographic-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 5vh 0;
+            flex-wrap: wrap;
+        }
+
+        .holo-link {
+            position: relative;
+            padding: 1.2rem 2.5rem;
+            color: var(--hacker-blue);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Terminus', monospace;
+            font-weight: bold;
+            border: 2px solid var(--hacker-blue);
+            border-radius: 50px;
+            box-shadow: var(--glow);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .holo-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .holo-link:hover {
+            color: var(--void-black);
+            background: var(--hacker-blue);
+            box-shadow: var(--hyper-glow);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .holo-link:hover::before {
+            left: 100%;
+        }
+
+        /* === QUANTUM SECTIONS === */
+        .quantum-section {
+            background: rgba(10, 10, 30, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--hacker-blue);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 5vh;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .quantum-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                transparent,
+                rgba(0, 240, 255, 0.1),
+                transparent
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .quantum-section:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 0 80px rgba(0, 240, 255, 0.4);
+            border-color: var(--cyber-pink);
+        }
+
+        .section-title {
+            font-family: 'Cyberverse', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--matrix-green);
+            margin-bottom: 2rem;
+            position: relative;
+            text-shadow: var(--glow);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--matrix-green), transparent);
+        }
+
+        /* === PROJECT MATRIX GRID === */
+        .project-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .matrix-card {
+            position: relative;
+            height: 450px;
+            border: 2px solid var(--neon-purple);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 0 40px rgba(188, 19, 254, 0.3);
+        }
+
+        .matrix-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                transparent,
+                rgba(188, 19, 254, 0.2),
+                transparent
+            );
+            z-index: 1;
+        }
+
+        .matrix-card:hover {
+            transform: translateY(-15px) rotateX(10deg) rotateY(10deg);
+            box-shadow: 0 0 70px rgba(188, 19, 254, 0.6);
+        }
+
+        .card-content {
+            position: relative;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 2;
+        }
+
+        .card-header {
+            border-bottom: 1px solid var(--neon-purple);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Cyberverse', sans-serif;
+            font-size: 2rem;
+            color: var(--hacker-blue);
+            margin-bottom: 1rem;
+            text-shadow: var(--glow);
+        }
+
+        .card-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--hacker-blue);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid var(--hacker-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cyber-btn {
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-family: 'Terminus', monospace;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cyber-btn-primary {
+            background: var(--hacker-blue);
+            color: var(--void-black);
+            box-shadow: 0 0 20px var(--hacker-blue);
+        }
+
+        .cyber-btn-secondary {
+            background: transparent;
+            color: var(--hacker-blue);
+            border: 2px solid var(--hacker-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .cyber-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px currentColor;
+        }
+
+        /* === QUANTUM TIMELINE === */
+        .quantum-timeline {
+            position: relative;
+            padding-left: 100px;
+            margin-top: 3rem;
+        }
+
+        .quantum-timeline::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(
+                to bottom,
+                var(--matrix-green),
+                var(--hacker-blue),
+                var(--cyber-pink),
+                transparent
+            );
+            box-shadow: 0 0 20px var(--hacker-blue);
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: rgba(10, 10, 30, 0.5);
+            border-radius: 10px;
+            border: 1px solid var(--hacker-blue);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            transition: all 0.5s;
+        }
+
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: -60px;
+            top: 40px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--cyber-pink);
+            box-shadow: 0 0 20px var(--cyber-pink);
+            z-index: 1;
+        }
+
+        .timeline-node:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+            border-color: var(--cyber-pink);
+        }
+
+        .node-title {
+            font-family: 'Cyberverse', sans-serif;
+            font-size: 1.8rem;
+            color: var(--matrix-green);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--glow);
+        }
+
+        .node-date {
+            color: var(--hacker-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* === NEURAL CONTACT GRID === */
+        .neural-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .neural-card {
+            position: relative;
+            height: 250px;
+            border: 2px solid var(--neon-purple);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 30px rgba(188, 19, 254, 0.3);
+        }
+
+        .neural-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                transparent,
+                rgba(188, 19, 254, 0.1),
+                transparent
+            );
+        }
+
+        .neural-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 0 60px rgba(188, 19, 254, 0.6);
+        }
+
+        .neural-content {
+            position: relative;
+            height: 100%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .neural-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--hacker-blue);
+            text-shadow: var(--glow);
+        }
+
+        .neural-label {
+            font-family: 'Cyberverse', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--matrix-green);
+        }
+
+        .neural-value {
+            color: var(--terminal-text);
+            word-break: break-all;
+        }
+
+        /* === QUANTUM RESUME BUTTON === */
+        .quantum-resume {
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .resume-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, var(--cyber-pink), var(--neon-purple));
+            color: black;
+            border-radius: 8px;
+            font-family: 'Cyberverse', sans-serif;
+            font-size: 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.5s;
+            box-shadow: 0 0 40px rgba(255, 42, 109, 0.5);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .resume-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .resume-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 80px rgba(255, 42, 109, 0.8);
+        }
+
+        .resume-btn:hover::before {
+            left: 100%;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes quantum-glitch {
+            0%, 100% { text-shadow: 0 0 30px var(--matrix-green); }
+            20% { text-shadow: 5px 5px 30px var(--cyber-pink), -5px -5px 30px var(--hacker-blue); }
+            40% { text-shadow: -10px 0 30px var(--neon-purple), 10px 0 30px var(--matrix-green); }
+            60% { text-shadow: 0 -10px 30px var(--hacker-blue), 0 10px 30px var(--cyber-pink); }
+            80% { text-shadow: 10px 10px 30px var(--neon-purple), -10px -10px 30px var(--matrix-green); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px var(--hacker-blue); }
+            50% { box-shadow: 0 0 50px var(--hacker-blue); }
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 1200px) {
+            .project-matrix {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .cyber-terminal {
+                padding: 1.5rem;
+            }
+            .quantum-section {
+                padding: 2rem;
+            }
+            .quantum-timeline {
+                padding-left: 80px;
+            }
+            .timeline-node::before {
+                left: -50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .holographic-nav {
+                gap: 1.5rem;
+            }
+            .holo-link {
+                padding: 1rem 2rem;
+            }
+            .project-matrix {
+                grid-template-columns: 1fr;
+            }
+            .quantum-timeline {
+                padding-left: 60px;
+            }
+            .timeline-node::before {
+                left: -40px;
+                width: 20px;
+                height: 20px;
+            }
+            .neural-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cyber-name {
+                font-size: 3.5rem;
+            }
+            .cyber-name::after {
+                font-size: 1.2rem;
+                bottom: -1.5rem;
+            }
+            .holo-link {
+                width: 100%;
+                text-align: center;
+            }
+            .quantum-timeline {
+                padding-left: 40px;
+            }
+            .quantum-timeline::before {
+                left: 15px;
+            }
+            .timeline-node::before {
+                left: -25px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div id="overlay">
-    <div>INITIALIZING SYSTEM...</div>
-    <div class="progress"><div class="bar" id="progress-bar"></div></div>
-  </div>
-  <canvas id="bg"></canvas>
-  <div id="audio-toggle">🔊 Audio</div>  <section class="section" id="intro">
-    <h1>P. SALMANUL FARIS</h1>
-    <p>Cybersecurity Specialist | Full Stack Developer | Researcher</p>
-  </section>
-  <section class="section" id="projects">
-    <h2>// PROJECTS</h2>
-    <p>Sunset Pentest • DOS Simulator • Attendance System</p>
-  </section>
-  <section class="section" id="experience">
-    <h2>// EXPERIENCE</h2>
-    <p>RedTeam Hacker Academy (2024), NIIT Full Stack (2023), M.Sc Physics (2021–2023)</p>
-  </section>
-  <section class="section" id="contact">
-    <h2>// CONTACT</h2>
-    <p>Email: salmanulfariss642@gmail.com | GitHub: github.com/salman2610</p>
-  </section><audio id="bg-audio" src="https://files.calm.com/music/Calm-Body-Scan.mp3" loop></audio>
+    <!-- Quantum Matrix Background -->
+    <canvas id="quantum-matrix"></canvas>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>  <script>
-    // Loading Screen Logic
-    let progress = 0;
-    const overlay = document.getElementById('overlay');
-    const bar = document.getElementById('progress-bar');
-    const interval = setInterval(() => {
-      progress += Math.random() * 5;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        overlay.classList.add('hidden');
-        document.getElementById('bg-audio').play();
-      }
-      bar.style.width = progress + '%';
-    }, 100);
+    <!-- Main Cyber Terminal -->
+    <div class="cyber-terminal">
+        <!-- Cyberpunk Header -->
+        <header class="cyber-header">
+            <h1 class="cyber-name">P.SALMANUL FARIS</h1>
+            <p class="cyber-tagline">ENTER THE CYBER_NEXUS</p>
+            
+            <!-- Holographic Navigation -->
+            <nav class="holographic-nav">
+                <a href="#about" class="holo-link">ABOUT</a>
+                <a href="#projects" class="holo-link">PROJECTS</a>
+                <a href="#experience" class="holo-link">EXPERIENCE</a>
+                <a href="#contact" class="holo-link">CONTACT</a>
+            </nav>
+        </header>
 
-    // Audio Toggle
-    const audioToggle = document.getElementById('audio-toggle');
-    const bgAudio = document.getElementById('bg-audio');
-    let isPlaying = true;
-    audioToggle.onclick = () => {
-      if (isPlaying) { bgAudio.pause(); audioToggle.textContent = '🔇 Muted'; }
-      else { bgAudio.play(); audioToggle.textContent = '🔊 Audio'; }
-      isPlaying = !isPlaying;
-    };
+        <!-- About Section -->
+        <section id="about" class="quantum-section">
+            <h2 class="section-title">// QUANTUM_IDENTITY</h2>
+            <p>Certified penetration tester with quantum-level expertise in ethical hacking, vulnerability assessment, and secure system architecture. Combines cutting-edge cybersecurity knowledge with advanced physics research methodologies.</p>
+            
+            <div class="project-matrix">
+                <!-- Cyber Security Card -->
+                <div class="matrix-card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">CYBER_SECURITY</h3>
+                            <p>RedTeam Hacker Academy certified professional with mastery in network penetration and system fortification.</p>
+                        </div>
+                        <div class="card-tech">
+                            <span class="tech-tag">Kali Linux</span>
+                            <span class="tech-tag">Metasploit</span>
+                            <span class="tech-tag">Burp Suite</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="#projects" class="cyber-btn cyber-btn-primary">
+                                <i class="fas fa-shield-alt"></i> DEFENSE MATRIX
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Development Card -->
+                <div class="matrix-card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">QUANTUM_DEVELOPMENT</h3>
+                            <p>Full-spectrum developer with expertise across multiple programming dimensions and frameworks.</p>
+                        </div>
+                        <div class="card-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="#projects" class="cyber-btn cyber-btn-primary">
+                                <i class="fas fa-code"></i> SOURCE_CODE
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Research Card -->
+                <div class="matrix-card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">NEURAL_RESEARCH</h3>
+                            <p>Physics researcher specializing in quantum acoustics and cryptographic algorithms.</p>
+                        </div>
+                        <div class="card-tech">
+                            <span class="tech-tag">Data Analysis</span>
+                            <span class="tech-tag">Cryptography</span>
+                            <span class="tech-tag">Quantum</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="#experience" class="cyber-btn cyber-btn-primary">
+                                <i class="fas fa-atom"></i> RESEARCH_PAPERS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    // THREE.JS Background
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    camera.position.z = 10;
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+        <!-- Projects Section -->
+        <section id="projects" class="quantum-section">
+            <h2 class="section-title">// PROJECT_MATRIX</h2>
+            
+            <div class="project-matrix">
+                <!-- Sunset Pentest -->
+                <div class="matrix-card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">SUNSET_PENTEST</h3>
+                            <p>Custom Ubuntu environment weaponized with 50+ ethical hacking tools for penetration testing.</p>
+                        </div>
+                        <div class="card-tech">
+                            <span class="tech-tag">Ubuntu</span>
+                            <span class="tech-tag">Kali Tools</span>
+                            <span class="tech-tag">Bash</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="#" class="cyber-btn cyber-btn-primary">
+                                <i class="fas fa-eye"></i> DEMO
+                            </a>
+                            <a href="#" class="cyber-btn cyber-btn-secondary">
+                                <i class="fab fa-github"></i> CODE
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DoS Simulator -->
+                <div class="matrix-card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">DOS_SIMULATOR</h3>
+                            <p>Controlled denial-of-service attack simulation framework with defense analysis.</p>
+                        </div>
+                        <div class="card-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scapy</span>
+                            <span class="tech-tag">Security</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="#" class="cyber-btn cyber-btn-primary">
+                                <i class="fas fa-file-alt"></i> CASE_STUDY
+                            </a>
+                            <a href="#" class="cyber-btn cyber-btn-secondary">
+                                <i class="fas fa-download"></i> DOWNLOAD
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attendance System -->
+                <div class="matrix-card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">ATTENDANCE_SYSTEM</h3>
+                            <p>Secure biometric attendance tracking with real-time reporting and tamper-proof logs.</p>
+                        </div>
+                        <div class="card-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="#" class="cyber-btn cyber-btn-primary">
+                                <i class="fas fa-external-link-alt"></i> LIVE_DEMO
+                            </a>
+                            <a href="#" class="cyber-btn cyber-btn-secondary">
+                                <i class="fas fa-code-branch"></i> FORK
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    const gridHelper = new THREE.GridHelper(100, 100, 0x00f0ff, 0x00f0ff);
-    gridHelper.rotation.x = Math.PI / 2;
-    scene.add(gridHelper);
+        <!-- Experience Section -->
+        <section id="experience" class="quantum-section">
+            <h2 class="section-title">// EXPERIENCE_TIMELINE</h2>
+            
+            <div class="quantum-timeline">
+                <!-- Penetration Tester -->
+                <div class="timeline-node">
+                    <h3 class="node-title">CERTIFIED_PENETRATION_TESTER</h3>
+                    <p class="node-date">RedTeam Hacker Academy | 2024</p>
+                    <p>Advanced training in ethical hacking methodologies, vulnerability assessment, and secure system design. Mastery of tools including Kali Linux, Metasploit, and Burp Suite.</p>
+                </div>
+                
+                <!-- Full Stack Engineering -->
+                <div class="timeline-node">
+                    <h3 class="node-title">FULL_STACK_ENGINEERING</h3>
+                    <p class="node-date">NIIT Chennai | 2023</p>
+                    <p>Advanced programming in full stack development with modern web technologies including React, Node.js, and MongoDB.</p>
+                </div>
+                
+                <!-- M.Sc Physics -->
+                <div class="timeline-node">
+                    <h3 class="node-title">M.SC_PHYSICS</h3>
+                    <p class="node-date">New College Chennai | 2021-2023</p>
+                    <p>Specialized research in acoustic properties of biological solutions containing antibiotics and insulin, applying analytical methods to cybersecurity challenges.</p>
+                </div>
+            </div>
+        </section>
 
-    const starsGeometry = new THREE.BufferGeometry();
-    const starCount = 1000;
-    const starPositions = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i++) {
-      starPositions[i] = (Math.random() - 0.5) * 200;
-    }
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-    const starMaterial = new THREE.PointsMaterial({ color: 0x00f0ff });
-    const starField = new THREE.Points(starsGeometry, starMaterial);
-    scene.add(starField);
+        <!-- Contact Section -->
+        <section id="contact" class="quantum-section">
+            <h2 class="section-title">// NEURAL_CONTACT</h2>
+            
+            <div class="neural-grid">
+                <!-- Email -->
+                <div class="neural-card">
+                    <div class="neural-content">
+                        <div class="neural-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="neural-label">QUANTUM_MAIL</h3>
+                        <p class="neural-value">salmanulfariss642@gmail.com</p>
+                    </div>
+                </div>
+                
+                <!-- Phone -->
+                <div class="neural-card">
+                    <div class="neural-content">
+                        <div class="neural-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 class="neural-label">NEURAL_LINK</h3>
+                        <p class="neural-value">+91 99627 26106</p>
+                    </div>
+                </div>
+                
+                <!-- LinkedIn -->
+                <div class="neural-card">
+                    <div class="neural-content">
+                        <div class="neural-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <h3 class="neural-label">PROFESSIONAL_NET</h3>
+                        <p class="neural-value">p-salmanul-faris</p>
+                    </div>
+                </div>
+                
+                <!-- GitHub -->
+                <div class="neural-card">
+                    <div class="neural-content">
+                        <div class="neural-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3 class="neural-label">CODE_REPOSITORY</h3>
+                        <p class="neural-value">salman2610</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quantum Resume Button -->
+            <div class="quantum-resume">
+                <a href="P.Salmanulfaris_ResumeCPT.pdf" download="P.Salmanulfaris_Resume_CPT.pdf" class="resume-btn">
+                    <i class="fas fa-file-download"></i> DOWNLOAD_QUANTUM_RESUME
+                </a>
+            </div>
+        </section>
+    </div>
 
-    function animate() {
-      requestAnimationFrame(animate);
-      starField.rotation.y += 0.0005;
-      renderer.render(scene, camera);
-    }
-    animate();
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // === QUANTUM MATRIX BACKGROUND ===
+        const matrixCanvas = document.getElementById('quantum-matrix');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        
+        const matrixChars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+        const matrixFontSize = 18;
+        const matrixColumns = Math.floor(matrixCanvas.width / matrixFontSize);
+        const matrixDrops = Array(matrixColumns).fill(1);
+        
+        function drawMatrixRain() {
+            matrixCtx.fillStyle = 'rgba(10, 10, 18, 0.05)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            
+            matrixCtx.fillStyle = '#0aff0a';
+            matrixCtx.font = `${matrixFontSize}px 'Terminus', monospace`;
+            
+            for (let i = 0; i < matrixDrops.length; i++) {
+                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                matrixCtx.fillText(text, i * matrixFontSize, matrixDrops[i] * matrixFontSize);
+                
+                if (matrixDrops[i] * matrixFontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    matrixDrops[i] = 0;
+                }
+                matrixDrops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrixRain, 50);
+        window.addEventListener('resize', () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        });
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script></body>
+        // === QUANTUM PARTICLE FIELD ===
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.style.position = 'fixed';
+        renderer.domElement.style.top = '0';
+        renderer.domElement.style.left = '0';
+        renderer.domElement.style.zIndex = '-1';
+        document.body.appendChild(renderer.domElement);
+        
+        // Create quantum particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 3000;
+        const posArray = new Float32Array(particlesCount * 3);
+        
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 20;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.03,
+            color: 0x00f0ff,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        
+        // Create quantum connections
+        const linesGeometry = new THREE.BufferGeometry();
+        const linesMaterial = new THREE.LineBasicMaterial({ 
+            color: 0x00f0ff,
+            transparent: true,
+            opacity: 0.2
+        });
+        
+        const linePositions = new Float32Array(particlesCount * 3 * 2);
+        for (let i = 0; i < particlesCount * 3; i++) {
+            linePositions[i] = posArray[i];
+        }
+        linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+        
+        const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
+        scene.add(lines);
+        
+        // Create floating quantum cubes
+        const quantumCubes = [];
+        const cubeGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+        const cubeMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x00f0ff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.6
+        });
+        
+        for (let i = 0; i < 15; i++) {
+            const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+            cube.position.set(
+                (Math.random() - 0.5) * 15,
+                (Math.random() - 0.5) * 15,
+                (Math.random() - 0.5) * 15
+            );
+            cube.rotation.set(
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI
+            );
+            quantumCubes.push({
+                mesh: cube,
+                speed: Math.random() * 0.01 + 0.005
+            });
+            scene.add(cube);
+        }
+        
+        // Camera position
+        camera.position.z = 10;
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate particles
+            particlesMesh.rotation.x += 0.0003;
+            particlesMesh.rotation.y += 0.0005;
+            
+            // Animate cubes
+            quantumCubes.forEach(cube => {
+                cube.mesh.rotation.x += cube.speed;
+                cube.mesh.rotation.y += cube.speed * 0.8;
+                cube.mesh.rotation.z += cube.speed * 0.5;
+            });
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // === QUANTUM SCROLL EFFECTS ===
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate sections on scroll
+        gsap.utils.toArray('.quantum-section').forEach((section, i) => {
+            gsap.fromTo(section, 
+                { opacity: 0, y: 100 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    delay: i * 0.3,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+        
+        // Parallax depth effect
+        ScrollTrigger.create({
+            onUpdate: (self) => {
+                camera.position.z = 10 + self.progress * 10;
+                camera.position.y = self.progress * -5;
+            }
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                gsap.to(window, {
+                    duration: 1.5,
+                    scrollTo: {
+                        y: this.getAttribute('href'),
+                        offsetY: 100
+                    },
+                    ease: "power3.inOut"
+                });
+            });
+        });
+
+        // Interactive card effects
+        document.querySelectorAll('.matrix-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        });
+    </script>
+</body>
 </html>
