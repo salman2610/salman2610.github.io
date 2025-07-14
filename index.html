@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CYBER_NEXUS :: P.SALMANUL FARIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlalH6TfTj8U1B7yK8o2tQf3F4p1A9/7g5+N6+A6/x6C/g2e6m8QeG4p5j1L1QeF0x0A9F4p9o0G6u/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* === NEO-CYBERPUNK CORE === */
         :root {
@@ -13,8 +17,8 @@
             --neon-purple: #bc13fe;
             --void-black: #0a0a12;
             --terminal-text: #e0e0ff;
-            --glow: 0 0 20px currentColor;
-            --hyper-glow: 0 0 40px currentColor;
+            --glow: 0 0 10px currentColor;
+            --hyper-glow: 0 0 30px currentColor;
             --scanline: repeating-linear-gradient(
                 0deg,
                 rgba(0, 240, 255, 0.08),
@@ -31,14 +35,9 @@
             );
         }
 
-        @font-face {
-            font-family: 'Cyberverse';
-            src: url('https://fonts.cdnfonts.com/css/cyberverse') format('woff2');
-        }
-
-        @font-face {
-            font-family: 'Terminus';
-            src: url('https://fonts.cdnfonts.com/css/terminus-ttf') format('woff2');
+        /* Updated Fonts for better reliability */
+        html {
+            scroll-behavior: smooth; /* For smoother native scrolling */
         }
 
         * {
@@ -50,21 +49,21 @@
         body {
             background-color: var(--void-black);
             color: var(--terminal-text);
-            font-family: 'Terminus', monospace;
+            font-family: 'Share Tech Mono', monospace; /* More terminal-like */
             overflow-x: hidden;
             perspective: 1000px;
             background-image: var(--scanline), var(--grid);
         }
 
-        /* === QUANTUM MATRIX BACKGROUND === */
-        #quantum-matrix {
+        /* === QUANTUM PARTICLE FIELD (Three.js handles this, just z-index) === */
+        canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.4; /* Slightly reduced opacity */
         }
 
         /* === MAIN TERMINAL INTERFACE === */
@@ -77,7 +76,7 @@
             min-height: 100vh;
             display: grid;
             grid-template-rows: auto 1fr auto;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px); /* Subtle blur */
         }
 
         /* === CYBERPUNK HEADER === */
@@ -92,7 +91,7 @@
         }
 
         .cyber-name {
-            font-family: 'Cyberverse', sans-serif;
+            font-family: 'Oxanium', sans-serif; /* Futuristic geometric font */
             font-size: clamp(4rem, 12vw, 8rem);
             background: linear-gradient(135deg, var(--matrix-green), var(--hacker-blue));
             -webkit-background-clip: text;
@@ -101,10 +100,13 @@
             text-shadow: var(--hyper-glow);
             letter-spacing: -4px;
             margin-bottom: 2rem;
-            animation: quantum-glitch 5s infinite alternate;
             position: relative;
+            cursor: help; /* Suggests interactivity */
+            transition: text-shadow 0.3s ease; /* Smooth transition for hover glitch */
         }
-
+        .cyber-name:hover {
+            animation: quantum-glitch 0.5s forwards; /* Glitch on hover, then reset */
+        }
         .cyber-name::after {
             content: 'CYBER_SECURITY_SPECIALIST';
             position: absolute;
@@ -114,7 +116,7 @@
             font-size: 1.5rem;
             color: var(--hacker-blue);
             text-shadow: var(--glow);
-            font-family: 'Terminus', monospace;
+            font-family: 'Share Tech Mono', monospace;
         }
 
         .cyber-tagline {
@@ -124,13 +126,12 @@
             position: relative;
             margin-top: 4rem;
         }
-
         .cyber-tagline::after {
             content: '_';
             animation: blink 0.8s step-end infinite;
         }
 
-        /* === HOLOGRAPHIC NAVIGATION === */
+        /* === HOLOGRAPHIC NAVIGATION (More Command-line style) === */
         .holographic-nav {
             display: flex;
             justify-content: center;
@@ -146,12 +147,12 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-family: 'Terminus', monospace;
+            font-family: 'Share Tech Mono', monospace;
             font-weight: bold;
             border: 2px solid var(--hacker-blue);
             border-radius: 50px;
             box-shadow: var(--glow);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
             z-index: 1;
         }
@@ -164,7 +165,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
-            transition: 0.6s;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: -1;
         }
 
@@ -212,13 +213,13 @@
         }
 
         .quantum-section:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            transform: translateY(-10px) rotateX(2deg) rotateY(2deg); /* More subtle 3D */
             box-shadow: 0 0 80px rgba(0, 240, 255, 0.4);
             border-color: var(--cyber-pink);
         }
 
         .section-title {
-            font-family: 'Cyberverse', sans-serif;
+            font-family: 'Oxanium', sans-serif;
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: var(--matrix-green);
             margin-bottom: 2rem;
@@ -253,6 +254,7 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
             box-shadow: 0 0 40px rgba(188, 19, 254, 0.3);
+            cursor: pointer; /* Indicate interactivity */
         }
 
         .matrix-card::before {
@@ -272,7 +274,7 @@
         }
 
         .matrix-card:hover {
-            transform: translateY(-15px) rotateX(10deg) rotateY(10deg);
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg); /* More subtle, less extreme */
             box-shadow: 0 0 70px rgba(188, 19, 254, 0.6);
         }
 
@@ -293,7 +295,7 @@
         }
 
         .card-title {
-            font-family: 'Cyberverse', sans-serif;
+            font-family: 'Oxanium', sans-serif;
             font-size: 2rem;
             color: var(--hacker-blue);
             margin-bottom: 1rem;
@@ -315,6 +317,13 @@
             font-size: 0.9rem;
             border: 1px solid var(--hacker-blue);
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .tech-tag:hover {
+            background: var(--hacker-blue);
+            color: var(--void-black);
+            box-shadow: 0 0 20px var(--hacker-blue);
+            transform: scale(1.05);
         }
 
         .card-actions {
@@ -326,13 +335,31 @@
         .cyber-btn {
             padding: 1rem 2rem;
             border-radius: 6px;
-            font-family: 'Terminus', monospace;
+            font-family: 'Share Tech Mono', monospace;
             font-weight: bold;
             text-decoration: none;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-flex;
             align-items: center;
             gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.4s ease-out;
+            z-index: -1;
+        }
+
+        .cyber-btn:hover::before {
+            left: 100%;
         }
 
         .cyber-btn-primary {
@@ -385,7 +412,7 @@
             border-radius: 10px;
             border: 1px solid var(--hacker-blue);
             box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
-            transition: all 0.5s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .timeline-node::before {
@@ -399,6 +426,7 @@
             background: var(--cyber-pink);
             box-shadow: 0 0 20px var(--cyber-pink);
             z-index: 1;
+            transition: all 0.5s;
         }
 
         .timeline-node:hover {
@@ -406,9 +434,13 @@
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
             border-color: var(--cyber-pink);
         }
+        .timeline-node:hover::before {
+            background: var(--hacker-blue);
+            box-shadow: 0 0 30px var(--hacker-blue);
+        }
 
         .node-title {
-            font-family: 'Cyberverse', sans-serif;
+            font-family: 'Oxanium', sans-serif;
             font-size: 1.8rem;
             color: var(--matrix-green);
             margin-bottom: 0.5rem;
@@ -435,7 +467,7 @@
             border: 2px solid var(--neon-purple);
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.6s;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
             box-shadow: 0 0 30px rgba(188, 19, 254, 0.3);
         }
@@ -456,8 +488,9 @@
         }
 
         .neural-card:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            transform: translateY(-10px) rotateX(2deg) rotateY(2deg); /* Subtle 3D */
             box-shadow: 0 0 60px rgba(188, 19, 254, 0.6);
+            border-color: var(--cyber-pink);
         }
 
         .neural-content {
@@ -477,10 +510,15 @@
             margin-bottom: 1.5rem;
             color: var(--hacker-blue);
             text-shadow: var(--glow);
+            transition: all 0.3s ease;
+        }
+        .neural-card:hover .neural-icon {
+            color: var(--cyber-pink);
+            transform: scale(1.1);
         }
 
         .neural-label {
-            font-family: 'Cyberverse', sans-serif;
+            font-family: 'Oxanium', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--matrix-green);
@@ -503,13 +541,13 @@
             gap: 1rem;
             padding: 1.5rem 3rem;
             background: linear-gradient(135deg, var(--cyber-pink), var(--neon-purple));
-            color: black;
+            color: var(--void-black);
             border-radius: 8px;
-            font-family: 'Cyberverse', sans-serif;
+            font-family: 'Oxanium', sans-serif;
             font-size: 1.5rem;
             text-decoration: none;
             font-weight: bold;
-            transition: all 0.5s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 0 40px rgba(255, 42, 109, 0.5);
             border: none;
             cursor: pointer;
@@ -536,7 +574,7 @@
         }
 
         .resume-btn:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px) scale(1.03); /* Slightly reduced scale */
             box-shadow: 0 0 80px rgba(255, 42, 109, 0.8);
         }
 
@@ -546,11 +584,12 @@
 
         /* === ANIMATIONS === */
         @keyframes quantum-glitch {
-            0%, 100% { text-shadow: 0 0 30px var(--matrix-green); }
-            20% { text-shadow: 5px 5px 30px var(--cyber-pink), -5px -5px 30px var(--hacker-blue); }
-            40% { text-shadow: -10px 0 30px var(--neon-purple), 10px 0 30px var(--matrix-green); }
-            60% { text-shadow: 0 -10px 30px var(--hacker-blue), 0 10px 30px var(--cyber-pink); }
-            80% { text-shadow: 10px 10px 30px var(--neon-purple), -10px -10px 30px var(--matrix-green); }
+            0% { text-shadow: var(--hyper-glow); transform: translateX(0); }
+            20% { text-shadow: 2px 2px 10px var(--cyber-pink), -2px -2px 10px var(--hacker-blue); transform: translateX(2px); }
+            40% { text-shadow: -3px 0 10px var(--neon-purple), 3px 0 10px var(--matrix-green); transform: translateX(-3px); }
+            60% { text-shadow: 0 -2px 10px var(--hacker-blue), 0 2px 10px var(--cyber-pink); transform: translateX(2px); }
+            80% { text-shadow: 2px 2px 10px var(--neon-purple), -2px -2px 10px var(--matrix-green); transform: translateX(-2px); }
+            100% { text-shadow: var(--hyper-glow); transform: translateX(0); }
         }
 
         @keyframes blink {
@@ -558,14 +597,9 @@
             50% { opacity: 0; }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px var(--hacker-blue); }
-            50% { box-shadow: 0 0 50px var(--hacker-blue); }
+        /* Circuit line animation */
+        @keyframes drawCircuit {
+            to { stroke-dashoffset: 0; }
         }
 
         /* === RESPONSIVE DESIGN === */
@@ -634,21 +668,25 @@
             .timeline-node::before {
                 left: -25px;
             }
+            .quantum-section {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .resume-btn {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Quantum Matrix Background -->
-    <canvas id="quantum-matrix"></canvas>
-
-    <!-- Main Cyber Terminal -->
     <div class="cyber-terminal">
-        <!-- Cyberpunk Header -->
         <header class="cyber-header">
             <h1 class="cyber-name">P.SALMANUL FARIS</h1>
             <p class="cyber-tagline">ENTER THE CYBER_NEXUS</p>
             
-            <!-- Holographic Navigation -->
             <nav class="holographic-nav">
                 <a href="#about" class="holo-link">ABOUT</a>
                 <a href="#projects" class="holo-link">PROJECTS</a>
@@ -657,13 +695,11 @@
             </nav>
         </header>
 
-        <!-- About Section -->
         <section id="about" class="quantum-section">
             <h2 class="section-title">// QUANTUM_IDENTITY</h2>
             <p>Certified penetration tester with quantum-level expertise in ethical hacking, vulnerability assessment, and secure system architecture. Combines cutting-edge cybersecurity knowledge with advanced physics research methodologies.</p>
             
             <div class="project-matrix">
-                <!-- Cyber Security Card -->
                 <div class="matrix-card">
                     <div class="card-content">
                         <div class="card-header">
@@ -681,9 +717,11 @@
                             </a>
                         </div>
                     </div>
+                    <svg class="circuit-overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="1" y="1" width="98" height="98" fill="none" stroke="var(--hacker-blue)" stroke-width="0.5" stroke-dasharray="200" stroke-dashoffset="200" />
+                    </svg>
                 </div>
                 
-                <!-- Development Card -->
                 <div class="matrix-card">
                     <div class="card-content">
                         <div class="card-header">
@@ -701,9 +739,11 @@
                             </a>
                         </div>
                     </div>
+                     <svg class="circuit-overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="1" y="1" width="98" height="98" fill="none" stroke="var(--hacker-blue)" stroke-width="0.5" stroke-dasharray="200" stroke-dashoffset="200" />
+                    </svg>
                 </div>
                 
-                <!-- Research Card -->
                 <div class="matrix-card">
                     <div class="card-content">
                         <div class="card-header">
@@ -721,16 +761,17 @@
                             </a>
                         </div>
                     </div>
+                     <svg class="circuit-overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="1" y="1" width="98" height="98" fill="none" stroke="var(--hacker-blue)" stroke-width="0.5" stroke-dasharray="200" stroke-dashoffset="200" />
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
         <section id="projects" class="quantum-section">
             <h2 class="section-title">// PROJECT_MATRIX</h2>
             
             <div class="project-matrix">
-                <!-- Sunset Pentest -->
                 <div class="matrix-card">
                     <div class="card-content">
                         <div class="card-header">
@@ -751,9 +792,11 @@
                             </a>
                         </div>
                     </div>
+                     <svg class="circuit-overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="1" y="1" width="98" height="98" fill="none" stroke="var(--hacker-blue)" stroke-width="0.5" stroke-dasharray="200" stroke-dashoffset="200" />
+                    </svg>
                 </div>
                 
-                <!-- DoS Simulator -->
                 <div class="matrix-card">
                     <div class="card-content">
                         <div class="card-header">
@@ -774,9 +817,11 @@
                             </a>
                         </div>
                     </div>
+                     <svg class="circuit-overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="1" y="1" width="98" height="98" fill="none" stroke="var(--hacker-blue)" stroke-width="0.5" stroke-dasharray="200" stroke-dashoffset="200" />
+                    </svg>
                 </div>
                 
-                <!-- Attendance System -->
                 <div class="matrix-card">
                     <div class="card-content">
                         <div class="card-header">
@@ -797,30 +842,29 @@
                             </a>
                         </div>
                     </div>
+                     <svg class="circuit-overlay" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <rect x="1" y="1" width="98" height="98" fill="none" stroke="var(--hacker-blue)" stroke-width="0.5" stroke-dasharray="200" stroke-dashoffset="200" />
+                    </svg>
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
         <section id="experience" class="quantum-section">
             <h2 class="section-title">// EXPERIENCE_TIMELINE</h2>
             
             <div class="quantum-timeline">
-                <!-- Penetration Tester -->
                 <div class="timeline-node">
                     <h3 class="node-title">CERTIFIED_PENETRATION_TESTER</h3>
                     <p class="node-date">RedTeam Hacker Academy | 2024</p>
                     <p>Advanced training in ethical hacking methodologies, vulnerability assessment, and secure system design. Mastery of tools including Kali Linux, Metasploit, and Burp Suite.</p>
                 </div>
                 
-                <!-- Full Stack Engineering -->
                 <div class="timeline-node">
                     <h3 class="node-title">FULL_STACK_ENGINEERING</h3>
                     <p class="node-date">NIIT Chennai | 2023</p>
                     <p>Advanced programming in full stack development with modern web technologies including React, Node.js, and MongoDB.</p>
                 </div>
                 
-                <!-- M.Sc Physics -->
                 <div class="timeline-node">
                     <h3 class="node-title">M.SC_PHYSICS</h3>
                     <p class="node-date">New College Chennai | 2021-2023</p>
@@ -829,12 +873,10 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="quantum-section">
             <h2 class="section-title">// NEURAL_CONTACT</h2>
             
             <div class="neural-grid">
-                <!-- Email -->
                 <div class="neural-card">
                     <div class="neural-content">
                         <div class="neural-icon">
@@ -845,7 +887,6 @@
                     </div>
                 </div>
                 
-                <!-- Phone -->
                 <div class="neural-card">
                     <div class="neural-content">
                         <div class="neural-icon">
@@ -856,7 +897,6 @@
                     </div>
                 </div>
                 
-                <!-- LinkedIn -->
                 <div class="neural-card">
                     <div class="neural-content">
                         <div class="neural-icon">
@@ -867,7 +907,6 @@
                     </div>
                 </div>
                 
-                <!-- GitHub -->
                 <div class="neural-card">
                     <div class="neural-content">
                         <div class="neural-icon">
@@ -879,7 +918,6 @@
                 </div>
             </div>
             
-            <!-- Quantum Resume Button -->
             <div class="quantum-resume">
                 <a href="P.Salmanulfaris_ResumeCPT.pdf" download="P.Salmanulfaris_Resume_CPT.pdf" class="resume-btn">
                     <i class="fas fa-file-download"></i> DOWNLOAD_QUANTUM_RESUME
@@ -888,115 +926,121 @@
         </section>
     </div>
 
-    <!-- JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
     <script>
-        // === QUANTUM MATRIX BACKGROUND ===
-        const matrixCanvas = document.getElementById('quantum-matrix');
-        const matrixCtx = matrixCanvas.getContext('2d');
-        
-        matrixCanvas.width = window.innerWidth;
-        matrixCanvas.height = window.innerHeight;
-        
-        const matrixChars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-        const matrixFontSize = 18;
-        const matrixColumns = Math.floor(matrixCanvas.width / matrixFontSize);
-        const matrixDrops = Array(matrixColumns).fill(1);
-        
-        function drawMatrixRain() {
-            matrixCtx.fillStyle = 'rgba(10, 10, 18, 0.05)';
-            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            
-            matrixCtx.fillStyle = '#0aff0a';
-            matrixCtx.font = `${matrixFontSize}px 'Terminus', monospace`;
-            
-            for (let i = 0; i < matrixDrops.length; i++) {
-                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                matrixCtx.fillText(text, i * matrixFontSize, matrixDrops[i] * matrixFontSize);
-                
-                if (matrixDrops[i] * matrixFontSize > matrixCanvas.height && Math.random() > 0.975) {
-                    matrixDrops[i] = 0;
-                }
-                matrixDrops[i]++;
-            }
-        }
-        
-        setInterval(drawMatrixRain, 50);
-        window.addEventListener('resize', () => {
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-        });
-
-        // === QUANTUM PARTICLE FIELD ===
+        // === QUANTUM PARTICLE FIELD (Three.js) ===
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        const renderer = new THREE.WebGLRenderer({ alpha: true }); // alpha: true for transparent background
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.domElement.style.position = 'fixed';
         renderer.domElement.style.top = '0';
         renderer.domElement.style.left = '0';
         renderer.domElement.style.zIndex = '-1';
         document.body.appendChild(renderer.domElement);
-        
-        // Create quantum particles
+
+        // Particle System Geometry & Material
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 3000;
+        const particlesCount = 5000; // More particles for a denser feel
         const posArray = new Float32Array(particlesCount * 3);
-        
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 20;
+        const colorArray = new Float32Array(particlesCount * 3); // For varied colors
+
+        for (let i = 0; i < particlesCount * 3; i += 3) {
+            posArray[i] = (Math.random() - 0.5) * 40; // X
+            posArray[i + 1] = (Math.random() - 0.5) * 40; // Y
+            posArray[i + 2] = (Math.random() - 0.5) * 40; // Z
+
+            // Random colors (blue, green, pink/purple hue)
+            const hue = Math.random() < 0.33 ? 0.5 : (Math.random() < 0.66 ? 0.3 : 0.8); // Blue, Green, Magenta-ish
+            const color = new THREE.Color();
+            color.setHSL(hue, 0.8, 0.6 + Math.random() * 0.2); // Saturated, varying lightness
+            colorArray[i] = color.r;
+            colorArray[i + 1] = color.g;
+            colorArray[i + 2] = color.b;
         }
-        
+
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.03,
-            color: 0x00f0ff,
+            size: 0.05, // Slightly larger for better visibility
+            vertexColors: true, // Use colors from geometry
             transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending
+            opacity: 0.7,
+            blending: THREE.AdditiveBlending // Blends colors nicely
         });
-        
+
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
-        
-        // Create quantum connections
+
+        // Improved Quantum Connections (Lines)
         const linesGeometry = new THREE.BufferGeometry();
-        const linesMaterial = new THREE.LineBasicMaterial({ 
+        const maxConnections = 1000; // Limit total connections
+        const linePositions = new Float32Array(maxConnections * 6); // Each line needs 2 points * 3 components
+        linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+        linesGeometry.setDrawRange(0, 0); // Start with no lines drawn
+
+        const linesMaterial = new THREE.LineBasicMaterial({
             color: 0x00f0ff,
             transparent: true,
-            opacity: 0.2
+            opacity: 0.1, // Very subtle lines
+            blending: THREE.AdditiveBlending
         });
-        
-        const linePositions = new Float32Array(particlesCount * 3 * 2);
-        for (let i = 0; i < particlesCount * 3; i++) {
-            linePositions[i] = posArray[i];
+
+        const connections = new THREE.LineSegments(linesGeometry, linesMaterial);
+        scene.add(connections);
+
+        // Dynamic line drawing (connect nearby particles)
+        const connectThreshold = 2.5; // Distance to connect particles
+        function updateConnections() {
+            let lineIdx = 0;
+            const positions = particlesGeometry.attributes.position.array;
+            const tempVec1 = new THREE.Vector3();
+            const tempVec2 = new THREE.Vector3();
+
+            for (let i = 0; i < particlesCount; i++) {
+                tempVec1.fromArray(positions, i * 3);
+                for (let j = i + 1; j < particlesCount; j++) {
+                    tempVec2.fromArray(positions, j * 3);
+
+                    const distance = tempVec1.distanceTo(tempVec2);
+                    if (distance < connectThreshold) {
+                        if (lineIdx < maxConnections * 6) {
+                            linePositions[lineIdx++] = tempVec1.x;
+                            linePositions[lineIdx++] = tempVec1.y;
+                            linePositions[lineIdx++] = tempVec1.z;
+                            linePositions[lineIdx++] = tempVec2.x;
+                            linePositions[lineIdx++] = tempVec2.y;
+                            linePositions[lineIdx++] = tempVec2.z;
+                        } else {
+                            break; // Max connections reached
+                        }
+                    }
+                }
+            }
+            linesGeometry.setDrawRange(0, lineIdx / 3); // Update count of lines to render
+            linesGeometry.attributes.position.needsUpdate = true;
         }
-        linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-        
-        const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
-        scene.add(lines);
-        
-        // Create floating quantum cubes
+
+        // Floating Quantum Cubes - make them more ethereal
         const quantumCubes = [];
         const cubeGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-        const cubeMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0x00f0ff,
+        const cubeMaterial = new THREE.MeshBasicMaterial({
+            color: 0xbc13fe, // Neon purple
             wireframe: true,
             transparent: true,
-            opacity: 0.6
+            opacity: 0.4, // Less opaque
+            blending: THREE.AdditiveBlending
         });
-        
-        for (let i = 0; i < 15; i++) {
+
+        for (let i = 0; i < 10; i++) { // Fewer cubes, less busy
             const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
             cube.position.set(
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 15
+                (Math.random() - 0.5) * 25, // Wider spread
+                (Math.random() - 0.5) * 25,
+                (Math.random() - 0.5) * 25
             );
             cube.rotation.set(
                 Math.random() * Math.PI,
@@ -1005,33 +1049,59 @@
             );
             quantumCubes.push({
                 mesh: cube,
-                speed: Math.random() * 0.01 + 0.005
+                speedX: (Math.random() * 0.002 + 0.001) * (Math.random() < 0.5 ? 1 : -1),
+                speedY: (Math.random() * 0.002 + 0.001) * (Math.random() < 0.5 ? 1 : -1),
+                speedZ: (Math.random() * 0.002 + 0.001) * (Math.random() < 0.5 ? 1 : -1),
             });
             scene.add(cube);
         }
-        
+
         // Camera position
         camera.position.z = 10;
         
+        // Mouse parallax for camera
+        let mouseX = 0;
+        let mouseY = 0;
+        const targetCameraX = new THREE.Vector3();
+        const targetCameraY = new THREE.Vector3();
+
+        window.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            
+
             // Animate particles
-            particlesMesh.rotation.x += 0.0003;
-            particlesMesh.rotation.y += 0.0005;
-            
+            particlesMesh.rotation.x += 0.0001; // Slower rotation
+            particlesMesh.rotation.y += 0.0002;
+
             // Animate cubes
             quantumCubes.forEach(cube => {
-                cube.mesh.rotation.x += cube.speed;
-                cube.mesh.rotation.y += cube.speed * 0.8;
-                cube.mesh.rotation.z += cube.speed * 0.5;
+                cube.mesh.rotation.x += cube.speedX;
+                cube.mesh.rotation.y += cube.speedY;
+                cube.mesh.rotation.z += cube.speedZ;
+
+                // Simple floating
+                cube.mesh.position.y += Math.sin(Date.now() * 0.0005 + cube.speedX * 1000) * 0.005;
+                cube.mesh.position.x += Math.cos(Date.now() * 0.0005 + cube.speedY * 1000) * 0.005;
             });
-            
+
+            // Parallax camera movement
+            targetCameraX.x = mouseX * 0.5; // Reduced intensity
+            targetCameraY.y = mouseY * 0.5;
+            camera.position.x += (targetCameraX.x - camera.position.x) * 0.05;
+            camera.position.y += (targetCameraY.y - camera.position.y) * 0.05;
+
+            // Update connections (can be called less frequently for performance)
+            // updateConnections(); // Call this only when particles move significantly or less frequently
+
             renderer.render(scene, camera);
         }
         animate();
-        
+
         // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -1039,65 +1109,74 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // === QUANTUM SCROLL EFFECTS ===
+        // === QUANTUM SCROLL EFFECTS (GSAP) ===
         gsap.registerPlugin(ScrollTrigger);
-        
+
         // Animate sections on scroll
         gsap.utils.toArray('.quantum-section').forEach((section, i) => {
-            gsap.fromTo(section, 
-                { opacity: 0, y: 100 },
+            gsap.fromTo(section,
+                { opacity: 0, y: 50, rotateX: 5, scale: 0.98 }, // Subtle rotation and scale
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 1.5,
-                    delay: i * 0.3,
+                    rotateX: 0,
+                    scale: 1,
+                    duration: 1.2,
+                    ease: "power3.out",
                     scrollTrigger: {
                         trigger: section,
-                        start: "top 85%",
+                        start: "top 80%",
                         toggleActions: "play none none none"
                     }
                 }
             );
         });
-        
-        // Parallax depth effect
+
+        // Parallax depth effect for background - refined
         ScrollTrigger.create({
+            trigger: document.body,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.5, // Smooth scrubbing
             onUpdate: (self) => {
-                camera.position.z = 10 + self.progress * 10;
-                camera.position.y = self.progress * -5;
+                // Adjusting camera Z and Y based on scroll
+                // Making the background appear to move slightly relative to content
+                const progress = self.progress;
+                camera.position.z = 10 + progress * 8; // Max 18 from 10
+                particlesMesh.rotation.z = progress * Math.PI * 0.2; // Rotate background slightly
             }
         });
         
+        // Circuit Trace on Card Hover
+        document.querySelectorAll('.matrix-card, .neural-card').forEach(card => {
+            const svgRect = card.querySelector('.circuit-overlay rect');
+            if (!svgRect) return; // Skip if SVG not found
+
+            const pathLength = svgRect.getTotalLength();
+            gsap.set(svgRect, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+
+            card.addEventListener('mouseenter', () => {
+                gsap.to(svgRect, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(svgRect, { strokeDashoffset: pathLength, duration: 0.5, ease: "power2.out" });
+            });
+        });
+
         // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
+                const targetId = this.getAttribute('href');
                 gsap.to(window, {
                     duration: 1.5,
                     scrollTo: {
-                        y: this.getAttribute('href'),
+                        y: targetId,
                         offsetY: 100
                     },
                     ease: "power3.inOut"
                 });
-            });
-        });
-
-        // Interactive card effects
-        document.querySelectorAll('.matrix-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
-            
-            card.addEventListener('mouseenter', () => {
-                card.style.transition = 'none';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transition = 'all 0.5s ease';
-                card.style.transform = 'rotateY(0deg) rotateX(0deg)';
             });
         });
     </script>
