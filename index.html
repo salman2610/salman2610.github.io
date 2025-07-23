@@ -1,956 +1,749 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P. SALMANUL FARIS :: Digital Architect</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlalH6TfTj8U1B7yK8o2tQf3F4p1A9/7g5+N6+A6/x6C/g2e6m8QeG4p5j1L1QeF0x0A9F4p9o0G6u/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* === CORE STYLES & VARIABLES === */
-        :root {
-            --bg-dark: #0A192F; /* Deep blue-gray */
-            --bg-medium: #112240; /* Slightly lighter for sections */
-            --text-light: #CCD6F6; /* Light gray for main text */
-            --text-medium: #8892B0; /* Muted gray for secondary text */
-            --accent-cyan: #64FFDA; /* Electric cyan */
-            --accent-purple: #BC13FE; /* Subtler purple accent */
-            --glow-light: 0 0 10px var(--accent-cyan);
-            --glow-strong: 0 0 20px var(--accent-cyan), 0 0 40px rgba(100, 255, 218, 0.5);
-            --border-color: rgba(100, 255, 218, 0.3);
-            --gradient-accent: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+  
+  :root {
+    --neon-green: #0aff0a;
+    --neon-blue: #00f0ff;
+    --neon-pink: #ff2a6d;
+    --neon-purple: #bc13fe;
+    --dark-bg: #0a0a12;
+    --text-primary: #e0e0ff;
+    --card-bg: rgba(10, 10, 30, 0.5);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Oxanium', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  /* Enhanced Matrix Background */
+  #matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    opacity: 0.2;
+  }
+  
+  .container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    z-index: 2;
+  }
+  
+  /* Cyberpunk Name Effect */
+  .header {
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .name-container {
+    min-height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(10, 255, 255, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .name-cursor {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1.4em;
+    background: var(--neon-pink);
+    margin-left: 0.3rem;
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    transform: translateY(-0.1em);
+  }
+  
+  .name::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+  }
+  
+  .tagline {
+    font-size: 1.4rem;
+    color: var(--neon-blue);
+    margin-top: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  /* Terminal Simulation */
+  .terminal {
+    background: rgba(0, 15, 20, 0.4);
+    border: 1px solid var(--neon-green);
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .terminal::before {
+    content: 'TERMINAL';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.3rem 1.5rem;
+    background: rgba(0, 80, 80, 0.3);
+    color: var(--neon-green);
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--neon-green);
+  }
+  
+  .terminal-content {
+    margin-top: 1.5rem;
+  }
+  
+  .command-line {
+    color: var(--neon-green);
+  }
+  
+  .command-output {
+    color: var(--neon-blue);
+    white-space: pre-wrap;
+    margin: 0.5rem 0 1.5rem;
+  }
+  
+  .terminal-cursor {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1em;
+    background: var(--neon-pink);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+  
+  /* Ultra Transparent Sections */
+  section {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(2px);
+  }
+  
+  section:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  }
+  
+  h2 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-blue);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+  }
+  
+  /* Contact Cards with Logos */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .contact-card {
+    background: rgba(0, 20, 30, 0.3);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.2);
+  }
+  
+  .contact-card h3 {
+    color: var(--neon-green);
+    margin-bottom: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .contact-card a {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: block;
+    padding-left: 1.8rem;
+    word-break: break-all;
+    transition: color 0.3s;
+  }
+  
+  .contact-card a:hover {
+    color: var(--neon-blue);
+  }
+  
+  /* Icons */
+  .email-icon { color: #D44638; }
+  .phone-icon { color: #25D366; }
+  .linkedin-icon { color: #0A66C2; }
+  .github-icon { color: #f0f0f0; }
+  
+  /* Flashing Hire Me Button */
+  .hire-me {
+    display: inline-block;
+    background: var(--neon-pink);
+    color: #000;
+    padding: 1rem 2rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 
+      0 0 10px rgba(255, 42, 109, 0.8),
+      0 0 20px rgba(255, 42, 109, 0.6);
+    transition: all 0.3s ease;
+    animation: pulse 1.5s infinite alternate;
+    font-size: 1.1rem;
+  }
 
-        html {
-            scroll-behavior: smooth;
-        }
+  /* Resume Button Styles */
+  .resume-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  .resume-btn {
+    background: var(--neon-purple);
+    color: #000;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+  }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Inter', sans-serif; /* Modern, clean sans-serif */
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative; /* For the subtle grid background */
-        }
+  .resume-btn:hover {
+    background: #c73cfe;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
+  }
 
-        /* Subtle Background Grid */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                repeating-linear-gradient(0deg, var(--bg-medium) 0, transparent 1px, transparent 100px),
-                repeating-linear-gradient(90deg, var(--bg-medium) 0, transparent 1px, transparent 100px);
-            background-size: 100px 100px;
-            opacity: 0.05; /* Very subtle */
-            z-index: -2;
-            pointer-events: none;
-        }
+  /* PDF Viewer Modal */
+  .pdf-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
 
-        /* Three.js Canvas - sits behind content but above grid */
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.6; /* Slightly more visible for the network effect */
-            pointer-events: none; /* Allows clicks on elements below */
-        }
+  .pdf-container {
+    width: 80%;
+    height: 90%;
+    background: var(--dark-bg);
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
+    overflow: hidden;
+  }
 
-        /* === MAIN LAYOUT === */
-        .container {
-            max-width: 1200px; /* Slightly narrower for focus */
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 10; /* Above background */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            gap: 5rem; /* Space between sections */
-        }
+  .pdf-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--neon-pink);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.3s;
+  }
 
-        /* === HEADER === */
-        .header {
-            text-align: center;
-            padding: 10vh 0 5vh;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-        }
+  .pdf-close:hover {
+    transform: scale(1.2);
+  }
 
-        .main-title {
-            font-family: 'Fira Code', monospace; /* Code-like font for name */
-            font-size: clamp(3rem, 8vw, 6rem);
-            color: var(--accent-cyan); /* Direct vibrant color */
-            text-shadow: var(--glow-strong);
-            margin-bottom: 1rem;
-            letter-spacing: -2px;
-            line-height: 1;
-            cursor: default; /* Not interactive in this iteration */
-        }
+  /* Loading Animation for In-Progress Project */
+  .loading-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--neon-blue);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9em;
+  }
+  
+  .loading-dots {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--neon-pink);
+    animation: bounce 1.4s infinite ease-in-out;
+  }
+  
+  .dot:nth-child(1) { animation-delay: 0s; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 
+        0 0 10px rgba(255, 42, 109, 0.8),
+        0 0 20px rgba(255, 42, 109, 0.6);
+    }
+    100% {
+      box-shadow: 
+        0 0 20px rgba(255, 42, 109, 1),
+        0 0 40px rgba(255, 42, 109, 0.8);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 80%, 100% { 
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    40% { 
+      transform: translateY(-6px);
+      opacity: 1;
+    }
+  }
 
-        .subtitle {
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            color: var(--text-medium);
-            margin-top: 1rem;
-            font-weight: 400;
-        }
+  /* ==================== */
+  /* MOBILE RESPONSIVENESS */
+  /* ==================== */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1.2rem;
+    }
+    
+    .name {
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+    
+    .tagline {
+      font-size: 1.1rem;
+    }
+    
+    section {
+      padding: 1.3rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    .terminal {
+      padding: 1.2rem 1rem;
+    }
+    
+    .command-output {
+      font-size: 0.9rem;
+    }
+    
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .hire-me {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+    }
+    
+    .loading-soon {
+      font-size: 0.8em;
+    }
 
-        /* === NAVIGATION === */
-        .nav-menu {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
+    .pdf-container {
+      width: 95%;
+      height: 80%;
+    }
+  }
 
-        .nav-link {
-            position: relative;
-            padding: 0.8rem 1.8rem;
-            color: var(--text-light);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-family: 'Fira Code', monospace;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            overflow: hidden;
-            transition: all 0.3s ease-out;
-            box-shadow: 0 0 5px rgba(100, 255, 218, 0.2);
-        }
+  @media (max-width: 480px) {
+    .name {
+      font-size: 1.8rem;
+    }
+    
+    .terminal::before {
+      padding: 0.2rem 1rem;
+      font-size: 0.7rem;
+    }
+    
+    .contact-card {
+      padding: 1.2rem;
+    }
+    
+    .contact-card h3 {
+      font-size: 1rem;
+    }
+    
+    .contact-card a {
+      padding-left: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .dot {
+      width: 6px;
+      height: 6px;
+    }
 
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background-color: var(--accent-cyan);
-            transition: all 0.3s ease-out;
-            z-index: -1;
-        }
-
-        .nav-link:hover {
-            color: var(--bg-dark);
-            box-shadow: var(--glow-light);
-            transform: translateY(-3px);
-        }
-
-        .nav-link:hover::before {
-            left: 0;
-        }
-
-        /* === SECTION STYLING === */
-        .section {
-            background-color: var(--bg-medium);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 3rem;
-            box-shadow: 0 0 30px rgba(100, 255, 218, 0.1);
-            transition: all 0.4s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-title {
-            font-family: 'Fira Code', monospace;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            color: var(--accent-cyan);
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.8rem;
-            text-shadow: var(--glow-light);
-            position: relative;
-            overflow: hidden; /* For the heading underline animation */
-        }
-
-        /* === ABOUT SECTION - Core Competencies === */
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 2rem;
-        }
-
-        .competency-card {
-            background-color: var(--bg-dark);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 6px;
-            padding: 2rem;
-            transition: all 0.3s ease-out;
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.05);
-        }
-
-        .competency-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.3);
-        }
-
-        .card-heading {
-            font-family: 'Fira Code', monospace;
-            font-size: 1.5rem;
-            color: var(--accent-cyan);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 5px rgba(100, 255, 218, 0.4);
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 1rem;
-        }
-
-        .tech-tag {
-            background-color: rgba(100, 255, 218, 0.1);
-            color: var(--accent-cyan);
-            padding: 0.4rem 0.9rem;
-            border-radius: 3px;
-            font-size: 0.85rem;
-            font-family: 'Fira Code', monospace;
-            border: 1px solid rgba(100, 255, 218, 0.3);
-            transition: background-color 0.2s ease;
-        }
-        .tech-tag:hover {
-            background-color: rgba(100, 255, 218, 0.2);
-        }
-
-        /* === PROJECT SHOWCASE === */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background-color: var(--bg-dark);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 6px;
-            padding: 2rem;
-            transition: all 0.3s ease-out;
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.3);
-        }
-
-        .project-title {
-            font-family: 'Fira Code', monospace;
-            font-size: 1.6rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.8rem;
-            text-shadow: 0 0 5px rgba(100, 255, 218, 0.4);
-        }
-
-        .project-description {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .btn-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.8rem 1.5rem;
-            background-color: transparent;
-            color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 4px;
-            text-decoration: none;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 8px rgba(100, 255, 218, 0.2);
-        }
-
-        .btn-link:hover {
-            background-color: var(--accent-cyan);
-            color: var(--bg-dark);
-            box-shadow: var(--glow-light);
-        }
-
-        /* === PROFESSIONAL JOURNEY (Timeline) === */
-        .timeline {
-            position: relative;
-            padding-left: 50px;
-            margin-top: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--border-color);
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2.5rem;
-            padding: 1.5rem 2rem;
-            background-color: var(--bg-dark);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 6px;
-            transition: all 0.3s ease-out;
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.05);
-        }
-
-        .timeline-item:hover {
-            transform: translateX(5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.3);
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -38px; /* Position relative to the main timeline line */
-            top: 2.2rem;
-            width: 12px;
-            height: 12px;
-            background-color: var(--accent-cyan);
-            border-radius: 50%;
-            border: 2px solid var(--bg-dark);
-            box-shadow: var(--glow-light);
-            z-index: 1;
-        }
-
-        .item-title {
-            font-family: 'Fira Code', monospace;
-            font-size: 1.4rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.4rem;
-            text-shadow: 0 0 5px rgba(100, 255, 218, 0.4);
-        }
-
-        .item-date {
-            font-size: 0.9rem;
-            color: var(--text-medium);
-            margin-bottom: 1rem;
-        }
-
-        /* === CONNECT INTERFACE (Contact) === */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .contact-card {
-            background-color: var(--bg-dark);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 6px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease-out;
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.05);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.3);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--accent-cyan);
-            margin-bottom: 1rem;
-            text-shadow: var(--glow-light);
-        }
-
-        .contact-label {
-            font-family: 'Fira Code', monospace;
-            font-size: 1.2rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-value {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            word-break: break-all; /* For long emails/links */
-        }
-
-        /* === RESUME BUTTON === */
-        .resume-section {
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .btn-resume {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.2rem 2.5rem;
-            background: var(--accent-cyan);
-            color: var(--bg-dark);
-            border-radius: 5px;
-            font-family: 'Fira Code', monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: var(--glow-strong);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn-resume::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%; /* Start further left for more dramatic sweep */
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: skewX(-30deg); /* Angled sweep effect */
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother bezier */
-            z-index: -1;
-        }
-
-        .btn-resume:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 30px var(--accent-cyan);
-        }
-
-        .btn-resume:hover::before {
-            left: 150%; /* Sweep to the right */
-        }
-
-        /* === Responsive Adjustments === */
-        @media (max-width: 992px) {
-            .container {
-                padding: 1.5rem;
-                gap: 4rem;
-            }
-            .section {
-                padding: 2.5rem;
-            }
-            .nav-menu {
-                gap: 1.5rem;
-            }
-            .nav-link {
-                padding: 0.7rem 1.4rem;
-            }
-            .about-grid, .project-grid, .contact-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
-            }
-            .timeline {
-                padding-left: 40px;
-            }
-            .timeline::before {
-                left: 15px;
-            }
-            .timeline-item::before {
-                left: -28px;
-                top: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 8vh 0 4vh;
-            }
-            .main-title {
-                font-size: clamp(2.5rem, 10vw, 4rem);
-            }
-            .subtitle {
-                font-size: clamp(1rem, 3vw, 1.4rem);
-            }
-            .nav-menu {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-link {
-                width: 80%;
-                margin: 0 auto;
-                text-align: center;
-            }
-            .section {
-                padding: 2rem 1.5rem;
-            }
-            .section-title {
-                font-size: clamp(1.5rem, 6vw, 2.2rem);
-            }
-            .btn-resume {
-                font-size: 1rem;
-                padding: 1rem 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem;
-                gap: 3rem;
-            }
-            .section {
-                padding: 1.5rem;
-            }
-            .nav-link {
-                width: 95%;
-            }
-            .about-grid, .project-grid, .contact-grid {
-                grid-template-columns: 1fr; /* Stack columns */
-                gap: 1.5rem;
-            }
-            .timeline {
-                padding-left: 25px;
-            }
-            .timeline::before {
-                left: 10px;
-            }
-            .timeline-item::before {
-                left: -18px;
-                width: 10px;
-                height: 10px;
-                top: 1.8rem;
-            }
-            .card-heading, .project-title, .item-title, .contact-label {
-                font-size: 1.3rem;
-            }
-            .btn-link {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+    .resume-actions {
+      flex-direction: column;
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="main-title">P. SALMANUL FARIS</h1>
-            <p class="subtitle">// Cyber Security Specialist & Digital Architect</p>
-            
-            <nav class="nav-menu">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#contact" class="nav-link">Connect</a>
-            </nav>
-        </header>
+  <!-- Enhanced Binary Rain -->
+  <canvas id="matrix"></canvas>
 
-        <section id="about" class="section">
-            <h2 class="section-title">01. Core Competencies</h2>
-            <p>I am a certified penetration tester with expertise in advanced ethical hacking, vulnerability assessment, and secure system architecture. My background integrates cutting-edge cybersecurity practices with rigorous research methodologies from physics, enabling a holistic approach to digital security and development.</p>
-            
-            <div class="about-grid">
-                <div class="competency-card">
-                    <h3 class="card-heading">Cybersecurity Operations</h3>
-                    <p>Proficient in red teaming, network exploitation, and fortifying digital infrastructures against sophisticated threats.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Kali Linux</span>
-                        <span class="tech-tag">Metasploit</span>
-                        <span class="tech-tag">Burp Suite</span>
-                        <span class="tech-tag">OSINT</span>
-                        <span class="tech-tag">Vulnerability Analysis</span>
-                    </div>
-                </div>
-                
-                <div class="competency-card">
-                    <h3 class="card-heading">Full-Stack Development</h3>
-                    <p>Skilled in designing and implementing robust web applications with a focus on secure coding practices.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">JavaScript (ES6+)</span>
-                        <span class="tech-tag">React.js</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">REST APIs</span>
-                    </div>
-                </div>
-                
-                <div class="competency-card">
-                    <h3 class="card-heading">Quantum & Data Research</h3>
-                    <p>Experience in analytical research, including quantum acoustics and cryptographic algorithm exploration.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Data Analysis</span>
-                        <span class="tech-tag">Cryptography</span>
-                        <span class="tech-tag">Scientific Computing</span>
-                        <span class="tech-tag">Statistical Modeling</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="container">
+    <header class="header">
+      <div class="name-container">
+        <div class="name" id="typed-name"></div><span class="name-cursor"></span>
+      </div>
+      <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
+    </header>
 
-        <section id="projects" class="section">
-            <h2 class="section-title">02. Project Showcase</h2>
-            <p>A selection of projects demonstrating practical application of cybersecurity and development expertise.</p>
-            
-            <div class="project-grid">
-                <div class="project-card">
-                    <div>
-                        <h3 class="project-title">Secure OS Customization</h3>
-                        <p class="project-description">Developed a bespoke Ubuntu environment pre-configured with over 50 ethical hacking tools for optimized penetration testing workflows.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Ubuntu</span>
-                            <span class="tech-tag">Bash Scripting</span>
-                            <span class="tech-tag">Security Tools</span>
-                            <span class="tech-tag">System Hardening</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="btn-link"><i class="fas fa-eye"></i> Demo</a>
-                        <a href="#" class="btn-link"><i class="fab fa-github"></i> Code</a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div>
-                        <h3 class="project-title">DoS Simulation Framework</h3>
-                        <p class="project-description">Created a controlled framework for simulating Denial-of-Service attacks to analyze system resilience and defense mechanisms.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Scapy</span>
-                            <span class="tech-tag">Network Security</span>
-                            <span class="tech-tag">Attack Simulation</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="btn-link"><i class="fas fa-file-alt"></i> Case Study</a>
-                        <a href="#" class="btn-link"><i class="fas fa-download"></i> Report</a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div>
-                        <h3 class="project-title">Biometric Attendance System</h3>
-                        <p class="project-description">Engineered a secure, real-time attendance tracking system with biometric integration and tamper-proof logging capabilities.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Express.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Authentication</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="btn-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                        <a href="#" class="btn-link"><i class="fas fa-code-branch"></i> GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience" class="section">
-            <h2 class="section-title">03. Professional Journey</h2>
-            <p>Key milestones in my academic and professional development.</p>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h3 class="item-title">Certified Penetration Tester</h3>
-                    <p class="item-date">RedTeam Hacker Academy | 2024</p>
-                    <p>Intensive training in ethical hacking methodologies, comprehensive vulnerability assessment, and strategic secure system design. Demonstrated mastery of industry-standard tools including Kali Linux, Metasploit, and Burp Suite.</p>
-                </div>
-                
-                <div class="timeline-item">
-                    <h3 class="item-title">Full-Stack Software Engineering</h3>
-                    <p class="item-date">NIIT Chennai | 2023</p>
-                    <p>Completed advanced training in full-stack web development, acquiring proficiency in modern web technologies and frameworks for robust application creation.</p>
-                </div>
-                
-                <div class="timeline-item">
-                    <h3 class="item-title">M.Sc. Physics</h3>
-                    <p class="item-date">New College Chennai | 2021-2023</p>
-                    <p>Specialized research focused on the acoustic properties of biological solutions, applying analytical and experimental methods relevant to complex data analysis and system modeling.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <h2 class="section-title">04. Connect Interface</h2>
-            <p>Access points to establish a direct connection.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                    <h3 class="contact-label">Email</h3>
-                    <p class="contact-value">salmanulfariss642@gmail.com</p>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-                    <h3 class="contact-label">Phone</h3>
-                    <p class="contact-value">+91 99627 26106</p>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
-                    <h3 class="contact-label">LinkedIn</h3>
-                    <p class="contact-value"><a href="https://linkedin.com/in/p-salmanul-faris" target="_blank" style="color: var(--text-light); text-decoration: none;">/p-salmanul-faris</a></p>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon"><i class="fab fa-github"></i></div>
-                    <h3 class="contact-label">GitHub</h3>
-                    <p class="contact-value"><a href="https://github.com/salman2610" target="_blank" style="color: var(--text-light); text-decoration: none;">/salman2610</a></p>
-                </div>
-            </div>
-            
-            <div class="resume-section">
-                <a href="P.Salmanulfaris_ResumeCPT.pdf" download="P.Salmanulfaris_Resume_CPT.pdf" class="btn-resume">
-                    <i class="fas fa-file-download"></i> Download Profile Matrix
-                </a>
-            </div>
-        </section>
+    <!-- Terminal Simulation -->
+    <div class="terminal">
+      <div class="terminal-content">
+        <div class="command-line">user@portfolio:~$ <span id="terminal-command"></span><span class="terminal-cursor"></span></div>
+        <div class="command-output" id="terminal-output"></div>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
+    <section id="about">
+      <h2>// ABOUT</h2>
+      <p>
+        <strong>P. Salmanul Faris</strong> is a <strong>Certified Penetration Tester</strong> with advanced training from <strong>RedTeam Hacker Academy</strong> and <strong>NIIT Chennai</strong>. Combines technical cybersecurity expertise with an analytical physics background to build secure systems and identify vulnerabilities.
+      </p>
+      <p>
+        Skilled in penetration testing methodologies, network security, and ethical hacking with tools including <strong>Burp Suite, Nmap, and Metasploit</strong>. Strong programming skills in <strong>Python, Java, C++, and JavaScript</strong> with experience in full-stack development.
+      </p>
+      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
+    </section>
+
+    <section id="certifications">
+      <h2>// CERTIFICATIONS</h2>
+      <ul>
+        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
+        <li><strong>Advanced Programming in Full Stack Software Engineering</strong> - NIIT Chennai</li>
+      </ul>
+    </section>
+
+    <section id="education">
+      <h2>// EDUCATION</h2>
+      <ul>
+        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
+        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>// PROJECTS</h2>
+      <ul>
+        <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
+        <li><strong>DoS Attack Simulation</strong> - Executed controlled Denial-of-Service attack on test Apache server</li>
+        <li><strong>Attendance Management System</strong> - Developed secure web/mobile app for tracking attendance with biometric verification</li>
+        <li>
+          <strong>Cross-Platform Billing App</strong> 
+          <span class="loading-soon">
+            (loading soon
+            <span class="loading-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </span>)
+          </span>
+          - Desktop/mobile solution for small business billing processes
+        </li>
+        <li><strong>Network Vulnerability Scanner</strong> - Custom tool for automated security assessments</li>
+        <li><strong>M.Sc Research Project</strong> - Acoustic study of aqueous solutions containing antibiotics and insulin</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>// CONNECT</h2>
+      
+      <!-- Resume Buttons -->
+      <div class="resume-actions">
+        <a href="P.Salmanulfaris_ResumeCPT.pdf" class="resume-btn" download="P.Salmanulfaris_Resume_CPT.pdf">
+          <i class="fas fa-file-pdf"></i> Download Resume (PDF)
+        </a>
+        <button id="view-resume-btn" class="resume-btn">
+          <i class="fas fa-eye"></i> View Resume
+        </button>
+      </div>
+
+      <!-- Contact Cards -->
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
+          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <h3><i class="fas fa-phone-alt phone-icon"></i> PHONE</h3>
+          <a href="tel:+919962726106">+91 99627 26106</a>
+        </div>
+        <div class="contact-card">
+          <h3><i class="fab fa-linkedin-in linkedin-icon"></i> LINKEDIN</h3>
+          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
+        </div>
+        <div class="contact-card">
+          <h3><i class="fab fa-github github-icon"></i> GITHUB</h3>
+          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PDF Viewer Modal (Dynamically Inserted) -->
+  
+  <script>
+    // Enhanced Binary Rain
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
     
-    <script>
-        // === THREE.JS BACKGROUND: PARTICLE NETWORK ===
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        document.body.appendChild(renderer.domElement);
-
-        // Particles
-        const particleCount = 1000; // Fewer, larger particles for clarity
-        const particlesGeometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const colors = new Float32Array(particleCount * 3);
-
-        const particleColor = new THREE.Color(0x64FFDA); // Cyan accent
-        const maxRange = 25; // How far particles spread
-
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * maxRange;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * maxRange;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * maxRange;
-
-            particleColor.setHSL(0.5 + Math.random() * 0.1, 0.8, 0.6 + Math.random() * 0.2); // Subtle hue variation
-            colors[i * 3] = particleColor.r;
-            colors[i * 3 + 1] = particleColor.g;
-            colors[i * 3 + 2] = particleColor.b;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.1, // Small, crisp points
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false // Helps with transparency issues
-        });
-
-        const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particleSystem);
-
-        // Lines (Connections)
-        const lineGeometry = new THREE.BufferGeometry();
-        const maxLines = 1500; // Max number of lines to draw
-        const linePositions = new Float32Array(maxLines * 6); // 2 points * 3 components
-        lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-        lineGeometry.setDrawRange(0, 0);
-
-        const lineMaterial = new THREE.LineBasicMaterial({
-            color: 0x64FFDA, // Cyan lines
-            transparent: true,
-            opacity: 0.1,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        });
-
-        const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-        scene.add(linesMesh);
-
-        // Update lines based on particle proximity
-        const tempVec1 = new THREE.Vector3();
-        const tempVec2 = new THREE.Vector3();
-        const connectionDistance = 3; // Max distance for particles to connect
-
-        function updateNetwork() {
-            let lineIdx = 0;
-            for (let i = 0; i < particleCount; i++) {
-                tempVec1.fromArray(positions, i * 3);
-                for (let j = i + 1; j < particleCount; j++) {
-                    tempVec2.fromArray(positions, j * 3);
-
-                    if (tempVec1.distanceTo(tempVec2) < connectionDistance) {
-                        if (lineIdx < maxLines * 6) {
-                            linePositions[lineIdx++] = tempVec1.x;
-                            linePositions[lineIdx++] = tempVec1.y;
-                            linePositions[lineIdx++] = tempVec1.z;
-                            linePositions[lineIdx++] = tempVec2.x;
-                            linePositions[lineIdx++] = tempVec2.y;
-                            linePositions[lineIdx++] = tempVec2.z;
-                        } else {
-                            break; // Stop if max lines reached
-                        }
-                    }
-                }
-            }
-            linesMesh.geometry.setDrawRange(0, lineIdx / 3);
-            linesMesh.geometry.attributes.position.needsUpdate = true;
-        }
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
+    
+    const chars = "01";
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+    
+    function draw() {
+      ctx.fillStyle = 'rgba(10, 10, 18, 0.04)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = '#0aff0a';
+      ctx.font = `${fontSize}px "Share Tech Mono"`;
+      
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         
-        // Initial network draw
-        updateNetwork(); 
-
-        // Camera positioning
-        camera.position.z = 25; // Slightly further back for wider view
-
-        // Mouse interaction for parallax
-        let mouseX = 0, mouseY = 0;
-        const targetX = 0, targetY = 0;
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Subtle rotation of particle system
-            particleSystem.rotation.x += 0.00005;
-            particleSystem.rotation.y += 0.00008;
-
-            linesMesh.rotation.x = particleSystem.rotation.x;
-            linesMesh.rotation.y = particleSystem.rotation.y;
-
-            // Camera parallax effect
-            camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
-            camera.position.y += (mouseY * 2 - camera.position.y) * 0.02;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
-        animate();
+        drops[i]++;
+      }
+    }
+    
+    setInterval(draw, 50);
+    
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    });
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // === GSAP SCROLL ANIMATIONS ===
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-        // Animate sections into view
-        gsap.utils.toArray('.section').forEach((section, i) => {
-            gsap.from(section, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 85%", // When top of section is 85% down from viewport top
-                    toggleActions: "play none none none",
-                    once: true // Animation plays only once
-                }
-            });
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('.nav-link').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                gsap.to(window, {
-                    duration: 1.2,
-                    scrollTo: {
-                        y: targetId,
-                        offsetY: 70 // Offset for fixed header/nav if any
-                    },
-                    ease: "power3.inOut"
-                });
-            });
-        });
-
-        // Optional: Intro boot sequence (uncomment to activate)
-        /*
-        const introTextElement = document.createElement('div');
-        introTextElement.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--accent-cyan);
-            font-family: 'Fira Code', monospace;
-            font-size: 1.5rem;
-            text-shadow: var(--glow-light);
-            z-index: 9999;
-            opacity: 0;
-            white-space: nowrap;
-        `;
-        document.body.appendChild(introTextElement);
-
-        const introSequence = [
-            "Initializing secure connection...",
-            "Loading profile matrix...",
-            "Access granted: Welcome, Architect."
-        ];
-
-        let seqIndex = 0;
-        function runIntroSequence() {
-            if (seqIndex < introSequence.length) {
-                introTextElement.textContent = introSequence[seqIndex];
-                gsap.timeline()
-                    .to(introTextElement, { opacity: 1, duration: 0.5, ease: "power2.out" })
-                    .to(introTextElement, { opacity: 0, duration: 0.5, delay: 1, ease: "power2.in" })
-                    .call(() => {
-                        seqIndex++;
-                        runIntroSequence();
-                    });
-            } else {
-                gsap.to(introTextElement, { opacity: 0, duration: 0.5, onComplete: () => introTextElement.remove() });
-            }
-        }
+    // Name Typing Effect (types once and stays)
+    const fullName = "P. SALMANUL FARIS";
+    const nameElement = document.getElementById('typed-name');
+    let nameIndex = 0;
+    
+    function typeName() {
+      if (nameIndex < fullName.length) {
+        nameElement.textContent += fullName.charAt(nameIndex);
+        nameIndex++;
+        setTimeout(typeName, 100 + Math.random() * 50);
+      } else {
+        // Remove cursor after typing completes
+        document.querySelector('.name-cursor').style.display = 'none';
+      }
+    }
+    
+    // Start the typing effect after 1 second
+    setTimeout(typeName, 1000);
+    
+    // Terminal Simulation
+    const commands = [
+      { cmd: "whoami", output: "p-salmanul-faris\nCertified Penetration Tester | Full-Stack Developer" },
+      { cmd: "ls projects", output: "sunset-pentesting/\ndos-simulation/\nattendance-system/\nbilling-app/\nvulnerability-scanner/" },
+      { cmd: "cat skills.txt", output: "• Penetration Testing\n• Network Security\n• Python/Java/C++\n• Burp Suite/Nmap/Metasploit" },
+      { cmd: "connect --client", output: "Available for:\n> Security Assessments\n> Secure Development\n> Consulting Projects" }
+    ];
+    
+    let cmdIndex = 0;
+    let charIndex = 0;
+    let isCmdDeleting = false;
+    let isCmdWaiting = false;
+    
+    function typeTerminal() {
+      const current = commands[cmdIndex % commands.length];
+      const commandElement = document.getElementById('terminal-command');
+      const outputElement = document.getElementById('terminal-output');
+      
+      if (isCmdDeleting) {
+        commandElement.textContent = current.cmd.substring(0, charIndex - 1);
+        charIndex--;
         
-        // Delay initial content display until intro is done (optional)
-        gsap.set('.container', { opacity: 0 });
-        gsap.to('.container', { opacity: 1, duration: 1, delay: introSequence.length * 2, ease: "power2.out" });
-        runIntroSequence();
-        */
-    </script>
+        if (charIndex === 0) {
+          isCmdDeleting = false;
+          cmdIndex++;
+          isCmdWaiting = true;
+          setTimeout(typeTerminal, 1000);
+          return;
+        }
+      } else if (isCmdWaiting) {
+        outputElement.textContent = '';
+        isCmdWaiting = false;
+      } else if (charIndex <= current.cmd.length) {
+        commandElement.textContent = current.cmd.substring(0, charIndex);
+        charIndex++;
+        
+        if (charIndex > current.cmd.length) {
+          outputElement.textContent = current.output;
+          isCmdWaiting = true;
+          setTimeout(() => {
+            isCmdDeleting = true;
+            isCmdWaiting = false;
+          }, 2000);
+          return;
+        }
+      }
+      
+      setTimeout(typeTerminal, isCmdDeleting ? 50 : 100);
+    }
+    
+    setTimeout(typeTerminal, 2000);
+
+    // PDF Viewer Functionality
+    const viewResumeBtn = document.getElementById('view-resume-btn');
+    const pdfModal = document.createElement('div');
+    pdfModal.className = 'pdf-modal';
+
+    const pdfContent = `
+      <span class="pdf-close">&times;</span>
+      <div class="pdf-container">
+        <embed src="P.Salmanulfaris_ResumeCPT.pdf#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%" />
+      </div>
+    `;
+
+    pdfModal.innerHTML = pdfContent;
+    document.body.appendChild(pdfModal);
+
+    // Open modal
+    viewResumeBtn.addEventListener('click', () => {
+      pdfModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal
+    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
+      pdfModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+
+    // Close when clicking outside
+    pdfModal.addEventListener('click', (e) => {
+      if (e.target === pdfModal) {
+        pdfModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pdfModal.style.display === 'flex') {
+        pdfModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Mobile fallback to download
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      const viewBtn = document.getElementById('view-resume-btn');
+      viewBtn.addEventListener('click', (e) => {
+        if(confirm("For best experience on mobile, we recommend downloading the PDF. Download now?")) {
+          window.location.href = "P.Salmanulfaris_ResumeCPT.pdf";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
