@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
@@ -47,6 +49,16 @@
     opacity: 0.25;
   }
 
+  #threejs-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.3;
+  }
+
   .container {
     position: relative;
     max-width: 900px;
@@ -55,7 +67,43 @@
     z-index: 2;
   }
 
-  /* Header with Glitch Effect */
+  /* Loading Screen */
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-green);
+  }
+
+  #loading-text {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  #progress-bar {
+    width: 300px;
+    height: 5px;
+    background: rgba(0, 255, 0, 0.2);
+    position: relative;
+  }
+
+  #progress {
+    width: 0;
+    height: 100%;
+    background: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+  }
+
+  /* Header with Enhanced Glitch */
   .header {
     margin-bottom: 3rem;
     text-align: center;
@@ -82,7 +130,6 @@
     letter-spacing: 2px;
     position: relative;
     display: inline-block;
-    animation: glitch 2s linear infinite alternate;
   }
 
   .name-cursor {
@@ -111,10 +158,9 @@
     color: var(--neon-blue);
     margin-top: 1rem;
     font-family: 'Share Tech Mono', monospace;
-    animation: fadeInUp 1s ease-out;
   }
 
-  /* Terminal Simulation */
+  /* Terminal with Interactive Input */
   .terminal {
     background: rgba(0, 15, 20, 0.6);
     border: 2px solid var(--neon-green);
@@ -129,7 +175,7 @@
   }
 
   .terminal::before {
-    content: 'TERMINAL';
+    content: 'INTERACTIVE TERMINAL';
     position: absolute;
     top: 0;
     left: 0;
@@ -155,6 +201,15 @@
     margin: 0.5rem 0 1.5rem;
   }
 
+  .terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    width: 100%;
+    outline: none;
+  }
+
   .terminal-cursor {
     display: inline-block;
     width: 0.5rem;
@@ -164,7 +219,7 @@
     vertical-align: middle;
   }
 
-  /* Sections with AOS */
+  /* Sections with Parallax */
   section {
     background: var(--card-bg);
     border: 1px solid rgba(0, 240, 255, 0.2);
@@ -173,6 +228,19 @@
     margin-bottom: 2rem;
     backdrop-filter: blur(4px);
     transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+  }
+
+  section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0 0 L100 100 M100 0 L0 100" stroke="%2300f0ff" stroke-width="0.5" opacity="0.1"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.1;
   }
 
   section:hover {
@@ -199,7 +267,7 @@
     background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
 
-  /* Contact Cards with Tilt */
+  /* Contact Cards with 3D Tilt and Glow */
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -260,12 +328,13 @@
     color: var(--neon-blue);
   }
 
+  /* Icons */
   .email-icon { color: #D44638; }
   .phone-icon { color: #25D366; }
   .linkedin-icon { color: #0A66C2; }
   .github-icon { color: #f0f0f0; }
 
-  /* Enhanced Hire Me Button */
+  /* Hire Me Button with Particle Explosion */
   .hire-me {
     display: inline-block;
     background: var(--neon-pink);
@@ -333,7 +402,7 @@
     box-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
   }
 
-  /* PDF Modal */
+  /* PDF Modal with Animation */
   .pdf-modal {
     position: fixed;
     top: 0;
@@ -356,6 +425,12 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s;
+  }
+
+  .pdf-modal.show .pdf-container {
+    transform: scale(1);
   }
 
   .pdf-close {
@@ -373,7 +448,7 @@
     transform: scale(1.2);
   }
 
-  /* Loading Animation */
+  /* Loading Soon */
   .loading-soon {
     display: inline-flex;
     align-items: center;
@@ -422,11 +497,11 @@
 
   /* Animations */
   @keyframes glitch {
-    0% { transform: translate(0); }
-    10% { transform: translate(-2px, 2px); }
-    20% { transform: translate(2px, -2px); }
-    30% { transform: translate(-2px, 2px); }
-    100% { transform: translate(0); }
+    0% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.5); }
+    10% { text-shadow: 2px 2px 0 var(--neon-pink), -2px -2px 0 var(--neon-blue); }
+    20% { text-shadow: -2px 2px 0 var(--neon-pink), 2px -2px 0 var(--neon-blue); }
+    30% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.5); }
+    100% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.5); }
   }
 
   @keyframes blink {
@@ -435,27 +510,13 @@
   }
 
   @keyframes pulse {
-    0% {
-      box-shadow: 
-        0 0 10px rgba(255, 42, 109, 0.8),
-        0 0 20px rgba(255, 42, 109, 0.6);
-    }
-    100% {
-      box-shadow: 
-        0 0 20px rgba(255, 42, 109, 1),
-        0 0 40px rgba(255, 42, 109, 0.8);
-    }
+    0% { box-shadow: 0 0 10px rgba(255, 42, 109, 0.8), 0 0 20px rgba(255, 42, 109, 0.6); }
+    100% { box-shadow: 0 0 20px rgba(255, 42, 109, 1), 0 0 40px rgba(255, 42, 109, 0.8); }
   }
 
   @keyframes bounce {
-    0%, 80%, 100% { 
-      transform: translateY(0);
-      opacity: 0.5;
-    }
-    40% { 
-      transform: translateY(-6px);
-      opacity: 1;
-    }
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+    40% { transform: translateY(-6px); opacity: 1; }
   }
 
   @keyframes fadeIn {
@@ -463,104 +524,47 @@
     to { opacity: 1; }
   }
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Mobile Responsiveness */
+  /* Mobile */
   @media (max-width: 768px) {
-    .container {
-      padding: 1.2rem;
-    }
-
-    .name {
-      font-size: 2.2rem;
-      letter-spacing: 1px;
-    }
-
-    .tagline {
-      font-size: 1.1rem;
-    }
-
-    section {
-      padding: 1.3rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    .terminal {
-      padding: 1.2rem 1rem;
-    }
-
-    .command-output {
-      font-size: 0.9rem;
-    }
-
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hire-me {
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-    }
-
-    .loading-soon {
-      font-size: 0.8em;
-    }
-
-    .pdf-container {
-      width: 95%;
-      height: 80%;
-    }
-
-    .audio-toggle {
-      bottom: 15px;
-      right: 15px;
-      padding: 0.4rem;
-    }
+    .container { padding: 1.2rem; }
+    .name { font-size: 2.2rem; letter-spacing: 1px; }
+    .tagline { font-size: 1.1rem; }
+    section { padding: 1.3rem; }
+    h2 { font-size: 1.5rem; }
+    .terminal { padding: 1.2rem 1rem; }
+    .command-output { font-size: 0.9rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hire-me { padding: 0.8rem 1.5rem; font-size: 1rem; }
+    .loading-soon { font-size: 0.8em; }
+    .pdf-container { width: 95%; height: 80%; }
+    .audio-toggle { bottom: 15px; right: 15px; padding: 0.4rem; }
   }
 
   @media (max-width: 480px) {
-    .name {
-      font-size: 1.8rem;
-    }
-
-    .terminal::before {
-      padding: 0.2rem 1rem;
-      font-size: 0.7rem;
-    }
-
-    .contact-card {
-      padding: 1.2rem;
-    }
-
-    .contact-card h3 {
-      font-size: 1rem;
-    }
-
-    .contact-card a {
-      padding-left: 1.5rem;
-      font-size: 0.9rem;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-    }
-
-    .resume-actions {
-      flex-direction: column;
-    }
+    .name { font-size: 1.8rem; }
+    .terminal::before { padding: 0.2rem 1rem; font-size: 0.7rem; }
+    .contact-card { padding: 1.2rem; }
+    .contact-card h3 { font-size: 1rem; }
+    .contact-card a { padding-left: 1.5rem; font-size: 0.9rem; }
+    .dot { width: 6px; height: 6px; }
+    .resume-actions { flex-direction: column; }
   }
 </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div id="loading-text">Initializing Secure Connection...</div>
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
+  </div>
+
   <!-- Matrix Rain -->
   <canvas id="matrix"></canvas>
+
+  <!-- 3D Background -->
+  <div id="threejs-bg"></div>
 
   <!-- Audio Toggle -->
   <button class="audio-toggle" id="audio-toggle">
@@ -568,21 +572,22 @@
   </button>
 
   <div class="container">
-    <header class="header" data-aos="fade-down">
+    <header class="header" data-aos="zoom-in">
       <div class="name-container">
         <div class="name" id="typed-name"></div><span class="name-cursor"></span>
       </div>
       <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
     </header>
 
-    <div class="terminal" data-aos="fade-up" data-aos-delay="200">
+    <div class="terminal" data-aos="fade-up">
       <div class="terminal-content">
         <div class="command-line">user@portfolio:~$ <span id="terminal-command"></span><span class="terminal-cursor"></span></div>
         <div class="command-output" id="terminal-output"></div>
+        <div class="command-line">user@portfolio:~$ <input class="terminal-input" id="terminal-input" placeholder="" autofocus></div>
       </div>
     </div>
 
-    <section id="about" data-aos="fade-up" data-aos-delay="300">
+    <section id="about" data-aos="fade-right">
       <h2>// ABOUT</h2>
       <p>
         <strong>P. Salmanul Faris</strong> is a <strong>Certified Penetration Tester</strong> with advanced training from <strong>RedTeam Hacker Academy</strong> and <strong>NIIT Chennai</strong>. Combines technical cybersecurity expertise with an analytical physics background to build secure systems and identify vulnerabilities.
@@ -590,10 +595,10 @@
       <p>
         Skilled in penetration testing methodologies, network security, and ethical hacking with tools including <strong>Burp Suite, Nmap, and Metasploit</strong>. Strong programming skills in <strong>Python, Java, C++, and JavaScript</strong> with experience in full-stack development.
       </p>
-      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
+      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me" id="hire-me-btn">HIRE ME</a>
     </section>
 
-    <section id="certifications" data-aos="fade-up" data-aos-delay="400">
+    <section id="certifications" data-aos="fade-left">
       <h2>// CERTIFICATIONS</h2>
       <ul>
         <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
@@ -601,7 +606,7 @@
       </ul>
     </section>
 
-    <section id="education" data-aos="fade-up" data-aos-delay="500">
+    <section id="education" data-aos="fade-right">
       <h2>// EDUCATION</h2>
       <ul>
         <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
@@ -609,7 +614,7 @@
       </ul>
     </section>
 
-    <section id="projects" data-aos="fade-up" data-aos-delay="600">
+    <section id="projects" data-aos="fade-left">
       <h2>// PROJECTS</h2>
       <ul>
         <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
@@ -632,7 +637,7 @@
       </ul>
     </section>
 
-    <section id="contact" data-aos="fade-up" data-aos-delay="700">
+    <section id="contact" data-aos="fade-up">
       <h2>// CONNECT</h2>
       <div class="resume-actions">
         <a href="P.Salmanulfaris_ResumeCPT.pdf" class="resume-btn" download="P.Salmanulfaris_Resume_CPT.pdf">
@@ -644,19 +649,19 @@
       </div>
 
       <div class="contact-grid">
-        <div class="contact-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-          <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
+        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
+          <h2><i class="fas fa-envelope email-icon"></i> EMAIL</h2>
           <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
         </div>
-        <div class="contact-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
           <h3><i class="fas fa-phone-alt phone-icon"></i> PHONE</h3>
           <a href="tel:+919962726106">+91 99627 26106</a>
         </div>
-        <div class="contact-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
           <h3><i class="fab fa-linkedin-in linkedin-icon"></i> LINKEDIN</h3>
           <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
         </div>
-        <div class="contact-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
           <h3><i class="fab fa-github github-icon"></i> GITHUB</h3>
           <a href="https://github.com/salman2610" target="_blank">salman2610</a>
         </div>
@@ -664,7 +669,7 @@
     </section>
   </div>
 
-  <!-- PDF Viewer Modal -->
+  <!-- PDF Modal -->
   <div class="pdf-modal">
     <span class="pdf-close">&times;</span>
     <div class="pdf-container">
@@ -677,9 +682,27 @@
 
   <script>
     // Initialize AOS
-    AOS.init({ once: true, duration: 800 });
+    AOS.init({ duration: 1200, once: false });
 
-    // Enhanced Matrix Rain
+    // Loading Screen Animation
+    const loadingScreen = document.getElementById('loading-screen');
+    const progress = document.getElementById('progress');
+    const loadingTexts = ['Establishing Connection...', 'Decrypting Data...', 'Loading Assets...', 'Hacking the Matrix...'];
+    let loadingIndex = 0;
+
+    function simulateLoading() {
+      gsap.to(progress, { width: '100%', duration: 5, ease: 'power1.inOut', onComplete: () => {
+        gsap.to(loadingScreen, { opacity: 0, duration: 1, onComplete: () => loadingScreen.style.display = 'none' });
+      } });
+      setInterval(() => {
+        document.getElementById('loading-text').textContent = loadingTexts[loadingIndex % loadingTexts.length];
+        loadingIndex++;
+      }, 1000);
+    }
+
+    simulateLoading();
+
+    // Matrix Rain (same as before)
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -712,7 +735,6 @@
         drops[i]++;
       }
 
-      // Random glitch effect
       if (Math.random() < 0.02) {
         ctx.fillStyle = 'rgba(255, 42, 109, 0.1)';
         ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 100, 10);
@@ -727,7 +749,44 @@
       drops = Array(columns).fill(1);
     });
 
-    // Particle System
+    // 3D Background with Three.js
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('threejs-bg').appendChild(renderer.domElement);
+
+    const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+    const spheres = [];
+
+    for (let i = 0; i < 50; i++) {
+      const sphere = new THREE.Mesh(geometry, material);
+      sphere.position.set(Math.random() * 200 - 100, Math.random() * 200 - 100, Math.random() * 200 - 100);
+      scene.add(sphere);
+      spheres.push(sphere);
+    }
+
+    camera.position.z = 100;
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+      spheres.forEach(sphere => {
+        sphere.rotation.x += 0.01;
+        sphere.rotation.y += 0.01;
+      });
+      renderer.render(scene, camera);
+    }
+
+    animate3D();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Particle System (same as before)
     const particleCanvas = document.getElementById('particles');
     const pCtx = particleCanvas.getContext('2d');
 
@@ -739,15 +798,15 @@
     resizeParticleCanvas();
 
     const particles = [];
-    const particleCount = 50;
+    const particleCount = 100;
 
     class Particle {
       constructor() {
         this.x = Math.random() * particleCanvas.width;
         this.y = Math.random() * particleCanvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
       }
 
       update() {
@@ -759,7 +818,7 @@
       }
 
       draw() {
-        pCtx.fillStyle = 'rgba(0, 240, 255, 0.5)';
+        pCtx.fillStyle = 'rgba(0, 240, 255, 0.7)';
         pCtx.beginPath();
         pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         pCtx.fill();
@@ -786,7 +845,7 @@
 
     window.addEventListener('resize', resizeParticleCanvas);
 
-    // Name Typing Effect
+    // Name Typing with Glitch
     const fullName = "P. SALMANUL FARIS";
     const nameElement = document.getElementById('typed-name');
     let nameIndex = 0;
@@ -795,110 +854,81 @@
       if (nameIndex < fullName.length) {
         nameElement.textContent += fullName.charAt(nameIndex);
         nameIndex++;
+        if (Math.random() < 0.1) {
+          gsap.to(nameElement, { duration: 0.1, css: { textShadow: '2px 2px 0 #ff2a6d, -2px -2px 0 #00f0ff' }, yoyo: true, repeat: 1 });
+        }
         setTimeout(typeName, 100 + Math.random() * 50);
       } else {
         document.querySelector('.name-cursor').style.display = 'none';
+        nameElement.style.animation = 'glitch 3s infinite alternate';
       }
     }
 
     setTimeout(typeName, 1000);
 
-    // Terminal Simulation with Sound
-    const commands = [
-      { cmd: "whoami", output: "p-salmanul-faris\nCertified Penetration Tester | Full-Stack Developer" },
-      { cmd: "ls projects", output: "sunset-pentesting/\ndos-simulation/\nattendance-system/\nbilling-app/\nvulnerability-scanner/" },
-      { cmd: "cat skills.txt", output: "• Penetration Testing\n• Network Security\n• Python/Java/C++\n• Burp Suite/Nmap/Metasploit" },
-      { cmd: "connect --client", output: "Available for:\n> Security Assessments\n> Secure Development\n> Consulting Projects" }
-    ];
+    // Interactive Terminal
+    const terminalCommands = {
+      'help': 'Available commands: whoami, projects, skills, contact, clear',
+      'whoami': 'P. Salmanul Faris - Certified Penetration Tester | Full-Stack Developer',
+      'projects': '1. Sunset Pentesting Machine\n2. DoS Simulation\n3. Attendance System\n4. Billing App (coming soon)\n5. Vulnerability Scanner',
+      'skills': 'Penetration Testing, Network Security, Python, Java, C++, Burp Suite, Nmap, Metasploit',
+      'contact': 'Email: salmanulfariss642@gmail.com\nPhone: +91 99627 26106\nLinkedIn: p-salmanul-faris\nGitHub: salman2610',
+      'clear': 'clear'
+    };
 
-    let cmdIndex = 0;
-    let charIndex = 0;
-    let isCmdDeleting = false;
-    let isCmdWaiting = false;
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalOutput = document.getElementById('terminal-output');
 
-    const typeSound = new Audio('https://www.soundjay.com/buttons/sounds/button-30.mp3');
-    typeSound.volume = 0.1;
-
-    function typeTerminal() {
-      const current = commands[cmdIndex % commands.length];
-      const commandElement = document.getElementById('terminal-command');
-      const outputElement = document.getElementById('terminal-output');
-
-      if (isCmdDeleting) {
-        commandElement.textContent = current.cmd.substring(0, charIndex - 1);
-        charIndex--;
-        typeSound.play();
-        if (charIndex === 0) {
-          isCmdDeleting = false;
-          cmdIndex++;
-          isCmdWaiting = true;
-          setTimeout(typeTerminal, 1000);
-          return;
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = terminalInput.value.trim().toLowerCase();
+        terminalOutput.innerHTML += `> ${cmd}\n`;
+        if (terminalCommands[cmd]) {
+          if (cmd === 'clear') {
+            terminalOutput.innerHTML = '';
+          } else {
+            terminalOutput.innerHTML += `${terminalCommands[cmd]}\n\n`;
+          }
+        } else {
+          terminalOutput.innerHTML += 'Command not found. Type "help" for available commands.\n\n';
         }
-      } else if (isCmdWaiting) {
-        outputElement.textContent = '';
-        isCmdWaiting = false;
-      } else if (charIndex <= current.cmd.length) {
-        commandElement.textContent = current.cmd.substring(0, charIndex);
-        charIndex++;
-        typeSound.play();
-        if (charIndex > current.cmd.length) {
-          outputElement.textContent = current.output;
-          isCmdWaiting = true;
-          setTimeout(() => {
-            isCmdDeleting = true;
-            isCmdWaiting = false;
-          }, 2000);
-          return;
-        }
-      }
-
-      setTimeout(typeTerminal, isCmdDeleting ? 50 : 100);
-    }
-
-    setTimeout(typeTerminal, 2000);
-
-    // PDF Viewer Functionality
-    const viewResumeBtn = document.getElementById('view-resume-btn');
-    const pdfModal = document.querySelector('.pdf-modal');
-
-    viewResumeBtn.addEventListener('click', () => {
-      pdfModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    });
-
-    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
-      pdfModal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-
-    pdfModal.addEventListener('click', (e) => {
-      if (e.target === pdfModal) {
-        pdfModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+        terminalInput.value = '';
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && pdfModal.style.display === 'flex') {
-        pdfModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    // Hire Me Button Particle Explosion
+    const hireMeBtn = document.getElementById('hire-me-btn');
+    hireMeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Simulate particle explosion
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = '5px';
+        particle.style.height = '5px';
+        particle.style.background = var(--neon-pink);
+        particle.style.borderRadius = '50%';
+        particle.style.left = `${e.clientX}px`;
+        particle.style.top = `${e.clientY}px`;
+        document.body.appendChild(particle);
+        gsap.to(particle, {
+          x: Math.random() * 200 - 100,
+          y: Math.random() * 200 - 100,
+          opacity: 0,
+          duration: 1,
+          onComplete: () => particle.remove()
+        });
       }
+      // Then open mailto
+      setTimeout(() => window.location.href = 'mailto:salmanulfariss642@gmail.com', 500);
     });
 
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      viewResumeBtn.addEventListener('click', (e) => {
-        if(confirm("For best experience on mobile, we recommend downloading the PDF. Download now?")) {
-          window.location.href = "P.Salmanulfaris_ResumeCPT.pdf";
-        }
-      });
-    }
-
-    // Audio Toggle
+    // Audio (same as before)
     const audioToggle = document.getElementById('audio-toggle');
     const backgroundAudio = new Audio('https://www.bensound.com/bensound-music/bensound-sci-fi.mp3');
     backgroundAudio.loop = true;
-    backgroundAudio.volume = 0.2;
+    backgroundAudio.volume = 0.3;
     let isAudioPlaying = false;
 
     audioToggle.addEventListener('click', () => {
@@ -911,6 +941,46 @@
       }
       isAudioPlaying = !isAudioPlaying;
     });
+
+    // PDF Viewer (enhanced with class show)
+    const viewResumeBtn = document.getElementById('view-resume-btn');
+    const pdfModal = document.querySelector('.pdf-modal');
+
+    viewResumeBtn.addEventListener('click', () => {
+      pdfModal.style.display = 'flex';
+      pdfModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+
+    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
+      pdfModal.classList.remove('show');
+      setTimeout(() => pdfModal.style.display = 'none', 300);
+      document.body.style.overflow = 'auto';
+    });
+
+    pdfModal.addEventListener('click', (e) => {
+      if (e.target === pdfModal) {
+        pdfModal.classList.remove('show');
+        setTimeout(() => pdfModal.style.display = 'none', 300);
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pdfModal.style.display === 'flex') {
+        pdfModal.classList.remove('show');
+        setTimeout(() => pdfModal.style.display = 'none', 300);
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      viewResumeBtn.addEventListener('click', (e) => {
+        if (confirm("For best experience on mobile, we recommend downloading the PDF. Download now?")) {
+          window.location.href = "P.Salmanulfaris_ResumeCPT.pdf";
+        }
+      });
+    }
   </script>
 </body>
 </html>
