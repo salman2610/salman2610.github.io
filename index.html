@@ -61,7 +61,7 @@
 
   .container {
     position: relative;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
     z-index: 2;
@@ -75,35 +75,39 @@
     width: 100%;
     height: 100%;
     background: var(--dark-bg);
-    z-index: 100;
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     font-family: 'Share Tech Mono', monospace;
     color: var(--neon-green);
+    animation: fadeOut 0.5s ease 5s forwards;
   }
 
   #loading-text {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
+    text-shadow: 0 0 10px var(--neon-green);
   }
 
   #progress-bar {
-    width: 300px;
-    height: 5px;
+    width: 400px;
+    height: 6px;
     background: rgba(0, 255, 0, 0.2);
     position: relative;
+    border-radius: 3px;
   }
 
   #progress {
     width: 0;
     height: 100%;
     background: var(--neon-green);
-    box-shadow: 0 0 10px var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-green);
+    border-radius: 3px;
   }
 
-  /* Header with Enhanced Glitch */
+  /* Header */
   .header {
     margin-bottom: 3rem;
     text-align: center;
@@ -111,7 +115,7 @@
   }
 
   .name-container {
-    min-height: 5rem;
+    min-height: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,59 +123,60 @@
 
   .name {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3.8rem;
+    font-size: 4rem;
     font-weight: 700;
     text-transform: uppercase;
     background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 0 10px rgba(10, 255, 255, 0.5);
-    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(10, 255, 255, 0.7);
+    letter-spacing: 3px;
     position: relative;
     display: inline-block;
+    animation: glitch 2s infinite alternate;
   }
 
   .name-cursor {
     display: inline-block;
-    width: 0.5rem;
-    height: 1.4em;
+    width: 0.6rem;
+    height: 1.5em;
     background: var(--neon-pink);
-    margin-left: 0.3rem;
+    margin-left: 0.4rem;
     animation: blink 1s step-end infinite;
     vertical-align: middle;
-    transform: translateY(-0.1em);
   }
 
   .name::before {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -6px;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 4px;
     background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
   }
 
   .tagline {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--neon-blue);
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     font-family: 'Share Tech Mono', monospace;
+    text-shadow: 0 0 10px var(--neon-blue);
   }
 
-  /* Terminal with Interactive Input */
+  /* Terminal */
   .terminal {
-    background: rgba(0, 15, 20, 0.6);
+    background: rgba(0, 15, 20, 0.7);
     border: 2px solid var(--neon-green);
-    border-radius: 8px;
-    padding: 1.5rem;
+    border-radius: 10px;
+    padding: 2rem;
     margin: 2rem 0;
     font-family: 'Share Tech Mono', monospace;
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(3px);
-    box-shadow: 0 0 20px rgba(0, 255, 10, 0.2);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 25px rgba(0, 255, 10, 0.3);
   }
 
   .terminal::before {
@@ -180,10 +185,10 @@
     top: 0;
     left: 0;
     right: 0;
-    padding: 0.3rem 1.5rem;
-    background: rgba(0, 80, 80, 0.4);
+    padding: 0.4rem 1.5rem;
+    background: rgba(0, 80, 80, 0.5);
     color: var(--neon-green);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     border-bottom: 2px solid var(--neon-green);
   }
 
@@ -193,12 +198,14 @@
 
   .command-line {
     color: var(--neon-green);
+    font-size: 1rem;
   }
 
   .command-output {
     color: var(--neon-blue);
     white-space: pre-wrap;
     margin: 0.5rem 0 1.5rem;
+    font-size: 0.95rem;
   }
 
   .terminal-input {
@@ -208,6 +215,7 @@
     font-family: inherit;
     width: 100%;
     outline: none;
+    font-size: 1rem;
   }
 
   .terminal-cursor {
@@ -219,33 +227,21 @@
     vertical-align: middle;
   }
 
-  /* Sections with Parallax */
+  /* Sections */
   section {
     background: var(--card-bg);
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    border-radius: 8px;
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    border-radius: 10px;
     padding: 2rem;
     margin-bottom: 2rem;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(5px);
     transition: transform 0.3s, border-color 0.3s;
     position: relative;
   }
 
-  section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0 0 L100 100 M100 0 L0 100" stroke="%2300f0ff" stroke-width="0.5" opacity="0.1"/></svg>');
-    background-repeat: repeat;
-    opacity: 0.1;
-  }
-
   section:hover {
     border-color: var(--neon-blue);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
     transform: translateY(-5px);
   }
 
@@ -253,8 +249,9 @@
     font-family: 'Share Tech Mono', monospace;
     color: var(--neon-blue);
     margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
     position: relative;
+    text-shadow: 0 0 10px var(--neon-blue);
   }
 
   h2::after {
@@ -262,12 +259,47 @@
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: 100%;
-    height: 2px;
+    width: 50%;
+    height: 3px;
     background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
 
-  /* Contact Cards with 3D Tilt and Glow */
+  /* Project Cards */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .project-card {
+    background: rgba(0, 20, 30, 0.5);
+    border: 2px solid var(--neon-purple);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+  }
+
+  .project-card h3 {
+    color: var(--neon-green);
+    font-family: 'Share Tech Mono', monospace;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-card p {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+  }
+
+  /* Contact Cards */
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -276,7 +308,7 @@
   }
 
   .contact-card {
-    background: rgba(0, 20, 30, 0.4);
+    background: rgba(0, 20, 30, 0.5);
     border: 2px solid var(--neon-blue);
     border-radius: 8px;
     padding: 1.5rem;
@@ -292,7 +324,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.5s;
   }
@@ -303,7 +335,7 @@
 
   .contact-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.4);
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.5);
   }
 
   .contact-card h3 {
@@ -328,13 +360,12 @@
     color: var(--neon-blue);
   }
 
-  /* Icons */
   .email-icon { color: #D44638; }
   .phone-icon { color: #25D366; }
   .linkedin-icon { color: #0A66C2; }
   .github-icon { color: #f0f0f0; }
 
-  /* Hire Me Button with Particle Explosion */
+  /* Hire Me Button */
   .hire-me {
     display: inline-block;
     background: var(--neon-pink);
@@ -352,7 +383,7 @@
       0 0 20px rgba(255, 42, 109, 0.6);
     transition: all 0.3s ease;
     animation: pulse 1.5s infinite alternate;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     position: relative;
     overflow: hidden;
   }
@@ -402,7 +433,7 @@
     box-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
   }
 
-  /* PDF Modal with Animation */
+  /* PDF Modal */
   .pdf-modal {
     position: fixed;
     top: 0;
@@ -418,7 +449,7 @@
   }
 
   .pdf-container {
-    width: 80%;
+    width: 85%;
     height: 90%;
     background: var(--dark-bg);
     border: 2px solid var(--neon-blue);
@@ -483,25 +514,25 @@
     z-index: 10;
     background: var(--neon-blue);
     color: #000;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 0 10px var(--neon-blue);
+    box-shadow: 0 0 15px var(--neon-blue);
   }
 
   .audio-toggle:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px var(--neon-blue);
+    box-shadow: 0 0 25px var(--neon-blue);
   }
 
   /* Animations */
   @keyframes glitch {
-    0% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.5); }
+    0% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
     10% { text-shadow: 2px 2px 0 var(--neon-pink), -2px -2px 0 var(--neon-blue); }
     20% { text-shadow: -2px 2px 0 var(--neon-pink), 2px -2px 0 var(--neon-blue); }
-    30% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.5); }
-    100% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.5); }
+    30% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
+    100% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
   }
 
   @keyframes blink {
@@ -524,28 +555,34 @@
     to { opacity: 1; }
   }
 
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; display: none; }
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .container { padding: 1.2rem; }
-    .name { font-size: 2.2rem; letter-spacing: 1px; }
-    .tagline { font-size: 1.1rem; }
-    section { padding: 1.3rem; }
-    h2 { font-size: 1.5rem; }
-    .terminal { padding: 1.2rem 1rem; }
-    .command-output { font-size: 0.9rem; }
-    .contact-grid { grid-template-columns: 1fr; }
+    .name { font-size: 2.5rem; letter-spacing: 1.5px; }
+    .tagline { font-size: 1.2rem; }
+    section { padding: 1.5rem; }
+    h2 { font-size: 1.6rem; }
+    .terminal { padding: 1.5rem 1rem; }
+    .command-output { font-size: 0.85rem; }
+    .project-grid, .contact-grid { grid-template-columns: 1fr; }
     .hire-me { padding: 0.8rem 1.5rem; font-size: 1rem; }
     .loading-soon { font-size: 0.8em; }
-    .pdf-container { width: 95%; height: 80%; }
-    .audio-toggle { bottom: 15px; right: 15px; padding: 0.4rem; }
+    .pdf-container { width: 95%; height: 85%; }
+    .audio-toggle { bottom: 15px; right: 15px; padding: 0.5rem; }
+    #progress-bar { width: 300px; }
   }
 
   @media (max-width: 480px) {
-    .name { font-size: 1.8rem; }
-    .terminal::before { padding: 0.2rem 1rem; font-size: 0.7rem; }
-    .contact-card { padding: 1.2rem; }
-    .contact-card h3 { font-size: 1rem; }
-    .contact-card a { padding-left: 1.5rem; font-size: 0.9rem; }
+    .name { font-size: 2rem; }
+    .terminal::before { font-size: 0.8rem; }
+    .project-card, .contact-card { padding: 1.2rem; }
+    .project-card h3, .contact-card h3 { font-size: 1rem; }
+    .project-card p, .contact-card a { font-size: 0.9rem; }
     .dot { width: 6px; height: 6px; }
     .resume-actions { flex-direction: column; }
   }
@@ -616,25 +653,32 @@
 
     <section id="projects" data-aos="fade-left">
       <h2>// PROJECTS</h2>
-      <ul>
-        <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
-        <li><strong>DoS Attack Simulation</strong> - Executed controlled Denial-of-Service attack on test Apache server</li>
-        <li><strong>Attendance Management System</strong> - Developed secure web/mobile app for tracking attendance with biometric verification</li>
-        <li>
-          <strong>Cross-Platform Billing App</strong> 
-          <span class="loading-soon">
-            (loading soon
-            <span class="loading-dots">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </span>)
-          </span>
-          - Desktop/mobile solution for small business billing processes
-        </li>
-        <li><strong>Network Vulnerability Scanner</strong> - Custom tool for automated security assessments</li>
-        <li><strong>M.Sc Research Project</strong> - Acoustic study of aqueous solutions containing antibiotics and insulin</li>
-      </ul>
+      <div class="project-grid">
+        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
+          <h3>Custom Ubuntu Pentesting Machine ("Sunset")</h3>
+          <p>Configured a customized Ubuntu environment with ethical hacking tools for streamlined penetration testing.</p>
+        </div>
+        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
+          <h3>DoS Attack Simulation</h3>
+          <p>Executed a controlled Denial-of-Service attack on a test Apache server to study mitigation techniques.</p>
+        </div>
+        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
+          <h3>Attendance Management System</h3>
+          <p>Developed a secure web/mobile app for tracking attendance with biometric verification.</p>
+        </div>
+        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
+          <h3>Cross-Platform Billing App <span class="loading-soon">(loading soon <span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span>)</span></h3>
+          <p>Desktop/mobile solution for small business billing processes.</p>
+        </div>
+        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
+          <h3>Network Vulnerability Scanner</h3>
+          <p>Custom tool for automated security assessments and vulnerability detection.</p>
+        </div>
+        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
+          <h3>M.Sc Research Project</h3>
+          <p>Acoustic study of aqueous solutions containing antibiotics and insulin.</p>
+        </div>
+      </div>
     </section>
 
     <section id="contact" data-aos="fade-up">
@@ -650,7 +694,7 @@
 
       <div class="contact-grid">
         <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
-          <h2><i class="fas fa-envelope email-icon"></i> EMAIL</h2>
+          <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
           <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
         </div>
         <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
@@ -682,27 +726,50 @@
 
   <script>
     // Initialize AOS
-    AOS.init({ duration: 1200, once: false });
+    try {
+      AOS.init({ duration: 1000, once: false });
+    } catch (e) {
+      console.error('AOS initialization failed:', e);
+    }
 
-    // Loading Screen Animation
+    // Loading Screen
     const loadingScreen = document.getElementById('loading-screen');
     const progress = document.getElementById('progress');
     const loadingTexts = ['Establishing Connection...', 'Decrypting Data...', 'Loading Assets...', 'Hacking the Matrix...'];
     let loadingIndex = 0;
 
     function simulateLoading() {
-      gsap.to(progress, { width: '100%', duration: 5, ease: 'power1.inOut', onComplete: () => {
-        gsap.to(loadingScreen, { opacity: 0, duration: 1, onComplete: () => loadingScreen.style.display = 'none' });
-      } });
-      setInterval(() => {
-        document.getElementById('loading-text').textContent = loadingTexts[loadingIndex % loadingTexts.length];
-        loadingIndex++;
-      }, 1000);
+      try {
+        gsap.to(progress, {
+          width: '100%',
+          duration: 5,
+          ease: 'power1.inOut',
+          onComplete: () => {
+            gsap.to(loadingScreen, {
+              opacity: 0,
+              duration: 0.5,
+              onComplete: () => loadingScreen.style.display = 'none'
+            });
+          }
+        });
+        const textInterval = setInterval(() => {
+          document.getElementById('loading-text').textContent = loadingTexts[loadingIndex % loadingTexts.length];
+          loadingIndex++;
+        }, 1000);
+        // Fallback timeout to ensure loading screen hides
+        setTimeout(() => {
+          clearInterval(textInterval);
+          loadingScreen.style.display = 'none';
+        }, 6000);
+      } catch (e) {
+        console.error('Loading animation failed:', e);
+        loadingScreen.style.display = 'none'; // Fallback
+      }
     }
 
     simulateLoading();
 
-    // Matrix Rain (same as before)
+    // Matrix Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
@@ -749,44 +816,53 @@
       drops = Array(columns).fill(1);
     });
 
-    // 3D Background with Three.js
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('threejs-bg').appendChild(renderer.domElement);
+    // Optimized Three.js Background
+    let scene, camera, renderer, spheres = [];
+    function initThreeJS() {
+      try {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('threejs-bg').appendChild(renderer.domElement);
 
-    const geometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
-    const spheres = [];
+        const geometry = new THREE.SphereGeometry(0.3, 16, 16);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+        const sphereCount = /Mobi|Android/i.test(navigator.userAgent) ? 20 : 50; // Reduce for mobile
+        for (let i = 0; i < sphereCount; i++) {
+          const sphere = new THREE.Mesh(geometry, material);
+          sphere.position.set(Math.random() * 100 - 50, Math.random() * 100 - 50, Math.random() * 100 - 50);
+          scene.add(sphere);
+          spheres.push(sphere);
+        }
 
-    for (let i = 0; i < 50; i++) {
-      const sphere = new THREE.Mesh(geometry, material);
-      sphere.position.set(Math.random() * 200 - 100, Math.random() * 200 - 100, Math.random() * 200 - 100);
-      scene.add(sphere);
-      spheres.push(sphere);
+        camera.position.z = 70;
+
+        function animate3D() {
+          requestAnimationFrame(animate3D);
+          spheres.forEach(sphere => {
+            sphere.rotation.x += 0.005;
+            sphere.rotation.y += 0.005;
+          });
+          renderer.render(scene, camera);
+        }
+
+        animate3D();
+
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      } catch (e) {
+        console.error('Three.js initialization failed:', e);
+        document.getElementById('threejs-bg').style.display = 'none';
+      }
     }
 
-    camera.position.z = 100;
+    initThreeJS();
 
-    function animate3D() {
-      requestAnimationFrame(animate3D);
-      spheres.forEach(sphere => {
-        sphere.rotation.x += 0.01;
-        sphere.rotation.y += 0.01;
-      });
-      renderer.render(scene, camera);
-    }
-
-    animate3D();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Particle System (same as before)
+    // Particle System
     const particleCanvas = document.getElementById('particles');
     const pCtx = particleCanvas.getContext('2d');
 
@@ -798,15 +874,15 @@
     resizeParticleCanvas();
 
     const particles = [];
-    const particleCount = 100;
+    const particleCount = /Mobi|Android/i.test(navigator.userAgent) ? 30 : 80;
 
     class Particle {
       constructor() {
         this.x = Math.random() * particleCanvas.width;
         this.y = Math.random() * particleCanvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
       }
 
       update() {
@@ -818,7 +894,7 @@
       }
 
       draw() {
-        pCtx.fillStyle = 'rgba(0, 240, 255, 0.7)';
+        pCtx.fillStyle = 'rgba(0, 240, 255, 0.6)';
         pCtx.beginPath();
         pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         pCtx.fill();
@@ -845,7 +921,7 @@
 
     window.addEventListener('resize', resizeParticleCanvas);
 
-    // Name Typing with Glitch
+    // Name Typing
     const fullName = "P. SALMANUL FARIS";
     const nameElement = document.getElementById('typed-name');
     let nameIndex = 0;
@@ -855,7 +931,16 @@
         nameElement.textContent += fullName.charAt(nameIndex);
         nameIndex++;
         if (Math.random() < 0.1) {
-          gsap.to(nameElement, { duration: 0.1, css: { textShadow: '2px 2px 0 #ff2a6d, -2px -2px 0 #00f0ff' }, yoyo: true, repeat: 1 });
+          try {
+            gsap.to(nameElement, {
+              duration: 0.1,
+              css: { textShadow: '3px 3px 0 #ff2a6d, -3px -3px 0 #00f0ff' },
+              yoyo: true,
+              repeat: 1
+            });
+          } catch (e) {
+            console.error('GSAP animation failed:', e);
+          }
         }
         setTimeout(typeName, 100 + Math.random() * 50);
       } else {
@@ -870,7 +955,7 @@
     const terminalCommands = {
       'help': 'Available commands: whoami, projects, skills, contact, clear',
       'whoami': 'P. Salmanul Faris - Certified Penetration Tester | Full-Stack Developer',
-      'projects': '1. Sunset Pentesting Machine\n2. DoS Simulation\n3. Attendance System\n4. Billing App (coming soon)\n5. Vulnerability Scanner',
+      'projects': '1. Sunset Pentesting Machine\n2. DoS Simulation\n3. Attendance System\n4. Billing App (coming soon)\n5. Vulnerability Scanner\n6. M.Sc Research',
       'skills': 'Penetration Testing, Network Security, Python, Java, C++, Burp Suite, Nmap, Metasploit',
       'contact': 'Email: salmanulfariss642@gmail.com\nPhone: +91 99627 26106\nLinkedIn: p-salmanul-faris\nGitHub: salman2610',
       'clear': 'clear'
@@ -901,48 +986,59 @@
     const hireMeBtn = document.getElementById('hire-me-btn');
     hireMeBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      // Simulate particle explosion
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = '5px';
-        particle.style.height = '5px';
-        particle.style.background = var(--neon-pink);
-        particle.style.borderRadius = '50%';
-        particle.style.left = `${e.clientX}px`;
-        particle.style.top = `${e.clientY}px`;
-        document.body.appendChild(particle);
-        gsap.to(particle, {
-          x: Math.random() * 200 - 100,
-          y: Math.random() * 200 - 100,
-          opacity: 0,
-          duration: 1,
-          onComplete: () => particle.remove()
-        });
+      try {
+        for (let i = 0; i < 30; i++) {
+          const particle = document.createElement('div');
+          particle.style.position = 'absolute';
+          particle.style.width = '6px';
+          particle.style.height = '6px';
+          particle.style.background = 'var(--neon-pink)';
+          particle.style.borderRadius = '50%';
+          particle.style.left = `${e.clientX}px`;
+          particle.style.top = `${e.clientY}px`;
+          document.body.appendChild(particle);
+          gsap.to(particle, {
+            x: Math.random() * 200 - 100,
+            y: Math.random() * 200 - 100,
+            opacity: 0,
+            duration: 1,
+            onComplete: () => particle.remove()
+          });
+        }
+      } catch (e) {
+        console.error('Particle animation failed:', e);
       }
-      // Then open mailto
       setTimeout(() => window.location.href = 'mailto:salmanulfariss642@gmail.com', 500);
     });
 
-    // Audio (same as before)
+    // Audio
+    let backgroundAudio;
+    try {
+      backgroundAudio = new Audio('https://www.bensound.com/bensound-music/bensound-sci-fi.mp3');
+      backgroundAudio.loop = true;
+      backgroundAudio.volume = 0.3;
+    } catch (e) {
+      console.error('Audio initialization failed:', e);
+    }
     const audioToggle = document.getElementById('audio-toggle');
-    const backgroundAudio = new Audio('https://www.bensound.com/bensound-music/bensound-sci-fi.mp3');
-    backgroundAudio.loop = true;
-    backgroundAudio.volume = 0.3;
     let isAudioPlaying = false;
 
     audioToggle.addEventListener('click', () => {
-      if (isAudioPlaying) {
-        backgroundAudio.pause();
-        audioToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      } else {
-        backgroundAudio.play();
-        audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+      try {
+        if (isAudioPlaying) {
+          backgroundAudio.pause();
+          audioToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else {
+          backgroundAudio.play();
+          audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+        isAudioPlaying = !isAudioPlaying;
+      } catch (e) {
+        console.error('Audio toggle failed:', e);
       }
-      isAudioPlaying = !isAudioPlaying;
     });
 
-    // PDF Viewer (enhanced with class show)
+    // PDF Viewer
     const viewResumeBtn = document.getElementById('view-resume-btn');
     const pdfModal = document.querySelector('.pdf-modal');
 
