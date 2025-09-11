@@ -6,6 +6,7 @@
 <title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
@@ -57,6 +58,16 @@
     height: 100%;
     z-index: -1;
     opacity: 0.3;
+  }
+
+  #audio-visualizer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0.5;
   }
 
   .container {
@@ -165,6 +176,31 @@
     text-shadow: 0 0 10px var(--neon-blue);
   }
 
+  .value-prop {
+    font-size: 1.2rem;
+    color: var(--neon-green);
+    margin-top: 1rem;
+    text-shadow: 0 0 10px var(--neon-green);
+  }
+
+  .trust-signals {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .trust-badge {
+    width: 50px;
+    height: 50px;
+    background: var(--neon-purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px var(--neon-purple);
+  }
+
   /* Terminal */
   .terminal {
     background: rgba(0, 15, 20, 0.7);
@@ -264,7 +300,38 @@
     background: linear-gradient(90deg, var(--neon-blue), transparent);
   }
 
-  /* Project Cards */
+  /* Certifications with Animation */
+  #certifications ul li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  #certifications ul li.unlocked {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #certifications ul li::before {
+    content: '\f091';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: var(--neon-gold, #ffd700);
+    animation: badgeUnlock 1s ease-in-out;
+  }
+
+  @keyframes badgeUnlock {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  /* Project Cards with Draggable */
   .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -280,7 +347,11 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    cursor: pointer;
+    cursor: grab;
+  }
+
+  .project-card:active {
+    cursor: grabbing;
   }
 
   .project-card:hover {
@@ -297,6 +368,28 @@
   .project-card p {
     font-size: 0.9rem;
     color: var(--text-primary);
+  }
+
+  /* Vuln Demo */
+  .vuln-demo {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--neon-red, #ff0000);
+    border-radius: 5px;
+  }
+
+  .vuln-demo button {
+    background: var(--neon-red);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .vuln-output {
+    margin-top: 0.5rem;
+    color: var(--neon-red);
   }
 
   /* Contact Cards */
@@ -364,6 +457,21 @@
   .phone-icon { color: #25D366; }
   .linkedin-icon { color: #0A66C2; }
   .github-icon { color: #f0f0f0; }
+
+  /* Recent Commits */
+  #recent-commits {
+    margin-top: 1rem;
+  }
+
+  #commits-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  #commits-list li {
+    margin-bottom: 0.5rem;
+    color: var(--neon-blue);
+  }
 
   /* Hire Me Button */
   .hire-me {
@@ -526,6 +634,26 @@
     box-shadow: 0 0 25px var(--neon-blue);
   }
 
+  /* Easter Egg */
+  #easter-egg {
+    display: none;
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--neon-purple);
+    padding: 1rem;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    animation: popUp 0.5s ease;
+  }
+
+  @keyframes popUp {
+    0% { transform: translateX(-50%) scale(0); }
+    100% { transform: translateX(-50%) scale(1); }
+  }
+
   /* Animations */
   @keyframes glitch {
     0% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
@@ -603,6 +731,9 @@
   <!-- 3D Background -->
   <div id="threejs-bg"></div>
 
+  <!-- Audio Visualizer -->
+  <canvas id="audio-visualizer"></canvas>
+
   <!-- Audio Toggle -->
   <button class="audio-toggle" id="audio-toggle">
     <i class="fas fa-volume-up"></i>
@@ -614,6 +745,11 @@
         <div class="name" id="typed-name"></div><span class="name-cursor"></span>
       </div>
       <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
+      <p class="value-prop">Secure your systems with expert vulnerability assessments and ethical hacking solutions.</p>
+      <div class="trust-signals">
+        <div class="trust-badge"><i class="fas fa-lock"></i></div>
+        <div class="trust-badge"><i class="fas fa-shield-alt"></i></div>
+      </div>
     </header>
 
     <div class="terminal" data-aos="fade-up">
@@ -638,8 +774,8 @@
     <section id="certifications" data-aos="fade-left">
       <h2>// CERTIFICATIONS</h2>
       <ul>
-        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
-        <li><strong>Advanced Programming in Full Stack Software Engineering</strong> - NIIT Chennai</li>
+        <li class="badge-item" data-level="gold"><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
+        <li class="badge-item" data-level="silver"><strong>Advanced Programming in Full Stack Software Engineering</strong> - NIIT Chennai</li>
       </ul>
     </section>
 
@@ -657,6 +793,10 @@
         <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
           <h3>Custom Ubuntu Pentesting Machine ("Sunset")</h3>
           <p>Configured a customized Ubuntu environment with ethical hacking tools for streamlined penetration testing.</p>
+          <div class="vuln-demo">
+            <button id="vuln-scan-btn">Demo Vuln Scan</button>
+            <div class="vuln-output" id="vuln-output"></div>
+          </div>
         </div>
         <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
           <h3>DoS Attack Simulation</h3>
@@ -708,9 +848,15 @@
         <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
           <h3><i class="fab fa-github github-icon"></i> GITHUB</h3>
           <a href="https://github.com/salman2610" target="_blank">salman2610</a>
+          <div id="recent-commits">
+            <h4>Recent Commits:</h4>
+            <ul id="commits-list"></ul>
+          </div>
         </div>
       </div>
     </section>
+
+    <div id="easter-egg">Easter Egg: You've scrolled far! Secret code: H4CK3R</div>
   </div>
 
   <!-- PDF Modal -->
@@ -731,6 +877,24 @@
     } catch (e) {
       console.error('AOS initialization failed:', e);
     }
+
+    // GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate sections on scroll
+    gsap.utils.toArray("section").forEach((section) => {
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+      });
+    });
 
     // Loading Screen
     const loadingScreen = document.getElementById('loading-screen');
@@ -951,26 +1115,38 @@
 
     setTimeout(typeName, 1000);
 
-    // Interactive Terminal
+    // Interactive Terminal with CTF Riddle
     const terminalCommands = {
-      'help': 'Available commands: whoami, projects, skills, contact, clear',
+      'help': 'Available commands: whoami, projects, skills, contact, clear, ctf',
       'whoami': 'P. Salmanul Faris - Certified Penetration Tester | Full-Stack Developer',
       'projects': '1. Sunset Pentesting Machine\n2. DoS Simulation\n3. Attendance System\n4. Billing App (coming soon)\n5. Vulnerability Scanner\n6. M.Sc Research',
       'skills': 'Penetration Testing, Network Security, Python, Java, C++, Burp Suite, Nmap, Metasploit',
       'contact': 'Email: salmanulfariss642@gmail.com\nPhone: +91 99627 26106\nLinkedIn: p-salmanul-faris\nGitHub: salman2610',
-      'clear': 'clear'
+      'clear': 'clear',
+      'ctf': 'Riddle: What has keys but can\'t open locks? (Type "answer [your guess]")'
     };
+
+    const riddleAnswer = 'keyboard';
 
     const terminalInput = document.getElementById('terminal-input');
     const terminalOutput = document.getElementById('terminal-output');
 
     terminalInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const cmd = terminalInput.value.trim().toLowerCase();
+        let cmd = terminalInput.value.trim().toLowerCase();
         terminalOutput.innerHTML += `> ${cmd}\n`;
-        if (terminalCommands[cmd]) {
+        if (cmd.startsWith('answer ')) {
+          const guess = cmd.slice(7).trim();
+          if (guess === riddleAnswer) {
+            terminalOutput.innerHTML += 'Correct! Flag: CTF{Solved}\n\n';
+          } else {
+            terminalOutput.innerHTML += 'Wrong! Try again.\n\n';
+          }
+        } else if (terminalCommands[cmd]) {
           if (cmd === 'clear') {
             terminalOutput.innerHTML = '';
+          } else if (cmd === 'ctf') {
+            terminalOutput.innerHTML += `${terminalCommands[cmd]}\n\n`;
           } else {
             terminalOutput.innerHTML += `${terminalCommands[cmd]}\n\n`;
           }
@@ -1011,12 +1187,46 @@
       setTimeout(() => window.location.href = 'mailto:salmanulfariss642@gmail.com', 500);
     });
 
-    // Audio
-    let backgroundAudio;
+    // Audio with Visualizer
+    let backgroundAudio, audioContext, analyser, dataArray, visCtx;
     try {
       backgroundAudio = new Audio('https://www.bensound.com/bensound-music/bensound-sci-fi.mp3');
       backgroundAudio.loop = true;
       backgroundAudio.volume = 0.3;
+
+      audioContext = new AudioContext();
+      const source = audioContext.createMediaElementSource(backgroundAudio);
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      source.connect(analyser);
+      analyser.connect(audioContext.destination);
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+      const visCanvas = document.getElementById('audio-visualizer');
+      visCtx = visCanvas.getContext('2d');
+
+      function resizeVisCanvas() {
+        visCanvas.width = window.innerWidth;
+        visCanvas.height = window.innerHeight;
+      }
+      resizeVisCanvas();
+      window.addEventListener('resize', resizeVisCanvas);
+
+      function drawVisualizer() {
+        analyser.getByteFrequencyData(dataArray);
+        visCtx.clearRect(0, 0, visCanvas.width, visCanvas.height);
+        const barWidth = (visCanvas.width / dataArray.length) * 2.5;
+        let x = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          const barHeight = dataArray[i];
+          visCtx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
+          visCtx.fillRect(x, visCanvas.height - barHeight / 2, barWidth, barHeight / 2);
+          x += barWidth + 1;
+        }
+        requestAnimationFrame(drawVisualizer);
+      }
+
+      drawVisualizer();
     } catch (e) {
       console.error('Audio initialization failed:', e);
     }
@@ -1077,6 +1287,93 @@
         }
       });
     }
+
+    // Unlock Certifications on Scroll
+    gsap.utils.toArray("#certifications ul li").forEach((li, i) => {
+      gsap.to(li, {
+        scrollTrigger: {
+          trigger: li,
+          start: "top 80%",
+          onEnter: () => li.classList.add('unlocked')
+        }
+      });
+    });
+
+    // Draggable Project Cards (simple drag with JS)
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+      let isDragging = false;
+      let startX, startY, initialX, initialY;
+
+      card.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialX = card.offsetLeft;
+        initialY = card.offsetTop;
+        card.style.transition = 'none';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          card.style.left = `${initialX + dx}px`;
+          card.style.top = `${initialY + dy}px`;
+          card.style.position = 'absolute';
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        card.style.transition = 'all 0.3s ease';
+        card.style.left = '';
+        card.style.top = '';
+        card.style.position = '';
+      });
+    });
+
+    // Simulated Vuln Scan Demo
+    const vulnBtn = document.getElementById('vuln-scan-btn');
+    const vulnOutput = document.getElementById('vuln-output');
+    if (vulnBtn) {
+      vulnBtn.addEventListener('click', () => {
+        vulnOutput.innerHTML = 'Scanning...\n';
+        setTimeout(() => {
+          vulnOutput.innerHTML += 'Vuln found: SQL Injection (simulated)\n';
+          vulnOutput.innerHTML += 'Mitigation: Use prepared statements.\n';
+        }, 2000);
+      });
+    }
+
+    // Fetch Recent GitHub Commits
+    async function fetchCommits() {
+      try {
+        const response = await fetch('https://api.github.com/repos/salman2610/portfolio/commits?per_page=5');
+        const data = await response.json();
+        const commitsList = document.getElementById('commits-list');
+        data.forEach(commit => {
+          const li = document.createElement('li');
+          li.textContent = `${commit.commit.message} - ${new Date(commit.commit.author.date).toLocaleDateString()}`;
+          commitsList.appendChild(li);
+        });
+      } catch (e) {
+        console.error('GitHub fetch failed:', e);
+      }
+    }
+    fetchCommits();
+
+    // Infinite Scroll Easter Egg
+    let easterShown = false;
+    window.addEventListener('scroll', () => {
+      if (!easterShown && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        document.getElementById('easter-egg').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('easter-egg').style.display = 'none';
+        }, 5000);
+        easterShown = true;
+      }
+    });
   </script>
 </body>
 </html>
