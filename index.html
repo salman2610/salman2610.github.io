@@ -1,424 +1,829 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>P. Salmanul Faris | Cybersecurity Portfolio</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r161/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-cyan: #00ffff;
-      --accent-purple: #ff00ff;
-      --bg-dark: #000011;
-      --text-light: #ffffff;
-      --text-dim: #a0a0a0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+  
+  :root {
+    --neon-green: #0aff0a;
+    --neon-blue: #00f0ff;
+    --neon-pink: #ff2a6d;
+    --neon-purple: #bc13fe;
+    --dark-bg: #0a0a12;
+    --text-primary: #e0e0ff;
+    --card-bg: rgba(10, 10, 30, 0.5);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Oxanium', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  /* Matrix Background */
+  #matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    opacity: 0.15;
+  }
+  
+  .container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    z-index: 2;
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  /* Header Styles */
+  .header {
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  }
 
-    body {
-      background: var(--bg-dark);
-      color: var(--text-light);
-      font-family: 'Share Tech Mono', monospace;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
+  .name-container {
+    min-height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
 
-    #threejs-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+  .name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(10, 255, 255, 0.5);
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .name-cursor {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1.4em;
+    background: var(--neon-pink);
+    margin-left: 0.3rem;
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    transform: translateY(-0.1em);
+  }
+
+  .name::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    border-radius: 3px;
+  }
+
+  .tagline {
+    font-size: 1.4rem;
+    color: var(--neon-blue);
+    margin-top: 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* NEW 3D Terminal */
+  .cyber-terminal {
+    border: 1px solid var(--neon-green);
+    background: rgba(0, 15, 20, 0.7);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+    height: 600px;
+    perspective: 1000px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+  }
+
+  .terminal-screen {
+    height: 70%;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .command-line {
+    color: var(--neon-green);
+    font-family: 'Share Tech Mono', monospace;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1em;
+    background: var(--neon-pink);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+
+  #output3d {
+    height: 80%;
+    width: 100%;
+    margin-top: 1rem;
+    position: relative;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .terminal-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hack-btn {
+    background: transparent;
+    border: 1px solid var(--neon-purple);
+    color: var(--neon-blue);
+    padding: 0.8rem 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .hack-btn:hover {
+    text-shadow: 0 0 10px var(--neon-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.5);
+  }
+
+  .mobile-fallback {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    color: var(--neon-blue);
+    font-family: 'Share Tech Mono';
+  }
+
+  /* Content Sections */
+  section {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 8px;
+    padding: 2.2rem;
+    margin-bottom: 2.5rem;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+  }
+
+  section:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+    transform: translateY(-3px);
+  }
+
+  h2 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-blue);
+    margin-bottom: 1.8rem;
+    font-size: 1.8rem;
+    position: relative;
+    letter-spacing: 1px;
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), transparent);
+  }
+
+  p, li {
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  ul {
+    list-style-position: inside;
+  }
+
+  li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--neon-pink);
+  }
+
+  /* Contact Cards */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.8rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-card {
+    background: rgba(0, 20, 30, 0.4);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.25);
+    border-color: var(--neon-green);
+  }
+
+  .contact-card h3 {
+    color: var(--neon-green);
+    margin-bottom: 1.2rem;
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.1rem;
+  }
+
+  .contact-card a {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: block;
+    padding-left: 2rem;
+    word-break: break-all;
+    transition: color 0.3s;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .contact-card a:hover {
+    color: var(--neon-blue);
+  }
+
+  /* Icons */
+  .email-icon { color: #D44638; }
+  .phone-icon { color: #25D366; }
+  .linkedin-icon { color: #0A66C2; }
+  .github-icon { color: #f0f0f0; }
+
+  /* Buttons */
+  .hire-me {
+    display: inline-block;
+    background: var(--neon-pink);
+    color: #000;
+    padding: 1rem 2rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 
+      0 0 10px rgba(255, 42, 109, 0.8),
+      0 0 20px rgba(255, 42, 109, 0.6);
+    transition: all 0.3s ease;
+    animation: pulse 1.5s infinite alternate;
+    font-size: 1.1rem;
+  }
+
+  .resume-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .resume-btn {
+    background: var(--neon-purple);
+    color: #000;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+  }
+
+  /* Animations */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 
+        0 0 10px rgba(255, 42, 109, 0.8),
+        0 0 20px rgba(255, 42, 109, 0.6);
+    }
+    100% {
+      box-shadow: 
+        0 0 20px rgba(255, 42, 109, 1),
+        0 0 40px rgba(255, 42, 109, 0.8);
+    }
+  }
+
+  @keyframes bounce {
+    0%, 80%, 100% { 
+      transform: translateY(0);
       opacity: 0.5;
     }
+    40% { 
+      transform: translateY(-6px);
+      opacity: 1;
+    }
+  }
 
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
     .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-      position: relative;
-      z-index: 1;
+      padding: 1.2rem;
     }
-
+    
+    .name {
+      font-size: 2.2rem;
+    }
+    
+    .tagline {
+      font-size: 1.1rem;
+    }
+    
+    .cyber-terminal {
+      height: auto;
+      padding: 1.5rem;
+    }
+    
+    #output3d {
+      height: 300px;
+    }
+    
+    .terminal-buttons {
+      flex-direction: column;
+    }
+    
     section {
-      margin-bottom: 4rem;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--primary-cyan);
-      border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      padding: 1.5rem;
     }
-
-    h1, h2 {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--primary-cyan);
-      text-shadow: 0 0 10px var(--primary-cyan);
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .value-prop {
+    
+    h2 {
       font-size: 1.5rem;
-      margin: 1rem 0;
-      color: var(--text-dim);
     }
+    
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .mobile-fallback {
+      display: block;
+    }
+  }
 
-    .trust-badges {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+  @media (max-width: 480px) {
+    .name {
+      font-size: 1.8rem;
     }
-
-    .badge {
-      padding: 0.5rem 1rem;
-      background: rgba(0, 255, 255, 0.1);
-      border: 1px solid var(--primary-cyan);
-      border-radius: 4px;
+    
+    .contact-card {
+      padding: 1.2rem;
     }
-
-    .terminal {
-      background: #000;
-      padding: 1rem;
-      border: 1px solid var(--accent-purple);
-      border-radius: 4px;
-      margin: 2rem 0;
+    
+    .contact-card h3 {
+      font-size: 1rem;
     }
-
-    .terminal-input {
-      background: transparent;
-      border: none;
-      color: var(--primary-cyan);
-      width: 100%;
-      outline: none;
+    
+    .contact-card a {
+      padding-left: 1.5rem;
+      font-size: 0.9rem;
     }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .project-card {
-      padding: 1rem;
-      border: 1px solid var(--accent-purple);
-      border-radius: 4px;
-      cursor: grab;
-    }
-
-    .cert-grid {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-
-    .cert-badge {
-      text-align: center;
-      margin: 1rem;
-      opacity: 0;
-      transform: scale(0.8);
-    }
-
-    .vuln-demo {
-      margin-top: 1rem;
-    }
-
-    #audio-visualizer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      z-index: -1;
-      opacity: 0.3;
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    input, textarea {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--primary-cyan);
-      padding: 0.5rem;
-      color: var(--text-light);
-    }
-
-    button {
-      background: var(--primary-cyan);
-      color: var(--bg-dark);
-      border: none;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .container { padding: 1rem; }
-      .project-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div id="threejs-container"></div>
-  <canvas id="audio-visualizer"></canvas>
+  <!-- Matrix Background -->
+  <canvas id="matrix"></canvas>
 
   <div class="container">
-    <section class="hero">
-      <h1>P. Salmanul Faris</h1>
-      <p class="value-prop">Uncovering vulnerabilities to secure your digital world – Expert penetration testing and ethical hacking solutions.</p>
-      <div class="trust-badges">
-        <div class="badge">SSL Secured</div>
-        <div class="badge">RedTeam Certified</div>
+    <header class="header">
+      <div class="name-container">
+        <div class="name">P. SALMANUL FARIS</div>
+        <span class="name-cursor"></span>
       </div>
-    </section>
+      <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
+    </header>
 
-    <section id="terminal-section">
-      <h2>Command Console</h2>
-      <div class="terminal">
-        <div id="terminal-output"></div>
-        <input type="text" id="terminal-input" placeholder="Enter command..." class="terminal-input">
-      </div>
-    </section>
-
-    <section id="certifications">
-      <h2>Certifications</h2>
-      <div class="cert-grid">
-        <div class="cert-badge">
-          <img src="https://via.placeholder.com/100?text=CPT" alt="CPT Badge">
-          <p>Certified Penetration Tester</p>
+    <!-- NEW 3D Interactive Terminal -->
+    <div class="cyber-terminal">
+      <div class="terminal-screen">
+        <div class="command-line">
+          <span class="prompt">root@cybersec:~$</span>
+          <span id="typedCommand"> _</span>
+          <span class="cursor"></span>
         </div>
-        <!-- Add more -->
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="project-grid">
-        <div class="project-card">
-          <h3>Sunset Pentesting Machine</h3>
-          <p>Custom Ubuntu setup for ethical hacking.</p>
-          <div class="vuln-demo">
-            <button onclick="runDemo()">Run Vuln Scan</button>
-            <div id="demo-output"></div>
+        <div id="output3d">
+          <div class="mobile-fallback">
+            <p>3D visualization disabled on mobile</p>
+            <p>Select projects below ↓</p>
           </div>
+          <!-- Three.js canvas will be inserted here -->
         </div>
-        <!-- Add more projects -->
+      </div>
+      <div class="terminal-buttons">
+        <button class="hack-btn" data-project="sunset">[1] SUNSET_PENTEST</button>
+        <button class="hack-btn" data-project="dos">[2] DOS_SIMULATION</button>
+        <button class="hack-btn" data-project="attendance">[3] ATTENDANCE_SYS</button>
+        <button class="hack-btn" data-project="reset">[0] RESET_VIEW</button>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>// ABOUT</h2>
+      <p>
+        <strong>P. Salmanul Faris</strong> is a <strong>Certified Penetration Tester</strong> with advanced training from <strong>RedTeam Hacker Academy</strong> and <strong>NIIT Chennai</strong>. Combines technical cybersecurity expertise with an analytical physics background to build secure systems and identify vulnerabilities.
+      </p>
+      <p>
+        Skilled in penetration testing methodologies, network security, and ethical hacking with tools including <strong>Burp Suite, Nmap, and Metasploit</strong>. Strong programming skills in <strong>Python, Java, C++, and JavaScript</strong> with experience in full-stack development.
+      </p>
+      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+      <h2>// CERTIFICATIONS</h2>
+      <ul>
+        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
+        <li><strong>Advanced Programming in Full Stack Software Engineering</strong> - NIIT Chennai</li>
+      </ul>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+      <h2>// EDUCATION</h2>
+      <ul>
+        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
+        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
+      </ul>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <h2>// PROJECTS</h2>
+      <ul>
+        <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
+        <li><strong>DoS Attack Simulation</strong> - Executed controlled Denial-of-Service attack on test Apache server</li>
+        <li><strong>Attendance Management System</strong> - Developed secure web/mobile app for tracking attendance with biometric verification</li>
+        <li><strong>Network Vulnerability Scanner</strong> - Custom tool for automated security assessments</li>
+        <li><strong>M.Sc Research Project</strong> - Acoustic study of aqueous solutions containing antibiotics and insulin</li>
+      </ul>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>// CONNECT</h2>
+      
+      <!-- Resume Buttons -->
+      <div class="resume-actions">
+        <a href="P.Salmanulfaris_ResumeCPT.pdf" class="resume-btn" download="P.Salmanulfaris_Resume_CPT.pdf">
+          <i class="fas fa-file-pdf"></i> Download Resume (PDF)
+        </a>
+        <button id="view-resume-btn" class="resume-btn">
+          <i class="fas fa-eye"></i> View Resume
+        </button>
+      </div>
+
+      <!-- Contact Cards -->
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
+          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <h3><i class="fas fa-phone-alt phone-icon"></i> PHONE</h3>
+          <a href="tel:+919962726106">+91 99627 26106</a>
+        </div>
+        <div class="contact-card">
+          <h3><i class="fab fa-linkedin-in linkedin-icon"></i> LINKEDIN</h3>
+          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
+        </div>
+        <div class="contact-card">
+          <h3><i class="fab fa-github github-icon"></i> GITHUB</h3>
+          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
+        </div>
       </div>
     </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <form class="contact-form">
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <textarea placeholder="Message"></textarea>
-        <button type="submit">Send Secure Message</button>
-      </form>
-      <div id="github-commits"></div>
-    </section>
-
-    <div id="easter-egg" style="display:none;">Hidden Surprise: You've hacked the scroll!</div>
   </div>
 
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
   <script>
-    // 3D Scene (Inspired by Lusion.co immersive backgrounds)
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('threejs-container').appendChild(renderer.domElement);
-
-    const geometry = new THREE.IcosahedronGeometry(1, 0);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
-    camera.position.z = 5;
-
-    function animate3D() {
-      requestAnimationFrame(animate3D);
-      mesh.rotation.x += 0.005;
-      mesh.rotation.y += 0.005;
-      renderer.render(scene, camera);
-    }
-    animate3D();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Scroll Triggers (GSAP, like Active Theory smooth transitions)
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('section').forEach((sec, i) => {
-      gsap.from(sec, {
-        scrollTrigger: sec,
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: i * 0.2
-      });
-    });
-
-    // Terminal (Personalized, with CTF)
-    const terminalOutput = document.getElementById('terminal-output');
-    const terminalInput = document.getElementById('terminal-input');
-    const commands = {
-      help: 'Commands: whoami, projects, ctf',
-      whoami: 'P. Salmanul Faris - Penetration Tester',
-      projects: 'Sunset Machine, DoS Sim, etc.',
-      ctf: 'Riddle: What\'s a hacker\'s favorite season? (Type answer: [guess])'
-    };
-    const ctfAnswer = 'phishing season';
-
-    terminalInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const cmd = terminalInput.value.trim().toLowerCase();
-        terminalOutput.innerHTML += `> ${cmd}<br>`;
-        if (cmd.startsWith('answer:')) {
-          const guess = cmd.split(':')[1].trim();
-          terminalOutput.innerHTML += (guess === ctfAnswer) ? 'Flag captured!<br>' : 'Access denied.<br>';
-        } else if (commands[cmd]) {
-          terminalOutput.innerHTML += `${commands[cmd]}<br>`;
-        } else {
-          terminalOutput.innerHTML += 'Invalid command.<br>';
-        }
-        terminalInput.value = '';
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-      }
-    });
-
-    // Draggable Projects (Gamification)
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach(card => {
-      card.addEventListener('mousedown', (e) => {
-        let shiftX = e.clientX - card.getBoundingClientRect().left;
-        let shiftY = e.clientY - card.getBoundingClientRect().top;
-
-        function moveAt(pageX, pageY) {
-          card.style.left = pageX - shiftX + 'px';
-          card.style.top = pageY - shiftY + 'px';
-        }
-
-        function onMouseMove(e) {
-          moveAt(e.pageX, e.pageY);
-        }
-
-        document.addEventListener('mousemove', onMouseMove);
-
-        card.addEventListener('mouseup', () => {
-          document.removeEventListener('mousemove', onMouseMove);
-        }, { once: true });
-      });
-      card.ondragstart = () => false;
-    });
-
-    // Vuln Demo
-    function runDemo() {
-      const output = document.getElementById('demo-output');
-      output.innerHTML = 'Scanning... <br>';
-      setTimeout(() => {
-        output.innerHTML += 'Vulnerability found: XSS (simulated). Patched!<br>';
-      }, 2000);
-    }
-
-    // Cert Unlocks
-    const certs = document.querySelectorAll('.cert-badge');
-    certs.forEach((cert, i) => {
-      gsap.from(cert, {
-        scrollTrigger: cert,
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.5,
-        delay: i * 0.2
-      });
-    });
-
-    // Audio Visualizer
-    const audio = new Audio('https://example.com/hacker-ambient.mp3'); // Replace with actual URL
-    audio.loop = true;
-    const audioCtx = new AudioContext();
-    const source = audioCtx.createMediaElementSource(audio);
-    const analyser = audioCtx.createAnalyser();
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-    analyser.fftSize = 256;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    const canvas = document.getElementById('audio-visualizer');
+    // ======================
+    // Matrix Background
+    // ======================
+    const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = 100;
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
+    
+    const chars = "01";
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+    
+    function draw() {
+      ctx.fillStyle = 'rgba(10, 10, 18, 0.04)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = '#0aff0a';
+      ctx.font = `${fontSize}px "Share Tech Mono"`;
+      
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    
+    setInterval(draw, 50);
+    window.addEventListener('resize', resizeCanvas);
 
-    function drawVisualizer() {
-      requestAnimationFrame(drawVisualizer);
-      analyser.getByteFrequencyData(dataArray);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const barWidth = (canvas.width / bufferLength) * 2.5;
-      let x = 0;
-      for (let i = 0; i < bufferLength; i++) {
-        const barHeight = dataArray[i] / 2;
-        ctx.fillStyle = `rgb(0, ${barHeight + 100}, 255)`;
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 1;
+    // ======================
+    // 3D Terminal System
+    // ======================
+    let scene, camera, renderer, activeShape;
+
+    function init3D() {
+      // Skip on mobile
+      if (/Mobi|Android/i.test(navigator.userAgent)) return;
+      
+      const container = document.getElementById('output3d');
+      
+      // 1. Create Scene
+      scene = new THREE.Scene();
+      scene.background = null;
+      
+      // 2. Set Up Camera
+      camera = new THREE.PerspectiveCamera(
+        75, 
+        container.clientWidth / container.clientHeight, 
+        0.1, 
+        1000
+      );
+      camera.position.z = 3;
+      
+      // 3. Initialize Renderer
+      renderer = new THREE.WebGLRenderer({ 
+        antialias: true, 
+        alpha: true,
+        powerPreference: "high-performance"
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+      
+      // 4. Add Ambient Light
+      const light = new THREE.AmbientLight(0x404040, 2);
+      scene.add(light);
+      
+      // 5. Create Default Shape
+      createShape('box');
+      
+      // 6. Animation Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        if (activeShape) {
+          activeShape.rotation.x += 0.005;
+          activeShape.rotation.y += 0.01;
+        }
+        renderer.render(scene, camera);
+      }
+      animate();
+      
+      // 7. Handle Resizing
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    }
+
+    function createShape(type) {
+      // Clear previous shape
+      if (activeShape) scene.remove(activeShape);
+      
+      let geometry;
+      const material = new THREE.MeshBasicMaterial({ 
+        color: 0x00f0ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.8
+      });
+      
+      switch(type) {
+        case 'sunset':
+          geometry = new THREE.IcosahedronGeometry(1.2, 1);
+          material.color.setHex(0xff2a6d);
+          break;
+        case 'dos':
+          geometry = new THREE.TorusKnotGeometry(0.8, 0.3, 100, 16);
+          material.color.setHex(0xbc13fe);
+          break;
+        case 'attendance':
+          geometry = new THREE.ConeGeometry(1, 2, 32);
+          material.color.setHex(0x0aff0a);
+          break;
+        case 'reset':
+          geometry = new THREE.OctahedronGeometry(1.5);
+          material.color.setHex(0x00f0ff);
+          break;
+        default:
+          geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+      }
+      
+      activeShape = new THREE.Mesh(geometry, material);
+      scene.add(activeShape);
+      
+      // Special intro animation for reset
+      if (type === 'reset') {
+        gsap.to(activeShape.rotation, {
+          x: Math.PI * 2,
+          y: Math.PI * 2,
+          duration: 2,
+          ease: "power2.out"
+        });
       }
     }
 
-    audio.play().then(drawVisualizer); // Autoplay may need user interaction
-
-    // Real-Time GitHub Commits
-    fetch('https://api.github.com/users/salman2610/repos')
-      .then(res => res.json())
-      .then(data => {
-        const commitsDiv = document.getElementById('github-commits');
-        commitsDiv.innerHTML = '<h3>Latest Commits</h3>';
-        data.slice(0, 5).forEach(repo => {
-          fetch(`https://api.github.com/repos/salman2610/${repo.name}/commits`)
-            .then(res => res.json())
-            .then(commits => {
-              if (commits[0]) {
-                commitsDiv.innerHTML += `<p>${repo.name}: ${commits[0].commit.message}</p>`;
-              }
-            });
-        });
-      });
-
-    // Endless Scroll Easter Egg
-    let page = 1;
-    window.addEventListener('scroll', () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        // Load more content or show easter egg
-        if (page === 3) {
-          document.getElementById('easter-egg').style.display = 'block';
+    // ======================
+    // Terminal Typing Effect
+    // ======================
+    const commands = {
+      idle: "_",
+      sunset: "access pentest_env --name=sunset --tools=kali,nmap,metasploit",
+      dos: "simulate attack --type=dos --target=apache_test",
+      attendance: "run attendance_system --auth=biometric --platform=mobile",
+      reset: "system reset --clear_cache"
+    };
+    
+    const typedCommand = document.getElementById('typedCommand');
+    
+    function typeText(text, speed = 30) {
+      let i = 0;
+      typedCommand.textContent = "";
+      
+      function typing() {
+        if (i < text.length) {
+          // Simulate occasional typing errors
+          if (Math.random() > 0.95) {
+            typedCommand.textContent += String.fromCharCode(97 + Math.floor(Math.random() * 26));
+            setTimeout(() => {
+              typedCommand.textContent = typedCommand.textContent.slice(0, -1);
+              typing();
+            }, 50);
+          } else {
+            typedCommand.textContent += text.charAt(i);
+            i++;
+          }
+          setTimeout(typing, speed);
         }
-        page++;
+      }
+      typing();
+    }
+
+    // ======================
+    // Button Interactivity
+    // ======================
+    document.querySelectorAll('.hack-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const project = btn.dataset.project;
+        typeText(commands[project]);
+        
+        if (!/Mobi|Android/i.test(navigator.userAgent)) {
+          createShape(project);
+        } else {
+          // Mobile fallback: Scroll to project description
+          document.getElementById('projects').scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // ======================
+    // PDF Viewer Functionality
+    // ======================
+    const viewResumeBtn = document.getElementById('view-resume-btn');
+    const pdfModal = document.createElement('div');
+    pdfModal.className = 'pdf-modal';
+    pdfModal.innerHTML = `
+      <span class="pdf-close">&times;</span>
+      <div class="pdf-container">
+        <embed src="P.Salmanulfaris_ResumeCPT.pdf#toolbar=0&navpanes=0" 
+               type="application/pdf" width="100%" height="100%" />
+      </div>
+    `;
+    document.body.appendChild(pdfModal);
+
+    viewResumeBtn.addEventListener('click', () => {
+      pdfModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+
+    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
+      pdfModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+
+    pdfModal.addEventListener('click', (e) => {
+      if (e.target === pdfModal) {
+        pdfModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
       }
     });
 
-    // Secure Form (Using Formspree example)
-    const form = document.querySelector('.contact-form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      // Integrate with Formspree or similar for static sites
-      alert('Message sent securely!');
+    // ======================
+    // Initialize Everything
+    // ======================
+    window.addEventListener('load', () => {
+      init3D();
+      typeText(commands.idle, 100);
+      
+      // Easter egg: Konami code
+      const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+                         'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
+                         'b', 'a'];
+      let konamiIndex = 0;
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) {
+          konamiIndex++;
+          if (konamiIndex === konamiCode.length) {
+            document.body.style.filter = "hue-rotate(90deg)";
+            setTimeout(() => {
+              document.body.style.filter = "";
+            }, 2000);
+            konamiIndex = 0;
+          }
+        } else {
+          konamiIndex = 0;
+        }
+      });
     });
   </script>
 </body>
