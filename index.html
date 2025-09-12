@@ -1,830 +1,350 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-  
-  :root {
-    --neon-green: #0aff0a;
-    --neon-blue: #00f0ff;
-    --neon-pink: #ff2a6d;
-    --neon-purple: #bc13fe;
-    --dark-bg: #0a0a12;
-    --text-primary: #e0e0ff;
-    --card-bg: rgba(10, 10, 30, 0.5);
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    background-color: var(--dark-bg);
-    color: var(--text-primary);
-    font-family: 'Oxanium', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-  }
-  
-  /* Matrix Background */
-  #matrix {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    opacity: 0.15;
-  }
-  
-  .container {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem;
-    z-index: 2;
-  }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Salmanul Faris — Cybersecurity Engineer & Developer</title>
+  <meta name="description" content="Portfolio — Salmanul Faris. Cybersecurity Engineer | Web & App Developer | Physicist">
 
-  /* Header Styles */
-  .header {
-    margin-bottom: 3rem;
-    text-align: center;
-    position: relative;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-  }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-  .name-container {
-    min-height: 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
+  <!-- GSAP, Three.js (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 
-  .name {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 10px rgba(10, 255, 255, 0.5);
-    letter-spacing: 2px;
-    position: relative;
-    display: inline-block;
-  }
-
-  .name-cursor {
-    display: inline-block;
-    width: 0.5rem;
-    height: 1.4em;
-    background: var(--neon-pink);
-    margin-left: 0.3rem;
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-    transform: translateY(-0.1em);
-  }
-
-  .name::before {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
-    border-radius: 3px;
-  }
-
-  .tagline {
-    font-size: 1.4rem;
-    color: var(--neon-blue);
-    margin-top: 1.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    letter-spacing: 1px;
-  }
-
-  /* NEW 3D Terminal */
-  .cyber-terminal {
-    border: 1px solid var(--neon-green);
-    background: rgba(0, 15, 20, 0.7);
-    border-radius: 8px;
-    padding: 2rem;
-    margin: 3rem 0;
-    position: relative;
-    overflow: hidden;
-    height: 600px;
-    perspective: 1000px;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
-  }
-
-  .terminal-screen {
-    height: 70%;
-    position: relative;
-    transform-style: preserve-3d;
-  }
-
-  .command-line {
-    color: var(--neon-green);
-    font-family: 'Share Tech Mono', monospace;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 10px;
-    height: 1em;
-    background: var(--neon-pink);
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-  }
-
-  #output3d {
-    height: 80%;
-    width: 100%;
-    margin-top: 1rem;
-    position: relative;
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .terminal-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hack-btn {
-    background: transparent;
-    border: 1px solid var(--neon-purple);
-    color: var(--neon-blue);
-    padding: 0.8rem 1.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    cursor: pointer;
-    transition: all 0.3s;
-    border-radius: 4px;
-    font-size: 0.9rem;
-  }
-
-  .hack-btn:hover {
-    text-shadow: 0 0 10px var(--neon-pink);
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(188, 19, 254, 0.5);
-  }
-
-  .mobile-fallback {
-    display: none;
-    text-align: center;
-    padding: 2rem;
-    color: var(--neon-blue);
-    font-family: 'Share Tech Mono';
-  }
-
-  /* Content Sections */
-  section {
-    background: var(--card-bg);
-    border: 1px solid rgba(0, 240, 255, 0.15);
-    border-radius: 8px;
-    padding: 2.2rem;
-    margin-bottom: 2.5rem;
-    backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
-  }
-
-  section:hover {
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
-    transform: translateY(-3px);
-  }
-
-  h2 {
-    font-family: 'Share Tech Mono', monospace;
-    color: var(--neon-blue);
-    margin-bottom: 1.8rem;
-    font-size: 1.8rem;
-    position: relative;
-    letter-spacing: 1px;
-  }
-
-  h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--neon-blue), transparent);
-  }
-
-  p, li {
-    margin-bottom: 1.2rem;
-    font-size: 1.1rem;
-  }
-
-  ul {
-    list-style-position: inside;
-  }
-
-  li {
-    margin-bottom: 0.8rem;
-    position: relative;
-    padding-left: 1.5rem;
-  }
-
-  li::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--neon-pink);
-  }
-
-  /* Contact Cards */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.8rem;
-    margin-top: 2.5rem;
-  }
-
-  .contact-card {
-    background: rgba(0, 20, 30, 0.4);
-    border: 1px solid var(--neon-blue);
-    border-radius: 8px;
-    padding: 1.8rem;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.25);
-    border-color: var(--neon-green);
-  }
-
-  .contact-card h3 {
-    color: var(--neon-green);
-    margin-bottom: 1.2rem;
-    font-family: 'Share Tech Mono', monospace;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 1.1rem;
-  }
-
-  .contact-card a {
-    color: var(--text-primary);
-    text-decoration: none;
-    display: block;
-    padding-left: 2rem;
-    word-break: break-all;
-    transition: color 0.3s;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  .contact-card a:hover {
-    color: var(--neon-blue);
-  }
-
-  /* Icons */
-  .email-icon { color: #D44638; }
-  .phone-icon { color: #25D366; }
-  .linkedin-icon { color: #0A66C2; }
-  .github-icon { color: #f0f0f0; }
-
-  /* Buttons */
-  .hire-me {
-    display: inline-block;
-    background: var(--neon-pink);
-    color: #000;
-    padding: 1rem 2rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: bold;
-    border-radius: 4px;
-    text-decoration: none;
-    margin-top: 1.5rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 
-      0 0 10px rgba(255, 42, 109, 0.8),
-      0 0 20px rgba(255, 42, 109, 0.6);
-    transition: all 0.3s ease;
-    animation: pulse 1.5s infinite alternate;
-    font-size: 1.1rem;
-  }
-
-  .resume-actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .resume-btn {
-    background: var(--neon-purple);
-    color: #000;
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-family: 'Share Tech Mono', monospace;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
-  }
-
-  /* Animations */
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  @keyframes pulse {
-    0% {
-      box-shadow: 
-        0 0 10px rgba(255, 42, 109, 0.8),
-        0 0 20px rgba(255, 42, 109, 0.6);
+  <style>
+    :root{
+      --bg:#05060a; --card:#0b0c10; --muted:#9aa3b2; --accent:#6ee7ff; --accent2:#8b5cf6; --glass: rgba(255,255,255,0.03);
+      --radius:14px; --max-width:1100px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
-    100% {
-      box-shadow: 
-        0 0 20px rgba(255, 42, 109, 1),
-        0 0 40px rgba(255, 42, 109, 0.8);
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:#e6eef8; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-y:scroll;
+      -webkit-overflow-scrolling:touch;
     }
-  }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max-width); margin:0 auto; padding:40px 20px}
 
-  @keyframes bounce {
-    0%, 80%, 100% { 
-      transform: translateY(0);
-      opacity: 0.5;
-    }
-    40% { 
-      transform: translateY(-6px);
-      opacity: 1;
-    }
-  }
+    /* Canvas background */
+    #bg-canvas{position:fixed; inset:0; z-index:0}
+    .overlay{position:relative; z-index:2}
 
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .container {
-      padding: 1.2rem;
-    }
-    
-    .name {
-      font-size: 2.2rem;
-    }
-    
-    .tagline {
-      font-size: 1.1rem;
-    }
-    
-    .cyber-terminal {
-      height: auto;
-      padding: 1.5rem;
-    }
-    
-    #output3d {
-      height: 300px;
-    }
-    
-    .terminal-buttons {
-      flex-direction: column;
-    }
-    
-    section {
-      padding: 1.5rem;
-    }
-    
-    h2 {
-      font-size: 1.5rem;
-    }
-    
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .mobile-fallback {
-      display: block;
-    }
-  }
+    /* Hero */
+    .hero{min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:80px 20px}
+    .hero-inner{backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:48px; border-radius:18px; width:100%; max-width:900px}
+    h1{font-family:'Space Grotesk', Inter; font-size:48px; margin:0 0 12px; letter-spacing:-1px}
+    .roles{font-weight:600; color:var(--muted); margin-bottom:14px}
+    .tagline{font-size:18px; color:var(--muted); margin-bottom:20px}
+    .cta{display:inline-flex; gap:12px}
+    .btn{padding:12px 18px; border-radius:12px; background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#041022; font-weight:700; cursor:pointer; box-shadow:0 6px 24px rgba(99,102,241,0.08); border:none}
+    .btn-ghost{padding:12px 18px; border-radius:12px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--accent); cursor:pointer}
 
-  @media (max-width: 480px) {
-    .name {
-      font-size: 1.8rem;
-    }
-    
-    .contact-card {
-      padding: 1.2rem;
-    }
-    
-    .contact-card h3 {
-      font-size: 1rem;
-    }
-    
-    .contact-card a {
-      padding-left: 1.5rem;
-      font-size: 0.9rem;
-    }
-  }
-</style>
+    /* Sections */
+    section{padding:80px 0}
+    h2.section-title{font-size:20px; margin:0 0 18px; color:#cfeaff}
+    .two-col{display:grid; grid-template-columns:1fr 440px; gap:28px; align-items:start}
+    @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+
+    .card{background:var(--card); border-radius:12px; padding:20px; box-shadow:0 8px 30px rgba(2,6,23,0.6);}
+    .skills-grid{display:flex; gap:12px; flex-wrap:wrap}
+    .skill{padding:8px 12px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:var(--muted); font-weight:600}
+
+    /* Projects */
+    .projects-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    @media (max-width:900px){.projects-grid{grid-template-columns:1fr}}
+    .project-card{position:relative; overflow:hidden; border-radius:12px; min-height:180px}
+    .project-thumb{position:absolute; inset:0; background-size:cover; background-position:center; filter:contrast(0.95) saturate(0.85); transform:scale(1.03)}
+    .project-info{position:relative; z-index:2; padding:18px}
+    .project-title{font-weight:700; font-size:18px}
+    .project-meta{color:var(--muted); font-size:13px}
+
+    /* Certifications */
+    .certs{display:flex; gap:12px; flex-wrap:wrap}
+    .cert-badge{background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.03);}
+
+    /* Contact */
+    .contact-grid{display:grid; grid-template-columns:1fr 320px; gap:20px}
+    @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+    .footer{padding:30px 0; text-align:center; color:var(--muted)}
+
+    /* Floating nav */
+    .floating-nav{position:fixed; right:18px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:10}
+    .nav-btn{background:var(--glass); border-radius:10px; width:46px; height:46px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.03); cursor:pointer}
+    .nav-icon{font-size:18px}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,0.02); font-weight:600}
+
+  </style>
 </head>
 <body>
-  <!-- Matrix Background -->
-  <canvas id="matrix"></canvas>
+  <canvas id="bg-canvas"></canvas>
+  <div class="overlay">
+    <div class="container">
 
-  <div class="container">
-    <header class="header">
-      <div class="name-container">
-        <div class="name">P. SALMANUL FARIS</div>
-        <span class="name-cursor"></span>
-      </div>
-      <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
-    </header>
-
-    <!-- NEW 3D Interactive Terminal -->
-    <div class="cyber-terminal">
-      <div class="terminal-screen">
-        <div class="command-line">
-          <span class="prompt">root@cybersec:~$</span>
-          <span id="typedCommand"> _</span>
-          <span class="cursor"></span>
-        </div>
-        <div id="output3d">
-          <div class="mobile-fallback">
-            <p>3D visualization disabled on mobile</p>
-            <p>Select projects below ↓</p>
+      <!-- Hero -->
+      <header class="hero">
+        <div class="hero-inner card" id="heroInner">
+          <h1 id="nameTitle">Salmanul Faris</h1>
+          <div class="roles">Cybersecurity Engineer • Web & App Developer • Physicist</div>
+          <div class="tagline">Securing the future. Building digital trust. Blending science, code, and creativity.</div>
+          <div class="cta">
+            <button class="btn" id="viewProjects">View Portfolio</button>
+            <a href="#contact" class="btn-ghost">Contact</a>
           </div>
-          <!-- Three.js canvas will be inserted here -->
         </div>
-      </div>
-      <div class="terminal-buttons">
-        <button class="hack-btn" data-project="sunset">[1] SUNSET_PENTEST</button>
-        <button class="hack-btn" data-project="dos">[2] DOS_SIMULATION</button>
-        <button class="hack-btn" data-project="attendance">[3] ATTENDANCE_SYS</button>
-        <button class="hack-btn" data-project="reset">[0] RESET_VIEW</button>
-      </div>
+      </header>
+
+      <!-- About + Skills -->
+      <section id="about">
+        <div class="two-col">
+          <div>
+            <h2 class="section-title">About</h2>
+            <div class="card">
+              <p class="muted">I completed my MSc in Physics (2023) in Chennai and transitioned into cybersecurity and software development. My work spans full-stack development, pentesting, VAPT, awareness training, and research-driven problem solving. I enjoy building apps and conducting real-world security assessments.</p>
+              <p class="muted" style="margin-top:12px">Selected highlights: Experienced with pentesting WordPress and web apps, DoS simulation, buffer overflow labs, and delivering internal training sessions.</p>
+            </div>
+          </div>
+          <div>
+            <h2 class="section-title">Certifications & Skills</h2>
+            <div class="card">
+              <div class="certs" style="margin-bottom:12px">
+                <div class="cert-badge">CPT (RedTeam)</div>
+                <div class="cert-badge">APSE (NIIT)</div>
+                <div class="cert-badge">Ethical Hacker (Cisco)</div>
+                <div class="cert-badge">Fortinet Cybersecurity Associate</div>
+              </div>
+
+              <div style="margin-top:10px">
+                <div class="muted" style="margin-bottom:8px">Skills</div>
+                <div class="skills-grid">
+                  <div class="skill">VAPT</div>
+                  <div class="skill">Pentesting</div>
+                  <div class="skill">OWASP</div>
+                  <div class="skill">Python</div>
+                  <div class="skill">JavaScript</div>
+                  <div class="skill">Full-stack</div>
+                  <div class="skill">Web3 (learning)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects">
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card card" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);">
+            <div class="project-thumb" style="background-image:linear-gradient(120deg, rgba(8,10,20,0.4), rgba(8,10,20,0.2)), url('https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=60')"></div>
+            <div class="project-info">
+              <div class="project-title">Cross-platform Billing Software</div>
+              <div class="project-meta">Full-stack app for Windows/macOS/iOS/Android. Stack: React Native / Electron / Node.js</div>
+            </div>
+          </div>
+
+          <div class="project-card card" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);">
+            <div class="project-thumb" style="background-image:linear-gradient(120deg, rgba(8,10,20,0.4), rgba(8,10,20,0.2)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=60')"></div>
+            <div class="project-info">
+              <div class="project-title">Parking Space Finder App</div>
+              <div class="project-meta">iOS & Android app connecting car owners to parking spaces using maps & payments.</div>
+            </div>
+          </div>
+
+          <div class="project-card card" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);">
+            <div class="project-thumb" style="background-image:linear-gradient(120deg, rgba(8,10,20,0.4), rgba(8,10,20,0.2)), url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1400&q=60')"></div>
+            <div class="project-info">
+              <div class="project-title">IRW Member Registration</div>
+              <div class="project-meta">Google Apps Script + HTML frontend, integrated with Google Sheets for member management.</div>
+            </div>
+          </div>
+
+          <div class="project-card card" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);">
+            <div class="project-thumb" style="background-image:linear-gradient(120deg, rgba(8,10,20,0.4), rgba(8,10,20,0.2)), url('https://images.unsplash.com/photo-1555949963-aa79dcee981d?auto=format&fit=crop&w=1400&q=60')"></div>
+            <div class="project-info">
+              <div class="project-title">Pentesting Case Studies (Abstracted)</div>
+              <div class="project-meta">WordPress audits, outdated PHP remediation guidance, and vulnerability reporting (client-safe write-ups).</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services">
+        <h2 class="section-title">Services & Freelance</h2>
+        <div class="card">
+          <div style="display:flex;gap:18px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px">
+              <h3 style="margin:0 0 8px">Cybersecurity</h3>
+              <p class="muted">Pentesting, VAPT, security assessments, awareness training and reports.</p>
+            </div>
+            <div style="flex:1;min-width:220px">
+              <h3 style="margin:0 0 8px">Web & App Development</h3>
+              <p class="muted">Full-stack web apps, cross-platform apps, and automation scripts.</p>
+            </div>
+            <div style="flex:1;min-width:220px">
+              <h3 style="margin:0 0 8px">Research & Science</h3>
+              <p class="muted">Experimental analysis, data processing, and science-adjacent software tools.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education / Science -->
+      <section id="education">
+        <h2 class="section-title">Education & Research</h2>
+        <div class="card">
+          <div style="display:flex;gap:16px;flex-direction:column">
+            <div><strong>MSc in Physics (2023) — Chennai</strong><div class="muted">Project: Acoustic Study of Aqueous Solution Containing Antibiotic and Human Mixtard Insulin — ultrasonic velocity, density, viscometer measurements at multiple temperatures.</div></div>
+            <div style="margin-top:12px"><strong>Advanced Program in Full Stack Software Engineering — NIIT</strong></div>
+            <div style="margin-top:12px"><strong>Advanced Program in Software Engineering (APSE)</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+          <div class="card">
+            <form id="contactForm">
+              <div style="display:flex;gap:8px;flex-direction:column">
+                <label class="muted">Name</label>
+                <input type="text" id="name" placeholder="Your name" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                <label class="muted">Email</label>
+                <input type="email" id="email" placeholder="you@example.com" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                <label class="muted">Message</label>
+                <textarea id="message" rows="4" placeholder="Tell me about your project" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit"></textarea>
+
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="btn" type="submit">Send</button>
+                  <a class="btn-ghost" href="mailto:your.email@example.com">Email</a>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <div class="card" style="padding:18px;">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div><strong>Email</strong><div class="muted">your.email@example.com</div></div>
+                <div><strong>LinkedIn</strong><div class="muted">https://linkedin.com/in/yourprofile</div></div>
+                <div><strong>GitHub</strong><div class="muted">https://github.com/yourusername</div></div>
+                <div style="margin-top:8px"><span class="pill">Open to freelance</span> <span class="muted" style="margin-left:8px">Pentest • VAPT • Dev</span></div>
+              </div>
+            </div>
+
+            <div style="height:18px"></div>
+            <div class="card">
+              <div class="muted">Quick links</div>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <a class="pill" href="#projects">Portfolio</a>
+                <a class="pill" href="#services">Services</a>
+                <a class="pill" href="#education">Education</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="muted">© Salmanul Faris — Open for freelance (Cybersecurity, Web/App Dev)</div>
+      </footer>
+
     </div>
 
-    <!-- About Section -->
-    <section id="about">
-      <h2>// ABOUT</h2>
-      <p>
-        <strong>P. Salmanul Faris</strong> is a <strong>Certified Penetration Tester</strong> with advanced training from <strong>RedTeam Hacker Academy</strong> and <strong>NIIT Chennai</strong>. Combines technical cybersecurity expertise with an analytical physics background to build secure systems and identify vulnerabilities.
-      </p>
-      <p>
-        Skilled in penetration testing methodologies, network security, and ethical hacking with tools including <strong>Burp Suite, Nmap, and Metasploit</strong>. Strong programming skills in <strong>Python, Java, C++, and JavaScript</strong> with experience in full-stack development.
-      </p>
-      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me">HIRE ME</a>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications">
-      <h2>// CERTIFICATIONS</h2>
-      <ul>
-        <li><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
-        <li><strong>Advanced Programming in Full Stack Software Engineering</strong> - NIIT Chennai</li>
-      </ul>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education">
-      <h2>// EDUCATION</h2>
-      <ul>
-        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
-        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
-      </ul>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-      <h2>// PROJECTS</h2>
-      <ul>
-        <li><strong>Custom Ubuntu Pentesting Machine ("Sunset")</strong> - Configured customized Ubuntu environment with ethical hacking tools</li>
-        <li><strong>DoS Attack Simulation</strong> - Executed controlled Denial-of-Service attack on test Apache server</li>
-        <li><strong>Attendance Management System</strong> - Developed secure web/mobile app for tracking attendance with biometric verification</li>
-        <li><strong>Network Vulnerability Scanner</strong> - Custom tool for automated security assessments</li>
-        <li><strong>M.Sc Research Project</strong> - Acoustic study of aqueous solutions containing antibiotics and insulin</li>
-      </ul>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-      <h2>// CONNECT</h2>
-      
-      <!-- Resume Buttons -->
-      <div class="resume-actions">
-        <a href="P.Salmanulfaris_ResumeCPT.pdf" class="resume-btn" download="P.Salmanulfaris_Resume_CPT.pdf">
-          <i class="fas fa-file-pdf"></i> Download Resume (PDF)
-        </a>
-        <button id="view-resume-btn" class="resume-btn">
-          <i class="fas fa-eye"></i> View Resume
-        </button>
-      </div>
-
-      <!-- Contact Cards -->
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
-          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
-        </div>
-        <div class="contact-card">
-          <h3><i class="fas fa-phone-alt phone-icon"></i> PHONE</h3>
-          <a href="tel:+919962726106">+91 99627 26106</a>
-        </div>
-        <div class="contact-card">
-          <h3><i class="fab fa-linkedin-in linkedin-icon"></i> LINKEDIN</h3>
-          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
-        </div>
-        <div class="contact-card">
-          <h3><i class="fab fa-github github-icon"></i> GITHUB</h3>
-          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
-        </div>
-      </div>
-    </section>
+    <!-- Floating nav -->
+    <div class="floating-nav">
+      <button class="nav-btn" title="Top" id="navTop">↑</button>
+      <a class="nav-btn" href="#projects" title="Projects">P</a>
+      <a class="nav-btn" href="#contact" title="Contact">C</a>
+    </div>
   </div>
 
-  <!-- Three.js Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
   <script>
-    // ======================
-    // Matrix Background
-    // ======================
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    
-    resizeCanvas();
-    
-    const chars = "01";
-    const fontSize = 14;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
-    
-    function draw() {
-      ctx.fillStyle = 'rgba(10, 10, 18, 0.04)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = '#0aff0a';
-      ctx.font = `${fontSize}px "Share Tech Mono"`;
-      
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-    
-    setInterval(draw, 50);
-    window.addEventListener('resize', resizeCanvas);
+    // Basic GSAP reveals
+    gsap.from('#nameTitle',{y:30,opacity:0,duration:0.8,ease:'power3.out',delay:0.2});
+    gsap.from('.roles',{y:20,opacity:0,duration:0.7,delay:0.45});
+    gsap.from('.tagline',{y:14,opacity:0,duration:0.7,delay:0.6});
+    gsap.from('.project-card',{y:20,opacity:0,duration:0.8,stagger:0.12,delay:0.8});
 
-    // ======================
-    // 3D Terminal System
-    // ======================
-    let scene, camera, renderer, activeShape;
+    // Smooth scroll for viewProjects
+    document.getElementById('viewProjects').addEventListener('click',()=>{document.querySelector('#projects').scrollIntoView({behavior:'smooth'})});
 
-    function init3D() {
-      // Skip on mobile
-      if (/Mobi|Android/i.test(navigator.userAgent)) return;
-      
-      const container = document.getElementById('output3d');
-      
-      // 1. Create Scene
-      scene = new THREE.Scene();
-      scene.background = null;
-      
-      // 2. Set Up Camera
-      camera = new THREE.PerspectiveCamera(
-        75, 
-        container.clientWidth / container.clientHeight, 
-        0.1, 
-        1000
-      );
-      camera.position.z = 3;
-      
-      // 3. Initialize Renderer
-      renderer = new THREE.WebGLRenderer({ 
-        antialias: true, 
-        alpha: true,
-        powerPreference: "high-performance"
-      });
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      container.appendChild(renderer.domElement);
-      
-      // 4. Add Ambient Light
-      const light = new THREE.AmbientLight(0x404040, 2);
+    // Contact form: simple mailto fallback
+    document.getElementById('contactForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      const name=document.getElementById('name').value||'Anonymous';
+      const email=document.getElementById('email').value||'no-reply@example.com';
+      const message=document.getElementById('message').value||'(no message)';
+      const subject=encodeURIComponent('Portfolio contact from '+name);
+      const body=encodeURIComponent('From: '+name+' ('+email+')\n\n'+message);
+      window.location.href='mailto:your.email@example.com?subject='+subject+'&body='+body;
+    });
+
+    // THREE.JS background - simple animated orb and particles
+    (()=>{
+      const canvas=document.getElementById('bg-canvas');
+      const renderer=new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+      const scene=new THREE.Scene();
+      const camera=new THREE.PerspectiveCamera(50,window.innerWidth/window.innerHeight,0.1,1000);
+      camera.position.z=5;
+      renderer.setSize(window.innerWidth,window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+      // Orb
+      const geom=new THREE.SphereGeometry(1.6,64,64);
+      const mat=new THREE.MeshStandardMaterial({color:0x6ee7ff, transparent:true, opacity:0.08, roughness:0.2, metalness:0.6});
+      const orb=new THREE.Mesh(geom,mat);
+      orb.position.set(-1,0.4,0);
+      scene.add(orb);
+
+      // Particles
+      const pCount=400;
+      const pGeom=new THREE.BufferGeometry();
+      const positions=new Float32Array(pCount*3);
+      for(let i=0;i<pCount;i++){positions[i*3]=(Math.random()-0.5)*12;positions[i*3+1]=(Math.random()-0.5)*6;positions[i*3+2]=(Math.random()-0.5)*8}
+      pGeom.setAttribute('position',new THREE.BufferAttribute(positions,3));
+      const pMat=new THREE.PointsMaterial({size:0.02,color:0xffffff,transparent:true,opacity:0.06});
+      const points=new THREE.Points(pGeom,pMat);
+      scene.add(points);
+
+      // Light
+      const light=new THREE.PointLight(0xffffff,1);
+      light.position.set(5,5,5);
       scene.add(light);
-      
-      // 5. Create Default Shape
-      createShape('box');
-      
-      // 6. Animation Loop
-      function animate() {
+      const amb=new THREE.AmbientLight(0x0a1b2a,0.6);
+      scene.add(amb);
+
+      const clock=new THREE.Clock();
+      function animate(){
+        const t=clock.getElapsedTime();
+        orb.rotation.y= t*0.12;
+        orb.rotation.x= Math.sin(t*0.2)*0.06;
+        points.rotation.y = -t*0.03;
+        renderer.render(scene,camera);
         requestAnimationFrame(animate);
-        if (activeShape) {
-          activeShape.rotation.x += 0.005;
-          activeShape.rotation.y += 0.01;
-        }
-        renderer.render(scene, camera);
       }
       animate();
-      
-      // 7. Handle Resizing
-      window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
+
+      window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight)});
+
+      // Parallax with mouse
+      window.addEventListener('mousemove',(e)=>{
+        const rx=(e.clientX/window.innerWidth-0.5)*0.8;
+        const ry=(e.clientY/window.innerHeight-0.5)*0.4;
+        gsap.to(orb.rotation,{x:ry*0.6,y:rx*0.6,duration:0.8,ease:'power2.out'});
       });
-    }
+    })();
 
-    function createShape(type) {
-      // Clear previous shape
-      if (activeShape) scene.remove(activeShape);
-      
-      let geometry;
-      const material = new THREE.MeshBasicMaterial({ 
-        color: 0x00f0ff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.8
-      });
-      
-      switch(type) {
-        case 'sunset':
-          geometry = new THREE.IcosahedronGeometry(1.2, 1);
-          material.color.setHex(0xff2a6d);
-          break;
-        case 'dos':
-          geometry = new THREE.TorusKnotGeometry(0.8, 0.3, 100, 16);
-          material.color.setHex(0xbc13fe);
-          break;
-        case 'attendance':
-          geometry = new THREE.ConeGeometry(1, 2, 32);
-          material.color.setHex(0x0aff0a);
-          break;
-        case 'reset':
-          geometry = new THREE.OctahedronGeometry(1.5);
-          material.color.setHex(0x00f0ff);
-          break;
-        default:
-          geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-      }
-      
-      activeShape = new THREE.Mesh(geometry, material);
-      scene.add(activeShape);
-      
-      // Special intro animation for reset
-      if (type === 'reset') {
-        gsap.to(activeShape.rotation, {
-          x: Math.PI * 2,
-          y: Math.PI * 2,
-          duration: 2,
-          ease: "power2.out"
-        });
-      }
-    }
-
-    // ======================
-    // Terminal Typing Effect
-    // ======================
-    const commands = {
-      idle: "_",
-      sunset: "access pentest_env --name=sunset --tools=kali,nmap,metasploit",
-      dos: "simulate attack --type=dos --target=apache_test",
-      attendance: "run attendance_system --auth=biometric --platform=mobile",
-      reset: "system reset --clear_cache"
-    };
-    
-    const typedCommand = document.getElementById('typedCommand');
-    
-    function typeText(text, speed = 30) {
-      let i = 0;
-      typedCommand.textContent = "";
-      
-      function typing() {
-        if (i < text.length) {
-          // Simulate occasional typing errors
-          if (Math.random() > 0.95) {
-            typedCommand.textContent += String.fromCharCode(97 + Math.floor(Math.random() * 26));
-            setTimeout(() => {
-              typedCommand.textContent = typedCommand.textContent.slice(0, -1);
-              typing();
-            }, 50);
-          } else {
-            typedCommand.textContent += text.charAt(i);
-            i++;
-          }
-          setTimeout(typing, speed);
-        }
-      }
-      typing();
-    }
-
-    // ======================
-    // Button Interactivity
-    // ======================
-    document.querySelectorAll('.hack-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const project = btn.dataset.project;
-        typeText(commands[project]);
-        
-        if (!/Mobi|Android/i.test(navigator.userAgent)) {
-          createShape(project);
-        } else {
-          // Mobile fallback: Scroll to project description
-          document.getElementById('projects').scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-
-    // ======================
-    // PDF Viewer Functionality
-    // ======================
-    const viewResumeBtn = document.getElementById('view-resume-btn');
-    const pdfModal = document.createElement('div');
-    pdfModal.className = 'pdf-modal';
-    pdfModal.innerHTML = `
-      <span class="pdf-close">&times;</span>
-      <div class="pdf-container">
-        <embed src="P.Salmanulfaris_ResumeCPT.pdf#toolbar=0&navpanes=0" 
-               type="application/pdf" width="100%" height="100%" />
-      </div>
-    `;
-    document.body.appendChild(pdfModal);
-
-    viewResumeBtn.addEventListener('click', () => {
-      pdfModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    });
-
-    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
-      pdfModal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-
-    pdfModal.addEventListener('click', (e) => {
-      if (e.target === pdfModal) {
-        pdfModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-    });
-
-    // ======================
-    // Initialize Everything
-    // ======================
-    window.addEventListener('load', () => {
-      init3D();
-      typeText(commands.idle, 100);
-      
-      // Easter egg: Konami code
-      const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
-                         'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
-                         'b', 'a'];
-      let konamiIndex = 0;
-      
-      document.addEventListener('keydown', (e) => {
-        if (e.key === konamiCode[konamiIndex]) {
-          konamiIndex++;
-          if (konamiIndex === konamiCode.length) {
-            document.body.style.filter = "hue-rotate(90deg)";
-            setTimeout(() => {
-              document.body.style.filter = "";
-            }, 2000);
-            konamiIndex = 0;
-          }
-        } else {
-          konamiIndex = 0;
-        }
-      });
-    });
+    // Nav top
+    document.getElementById('navTop').addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
   </script>
 </body>
 </html>
