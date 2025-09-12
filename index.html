@@ -1,1378 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P. SALMANUL FARIS | Cybersecurity Specialist</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&family=Oxanium:wght@400;600&display=swap');
-
-  :root {
-    --neon-green: #0aff0a;
-    --neon-blue: #00f0ff;
-    --neon-pink: #ff2a6d;
-    --neon-purple: #bc13fe;
-    --dark-bg: #0a0a12;
-    --text-primary: #e0e0ff;
-    --card-bg: rgba(10, 10, 30, 0.5);
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    background-color: var(--dark-bg);
-    color: var(--text-primary);
-    font-family: 'Oxanium', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-  }
-
-  #matrix {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    opacity: 0.25;
-  }
-
-  #threejs-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.3;
-  }
-
-  #audio-visualizer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    opacity: 0.5;
-  }
-
-  .container {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem;
-    z-index: 2;
-  }
-
-  /* Loading Screen */
-  #loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--dark-bg);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: 'Share Tech Mono', monospace;
-    color: var(--neon-green);
-    animation: fadeOut 0.5s ease 5s forwards;
-  }
-
-  #loading-text {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 10px var(--neon-green);
-  }
-
-  #progress-bar {
-    width: 400px;
-    height: 6px;
-    background: rgba(0, 255, 0, 0.2);
-    position: relative;
-    border-radius: 3px;
-  }
-
-  #progress {
-    width: 0;
-    height: 100%;
-    background: var(--neon-green);
-    box-shadow: 0 0 15px var(--neon-green);
-    border-radius: 3px;
-  }
-
-  /* Header */
-  .header {
-    margin-bottom: 3rem;
-    text-align: center;
-    position: relative;
-  }
-
-  .name-container {
-    min-height: 6rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .name {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 15px rgba(10, 255, 255, 0.7);
-    letter-spacing: 3px;
-    position: relative;
-    display: inline-block;
-    animation: glitch 2s infinite alternate;
-  }
-
-  .name-cursor {
-    display: inline-block;
-    width: 0.6rem;
-    height: 1.5em;
-    background: var(--neon-pink);
-    margin-left: 0.4rem;
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-  }
-
-  .name::before {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
-  }
-
-  .tagline {
-    font-size: 1.5rem;
-    color: var(--neon-blue);
-    margin-top: 1.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    text-shadow: 0 0 10px var(--neon-blue);
-  }
-
-  .value-prop {
-    font-size: 1.2rem;
-    color: var(--neon-green);
-    margin-top: 1rem;
-    text-shadow: 0 0 10px var(--neon-green);
-  }
-
-  .trust-signals {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .trust-badge {
-    width: 50px;
-    height: 50px;
-    background: var(--neon-purple);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 10px var(--neon-purple);
-  }
-
-  /* Terminal */
-  .terminal {
-    background: rgba(0, 15, 20, 0.7);
-    border: 2px solid var(--neon-green);
-    border-radius: 10px;
-    padding: 2rem;
-    margin: 2rem 0;
-    font-family: 'Share Tech Mono', monospace;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 25px rgba(0, 255, 10, 0.3);
-  }
-
-  .terminal::before {
-    content: 'INTERACTIVE TERMINAL';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 0.4rem 1.5rem;
-    background: rgba(0, 80, 80, 0.5);
-    color: var(--neon-green);
-    font-size: 0.9rem;
-    border-bottom: 2px solid var(--neon-green);
-  }
-
-  .terminal-content {
-    margin-top: 1.5rem;
-  }
-
-  .command-line {
-    color: var(--neon-green);
-    font-size: 1rem;
-  }
-
-  .command-output {
-    color: var(--neon-blue);
-    white-space: pre-wrap;
-    margin: 0.5rem 0 1.5rem;
-    font-size: 0.95rem;
-  }
-
-  .terminal-input {
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    font-family: inherit;
-    width: 100%;
-    outline: none;
-    font-size: 1rem;
-  }
-
-  .terminal-cursor {
-    display: inline-block;
-    width: 0.5rem;
-    height: 1em;
-    background: var(--neon-pink);
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-  }
-
-  /* Sections */
-  section {
-    background: var(--card-bg);
-    border: 1px solid rgba(0, 240, 255, 0.25);
-    border-radius: 10px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    backdrop-filter: blur(5px);
-    transition: transform 0.3s, border-color 0.3s;
-    position: relative;
-  }
-
-  section:hover {
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
-    transform: translateY(-5px);
-  }
-
-  h2 {
-    font-family: 'Share Tech Mono', monospace;
-    color: var(--neon-blue);
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    position: relative;
-    text-shadow: 0 0 10px var(--neon-blue);
-  }
-
-  h2::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 50%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--neon-blue), transparent);
-  }
-
-  /* Certifications with Animation */
-  #certifications ul li {
-    position: relative;
-    padding-left: 2rem;
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s, transform 0.5s;
-  }
-
-  #certifications ul li.unlocked {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  #certifications ul li::before {
-    content: '\f091';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    left: 0;
-    color: var(--neon-gold, #ffd700);
-    animation: badgeUnlock 1s ease-in-out;
-  }
-
-  @keyframes badgeUnlock {
-    0% { transform: scale(0); opacity: 0; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1); }
-  }
-
-  /* Project Cards with Draggable */
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .project-card {
-    background: rgba(0, 20, 30, 0.5);
-    border: 2px solid var(--neon-purple);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    cursor: grab;
-  }
-
-  .project-card:active {
-    cursor: grabbing;
-  }
-
-  .project-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
-  }
-
-  .project-card h3 {
-    color: var(--neon-green);
-    font-family: 'Share Tech Mono', monospace;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-card p {
-    font-size: 0.9rem;
-    color: var(--text-primary);
-  }
-
-  /* Vuln Demo */
-  .vuln-demo {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--neon-red, #ff0000);
-    border-radius: 5px;
-  }
-
-  .vuln-demo button {
-    background: var(--neon-red);
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-  }
-
-  .vuln-output {
-    margin-top: 0.5rem;
-    color: var(--neon-red);
-  }
-
-  /* Contact Cards */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .contact-card {
-    background: rgba(0, 20, 30, 0.5);
-    border: 2px solid var(--neon-blue);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
-
-  .contact-card:hover::before {
-    opacity: 1;
-  }
-
-  .contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.5);
-  }
-
-  .contact-card h3 {
-    color: var(--neon-green);
-    margin-bottom: 1rem;
-    font-family: 'Share Tech Mono', monospace;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .contact-card a {
-    color: var(--text-primary);
-    text-decoration: none;
-    display: block;
-    padding-left: 1.8rem;
-    word-break: break-all;
-    transition: color 0.3s;
-  }
-
-  .contact-card a:hover {
-    color: var(--neon-blue);
-  }
-
-  .email-icon { color: #D44638; }
-  .phone-icon { color: #25D366; }
-  .linkedin-icon { color: #0A66C2; }
-  .github-icon { color: #f0f0f0; }
-
-  /* Recent Commits */
-  #recent-commits {
-    margin-top: 1rem;
-  }
-
-  #commits-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  #commits-list li {
-    margin-bottom: 0.5rem;
-    color: var(--neon-blue);
-  }
-
-  /* Hire Me Button */
-  .hire-me {
-    display: inline-block;
-    background: var(--neon-pink);
-    color: #000;
-    padding: 1rem 2rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: bold;
-    border-radius: 4px;
-    text-decoration: none;
-    margin-top: 1.5rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 
-      0 0 10px rgba(255, 42, 109, 0.8),
-      0 0 20px rgba(255, 42, 109, 0.6);
-    transition: all 0.3s ease;
-    animation: pulse 1.5s infinite alternate;
-    font-size: 1.2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hire-me::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.5s;
-  }
-
-  .hire-me:hover::after {
-    left: 100%;
-  }
-
-  /* Resume Buttons */
-  .resume-actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .resume-btn {
-    background: var(--neon-purple);
-    color: #000;
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-family: 'Share Tech Mono', monospace;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
-  }
-
-  .resume-btn:hover {
-    background: #c73cfe;
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
-  }
-
-  /* PDF Modal */
-  .pdf-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .pdf-container {
-    width: 85%;
-    height: 90%;
-    background: var(--dark-bg);
-    border: 2px solid var(--neon-blue);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-    transform: scale(0.9);
-    transition: transform 0.3s;
-  }
-
-  .pdf-modal.show .pdf-container {
-    transform: scale(1);
-  }
-
-  .pdf-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: var(--neon-pink);
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 1001;
-    transition: transform 0.3s;
-  }
-
-  .pdf-close:hover {
-    transform: scale(1.2);
-  }
-
-  /* Loading Soon */
-  .loading-soon {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--neon-blue);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9em;
-  }
-
-  .loading-dots {
-    display: flex;
-    gap: 4px;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--neon-pink);
-    animation: bounce 1.4s infinite ease-in-out;
-  }
-
-  .dot:nth-child(1) { animation-delay: 0s; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-
-  /* Audio Toggle */
-  .audio-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 10;
-    background: var(--neon-blue);
-    color: #000;
-    padding: 0.6rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 0 15px var(--neon-blue);
-  }
-
-  .audio-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px var(--neon-blue);
-  }
-
-  /* Easter Egg */
-  #easter-egg {
-    display: none;
-    position: fixed;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--neon-purple);
-    padding: 1rem;
-    border-radius: 10px;
-    color: #fff;
-    text-align: center;
-    animation: popUp 0.5s ease;
-  }
-
-  @keyframes popUp {
-    0% { transform: translateX(-50%) scale(0); }
-    100% { transform: translateX(-50%) scale(1); }
-  }
-
-  /* Animations */
-  @keyframes glitch {
-    0% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
-    10% { text-shadow: 2px 2px 0 var(--neon-pink), -2px -2px 0 var(--neon-blue); }
-    20% { text-shadow: -2px 2px 0 var(--neon-pink), 2px -2px 0 var(--neon-blue); }
-    30% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
-    100% { text-shadow: 0 0 10px rgba(10, 255, 255, 0.7); }
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  @keyframes pulse {
-    0% { box-shadow: 0 0 10px rgba(255, 42, 109, 0.8), 0 0 20px rgba(255, 42, 109, 0.6); }
-    100% { box-shadow: 0 0 20px rgba(255, 42, 109, 1), 0 0 40px rgba(255, 42, 109, 0.8); }
-  }
-
-  @keyframes bounce {
-    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
-    40% { transform: translateY(-6px); opacity: 1; }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; display: none; }
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .container { padding: 1.2rem; }
-    .name { font-size: 2.5rem; letter-spacing: 1.5px; }
-    .tagline { font-size: 1.2rem; }
-    section { padding: 1.5rem; }
-    h2 { font-size: 1.6rem; }
-    .terminal { padding: 1.5rem 1rem; }
-    .command-output { font-size: 0.85rem; }
-    .project-grid, .contact-grid { grid-template-columns: 1fr; }
-    .hire-me { padding: 0.8rem 1.5rem; font-size: 1rem; }
-    .loading-soon { font-size: 0.8em; }
-    .pdf-container { width: 95%; height: 85%; }
-    .audio-toggle { bottom: 15px; right: 15px; padding: 0.5rem; }
-    #progress-bar { width: 300px; }
-  }
-
-  @media (max-width: 480px) {
-    .name { font-size: 2rem; }
-    .terminal::before { font-size: 0.8rem; }
-    .project-card, .contact-card { padding: 1.2rem; }
-    .project-card h3, .contact-card h3 { font-size: 1rem; }
-    .project-card p, .contact-card a { font-size: 0.9rem; }
-    .dot { width: 6px; height: 6px; }
-    .resume-actions { flex-direction: column; }
-  }
-</style>
-</head>
-<body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div id="loading-text">Initializing Secure Connection...</div>
-    <div id="progress-bar">
-      <div id="progress"></div>
-    </div>
-  </div>
-
-  <!-- Matrix Rain -->
-  <canvas id="matrix"></canvas>
-
-  <!-- 3D Background -->
-  <div id="threejs-bg"></div>
-
-  <!-- Audio Visualizer -->
-  <canvas id="audio-visualizer"></canvas>
-
-  <!-- Audio Toggle -->
-  <button class="audio-toggle" id="audio-toggle">
-    <i class="fas fa-volume-up"></i>
-  </button>
-
-  <div class="container">
-    <header class="header" data-aos="zoom-in">
-      <div class="name-container">
-        <div class="name" id="typed-name"></div><span class="name-cursor"></span>
-      </div>
-      <p class="tagline">Certified Penetration Tester | Full-Stack Developer | Physics Researcher</p>
-      <p class="value-prop">Secure your systems with expert vulnerability assessments and ethical hacking solutions.</p>
-      <div class="trust-signals">
-        <div class="trust-badge"><i class="fas fa-lock"></i></div>
-        <div class="trust-badge"><i class="fas fa-shield-alt"></i></div>
-      </div>
-    </header>
-
-    <div class="terminal" data-aos="fade-up">
-      <div class="terminal-content">
-        <div class="command-line">user@portfolio:~$ <span id="terminal-command"></span><span class="terminal-cursor"></span></div>
-        <div class="command-output" id="terminal-output"></div>
-        <div class="command-line">user@portfolio:~$ <input class="terminal-input" id="terminal-input" placeholder="" autofocus></div>
-      </div>
-    </div>
-
-    <section id="about" data-aos="fade-right">
-      <h2>// ABOUT</h2>
-      <p>
-        <strong>P. Salmanul Faris</strong> is a <strong>Certified Penetration Tester</strong> with advanced training from <strong>RedTeam Hacker Academy</strong> and <strong>NIIT Chennai</strong>. Combines technical cybersecurity expertise with an analytical physics background to build secure systems and identify vulnerabilities.
-      </p>
-      <p>
-        Skilled in penetration testing methodologies, network security, and ethical hacking with tools including <strong>Burp Suite, Nmap, and Metasploit</strong>. Strong programming skills in <strong>Python, Java, C++, and JavaScript</strong> with experience in full-stack development.
-      </p>
-      <a href="mailto:salmanulfariss642@gmail.com" class="hire-me" id="hire-me-btn">HIRE ME</a>
-    </section>
-
-    <section id="certifications" data-aos="fade-left">
-      <h2>// CERTIFICATIONS</h2>
-      <ul>
-        <li class="badge-item" data-level="gold"><strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)</li>
-        <li class="badge-item" data-level="silver"><strong>Advanced Programming in Full Stack Software Engineering</strong> - NIIT Chennai</li>
-      </ul>
-    </section>
-
-    <section id="education" data-aos="fade-right">
-      <h2>// EDUCATION</h2>
-      <ul>
-        <li><strong>MSc Physics</strong> - New College Chennai (2021-2023)</li>
-        <li><strong>BSc Physics</strong> - New College Chennai (2018-2021)</li>
-      </ul>
-    </section>
-
-    <section id="projects" data-aos="fade-left">
-      <h2>// PROJECTS</h2>
-      <div class="project-grid">
-        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
-          <h3>Custom Ubuntu Pentesting Machine ("Sunset")</h3>
-          <p>Configured a customized Ubuntu environment with ethical hacking tools for streamlined penetration testing.</p>
-          <div class="vuln-demo">
-            <button id="vuln-scan-btn">Demo Vuln Scan</button>
-            <div class="vuln-output" id="vuln-output"></div>
-          </div>
-        </div>
-        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
-          <h3>DoS Attack Simulation</h3>
-          <p>Executed a controlled Denial-of-Service attack on a test Apache server to study mitigation techniques.</p>
-        </div>
-        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
-          <h3>Attendance Management System</h3>
-          <p>Developed a secure web/mobile app for tracking attendance with biometric verification.</p>
-        </div>
-        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
-          <h3>Cross-Platform Billing App <span class="loading-soon">(loading soon <span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span>)</span></h3>
-          <p>Desktop/mobile solution for small business billing processes.</p>
-        </div>
-        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
-          <h3>Network Vulnerability Scanner</h3>
-          <p>Custom tool for automated security assessments and vulnerability detection.</p>
-        </div>
-        <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="300">
-          <h3>M.Sc Research Project</h3>
-          <p>Acoustic study of aqueous solutions containing antibiotics and insulin.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" data-aos="fade-up">
-      <h2>// CONNECT</h2>
-      <div class="resume-actions">
-        <a href="P.Salmanulfaris_ResumeCPT.pdf" class="resume-btn" download="P.Salmanulfaris_Resume_CPT.pdf">
-          <i class="fas fa-file-pdf"></i> Download Resume (PDF)
-        </a>
-        <button id="view-resume-btn" class="resume-btn">
-          <i class="fas fa-eye"></i> View Resume
-        </button>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
-          <h3><i class="fas fa-envelope email-icon"></i> EMAIL</h3>
-          <a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a>
-        </div>
-        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
-          <h3><i class="fas fa-phone-alt phone-icon"></i> PHONE</h3>
-          <a href="tel:+919962726106">+91 99627 26106</a>
-        </div>
-        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
-          <h3><i class="fab fa-linkedin-in linkedin-icon"></i> LINKEDIN</h3>
-          <a href="https://linkedin.com/in/p-salmanul-faris-68b733249" target="_blank">p-salmanul-faris</a>
-        </div>
-        <div class="contact-card" data-tilt data-tilt-max="15" data-tilt-speed="300" data-tilt-glare data-tilt-max-glare="0.3">
-          <h3><i class="fab fa-github github-icon"></i> GITHUB</h3>
-          <a href="https://github.com/salman2610" target="_blank">salman2610</a>
-          <div id="recent-commits">
-            <h4>Recent Commits:</h4>
-            <ul id="commits-list"></ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div id="easter-egg">Easter Egg: You've scrolled far! Secret code: H4CK3R</div>
-  </div>
-
-  <!-- PDF Modal -->
-  <div class="pdf-modal">
-    <span class="pdf-close">&times;</span>
-    <div class="pdf-container">
-      <embed src="P.Salmanulfaris_ResumeCPT.pdf#toolbar=0&navpanes=0" type="application/pdf" width="100%" height="100%" />
-    </div>
-  </div>
-
-  <!-- Particle Canvas -->
-  <canvas id="particles" style="position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.3;"></canvas>
-
-  <script>
-    // Initialize AOS
-    try {
-      AOS.init({ duration: 1000, once: false });
-    } catch (e) {
-      console.error('AOS initialization failed:', e);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P. Salmanul Faris | Cybersecurity Portfolio</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r161/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-cyan: #00ffff;
+      --accent-purple: #ff00ff;
+      --bg-dark: #000011;
+      --text-light: #ffffff;
+      --text-dim: #a0a0a0;
     }
 
-    // GSAP ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    // Animate sections on scroll
-    gsap.utils.toArray("section").forEach((section) => {
-      gsap.from(section, {
-        scrollTrigger: {
-          trigger: section,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    #threejs-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      margin-bottom: 4rem;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    h1, h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-cyan);
+      text-shadow: 0 0 10px var(--primary-cyan);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .value-prop {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      color: var(--text-dim);
+    }
+
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      padding: 0.5rem 1rem;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 4px;
+    }
+
+    .terminal {
+      background: #000;
+      padding: 1rem;
+      border: 1px solid var(--accent-purple);
+      border-radius: 4px;
+      margin: 2rem 0;
+    }
+
+    .terminal-input {
+      background: transparent;
+      border: none;
+      color: var(--primary-cyan);
+      width: 100%;
+      outline: none;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      padding: 1rem;
+      border: 1px solid var(--accent-purple);
+      border-radius: 4px;
+      cursor: grab;
+    }
+
+    .cert-grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .cert-badge {
+      text-align: center;
+      margin: 1rem;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .vuln-demo {
+      margin-top: 1rem;
+    }
+
+    #audio-visualizer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--primary-cyan);
+      padding: 0.5rem;
+      color: var(--text-light);
+    }
+
+    button {
+      background: var(--primary-cyan);
+      color: var(--bg-dark);
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .project-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="threejs-container"></div>
+  <canvas id="audio-visualizer"></canvas>
+
+  <div class="container">
+    <section class="hero">
+      <h1>P. Salmanul Faris</h1>
+      <p class="value-prop">Uncovering vulnerabilities to secure your digital world – Expert penetration testing and ethical hacking solutions.</p>
+      <div class="trust-badges">
+        <div class="badge">SSL Secured</div>
+        <div class="badge">RedTeam Certified</div>
+      </div>
+    </section>
+
+    <section id="terminal-section">
+      <h2>Command Console</h2>
+      <div class="terminal">
+        <div id="terminal-output"></div>
+        <input type="text" id="terminal-input" placeholder="Enter command..." class="terminal-input">
+      </div>
+    </section>
+
+    <section id="certifications">
+      <h2>Certifications</h2>
+      <div class="cert-grid">
+        <div class="cert-badge">
+          <img src="https://via.placeholder.com/100?text=CPT" alt="CPT Badge">
+          <p>Certified Penetration Tester</p>
+        </div>
+        <!-- Add more -->
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>Sunset Pentesting Machine</h3>
+          <p>Custom Ubuntu setup for ethical hacking.</p>
+          <div class="vuln-demo">
+            <button onclick="runDemo()">Run Vuln Scan</button>
+            <div id="demo-output"></div>
+          </div>
+        </div>
+        <!-- Add more projects -->
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <form class="contact-form">
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <textarea placeholder="Message"></textarea>
+        <button type="submit">Send Secure Message</button>
+      </form>
+      <div id="github-commits"></div>
+    </section>
+
+    <div id="easter-egg" style="display:none;">Hidden Surprise: You've hacked the scroll!</div>
+  </div>
+
+  <script>
+    // 3D Scene (Inspired by Lusion.co immersive backgrounds)
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('threejs-container').appendChild(renderer.domElement);
+
+    const geometry = new THREE.IcosahedronGeometry(1, 0);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+    camera.position.z = 5;
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+      mesh.rotation.x += 0.005;
+      mesh.rotation.y += 0.005;
+      renderer.render(scene, camera);
+    }
+    animate3D();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Scroll Triggers (GSAP, like Active Theory smooth transitions)
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('section').forEach((sec, i) => {
+      gsap.from(sec, {
+        scrollTrigger: sec,
         opacity: 0,
         y: 50,
         duration: 1,
+        delay: i * 0.2
       });
     });
 
-    // Loading Screen
-    const loadingScreen = document.getElementById('loading-screen');
-    const progress = document.getElementById('progress');
-    const loadingTexts = ['Establishing Connection...', 'Decrypting Data...', 'Loading Assets...', 'Hacking the Matrix...'];
-    let loadingIndex = 0;
-
-    function simulateLoading() {
-      try {
-        gsap.to(progress, {
-          width: '100%',
-          duration: 5,
-          ease: 'power1.inOut',
-          onComplete: () => {
-            gsap.to(loadingScreen, {
-              opacity: 0,
-              duration: 0.5,
-              onComplete: () => loadingScreen.style.display = 'none'
-            });
-          }
-        });
-        const textInterval = setInterval(() => {
-          document.getElementById('loading-text').textContent = loadingTexts[loadingIndex % loadingTexts.length];
-          loadingIndex++;
-        }, 1000);
-        // Fallback timeout to ensure loading screen hides
-        setTimeout(() => {
-          clearInterval(textInterval);
-          loadingScreen.style.display = 'none';
-        }, 6000);
-      } catch (e) {
-        console.error('Loading animation failed:', e);
-        loadingScreen.style.display = 'none'; // Fallback
-      }
-    }
-
-    simulateLoading();
-
-    // Matrix Rain
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    resizeCanvas();
-
-    const chars = "01αβγλπΣΩ";
-    const fontSize = 14;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
-    const colors = ['#0aff0a', '#00f0ff', '#ff2a6d'];
-
-    function draw() {
-      ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-        ctx.font = `${fontSize}px "Share Tech Mono"`;
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-
-      if (Math.random() < 0.02) {
-        ctx.fillStyle = 'rgba(255, 42, 109, 0.1)';
-        ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 100, 10);
-      }
-    }
-
-    setInterval(draw, 50);
-
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      columns = Math.floor(canvas.width / fontSize);
-      drops = Array(columns).fill(1);
-    });
-
-    // Optimized Three.js Background
-    let scene, camera, renderer, spheres = [];
-    function initThreeJS() {
-      try {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('threejs-bg').appendChild(renderer.domElement);
-
-        const geometry = new THREE.SphereGeometry(0.3, 16, 16);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
-        const sphereCount = /Mobi|Android/i.test(navigator.userAgent) ? 20 : 50; // Reduce for mobile
-        for (let i = 0; i < sphereCount; i++) {
-          const sphere = new THREE.Mesh(geometry, material);
-          sphere.position.set(Math.random() * 100 - 50, Math.random() * 100 - 50, Math.random() * 100 - 50);
-          scene.add(sphere);
-          spheres.push(sphere);
-        }
-
-        camera.position.z = 70;
-
-        function animate3D() {
-          requestAnimationFrame(animate3D);
-          spheres.forEach(sphere => {
-            sphere.rotation.x += 0.005;
-            sphere.rotation.y += 0.005;
-          });
-          renderer.render(scene, camera);
-        }
-
-        animate3D();
-
-        window.addEventListener('resize', () => {
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-      } catch (e) {
-        console.error('Three.js initialization failed:', e);
-        document.getElementById('threejs-bg').style.display = 'none';
-      }
-    }
-
-    initThreeJS();
-
-    // Particle System
-    const particleCanvas = document.getElementById('particles');
-    const pCtx = particleCanvas.getContext('2d');
-
-    function resizeParticleCanvas() {
-      particleCanvas.width = window.innerWidth;
-      particleCanvas.height = window.innerHeight;
-    }
-
-    resizeParticleCanvas();
-
-    const particles = [];
-    const particleCount = /Mobi|Android/i.test(navigator.userAgent) ? 30 : 80;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * particleCanvas.width;
-        this.y = Math.random() * particleCanvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > particleCanvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > particleCanvas.height) this.speedY *= -1;
-      }
-
-      draw() {
-        pCtx.fillStyle = 'rgba(0, 240, 255, 0.6)';
-        pCtx.beginPath();
-        pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        pCtx.fill();
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', resizeParticleCanvas);
-
-    // Name Typing
-    const fullName = "P. SALMANUL FARIS";
-    const nameElement = document.getElementById('typed-name');
-    let nameIndex = 0;
-
-    function typeName() {
-      if (nameIndex < fullName.length) {
-        nameElement.textContent += fullName.charAt(nameIndex);
-        nameIndex++;
-        if (Math.random() < 0.1) {
-          try {
-            gsap.to(nameElement, {
-              duration: 0.1,
-              css: { textShadow: '3px 3px 0 #ff2a6d, -3px -3px 0 #00f0ff' },
-              yoyo: true,
-              repeat: 1
-            });
-          } catch (e) {
-            console.error('GSAP animation failed:', e);
-          }
-        }
-        setTimeout(typeName, 100 + Math.random() * 50);
-      } else {
-        document.querySelector('.name-cursor').style.display = 'none';
-        nameElement.style.animation = 'glitch 3s infinite alternate';
-      }
-    }
-
-    setTimeout(typeName, 1000);
-
-    // Interactive Terminal with CTF Riddle
-    const terminalCommands = {
-      'help': 'Available commands: whoami, projects, skills, contact, clear, ctf',
-      'whoami': 'P. Salmanul Faris - Certified Penetration Tester | Full-Stack Developer',
-      'projects': '1. Sunset Pentesting Machine\n2. DoS Simulation\n3. Attendance System\n4. Billing App (coming soon)\n5. Vulnerability Scanner\n6. M.Sc Research',
-      'skills': 'Penetration Testing, Network Security, Python, Java, C++, Burp Suite, Nmap, Metasploit',
-      'contact': 'Email: salmanulfariss642@gmail.com\nPhone: +91 99627 26106\nLinkedIn: p-salmanul-faris\nGitHub: salman2610',
-      'clear': 'clear',
-      'ctf': 'Riddle: What has keys but can\'t open locks? (Type "answer [your guess]")'
-    };
-
-    const riddleAnswer = 'keyboard';
-
-    const terminalInput = document.getElementById('terminal-input');
+    // Terminal (Personalized, with CTF)
     const terminalOutput = document.getElementById('terminal-output');
+    const terminalInput = document.getElementById('terminal-input');
+    const commands = {
+      help: 'Commands: whoami, projects, ctf',
+      whoami: 'P. Salmanul Faris - Penetration Tester',
+      projects: 'Sunset Machine, DoS Sim, etc.',
+      ctf: 'Riddle: What\'s a hacker\'s favorite season? (Type answer: [guess])'
+    };
+    const ctfAnswer = 'phishing season';
 
     terminalInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        let cmd = terminalInput.value.trim().toLowerCase();
-        terminalOutput.innerHTML += `> ${cmd}\n`;
-        if (cmd.startsWith('answer ')) {
-          const guess = cmd.slice(7).trim();
-          if (guess === riddleAnswer) {
-            terminalOutput.innerHTML += 'Correct! Flag: CTF{Solved}\n\n';
-          } else {
-            terminalOutput.innerHTML += 'Wrong! Try again.\n\n';
-          }
-        } else if (terminalCommands[cmd]) {
-          if (cmd === 'clear') {
-            terminalOutput.innerHTML = '';
-          } else if (cmd === 'ctf') {
-            terminalOutput.innerHTML += `${terminalCommands[cmd]}\n\n`;
-          } else {
-            terminalOutput.innerHTML += `${terminalCommands[cmd]}\n\n`;
-          }
+        const cmd = terminalInput.value.trim().toLowerCase();
+        terminalOutput.innerHTML += `> ${cmd}<br>`;
+        if (cmd.startsWith('answer:')) {
+          const guess = cmd.split(':')[1].trim();
+          terminalOutput.innerHTML += (guess === ctfAnswer) ? 'Flag captured!<br>' : 'Access denied.<br>';
+        } else if (commands[cmd]) {
+          terminalOutput.innerHTML += `${commands[cmd]}<br>`;
         } else {
-          terminalOutput.innerHTML += 'Command not found. Type "help" for available commands.\n\n';
+          terminalOutput.innerHTML += 'Invalid command.<br>';
         }
         terminalInput.value = '';
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
       }
     });
 
-    // Hire Me Button Particle Explosion
-    const hireMeBtn = document.getElementById('hire-me-btn');
-    hireMeBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      try {
-        for (let i = 0; i < 30; i++) {
-          const particle = document.createElement('div');
-          particle.style.position = 'absolute';
-          particle.style.width = '6px';
-          particle.style.height = '6px';
-          particle.style.background = 'var(--neon-pink)';
-          particle.style.borderRadius = '50%';
-          particle.style.left = `${e.clientX}px`;
-          particle.style.top = `${e.clientY}px`;
-          document.body.appendChild(particle);
-          gsap.to(particle, {
-            x: Math.random() * 200 - 100,
-            y: Math.random() * 200 - 100,
-            opacity: 0,
-            duration: 1,
-            onComplete: () => particle.remove()
-          });
-        }
-      } catch (e) {
-        console.error('Particle animation failed:', e);
-      }
-      setTimeout(() => window.location.href = 'mailto:salmanulfariss642@gmail.com', 500);
-    });
-
-    // Audio with Visualizer
-    let backgroundAudio, audioContext, analyser, dataArray, visCtx;
-    try {
-      backgroundAudio = new Audio('https://www.bensound.com/bensound-music/bensound-sci-fi.mp3');
-      backgroundAudio.loop = true;
-      backgroundAudio.volume = 0.3;
-
-      audioContext = new AudioContext();
-      const source = audioContext.createMediaElementSource(backgroundAudio);
-      analyser = audioContext.createAnalyser();
-      analyser.fftSize = 256;
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-      dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-      const visCanvas = document.getElementById('audio-visualizer');
-      visCtx = visCanvas.getContext('2d');
-
-      function resizeVisCanvas() {
-        visCanvas.width = window.innerWidth;
-        visCanvas.height = window.innerHeight;
-      }
-      resizeVisCanvas();
-      window.addEventListener('resize', resizeVisCanvas);
-
-      function drawVisualizer() {
-        analyser.getByteFrequencyData(dataArray);
-        visCtx.clearRect(0, 0, visCanvas.width, visCanvas.height);
-        const barWidth = (visCanvas.width / dataArray.length) * 2.5;
-        let x = 0;
-        for (let i = 0; i < dataArray.length; i++) {
-          const barHeight = dataArray[i];
-          visCtx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
-          visCtx.fillRect(x, visCanvas.height - barHeight / 2, barWidth, barHeight / 2);
-          x += barWidth + 1;
-        }
-        requestAnimationFrame(drawVisualizer);
-      }
-
-      drawVisualizer();
-    } catch (e) {
-      console.error('Audio initialization failed:', e);
-    }
-    const audioToggle = document.getElementById('audio-toggle');
-    let isAudioPlaying = false;
-
-    audioToggle.addEventListener('click', () => {
-      try {
-        if (isAudioPlaying) {
-          backgroundAudio.pause();
-          audioToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        } else {
-          backgroundAudio.play();
-          audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-        }
-        isAudioPlaying = !isAudioPlaying;
-      } catch (e) {
-        console.error('Audio toggle failed:', e);
-      }
-    });
-
-    // PDF Viewer
-    const viewResumeBtn = document.getElementById('view-resume-btn');
-    const pdfModal = document.querySelector('.pdf-modal');
-
-    viewResumeBtn.addEventListener('click', () => {
-      pdfModal.style.display = 'flex';
-      pdfModal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    });
-
-    pdfModal.querySelector('.pdf-close').addEventListener('click', () => {
-      pdfModal.classList.remove('show');
-      setTimeout(() => pdfModal.style.display = 'none', 300);
-      document.body.style.overflow = 'auto';
-    });
-
-    pdfModal.addEventListener('click', (e) => {
-      if (e.target === pdfModal) {
-        pdfModal.classList.remove('show');
-        setTimeout(() => pdfModal.style.display = 'none', 300);
-        document.body.style.overflow = 'auto';
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && pdfModal.style.display === 'flex') {
-        pdfModal.classList.remove('show');
-        setTimeout(() => pdfModal.style.display = 'none', 300);
-        document.body.style.overflow = 'auto';
-      }
-    });
-
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      viewResumeBtn.addEventListener('click', (e) => {
-        if (confirm("For best experience on mobile, we recommend downloading the PDF. Download now?")) {
-          window.location.href = "P.Salmanulfaris_ResumeCPT.pdf";
-        }
-      });
-    }
-
-    // Unlock Certifications on Scroll
-    gsap.utils.toArray("#certifications ul li").forEach((li, i) => {
-      gsap.to(li, {
-        scrollTrigger: {
-          trigger: li,
-          start: "top 80%",
-          onEnter: () => li.classList.add('unlocked')
-        }
-      });
-    });
-
-    // Draggable Project Cards (simple drag with JS)
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-      let isDragging = false;
-      let startX, startY, initialX, initialY;
-
+    // Draggable Projects (Gamification)
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
       card.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        initialX = card.offsetLeft;
-        initialY = card.offsetTop;
-        card.style.transition = 'none';
-      });
+        let shiftX = e.clientX - card.getBoundingClientRect().left;
+        let shiftY = e.clientY - card.getBoundingClientRect().top;
 
-      document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          const dx = e.clientX - startX;
-          const dy = e.clientY - startY;
-          card.style.left = `${initialX + dx}px`;
-          card.style.top = `${initialY + dy}px`;
-          card.style.position = 'absolute';
+        function moveAt(pageX, pageY) {
+          card.style.left = pageX - shiftX + 'px';
+          card.style.top = pageY - shiftY + 'px';
         }
-      });
 
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-        card.style.transition = 'all 0.3s ease';
-        card.style.left = '';
-        card.style.top = '';
-        card.style.position = '';
+        function onMouseMove(e) {
+          moveAt(e.pageX, e.pageY);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+
+        card.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', onMouseMove);
+        }, { once: true });
+      });
+      card.ondragstart = () => false;
+    });
+
+    // Vuln Demo
+    function runDemo() {
+      const output = document.getElementById('demo-output');
+      output.innerHTML = 'Scanning... <br>';
+      setTimeout(() => {
+        output.innerHTML += 'Vulnerability found: XSS (simulated). Patched!<br>';
+      }, 2000);
+    }
+
+    // Cert Unlocks
+    const certs = document.querySelectorAll('.cert-badge');
+    certs.forEach((cert, i) => {
+      gsap.from(cert, {
+        scrollTrigger: cert,
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.5,
+        delay: i * 0.2
       });
     });
 
-    // Simulated Vuln Scan Demo
-    const vulnBtn = document.getElementById('vuln-scan-btn');
-    const vulnOutput = document.getElementById('vuln-output');
-    if (vulnBtn) {
-      vulnBtn.addEventListener('click', () => {
-        vulnOutput.innerHTML = 'Scanning...\n';
-        setTimeout(() => {
-          vulnOutput.innerHTML += 'Vuln found: SQL Injection (simulated)\n';
-          vulnOutput.innerHTML += 'Mitigation: Use prepared statements.\n';
-        }, 2000);
-      });
+    // Audio Visualizer
+    const audio = new Audio('https://example.com/hacker-ambient.mp3'); // Replace with actual URL
+    audio.loop = true;
+    const audioCtx = new AudioContext();
+    const source = audioCtx.createMediaElementSource(audio);
+    const analyser = audioCtx.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    const canvas = document.getElementById('audio-visualizer');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = 100;
+
+    function drawVisualizer() {
+      requestAnimationFrame(drawVisualizer);
+      analyser.getByteFrequencyData(dataArray);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const barWidth = (canvas.width / bufferLength) * 2.5;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] / 2;
+        ctx.fillStyle = `rgb(0, ${barHeight + 100}, 255)`;
+        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+        x += barWidth + 1;
+      }
     }
 
-    // Fetch Recent GitHub Commits
-    async function fetchCommits() {
-      try {
-        const response = await fetch('https://api.github.com/repos/salman2610/portfolio/commits?per_page=5');
-        const data = await response.json();
-        const commitsList = document.getElementById('commits-list');
-        data.forEach(commit => {
-          const li = document.createElement('li');
-          li.textContent = `${commit.commit.message} - ${new Date(commit.commit.author.date).toLocaleDateString()}`;
-          commitsList.appendChild(li);
+    audio.play().then(drawVisualizer); // Autoplay may need user interaction
+
+    // Real-Time GitHub Commits
+    fetch('https://api.github.com/users/salman2610/repos')
+      .then(res => res.json())
+      .then(data => {
+        const commitsDiv = document.getElementById('github-commits');
+        commitsDiv.innerHTML = '<h3>Latest Commits</h3>';
+        data.slice(0, 5).forEach(repo => {
+          fetch(`https://api.github.com/repos/salman2610/${repo.name}/commits`)
+            .then(res => res.json())
+            .then(commits => {
+              if (commits[0]) {
+                commitsDiv.innerHTML += `<p>${repo.name}: ${commits[0].commit.message}</p>`;
+              }
+            });
         });
-      } catch (e) {
-        console.error('GitHub fetch failed:', e);
-      }
-    }
-    fetchCommits();
+      });
 
-    // Infinite Scroll Easter Egg
-    let easterShown = false;
+    // Endless Scroll Easter Egg
+    let page = 1;
     window.addEventListener('scroll', () => {
-      if (!easterShown && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        document.getElementById('easter-egg').style.display = 'block';
-        setTimeout(() => {
-          document.getElementById('easter-egg').style.display = 'none';
-        }, 5000);
-        easterShown = true;
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        // Load more content or show easter egg
+        if (page === 3) {
+          document.getElementById('easter-egg').style.display = 'block';
+        }
+        page++;
       }
+    });
+
+    // Secure Form (Using Formspree example)
+    const form = document.querySelector('.contact-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Integrate with Formspree or similar for static sites
+      alert('Message sent securely!');
     });
   </script>
 </body>
