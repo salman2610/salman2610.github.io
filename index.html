@@ -3,39 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P. Salmanul Faris - Elite Cybersecurity Professional</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>P. Salmanul Faris - Security Engineer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* CSS Custom Properties - Dark Cybersecurity Theme */
-        :root {
-            --primary: #00ff41;
-            --secondary: #0080ff;
-            --accent: #ff0080;
-            --warning: #ffaa00;
-            --bg-primary: #000000;
-            --bg-secondary: #0a0a0a;
-            --bg-surface: #111111;
-            --bg-elevated: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --text-muted: #808080;
-            --terminal-green: #00ff41;
-            --cyber-blue: #00ccff;
-            --neon-pink: #ff0080;
-            --border-subtle: rgba(255, 255, 255, 0.1);
-            --border-strong: rgba(0, 255, 65, 0.3);
-            --glow-sm: 0 0 10px;
-            --glow-md: 0 0 20px;
-            --glow-lg: 0 0 40px;
-            --glow-xl: 0 0 60px;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #2563eb;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --border: #27272a;
+            --glass: rgba(255, 255, 255, 0.02);
         }
 
         html {
@@ -43,877 +27,898 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary);
             color: var(--text-primary);
-            overflow-x: hidden;
             line-height: 1.6;
-            font-weight: 300;
+            overflow-x: hidden;
         }
 
-        /* WebGL-inspired 3D Background */
-        #threejs-container {
+        /* Navigation */
+        .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.7;
-        }
-
-        /* Fluid Navigation - Lusion.co inspired */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border-subtle);
+            top: 20px;
+            right: 20px;
             z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .navbar.scrolled {
-            background: rgba(0, 0, 0, 0.95);
-            border-bottom-color: var(--border-strong);
-        }
-
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 2rem;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 24px;
         }
 
-        .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            text-shadow: var(--glow-sm) var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            text-shadow: var(--glow-md) var(--primary);
-            transform: scale(1.05);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 3rem;
-        }
-
-        .nav-link {
+        .nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 400;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
+        .nav a:hover, .nav a.active {
+            color: var(--text-primary);
+        }
+
+        /* Canvas Background */
+        #canvas {
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(90deg, var(--primary), var(--cyber-blue));
-            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-            text-shadow: var(--glow-sm) var(--primary);
-        }
-
-        .nav-link:hover::after {
             width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
-        .terminal-btn {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 0.5rem 1.2rem;
-            border-radius: 3px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .terminal-btn:hover {
-            background: var(--primary);
-            color: var(--bg-primary);
-            box-shadow: var(--glow-md) var(--primary);
-            transform: translateY(-1px);
-        }
-
-        /* Hero Section - Cinematic Storytelling (Aether1.ai inspired) */
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+            padding: 0 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .hero-content {
-            text-align: center;
-            z-index: 10;
-            max-width: 1200px;
-            padding: 2rem;
+            flex: 1;
+            max-width: 600px;
         }
 
-        .hero-intro {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: fadeInUp 0.8s ease forwards;
-            opacity: 0;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 32px;
+            backdrop-filter: blur(20px);
         }
 
         .hero-title {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 50%, var(--cyber-blue) 100%);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.1;
-            animation: fadeInUp 0.8s ease 0.2s forwards;
-            opacity: 0;
         }
 
         .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 2.5rem);
-            font-weight: 200;
+            font-size: 20px;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 0.8s ease 0.4s forwards;
-            opacity: 0;
+            margin-bottom: 40px;
+            line-height: 1.5;
         }
 
-        .cert-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            max-width: 800px;
-            margin: 3rem auto;
-            animation: fadeInUp 0.8s ease 0.6s forwards;
-            opacity: 0;
+        .hero-terminal {
+            flex: 1;
+            margin-left: 80px;
+            max-width: 500px;
         }
 
-        .cert-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(10px);
-        }
-
-        .cert-item:hover {
-            border-color: var(--primary);
-            background: rgba(0, 255, 65, 0.05);
-            transform: translateY(-3px);
-            box-shadow: var(--glow-md) rgba(0, 255, 65, 0.3);
-        }
-
-        .cert-icon {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--cyber-blue));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .cert-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .cert-org {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .hero-cta {
-            margin-top: 4rem;
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.8s forwards;
-            opacity: 0;
-        }
-
-        /* Interactive Buttons */
-        .btn {
-            position: relative;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* Terminal */
+        .terminal {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.6s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--cyber-blue));
-            color: var(--bg-primary);
-            box-shadow: var(--glow-md) rgba(0, 255, 65, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--glow-lg) rgba(0, 255, 65, 0.6);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-outline:hover {
-            background: rgba(0, 255, 65, 0.1);
-            border-color: var(--cyber-blue);
-            color: var(--cyber-blue);
-        }
-
-        /* Terminal Overlay - Interactive Feature */
-        .terminal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .terminal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .terminal-window {
-            width: 90%;
-            max-width: 900px;
-            height: 80%;
-            background: var(--bg-secondary);
-            border: 1px solid var(--primary);
-            border-radius: 8px;
-            box-shadow: var(--glow-xl) rgba(0, 255, 65, 0.3);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            animation: terminalSlideIn 0.4s ease forwards;
-        }
-
-        @keyframes terminalSlideIn {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .terminal-header {
-            background: var(--bg-elevated);
-            padding: 0.8rem 1.5rem;
-            border-bottom: 1px solid var(--border-subtle);
+            background: var(--secondary);
+            padding: 16px 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .terminal-title {
-            color: var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .terminal-controls {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .terminal-control {
+        .terminal-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: #ef4444;
         }
 
-        .terminal-control.close {
-            background: #ff4444;
-        }
+        .terminal-dot:nth-child(2) { background: #f59e0b; }
+        .terminal-dot:nth-child(3) { background: #22c55e; }
 
-        .terminal-control.minimize {
-            background: #ffaa00;
-        }
-
-        .terminal-control.maximize {
-            background: #00ff00;
-        }
-
-        .terminal-control:hover {
-            transform: scale(1.2);
+        .terminal-title {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-left: 8px;
         }
 
         .terminal-body {
-            flex: 1;
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--terminal-green);
+            padding: 24px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            font-size: 14px;
+            min-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 255, 65, 0.02) 2px,
-                rgba(0, 255, 65, 0.02) 4px
-            );
         }
 
         .terminal-line {
-            margin-bottom: 0.8rem;
+            margin: 8px 0;
             display: flex;
-            align-items: flex-start;
-            opacity: 0;
-            animation: terminalTyping 0.5s ease forwards;
-        }
-
-        @keyframes terminalTyping {
-            to { opacity: 1; }
+            align-items: center;
         }
 
         .terminal-prompt {
-            color: var(--primary);
-            margin-right: 1rem;
-            white-space: nowrap;
+            color: var(--accent);
+            margin-right: 8px;
+            font-weight: 600;
         }
 
         .terminal-input {
-            background: transparent;
+            background: none;
             border: none;
-            color: var(--terminal-green);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: inherit;
             outline: none;
             flex: 1;
-            caret-color: var(--primary);
+            caret-color: var(--accent);
         }
 
         .terminal-output {
             color: var(--text-secondary);
+            margin: 4px 0 12px 20px;
             white-space: pre-wrap;
-            margin-left: 1rem;
-            line-height: 1.4;
         }
 
-        .terminal-cursor {
-            display: inline-block;
-            background: var(--primary);
-            width: 10px;
-            height: 16px;
-            animation: cursorBlink 1s infinite;
-            margin-left: 2px;
+        .cursor {
+            animation: blink 1s infinite;
         }
 
-        @keyframes cursorBlink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        /* Interactive Grid Section - ActiveTheory.net inspired */
+        /* Sections */
         .section {
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .section:nth-child(odd) {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.02) 0%, transparent 50%);
-        }
-
-        .container {
-            max-width: 1600px;
+            padding: 120px 5%;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 6rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 80px;
         }
 
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--primary));
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
         }
 
         .section-subtitle {
-            font-size: 1.2rem;
+            font-size: 18px;
             color: var(--text-secondary);
-            font-weight: 300;
-            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Dynamic Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .skill-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 3rem 2.5rem;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-        }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.05), transparent);
-            transition: 1s;
-        }
-
-        .skill-card:hover::before {
-            left: 100%;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--primary);
-            background: rgba(0, 255, 65, 0.03);
-            box-shadow: var(--glow-lg) rgba(0, 255, 65, 0.2);
-        }
-
-        .skill-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--cyber-blue));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .skill-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .skill-description {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.7;
-            font-weight: 300;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 0.8rem;
-        }
-
-        .tech-item {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .tech-item:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: rgba(0, 255, 65, 0.05);
-        }
-
-        /* Project Showcase - WonderStudios.com hierarchy */
+        /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
-            margin: 4rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
             position: relative;
-            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: var(--glow-lg) rgba(0, 255, 65, 0.3);
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 32px 64px rgba(37, 99, 235, 0.1);
         }
 
-        .project-header {
-            background: linear-gradient(135deg, var(--bg-elevated), var(--bg-surface));
-            padding: 2.5rem;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .project-type {
-            color: var(--cyber-blue);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .project-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .project-body {
-            padding: 2.5rem;
-        }
-
-        .project-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .project-features li {
-            color: var(--text-secondary);
-            padding: 0.5rem 0;
-            position: relative;
-            padding-left: 2rem;
-            font-weight: 300;
-        }
-
-        .project-features li::before {
-            content: '→';
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        .project-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn-small {
-            padding: 0.7rem 1.5rem;
-            font-size: 0.85rem;
-        }
-
-        /* Interactive Timeline */
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 4rem auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--cyber-blue), var(--neon-pink));
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 4rem;
-            width: calc(50% - 2rem);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .timeline-item.visible {
+        .project-card:hover::before {
             opacity: 1;
         }
 
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-            transform: translateX(-50px);
-        }
-
-        .timeline-item:nth-child(even) {
-            left: calc(50% + 2rem);
-            text-align: left;
-            transform: translateX(50px);
-        }
-
-        .timeline-item.visible:nth-child(odd) {
-            transform: translateX(0);
-        }
-
-        .timeline-item.visible:nth-child(even) {
-            transform: translateX(0);
-        }
-
-        .timeline-content {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
             border-radius: 12px;
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: var(--primary);
-            background: rgba(0, 255, 65, 0.03);
-        }
-
-        .timeline-date {
-            color: var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .timeline-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-org {
-            color: var(--cyber-blue);
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-        }
-
-        .timeline-description {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-weight: 300;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            top: 2rem;
-            width: 16px;
-            height: 16px;
-            background: var(--primary);
-            border: 3px solid var(--bg-primary);
-            border-radius: 50%;
-            box-shadow: var(--glow-md) var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-dot {
-            right: -2.3rem;
-        }
-
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: -2.3rem;
-        }
-
-        .timeline-dot:hover {
-            transform: scale(1.3);
-            box-shadow: var(--glow-lg) var(--primary);
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .contact-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            background: rgba(0, 255, 65, 0.03);
-            box-shadow: var(--glow-md) rgba(0, 255, 65, 0.2);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--cyber-blue));
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 24px;
+            font-size: 20px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(20px);
             transition: all 0.3s ease;
         }
 
-        .contact-card:hover .contact-icon {
-            transform: scale(1.1) rotate(5deg);
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .skill-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .skill-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Interactive Demo */
+        .demo-container {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            backdrop-filter: blur(20px);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demo-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .vulnerability-scanner {
+            background: var(--secondary);
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'SF Mono', monospace;
+            font-size: 13px;
+        }
+
+        .scan-result {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .scan-result.critical {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .scan-result.warning {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .scan-btn {
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .scan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        .scan-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .contact-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .contact-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
         }
 
         .contact-title {
-            font-size: 1.1rem;
+            font-size: 20px;
             font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
 
         .contact-info {
             color: var(--text-secondary);
-            font-weight: 300;
         }
 
-        .contact-info a {
-            color: var(--cyber-blue);
+        .contact-link {
+            color: var(--accent);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .contact-info a:hover {
-            color: var(--primary);
-            text-shadow: var(--glow-sm) var(--primary);
+        .contact-link:hover {
+            color: var(--text-primary);
         }
 
-        /* CTF Mini-Game */
-        .ctf-section {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.03), rgba(0, 204, 255, 0.03));
-            border: 1px solid var(--border-strong);
-            border-radius: 16px;
-            padding: 3rem;
-            margin: 4rem 0;
-            text-align: center;
+        /* Animations */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
-        .ctf-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .ctf
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 80px 5% 40px;
+            }
+
+            .hero-terminal {
+                margin-left: 0;
+                margin-top: 40px;
+                max-width: 100%;
+            }
+
+            .nav {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 80px 5%;
+            }
+
+            .terminal-body {
+                padding: 16px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <canvas id="canvas"></canvas>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                🔒 Available for Security Consulting
+            </div>
+            <h1 class="hero-title">P. Salmanul Faris</h1>
+            <p class="hero-subtitle">
+                Certified Penetration Tester specializing in network security, vulnerability assessment, and ethical hacking. Transforming complex security challenges into robust defense strategies.
+            </p>
+        </div>
+        
+        <div class="hero-terminal">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-title">security-console</div>
+                </div>
+                <div class="terminal-body" id="terminal">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="whoami" autocomplete="off">
+                        <span class="cursor">|</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Security Projects</h2>
+            <p class="section-subtitle">
+                Comprehensive security solutions built with modern methodologies and industry best practices
+            </p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card" onclick="showDemo('vuln-scanner')">
+                <div class="project-icon">🔍</div>
+                <h3 class="project-title">Network Vulnerability Scanner</h3>
+                <p class="project-desc">
+                    Advanced automated scanning system with integrated CVE database and custom payload generation for comprehensive network security assessment.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Nmap</span>
+                    <span class="tech-tag">CVE API</span>
+                    <span class="tech-tag">SQLite</span>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="showDemo('web-pentest')">
+                <div class="project-icon">🌐</div>
+                <h3 class="project-title">Web Application Security Suite</h3>
+                <p class="project-desc">
+                    Complete OWASP Top 10 testing framework with automated vulnerability detection, session management analysis, and detailed reporting.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Burp Suite</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">OWASP</span>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="showDemo('malware-analysis')">
+                <div class="project-icon">🦠</div>
+                <h3 class="project-title">Malware Analysis Environment</h3>
+                <p class="project-desc">
+                    Isolated sandbox environment for static and dynamic malware analysis with behavioral monitoring and network traffic analysis capabilities.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">VirtualBox</span>
+                    <span class="tech-tag">Wireshark</span>
+                    <span class="tech-tag">IDA Pro</span>
+                    <span class="tech-tag">Python</span>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="showDemo('redteam-sim')">
+                <div class="project-icon">⚡</div>
+                <h3 class="project-title">Red Team Simulation Platform</h3>
+                <p class="project-desc">
+                    Full-scale adversarial simulation environment for testing organizational security posture with custom attack scenarios and detailed metrics.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Metasploit</span>
+                    <span class="tech-tag">Cobalt Strike</span>
+                    <span class="tech-tag">PowerShell</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-container" id="demo-container" style="display: none;">
+            <div class="demo-header">
+                <h3 class="demo-title" id="demo-title">Live Security Demonstration</h3>
+                <p id="demo-subtitle" style="color: var(--text-secondary);"></p>
+            </div>
+            <div class="vulnerability-scanner" id="demo-content">
+                <button class="scan-btn" id="scan-btn" onclick="runScan()">Start Security Scan</button>
+                <div id="scan-results"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Technical Expertise</h2>
+            <p class="section-subtitle">
+                Comprehensive security skillset backed by industry certifications and hands-on experience
+            </p>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">🛡️</div>
+                <h3 class="skill-title">Penetration Testing</h3>
+                <p class="skill-desc">RedTeam Hacker Academy Certified with expertise in network reconnaissance, vulnerability exploitation, and post-exploitation techniques.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🔐</div>
+                <h3 class="skill-title">Ethical Hacking</h3>
+                <p class="skill-desc">Cisco Certified Ethical Hacker specializing in authorized security testing and vulnerability assessment methodologies.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🛠️</div>
+                <h3 class="skill-title">Security Tools</h3>
+                <p class="skill-desc">Advanced proficiency in Burp Suite, Metasploit, Nmap, Wireshark, and custom security automation tools.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">⚡</div>
+                <h3 class="skill-title">Cybersecurity</h3>
+                <p class="skill-desc">Fortinet Certified Cybersecurity Associate with comprehensive knowledge of network security and threat mitigation.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h3 class="skill-title">Development</h3>
+                <p class="skill-desc">Full Stack Engineering background enabling custom security tool development and automation scripting.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🔬</div>
+                <h3 class="skill-title">Research</h3>
+                <p class="skill-desc">M.Sc Physics with specialization in acoustic properties research, bringing analytical rigor to security assessments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">
+                Open to cybersecurity consulting opportunities and collaborative security research projects
+            </p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3 class="contact-title">Email</h3>
+                <p class="contact-info">
+                    <a href="mailto:salmanulfariss642@gmail.com" class="contact-link">
+                        salmanulfariss642@gmail.com
+                    </a>
+                </p>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">📱</div>
+                <h3 class="contact-title">Phone</h3>
+                <p class="contact-info">
+                    <a href="tel:+919962726106" class="contact-link">
+                        +91 99627 26106
+                    </a>
+                </p>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">💼</div>
+                <h3 class="contact-title">LinkedIn</h3>
+                <p class="contact-info">
+                    <a href="https://linkedin.com/in/p-salmanul-faris" class="contact-link" target="_blank">
+                        p-salmanul-faris
+                    </a>
+                </p>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">⚡</div>
+                <h3 class="contact-title">GitHub</h3>
+                <p class="contact-info">
+                    <a href="https://github.com/salman2610" class="contact-link" target="_blank">
+                        salman2610
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Three.js Background
+        let scene, camera, renderer, particles;
+        let mouseX = 0, mouseY = 0;
+
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('canvas'),
+                alpha: true,
+                antialias: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Create sophisticated particle system
+            const particleCount = 800;
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 1000;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
+
+                const intensity = Math.random() * 0.3 + 0.1;
+                colors[i * 3] = intensity;     // R
+                colors[i * 3 + 1] = intensity * 1.5; // G
+                colors[i * 3 + 2] = intensity * 3;   // B
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 1.5,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            camera.position.z = 400;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            particles.rotation.x += 0.0005;
+            particles.rotation.y += 0.001;
+
+            // Subtle mouse interaction
+            camera.position.x += (mouseX * 0.1 - camera.position.x) * 0.02;
+            camera.position.y += (-mouseY * 0.1 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // Terminal Commands
+        const commands = {
+            whoami: `P. Salmanul Faris
+Certified Penetration Tester
+RedTeam Hacker Academy | Cisco Ethical Hacker | Fortinet FCSA
+M.Sc Physics | Full Stack Engineering
+
+Status: Available for cybersecurity consulting`,
+
+            help: `Available commands:
+  whoami     - Display profile information
+  projects   - List security projects  
+  skills     - Show technical expertise
+  contact    - Display contact information
+  scan       - Run vulnerability assessment
+  clear      - Clear terminal`,
+
+            projects: `Security Projects Portfolio:
+
+[1] Network Vulnerability Scanner
+    Advanced port scanning with CVE integration
+    
+[2] Web Application Security Suite
+    OWASP Top 10 automated testing framework
+    
+[3] Malware Analysis Environment
+    Isolated sandbox with behavioral monitoring
+    
+[4] Red Team Simulation Platform
+    Full-scale adversarial testing environment`,
+
+            skills: `Core Competencies:
+
+Security Testing
+• Penetration Testing (RedTeam Academy Certified)
+• Ethical Hacking (Cisco Certified)  
+• Vulnerability Assessment
+• Network Security Analysis
+
+Technical Skills
+• Python, JavaScript, Bash
+• Burp Suite, Metasploit, Nmap
+• Wireshark, IDA Pro
+• Full Stack Development (NIIT)
+
+Research Background
+• M.Sc Physics (Acoustics Research)
+• Analytical Problem Solving`,
+
+            contact: `Contact Information:
+
+Email: salmanulfariss642@gmail.com
+Phone: +91 99627 26106
+LinkedIn: linkedin.com/in/p-salmanul-faris
+GitHub: github.com/salman2610
+
+Location: Chennai, Tamil Nadu
+Status: Open to opportunities`,
+
+            scan: 'SCAN_DEMO',
+            clear: 'CLEAR'
+        };
+
+        let terminalHistory = [];
+        let historyIndex = -1;
+
+        // Terminal functionality
+        document.getElementById('terminalInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                if (command) {
+                    terminalHistory.unshift(command);
+                    if (terminalHistory.length > 20) terminalHistory.pop();
+                    executeCommand(command);
+                }
+                this.value = '';
+                historyIndex = -1;
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex < terminalHistory.length - 1) {
+                    historyIndex++;
+                    this.value = terminalHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = terminalHistory[historyIndex];
+                } else {
+                    historyIndex = -1;
+                    this.value = '';
+                }
+            }
+        });
+
+        function executeCommand(cmd) {
+            const terminal = document.getElementById('terminal');
+            
+            // Add command line
+            const cmdLine = document.createElement('div');
+            cmdLine.className = 'terminal-line';
+            cmdLine.innerHTML = `<span class="terminal-prompt">$</span> ${cmd}`;
+            terminal.appendChild(cmdLine);
+
+            if (cmd === 'clear') {
+                setTimeout(() => {
+                    terminal.
