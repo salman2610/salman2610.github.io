@@ -13,132 +13,222 @@
         }
 
         :root {
-            --primary: #0a0a0a;
-            --secondary: #1a1a1a;
-            --accent: #2563eb;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
             --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --border: #27272a;
-            --glass: rgba(255, 255, 255, 0.02);
+            --text-secondary: #888888;
+            --accent: #0066ff;
+            --accent-glow: rgba(0, 102, 255, 0.3);
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         html {
             scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--primary);
-            color: var(--text-primary);
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 24px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px 24px;
-        }
-
-        .nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav a:hover, .nav a.active {
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
+            line-height: 1.6;
+            cursor: none;
+            overflow-x: hidden;
         }
 
-        /* Canvas Background */
-        #canvas {
+        /* Custom Cursor - Lusion.co style */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.5;
+        }
+
+        /* WebGL Canvas Background - Lusion.co inspired */
+        #webgl-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
+            opacity: 0.7;
         }
 
-        /* Hero Section */
+        /* Navigation - WonderStudios.com clean hierarchy */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section - Aether1.ai cinematic storytelling */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
-            padding: 0 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+            justify-content: space-between;
+            padding: 0 60px;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
-            flex: 1;
             max-width: 600px;
+            z-index: 2;
         }
 
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
+            display: inline-block;
             background: var(--glass);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 13px;
+            padding: 8px 16px;
+            font-size: 14px;
             color: var(--accent);
-            margin-bottom: 32px;
-            backdrop-filter: blur(20px);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #666666 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .hero-subtitle {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--text-secondary);
             margin-bottom: 40px;
-            line-height: 1.5;
-        }
-
-        .hero-terminal {
-            flex: 1;
-            margin-left: 80px;
             max-width: 500px;
         }
 
-        /* Terminal */
-        .terminal {
-            background: var(--glass);
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary:hover {
+            background: #0052cc;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .cta-secondary {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 16px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        /* Terminal - ActiveTheory.net interactive grid style */
+        .hero-terminal {
+            width: 500px;
+            height: 600px;
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid var(--border);
             border-radius: 16px;
-            overflow: hidden;
             backdrop-filter: blur(20px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
         }
 
         .terminal-header {
-            background: var(--secondary);
+            background: rgba(17, 17, 17, 0.9);
             padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -146,31 +236,31 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #ef4444;
+            background: #ff5f57;
         }
 
-        .terminal-dot:nth-child(2) { background: #f59e0b; }
-        .terminal-dot:nth-child(3) { background: #22c55e; }
+        .terminal-dot:nth-child(2) { background: #ffbd2e; }
+        .terminal-dot:nth-child(3) { background: #28ca42; }
 
         .terminal-title {
             color: var(--text-secondary);
-            font-size: 13px;
-            margin-left: 8px;
+            font-size: 14px;
+            margin-left: 10px;
         }
 
         .terminal-body {
-            padding: 24px;
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', monospace;
             font-size: 14px;
-            min-height: 300px;
-            max-height: 400px;
+            height: calc(100% - 50px);
             overflow-y: auto;
         }
 
         .terminal-line {
-            margin: 8px 0;
+            margin: 12px 0;
             display: flex;
             align-items: center;
+            animation: typewriter 0.5s ease-out;
         }
 
         .terminal-prompt {
@@ -192,106 +282,105 @@
 
         .terminal-output {
             color: var(--text-secondary);
-            margin: 4px 0 12px 20px;
+            margin: 8px 0 16px 20px;
             white-space: pre-wrap;
+            font-size: 13px;
         }
 
-        .cursor {
+        .cursor-blink {
             animation: blink 1s infinite;
         }
 
-        /* Sections */
-        .section {
-            padding: 120px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
+        /* Grid Section - ActiveTheory.net interactive grids */
+        .grid-section {
+            padding: 120px 60px;
+            position: relative;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #666666 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .section-subtitle {
-            font-size: 18px;
+            text-align: center;
             color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 80px;
             max-width: 600px;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Projects Grid */
+        /* Interactive Project Grid - ActiveTheory inspired */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--border);
         }
 
-        .project-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.4s ease;
+        .project-item {
+            background: var(--bg-secondary);
+            padding: 60px 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .project-card::before {
+        .project-item::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+            transition: left 0.5s ease;
         }
 
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 32px 64px rgba(37, 99, 235, 0.1);
+        .project-item:hover::before {
+            left: 100%;
         }
 
-        .project-card:hover::before {
-            opacity: 1;
+        .project-item:hover {
+            background: rgba(0, 102, 255, 0.05);
+            transform: scale(1.02);
         }
 
-        .project-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            font-size: 20px;
+        .project-number {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+            opacity: 0.8;
         }
 
         .project-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
 
         .project-desc {
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            font-size: 16px;
             line-height: 1.6;
+            margin-bottom: 30px;
         }
 
         .project-tech {
@@ -301,120 +390,144 @@
         }
 
         .tech-tag {
-            background: var(--secondary);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 4px 12px;
+            border-radius: 4px;
+            padding: 4px 8px;
             font-size: 12px;
             color: var(--text-secondary);
         }
 
-        /* Skills */
-        .skills-grid {
+        /* Skills Matrix - WonderStudios hierarchy */
+        .skills-matrix {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .skill-card {
-            background: var(--glass);
+        .skill-category {
+            text-align: center;
+            padding: 40px 20px;
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
-        .skill-card:hover {
+        .skill-category:hover {
             border-color: var(--accent);
-            transform: translateY(-4px);
+            background: rgba(0, 102, 255, 0.05);
+            transform: translateY(-5px);
         }
 
         .skill-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            font-size: 16px;
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
         }
 
         .skill-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
         }
 
-        .skill-desc {
+        .skill-list {
             color: var(--text-secondary);
             font-size: 14px;
+            line-height: 1.6;
         }
 
-        /* Interactive Demo */
+        /* Demo Section - Lusion.co WebGL integration */
+        .demo-section {
+            padding: 120px 60px;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
         .demo-container {
-            background: var(--glass);
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .demo-interactive {
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 60px 0;
+            border-radius: 16px;
+            padding: 60px;
+            margin-top: 60px;
             backdrop-filter: blur(20px);
         }
 
-        .demo-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .vulnerability-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            margin: 40px 0;
         }
 
-        .demo-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 12px;
+        .vuln-node {
+            width: 40px;
+            height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--text-secondary);
         }
 
-        .vulnerability-scanner {
-            background: var(--secondary);
-            border-radius: 12px;
-            padding: 24px;
-            font-family: 'SF Mono', monospace;
-            font-size: 13px;
+        .vuln-node:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            transform: scale(1.1);
         }
 
-        .scan-result {
-            margin: 8px 0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border-left: 3px solid var(--accent);
-            background: rgba(37, 99, 235, 0.1);
+        .vuln-node.vulnerable {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff4444;
+            color: #ff4444;
+            animation: pulse-red 2s infinite;
         }
 
-        .scan-result.critical {
-            border-left-color: #ef4444;
-            background: rgba(239, 68, 68, 0.1);
+        .vuln-node.secure {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #44ff44;
+            color: #44ff44;
         }
 
-        .scan-result.warning {
-            border-left-color: #f59e0b;
-            background: rgba(245, 158, 11, 0.1);
+        .scan-controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
         }
 
         .scan-btn {
             background: var(--accent);
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
             color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
         }
 
         .scan-btn:hover {
+            background: #0052cc;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px var(--accent-glow);
         }
 
         .scan-btn:disabled {
@@ -422,44 +535,47 @@
             cursor: not-allowed;
         }
 
-        /* Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+        /* Contact Section - Aether1.ai cinematic */
+        .contact-section {
+            padding: 120px 60px;
+            text-align: center;
         }
 
-        .contact-card {
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+
+        .contact-item {
             background: var(--glass);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 40px 30px;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
-        .contact-card:hover {
-            transform: translateY(-4px);
+        .contact-item:hover {
             border-color: var(--accent);
+            background: rgba(0, 102, 255, 0.05);
+            transform: translateY(-5px);
         }
 
         .contact-icon {
-            width: 56px;
-            height: 56px;
-            background: var(--accent);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 24px;
+            font-size: 32px;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--accent);
         }
 
         .contact-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
         .contact-info {
@@ -477,159 +593,145 @@
         }
 
         /* Animations */
+        @keyframes typewriter {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
         @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes pulse-red {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
-        .animate-in {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 1024px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 80px 5% 40px;
-            }
-
-            .hero-terminal {
-                margin-left: 0;
-                margin-top: 40px;
-                max-width: 100%;
-            }
-
-            .nav {
-                top: 10px;
-                right: 10px;
-                padding: 8px 16px;
-            }
+            .nav { padding: 20px 30px; }
+            .hero { padding: 0 30px; flex-direction: column; text-align: center; }
+            .hero-terminal { width: 100%; max-width: 500px; margin-top: 40px; }
+            .grid-section { padding: 80px 30px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .skills-matrix { grid-template-columns: 1fr; gap: 20px; }
+            .contact-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 80px 5%;
-            }
-
-            .terminal-body {
-                padding: 16px;
-                font-size: 13px;
-            }
+            .nav-menu { display: none; }
+            .hero-title { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .demo-interactive { padding: 30px; }
+            .vulnerability-grid { grid-template-columns: repeat(6, 1fr); }
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#contact" class="nav-link">Contact</a>
-    </nav>
+    <div class="cursor"></div>
+    <canvas id="webgl-canvas"></canvas>
 
-    <canvas id="canvas"></canvas>
+    <nav class="nav">
+        <div class="nav-logo">P. SALMANUL FARIS</div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#skills" class="nav-link">Expertise</a></li>
+            <li><a href="#demo" class="nav-link">Demo</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <div class="hero-badge">
-                🔒 Available for Security Consulting
-            </div>
-            <h1 class="hero-title">P. Salmanul Faris</h1>
+            <div class="hero-badge">🔒 Certified Security Professional</div>
+            <h1 class="hero-title">Penetration<br>Testing Expert</h1>
             <p class="hero-subtitle">
-                Certified Penetration Tester specializing in network security, vulnerability assessment, and ethical hacking. Transforming complex security challenges into robust defense strategies.
+                Specialized in network security assessments, vulnerability research, and ethical hacking methodologies. 
+                Transforming complex security challenges into actionable defense strategies.
             </p>
+            <div class="hero-cta">
+                <a href="#projects" class="cta-primary">View Projects</a>
+                <a href="#contact" class="cta-secondary">Get In Touch</a>
+            </div>
         </div>
         
         <div class="hero-terminal">
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dot"></div>
-                    <div class="terminal-dot"></div>
-                    <div class="terminal-dot"></div>
-                    <div class="terminal-title">security-console</div>
-                </div>
-                <div class="terminal-body" id="terminal">
-                    <div class="terminal-line">
-                        <span class="terminal-prompt">$</span>
-                        <input type="text" class="terminal-input" id="terminalInput" placeholder="whoami" autocomplete="off">
-                        <span class="cursor">|</span>
-                    </div>
+            <div class="terminal-header">
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <div class="terminal-title">security-console</div>
+            </div>
+            <div class="terminal-body" id="terminal">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">$</span>
+                    <input type="text" class="terminal-input" id="terminalInput" placeholder="whoami" autocomplete="off">
+                    <span class="cursor-blink">|</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="section">
-        <div class="section-header">
-            <h2 class="section-title">Security Projects</h2>
-            <p class="section-subtitle">
-                Comprehensive security solutions built with modern methodologies and industry best practices
-            </p>
-        </div>
+    <section id="projects" class="grid-section">
+        <h2 class="section-title">Security Projects</h2>
+        <p class="section-subtitle">
+            Comprehensive security solutions built with industry-leading methodologies and cutting-edge technologies
+        </p>
 
         <div class="projects-grid">
-            <div class="project-card" onclick="showDemo('vuln-scanner')">
-                <div class="project-icon">🔍</div>
+            <div class="project-item" onclick="showProjectDemo('vuln-scanner')">
+                <div class="project-number">01</div>
                 <h3 class="project-title">Network Vulnerability Scanner</h3>
                 <p class="project-desc">
-                    Advanced automated scanning system with integrated CVE database and custom payload generation for comprehensive network security assessment.
+                    Advanced automated scanning system with integrated CVE database, custom payload generation, 
+                    and comprehensive network security assessment capabilities.
                 </p>
                 <div class="project-tech">
                     <span class="tech-tag">Python</span>
                     <span class="tech-tag">Nmap</span>
                     <span class="tech-tag">CVE API</span>
-                    <span class="tech-tag">SQLite</span>
+                    <span class="tech-tag">PostgreSQL</span>
                 </div>
             </div>
 
-            <div class="project-card" onclick="showDemo('web-pentest')">
-                <div class="project-icon">🌐</div>
+            <div class="project-item" onclick="showProjectDemo('web-pentest')">
+                <div class="project-number">02</div>
                 <h3 class="project-title">Web Application Security Suite</h3>
                 <p class="project-desc">
-                    Complete OWASP Top 10 testing framework with automated vulnerability detection, session management analysis, and detailed reporting.
+                    Complete OWASP Top 10 testing framework with automated vulnerability detection, 
+                    session management analysis, and detailed compliance reporting.
                 </p>
                 <div class="project-tech">
                     <span class="tech-tag">Burp Suite</span>
                     <span class="tech-tag">JavaScript</span>
                     <span class="tech-tag">Python</span>
-                    <span class="tech-tag">OWASP</span>
+                    <span class="tech-tag">OWASP ZAP</span>
                 </div>
             </div>
 
-            <div class="project-card" onclick="showDemo('malware-analysis')">
-                <div class="project-icon">🦠</div>
-                <h3 class="project-title">Malware Analysis Environment</h3>
+            <div class="project-item" onclick="showProjectDemo('malware-analysis')">
+                <div class="project-number">03</div>
+                <h3 class="project-title">Malware Analysis Laboratory</h3>
                 <p class="project-desc">
-                    Isolated sandbox environment for static and dynamic malware analysis with behavioral monitoring and network traffic analysis capabilities.
+                    Isolated sandbox environment for comprehensive static and dynamic malware analysis 
+                    with behavioral monitoring and network traffic analysis.
                 </p>
                 <div class="project-tech">
                     <span class="tech-tag">VirtualBox</span>
                     <span class="tech-tag">Wireshark</span>
                     <span class="tech-tag">IDA Pro</span>
-                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">YARA</span>
                 </div>
             </div>
 
-            <div class="project-card" onclick="showDemo('redteam-sim')">
-                <div class="project-icon">⚡</div>
+            <div class="project-item" onclick="showProjectDemo('redteam-platform')">
+                <div class="project-number">04</div>
                 <h3 class="project-title">Red Team Simulation Platform</h3>
                 <p class="project-desc">
-                    Full-scale adversarial simulation environment for testing organizational security posture with custom attack scenarios and detailed metrics.
+                    Full-scale adversarial simulation environment for testing organizational security posture 
+                    with custom attack scenarios and comprehensive metrics.
                 </p>
                 <div class="project-tech">
                     <span class="tech-tag">Metasploit</span>
@@ -639,77 +741,119 @@
                 </div>
             </div>
         </div>
-
-        <div class="demo-container" id="demo-container" style="display: none;">
-            <div class="demo-header">
-                <h3 class="demo-title" id="demo-title">Live Security Demonstration</h3>
-                <p id="demo-subtitle" style="color: var(--text-secondary);"></p>
-            </div>
-            <div class="vulnerability-scanner" id="demo-content">
-                <button class="scan-btn" id="scan-btn" onclick="runScan()">Start Security Scan</button>
-                <div id="scan-results"></div>
-            </div>
-        </div>
     </section>
 
-    <section id="skills" class="section">
-        <div class="section-header">
-            <h2 class="section-title">Technical Expertise</h2>
-            <p class="section-subtitle">
-                Comprehensive security skillset backed by industry certifications and hands-on experience
-            </p>
-        </div>
+    <section id="skills" class="grid-section">
+        <h2 class="section-title">Technical Expertise</h2>
+        <p class="section-subtitle">
+            Comprehensive security skillset backed by industry certifications and extensive hands-on experience
+        </p>
 
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-icon">🛡️</div>
+        <div class="skills-matrix">
+            <div class="skill-category">
+                <span class="skill-icon">🛡️</span>
                 <h3 class="skill-title">Penetration Testing</h3>
-                <p class="skill-desc">RedTeam Hacker Academy Certified with expertise in network reconnaissance, vulnerability exploitation, and post-exploitation techniques.</p>
+                <div class="skill-list">
+                    RedTeam Hacker Academy Certified<br>
+                    Network Reconnaissance<br>
+                    Vulnerability Exploitation<br>
+                    Post-Exploitation Techniques
+                </div>
             </div>
 
-            <div class="skill-card">
-                <div class="skill-icon">🔐</div>
+            <div class="skill-category">
+                <span class="skill-icon">🔐</span>
                 <h3 class="skill-title">Ethical Hacking</h3>
-                <p class="skill-desc">Cisco Certified Ethical Hacker specializing in authorized security testing and vulnerability assessment methodologies.</p>
+                <div class="skill-list">
+                    Cisco Certified Ethical Hacker<br>
+                    Web Application Security<br>
+                    Social Engineering<br>
+                    Wireless Security Assessment
+                </div>
             </div>
 
-            <div class="skill-card">
-                <div class="skill-icon">🛠️</div>
+            <div class="skill-category">
+                <span class="skill-icon">🛠️</span>
                 <h3 class="skill-title">Security Tools</h3>
-                <p class="skill-desc">Advanced proficiency in Burp Suite, Metasploit, Nmap, Wireshark, and custom security automation tools.</p>
+                <div class="skill-list">
+                    Burp Suite Professional<br>
+                    Metasploit Framework<br>
+                    Nmap & Nessus<br>
+                    Wireshark & IDA Pro
+                </div>
             </div>
 
-            <div class="skill-card">
-                <div class="skill-icon">⚡</div>
+            <div class="skill-category">
+                <span class="skill-icon">⚡</span>
                 <h3 class="skill-title">Cybersecurity</h3>
-                <p class="skill-desc">Fortinet Certified Cybersecurity Associate with comprehensive knowledge of network security and threat mitigation.</p>
+                <div class="skill-list">
+                    Fortinet FCSA Certified<br>
+                    Incident Response<br>
+                    Threat Intelligence<br>
+                    Security Architecture
+                </div>
             </div>
 
-            <div class="skill-card">
-                <div class="skill-icon">💻</div>
+            <div class="skill-category">
+                <span class="skill-icon">💻</span>
                 <h3 class="skill-title">Development</h3>
-                <p class="skill-desc">Full Stack Engineering background enabling custom security tool development and automation scripting.</p>
+                <div class="skill-list">
+                    Full Stack Engineering (NIIT)<br>
+                    Python & JavaScript<br>
+                    Security Automation<br>
+                    API Development
+                </div>
             </div>
 
-            <div class="skill-card">
-                <div class="skill-icon">🔬</div>
+            <div class="skill-category">
+                <span class="skill-icon">🔬</span>
                 <h3 class="skill-title">Research</h3>
-                <p class="skill-desc">M.Sc Physics with specialization in acoustic properties research, bringing analytical rigor to security assessments.</p>
+                <div class="skill-list">
+                    M.Sc Physics (Acoustics)<br>
+                    Security Research<br>
+                    Vulnerability Discovery<br>
+                    Technical Documentation
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section">
-        <div class="section-header">
-            <h2 class="section-title">Let's Connect</h2>
+    <section id="demo" class="demo-section">
+        <div class="demo-container">
+            <h2 class="section-title">Live Security Demo</h2>
             <p class="section-subtitle">
-                Open to cybersecurity consulting opportunities and collaborative security research projects
+                Interactive vulnerability assessment simulation demonstrating real-world penetration testing methodologies
             </p>
+
+            <div class="demo-interactive">
+                <h3 style="margin-bottom: 20px; color: var(--text-primary);">Network Vulnerability Scanner</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                    Click on network nodes to simulate vulnerability scanning. Red nodes indicate security issues.
+                </p>
+                
+                <div class="vulnerability-grid" id="vulnGrid">
+                    <!-- Nodes will be generated by JavaScript -->
+                </div>
+
+                <div class="scan-controls">
+                    <button class="scan-btn" onclick="startNetworkScan()">Start Network Scan</button>
+                    <button class="scan-btn" onclick="resetDemo()" style="background: #666;">Reset Demo</button>
+                </div>
+
+                <div id="scanResults" style="margin-top: 30px; text-align: left; font-family: monospace; font-size: 13px; color: var(--text-secondary);"></div>
+            </div>
         </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-subtitle">
+            Open to cybersecurity consulting opportunities and collaborative security research projects
+        </p>
 
         <div class="contact-grid">
-            <div class="contact-card">
-                <div class="contact-icon">📧</div>
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
                 <h3 class="contact-title">Email</h3>
                 <p class="contact-info">
                     <a href="mailto:salmanulfariss642@gmail.com" class="contact-link">
@@ -718,8 +862,8 @@
                 </p>
             </div>
 
-            <div class="contact-card">
-                <div class="contact-icon">📱</div>
+            <div class="contact-item">
+                <span class="contact-icon">📱</span>
                 <h3 class="contact-title">Phone</h3>
                 <p class="contact-info">
                     <a href="tel:+919962726106" class="contact-link">
@@ -728,8 +872,8 @@
                 </p>
             </div>
 
-            <div class="contact-card">
-                <div class="contact-icon">💼</div>
+            <div class="contact-item">
+                <span class="contact-icon">💼</span>
                 <h3 class="contact-title">LinkedIn</h3>
                 <p class="contact-info">
                     <a href="https://linkedin.com/in/p-salmanul-faris" class="contact-link" target="_blank">
@@ -738,8 +882,8 @@
                 </p>
             </div>
 
-            <div class="contact-card">
-                <div class="contact-icon">⚡</div>
+            <div class="contact-item">
+                <span class="contact-icon">⚡</span>
                 <h3 class="contact-title">GitHub</h3>
                 <p class="contact-info">
                     <a href="https://github.com/salman2610" class="contact-link" target="_blank">
@@ -751,43 +895,50 @@
     </section>
 
     <script>
-        // Three.js Background
-        let scene, camera, renderer, particles;
-        let mouseX = 0, mouseY = 0;
+        // Three.js WebGL Background - Lusion.co inspired
+        let scene, camera, renderer, particles, mouse = { x: 0, y: 0 };
 
-        function initThreeJS() {
+        function initWebGL() {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ 
-                canvas: document.getElementById('canvas'),
+                canvas: document.getElementById('webgl-canvas'),
                 alpha: true,
                 antialias: true
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            // Create sophisticated particle system
-            const particleCount = 800;
+            // Create sophisticated particle network - Lusion.co style
+            const particleCount = 1200;
             const positions = new Float32Array(particleCount * 3);
             const colors = new Float32Array(particleCount * 3);
+            const sizes = new Float32Array(particleCount);
 
             for (let i = 0; i < particleCount; i++) {
-                positions[i * 3] = (Math.random() - 0.5) * 1000;
-                positions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
+                // Position particles in 3D space
+                positions[i * 3] = (Math.random() - 0.5) * 2000;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
                 positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
 
-                const intensity = Math.random() * 0.3 + 0.1;
-                colors[i * 3] = intensity;     // R
-                colors[i * 3 + 1] = intensity * 1.5; // G
-                colors[i * 3 + 2] = intensity * 3;   // B
+                // Color particles with blue gradient
+                const intensity = Math.random() * 0.5 + 0.2;
+                colors[i * 3] = intensity * 0.2;     // R
+                colors[i * 3 + 1] = intensity * 0.4; // G  
+                colors[i * 3 + 2] = intensity * 1.0; // B
+
+                // Varying sizes
+                sizes[i] = Math.random() * 2 + 0.5;
             }
 
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
             const material = new THREE.PointsMaterial({
-                size: 1.5,
+                size: 1,
+                sizeAttenuation: true,
                 vertexColors: true,
                 transparent: true,
                 opacity: 0.8,
@@ -797,85 +948,170 @@
             particles = new THREE.Points(geometry, material);
             scene.add(particles);
 
-            camera.position.z = 400;
+            camera.position.z = 500;
             animate();
         }
 
         function animate() {
             requestAnimationFrame(animate);
 
-            particles.rotation.x += 0.0005;
-            particles.rotation.y += 0.001;
+            // Subtle rotation and mouse interaction
+            particles.rotation.x += 0.0002;
+            particles.rotation.y += 0.0005;
 
-            // Subtle mouse interaction
-            camera.position.x += (mouseX * 0.1 - camera.position.x) * 0.02;
-            camera.position.y += (-mouseY * 0.1 - camera.position.y) * 0.02;
+            // Mouse influence - very subtle like Lusion.co
+            camera.position.x += (mouse.x * 0.05 - camera.position.x) * 0.02;
+            camera.position.y += (-mouse.y * 0.05 - camera.position.y) * 0.02;
             camera.lookAt(scene.position);
 
             renderer.render(scene, camera);
         }
 
-        // Terminal Commands
+        // Custom cursor - Lusion.co style
+        const cursor = document.querySelector('.cursor');
+        const cursorTrails = [];
+
+        for (let i = 0; i < 8; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            cursorTrails.push({ element: trail, x: 0, y: 0 });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = (e.clientX - window.innerWidth / 2) / 100;
+            mouse.y = (e.clientY - window.innerHeight / 2) / 100;
+
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+
+            // Update cursor trails with delay
+            cursorTrails.forEach((trail, index) => {
+                setTimeout(() => {
+                    trail.element.style.left = e.clientX - 2 + 'px';
+                    trail.element.style.top = e.clientY - 2 + 'px';
+                    trail.element.style.opacity = (8 - index) / 8 * 0.5;
+                }, index * 20);
+            });
+        });
+
+        // Terminal Commands - Professional and clean
         const commands = {
             whoami: `P. Salmanul Faris
-Certified Penetration Tester
-RedTeam Hacker Academy | Cisco Ethical Hacker | Fortinet FCSA
-M.Sc Physics | Full Stack Engineering
+Certified Penetration Tester & Security Researcher
 
-Status: Available for cybersecurity consulting`,
+Certifications:
+├── RedTeam Hacker Academy (Penetration Testing)
+├── Cisco Ethical Hacker
+└── Fortinet Cybersecurity Associate (FCSA)
 
-            help: `Available commands:
-  whoami     - Display profile information
-  projects   - List security projects  
-  skills     - Show technical expertise
-  contact    - Display contact information
-  scan       - Run vulnerability assessment
-  clear      - Clear terminal`,
+Education:
+├── M.Sc Physics (Acoustics Research) - New College Chennai
+└── Full Stack Engineering - NIIT Chennai
+
+Status: Available for security consulting opportunities`,
+
+            help: `Available Commands:
+┌─────────────────────────────────────────┐
+│ whoami     Display professional profile │
+│ projects   Show security project list   │
+│ skills     List technical competencies  │ 
+│ contact    Display contact information  │
+│ scan       Run vulnerability assessment │
+│ certifications Show credential details │
+│ clear      Clear terminal screen        │
+└─────────────────────────────────────────┘
+
+Tip: Use arrow keys for command history`,
 
             projects: `Security Projects Portfolio:
+═══════════════════════════════════════
 
-[1] Network Vulnerability Scanner
-    Advanced port scanning with CVE integration
-    
-[2] Web Application Security Suite
-    OWASP Top 10 automated testing framework
-    
-[3] Malware Analysis Environment
-    Isolated sandbox with behavioral monitoring
-    
-[4] Red Team Simulation Platform
-    Full-scale adversarial testing environment`,
+[01] Network Vulnerability Scanner
+     └── Automated network reconnaissance and CVE matching
+     └── Technologies: Python, Nmap, PostgreSQL
+     
+[02] Web Application Security Suite  
+     └── OWASP Top 10 automated testing framework
+     └── Technologies: Burp Suite, JavaScript, Python
+     
+[03] Malware Analysis Laboratory
+     └── Isolated sandbox with behavioral monitoring
+     └── Technologies: VirtualBox, Wireshark, YARA
+     
+[04] Red Team Simulation Platform
+     └── Full-scale adversarial testing environment
+     └── Technologies: Metasploit, Cobalt Strike, Docker`,
 
-            skills: `Core Competencies:
+            skills: `Technical Competencies:
+═══════════════════════════════
 
-Security Testing
-• Penetration Testing (RedTeam Academy Certified)
-• Ethical Hacking (Cisco Certified)  
-• Vulnerability Assessment
-• Network Security Analysis
+🔴 SECURITY TESTING
+   ├── Penetration Testing Methodologies
+   ├── Vulnerability Assessment & Management
+   ├── Network Security Analysis
+   └── Web Application Security Testing
 
-Technical Skills
-• Python, JavaScript, Bash
-• Burp Suite, Metasploit, Nmap
-• Wireshark, IDA Pro
-• Full Stack Development (NIIT)
+🟠 SECURITY TOOLS & PLATFORMS
+   ├── Burp Suite Professional
+   ├── Metasploit Framework  
+   ├── Nmap & Nessus
+   └── Wireshark & IDA Pro
 
-Research Background
-• M.Sc Physics (Acoustics Research)
-• Analytical Problem Solving`,
+🟡 PROGRAMMING & AUTOMATION
+   ├── Python (Security Scripting)
+   ├── JavaScript (Web Security)
+   ├── Bash/PowerShell Scripting
+   └── SQL & Database Security
+
+🟢 RESEARCH & ANALYSIS
+   ├── Threat Intelligence
+   ├── Malware Analysis
+   ├── Security Research Methods
+   └── Technical Documentation`,
+
+            certifications: `Professional Certifications:
+═══════════════════════════════════
+
+🏆 RedTeam Hacker Academy
+   └── Certified Penetration Tester
+   └── Advanced network exploitation techniques
+   └── Post-exploitation and privilege escalation
+
+🏆 Cisco Ethical Hacker  
+   └── Authorized security testing methodologies
+   └── Network infrastructure security
+   └── Compliance and legal frameworks
+
+🏆 Fortinet Cybersecurity Associate (FCSA)
+   └── Network security fundamentals
+   └── Threat landscape analysis  
+   └── Security architecture principles
+
+📚 Academic Background:
+   ├── M.Sc Physics (Acoustics Research) - 2021-2023
+   └── Full Stack Engineering - NIIT Chennai 2023`,
 
             contact: `Contact Information:
+═══════════════════════════════
 
-Email: salmanulfariss642@gmail.com
-Phone: +91 99627 26106
-LinkedIn: linkedin.com/in/p-salmanul-faris
-GitHub: github.com/salman2610
+📧 Email: salmanulfariss642@gmail.com
+📱 Phone: +91 99627 26106
+💼 LinkedIn: linkedin.com/in/p-salmanul-faris  
+⚡ GitHub: github.com/salman2610
 
-Location: Chennai, Tamil Nadu
-Status: Open to opportunities`,
+📍 Location: Chennai, Tamil Nadu, India
+🔒 Security Clearance: Available upon request
+📋 Status: Open to cybersecurity consulting opportunities
 
-            scan: 'SCAN_DEMO',
-            clear: 'CLEAR'
+Specializing in:
+├── Network Penetration Testing
+├── Web Application Security Assessment  
+├── Vulnerability Research & Analysis
+└── Security Architecture Review`,
+
+            scan: 'DEMO_SCAN',
+            clear: 'CLEAR_TERMINAL'
         };
 
         let terminalHistory = [];
@@ -921,4 +1157,268 @@ Status: Open to opportunities`,
 
             if (cmd === 'clear') {
                 setTimeout(() => {
-                    terminal.
+                    terminal.innerHTML = `
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <input type="text" class="terminal-input" id="terminalInput" placeholder="whoami" autocomplete="off">
+                            <span class="cursor-blink">|</span>
+                        </div>`;
+                    document.getElementById('terminalInput').focus();
+                    bindTerminalEvents();
+                }, 100);
+                return;
+            }
+
+            if (cmd === 'scan') {
+                showScanDemo();
+                return;
+            }
+
+            // Add output
+            const outputDiv = document.createElement('div');
+            outputDiv.className = 'terminal-output';
+            
+            if (commands[cmd]) {
+                outputDiv.textContent = commands[cmd];
+            } else {
+                outputDiv.innerHTML = `Command not found: ${cmd}
+Type 'help' for available commands`;
+            }
+            
+            terminal.appendChild(outputDiv);
+            
+            // Add new input line
+            const newInputLine = document.createElement('div');
+            newInputLine.className = 'terminal-line';
+            newInputLine.innerHTML = `
+                <span class="terminal-prompt">$</span>
+                <input type="text" class="terminal-input" id="terminalInput" placeholder="" autocomplete="off">
+                <span class="cursor-blink">|</span>`;
+            terminal.appendChild(newInputLine);
+            
+            // Scroll to bottom and focus
+            terminal.scrollTop = terminal.scrollHeight;
+            document.getElementById('terminalInput').focus();
+            bindTerminalEvents();
+        }
+
+        function bindTerminalEvents() {
+            const input = document.getElementById('terminalInput');
+            if (input) {
+                input.addEventListener('keydown', arguments.callee.caller);
+            }
+        }
+
+        function showScanDemo() {
+            const terminal = document.getElementById('terminal');
+            const scanSteps = [
+                '[INFO] Initializing network vulnerability scanner...',
+                '[SCAN] Discovering live hosts on network...',
+                '[SCAN] Host 192.168.1.1 - ALIVE (Gateway)',
+                '[SCAN] Host 192.168.1.105 - ALIVE (Workstation)', 
+                '[SCAN] Host 192.168.1.200 - ALIVE (Server)',
+                '[PORT] Scanning TCP ports on 192.168.1.200...',
+                '[VULN] Port 22/tcp - SSH-2.0-OpenSSH_7.4 (CVE-2018-15473)',
+                '[VULN] Port 80/tcp - Apache httpd 2.4.6 (CVE-2021-44790)',
+                '[VULN] Port 443/tcp - SSL/TLS configuration issues detected',
+                '[CRIT] Remote code execution possible on port 80',
+                '[INFO] Vulnerability scan completed - 3 critical issues found'
+            ];
+
+            let stepIndex = 0;
+            const interval = setInterval(() => {
+                if (stepIndex < scanSteps.length) {
+                    const outputDiv = document.createElement('div');
+                    outputDiv.className = 'terminal-output';
+                    outputDiv.style.color = stepIndex >= 6 ? '#ff6b6b' : '#4ecdc4';
+                    outputDiv.textContent = scanSteps[stepIndex];
+                    terminal.appendChild(outputDiv);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    stepIndex++;
+                } else {
+                    clearInterval(interval);
+                    // Add new input line
+                    const newInputLine = document.createElement('div');
+                    newInputLine.className = 'terminal-line';
+                    newInputLine.innerHTML = `
+                        <span class="terminal-prompt">$</span>
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="" autocomplete="off">
+                        <span class="cursor-blink">|</span>`;
+                    terminal.appendChild(newInputLine);
+                    document.getElementById('terminalInput').focus();
+                    bindTerminalEvents();
+                }
+            }, 600);
+        }
+
+        // Project Demo Functions
+        function showProjectDemo(projectType) {
+            const demos = {
+                'vuln-scanner': 'Network Vulnerability Scanner Demo:\n\n→ Automated host discovery\n→ Port enumeration and service detection\n→ CVE database integration\n→ Custom exploit payload generation\n→ Comprehensive reporting system',
+                'web-pentest': 'Web Application Security Suite Demo:\n\n→ OWASP Top 10 automated testing\n→ SQL injection detection\n→ XSS vulnerability assessment\n→ Session management analysis\n→ Authentication bypass testing',
+                'malware-analysis': 'Malware Analysis Laboratory Demo:\n\n→ Static analysis with disassemblers\n→ Dynamic behavior monitoring\n→ Network traffic analysis\n→ Sandbox environment isolation\n→ Threat intelligence correlation',
+                'redteam-platform': 'Red Team Simulation Demo:\n\n→ Multi-stage attack scenarios\n→ Persistence mechanisms\n→ Lateral movement techniques\n→ Data exfiltration simulation\n→ Comprehensive attack metrics'
+            };
+
+            alert(`🔍 ${demos[projectType] || 'Demo not available'}`);
+        }
+
+        // Vulnerability Grid Demo - ActiveTheory.net inspired interactivity
+        function initVulnerabilityGrid() {
+            const grid = document.getElementById('vulnGrid');
+            const nodeCount = 48;
+            
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'vuln-node';
+                node.textContent = (i + 1).toString().padStart(2, '0');
+                node.dataset.index = i;
+                
+                // Randomly assign vulnerability status
+                if (Math.random() < 0.2) {
+                    node.classList.add('vulnerable');
+                    node.title = `Vulnerability detected: CVE-2024-${Math.floor(Math.random() * 9999)}`;
+                } else {
+                    node.title = 'Secure node - No vulnerabilities detected';
+                }
+                
+                node.addEventListener('click', function() {
+                    scanNode(this);
+                });
+                
+                grid.appendChild(node);
+            }
+        }
+
+        function scanNode(node) {
+            const results = document.getElementById('scanResults');
+            const index = node.dataset.index;
+            const isVulnerable = node.classList.contains('vulnerable');
+            
+            node.style.background = '#0066ff';
+            node.style.borderColor = '#0066ff';
+            node.style.color = 'white';
+            
+            setTimeout(() => {
+                if (isVulnerable) {
+                    node.classList.add('vulnerable');
+                    node.style.background = 'rgba(255, 0, 0, 0.2)';
+                    node.style.borderColor = '#ff4444';
+                    node.style.color = '#ff4444';
+                    
+                    results.innerHTML += `[${new Date().toLocaleTimeString()}] Node ${parseInt(index) + 1}: CRITICAL vulnerability found - CVE-2024-${Math.floor(Math.random() * 9999)}\n`;
+                } else {
+                    node.classList.add('secure');
+                    results.innerHTML += `[${new Date().toLocaleTimeString()}] Node ${parseInt(index) + 1}: Secure - No vulnerabilities detected\n`;
+                }
+                results.scrollTop = results.scrollHeight;
+            }, 800);
+        }
+
+        function startNetworkScan() {
+            const nodes = document.querySelectorAll('.vuln-node');
+            const results = document.getElementById('scanResults');
+            const button = event.target;
+            
+            button.disabled = true;
+            button.textContent = 'Scanning...';
+            results.innerHTML = '[INFO] Starting comprehensive network scan...\n';
+            
+            let scanIndex = 0;
+            const scanInterval = setInterval(() => {
+                if (scanIndex < nodes.length) {
+                    scanNode(nodes[scanIndex]);
+                    scanIndex++;
+                } else {
+                    clearInterval(scanInterval);
+                    button.disabled = false;
+                    button.textContent = 'Start Network Scan';
+                    results.innerHTML += '\n[COMPLETE] Network vulnerability scan finished.\n';
+                    
+                    const vulnerableCount = document.querySelectorAll('.vuln-node.vulnerable').length;
+                    results.innerHTML += `[SUMMARY] ${vulnerableCount} vulnerabilities detected out of ${nodes.length} nodes scanned.\n`;
+                }
+            }, 300);
+        }
+
+        function resetDemo() {
+            const nodes = document.querySelectorAll('.vuln-node');
+            const results = document.getElementById('scanResults');
+            
+            nodes.forEach(node => {
+                node.className = 'vuln-node';
+                node.style.background = '';
+                node.style.borderColor = '';
+                node.style.color = '';
+                
+                // Reassign random vulnerability status
+                if (Math.random() < 0.2) {
+                    node.classList.add('vulnerable');
+                    node.title = `Vulnerability detected: CVE-2024-${Math.floor(Math.random() * 9999)}`;
+                } else {
+                    node.title = 'Secure node - No vulnerabilities detected';
+                }
+            });
+            
+            results.innerHTML = '';
+        }
+
+        // Smooth scrolling navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active navigation
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            initWebGL();
+            initVulnerabilityGrid();
+            document.getElementById('terminalInput').focus();
+            bindTerminalEvents();
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for scroll animations
+        document.querySelectorAll('.grid-section, .demo-section, .contact-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
