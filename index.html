@@ -1,4 +1,380 @@
-<!DOCTYPE html>
+// Enhanced Project Demo Functions
+        function showProjectDemo(projectType) {
+            const demos = {
+                'pentest-tools': `CUSTOM UBUNTU PENETRATION TESTING SUITE - "SUNSET"
+═══════════════════════════════════════════════════════════════════════
+
+🖥️  SYSTEM ARCHITECTURE:
+├── Base System: Ubuntu 22.04 LTS (Customized)
+├── Desktop Environment: GNOME with security-focused customizations
+├── Kernel: Hardened Linux kernel with security modules
+├── Storage: Encrypted filesystem with secure boot configuration
+└── Network: Isolated testing environment with bridge configurations
+
+🛠️  INTEGRATED SECURITY TOOLKIT:
+├── Network Reconnaissance:
+│   ├── Nmap (Advanced NSE scripting capabilities)
+│   ├── Masscan (High-speed port discovery)
+│   ├── Amass (Subdomain enumeration and mapping)
+│   └── Custom bash scripts for automated reconnaissance
+│
+├── Vulnerability Assessment:
+│   ├── Burp Suite Professional (Web application testing)
+│   ├── OWASP ZAP (Automated security scanning)
+│   ├── Nikto (Web server scanner)
+│   └── Custom Python scripts for specific vulnerability checks
+│
+├── Exploitation Framework:
+│   ├── Metasploit Framework (Modular penetration testing)
+│   ├── Custom exploit development environment
+│   ├── Payload generators and encoders
+│   └── Post-exploitation automation tools
+│
+└── Network Analysis:
+    ├── Wireshark (Packet capture and analysis)
+    ├── tcpdump (Command-line packet analyzer)
+    ├── Ettercap (Comprehensive MITM attack suite)
+    └── Custom traffic analysis scripts
+
+🔧 CUSTOM AUTOMATION FEATURES:
+├── Automated vulnerability scanning workflows
+├── Custom reporting templates and generators
+├── Network service enumeration scripts
+├── Exploit verification and validation tools
+├── Comprehensive logging and documentation system
+└── Integration with popular vulnerability databases
+
+📊 ETHICAL TESTING CAPABILITIES:
+├── Controlled penetration testing methodologies
+├── Compliance with industry standards (PTES, OWASP)
+├── Safe testing environment with isolation features
+├── Automated cleanup and system restoration
+└── Comprehensive audit trail and reporting
+
+This custom environment represents a practical implementation of
+cybersecurity knowledge gained through CPT certification, providing
+a robust platform for ethical security testing and research.`,
+
+                'billing-app': `CROSS-PLATFORM BILLING APPLICATION
+═══════════════════════════════════════════════════════════════════════
+
+💼 BUSINESS SOLUTION OVERVIEW:
+Target Market: Small and Medium Businesses (SMBs)
+Problem Solved: Inefficient manual billing and invoice management
+Solution: Comprehensive digital billing ecosystem
+Development Status: 80% Complete (Active Development)
+
+🏗️  APPLICATION ARCHITECTURE:
+├── Frontend Technologies:
+│   ├── Desktop App: Electron.js with React framework
+│   ├── Mobile App: React Native for iOS/Android
+│   ├── Web Portal: Progressive Web App (PWA)
+│   └── Responsive UI/UX with Material Design principles
+│
+├── Backend Infrastructure:
+│   ├── Server: Node.js with Express.js framework
+│   ├── Database: PostgreSQL with optimized schemas
+│   ├── Authentication: JWT-based secure session management
+│   ├── API: RESTful services with comprehensive documentation
+│   └── Cloud Integration: AWS/Azure deployment ready
+│
+└── Real-time Features:
+    ├── WebSocket connections for live updates
+    ├── Push notifications across all platforms
+    ├── Offline-first architecture with sync capabilities
+    └── Real-time collaboration tools for team billing
+
+⚡ CORE FEATURES & CAPABILITIES:
+├── Invoice Management:
+│   ├── Professional invoice templates (customizable)
+│   ├── Automated recurring billing and subscriptions
+│   ├── Multi-currency support with real-time exchange rates
+│   ├── Tax calculation and compliance (GST, VAT, etc.)
+│   └── Digital signature and approval workflows
+│
+├── Customer Relationship Management:
+│   ├── Complete customer database with history tracking
+│   ├── Communication logs and interaction timeline
+│   ├── Credit limit management and payment terms
+│   ├── Customer portal for self-service billing access
+│   └── Automated follow-up reminders and notifications
+│
+├── Payment Processing:
+│   ├── Multiple payment gateway integrations
+│   ├── Online payment links and QR code generation
+│   ├── Payment tracking and reconciliation tools
+│   ├── Partial payment handling and installment plans
+│   └── Automated payment confirmation and receipts
+│
+├── Financial Reporting & Analytics:
+│   ├── Real-time financial dashboard with key metrics
+│   ├── Profit/loss statements and cash flow analysis
+│   ├── Tax reporting and compliance documentation
+│   ├── Business intelligence with predictive analytics
+│   └── Export capabilities (PDF, Excel, CSV formats)
+│
+└── Advanced Business Features:
+    ├── Inventory management with low-stock alerts
+    ├── Expense tracking and categorization
+    ├── Project-based billing and time tracking
+    ├── Multi-business support with role-based access
+    └── API for third-party integrations (accounting software)
+
+🚀 TECHNICAL INNOVATIONS:
+├── Offline-first architecture ensures uninterrupted workflow
+├── Cross-platform data synchronization in real-time
+├── Advanced security measures protecting financial data
+├── Scalable cloud infrastructure supporting business growth
+└── Modern UI/UX design optimized for productivity
+
+📈 TARGET IMPACT:
+├── Reduce billing processing time by 75%
+├── Eliminate manual errors in invoice generation
+├── Improve cash flow with faster payment processing
+├── Provide comprehensive business insights and analytics
+└── Scale with business growth from startup to enterprise
+
+This project demonstrates full-stack development expertise,
+combining modern web technologies with practical business solutions
+to address real-world challenges faced by small businesses.`,
+
+                'acoustic-research': `MEDICAL PHYSICS RESEARCH PROJECT - M.Sc. THESIS
+═══════════════════════════════════════════════════════════════════════
+
+📋 RESEARCH TITLE:
+"Acoustic Study of Aqueous Solution Containing Antibiotic and
+Human Mixtard Insulin Using Ultrasonic Interferometry"
+
+🎓 ACADEMIC CONTEXT:
+Institution: The New College, Chennai, Tamil Nadu
+Degree: Master of Science in Physics
+Completion: 2023
+Supervisor: [Faculty Member], Department of Physics
+Classification: Medical Physics / Acoustics Research
+
+🔬 RESEARCH METHODOLOGY:
+├── Experimental Technique: Ultrasonic Interferometry
+├── Temperature Range: Physiological temperatures (25°C - 45°C)
+├── Frequency Range: 1-10 MHz ultrasonic waves
+├── Sample Preparation: Controlled concentration aqueous solutions
+└── Measurement Protocol: Multiple trial averaging for statistical validity
+
+🧪 EXPERIMENTAL SETUP & INSTRUMENTATION:
+├── Ultrasonic Interferometer:
+│   ├── High-precision frequency generator
+│   ├── Ultrasonic transducer (piezoelectric)
+│   ├── Sample cell with temperature control
+│   └── Digital measurement and data acquisition system
+│
+├── Temperature Control System:
+│   ├── Precision thermostat (±0.1°C accuracy)
+│   ├── Digital temperature monitoring
+│   ├── Physiological temperature simulation
+│   └── Automated temperature cycling protocols
+│
+├── Solution Preparation:
+│   ├── Analytical grade reagents and solvents
+│   ├── Precision balance (±0.0001g accuracy)
+│   ├── Controlled environment mixing protocols
+│   └── pH and conductivity monitoring
+│
+└── Data Analysis Tools:
+    ├── Statistical analysis software (SPSS/Python)
+    ├── Graph plotting and visualization tools
+    ├── Error analysis and uncertainty calculations
+    └── Correlation studies and trend identification
+
+📊 KEY RESEARCH PARAMETERS INVESTIGATED:
+├── Ultrasonic Velocity (v):
+│   ├── Measurement across temperature ranges
+│   ├── Concentration dependency analysis
+│   ├── Molecular interaction effects
+│   └── Comparison with theoretical predictions
+│
+├── Acoustic Impedance (Z):
+│   ├── Tissue-equivalent acoustic properties
+│   ├── Medical diagnostic relevance
+│   ├── Frequency-dependent characteristics
+│   └── Clinical application potential
+│
+├── Attenuation Coefficient (α):
+│   ├── Energy absorption mechanisms
+│   ├── Scattering effects in biological solutions
+│   ├── Frequency and temperature dependencies
+│   └── Medical imaging implications
+│
+└── Thermodynamic Parameters:
+    ├── Adiabatic compressibility calculations
+    ├── Intermolecular interaction analysis
+    ├── Molecular association studies
+    └── Temperature-dependent behavior patterns
+
+🏥 MEDICAL PHYSICS SIGNIFICANCE:
+├── Pharmaceutical Characterization:
+│   ├── Quality control applications in drug manufacturing
+│   ├── Stability analysis of insulin formulations
+│   ├── Antibiotic effectiveness monitoring
+│   └── Bioavailability and bioequivalence studies
+│
+├── Diagnostic Applications:
+│   ├── Ultrasonic medical imaging enhancement
+│   ├── Non-invasive diagnostic technique development
+│   ├── Real-time monitoring of drug concentrations
+│   └── Point-of-care testing device development
+│
+└── Therapeutic Monitoring:
+    ├── Insulin delivery system optimization
+    ├── Antibiotic dosage effectiveness tracking
+    ├── Personalized medicine applications
+    └── Drug interaction studies
+
+📈 RESEARCH OUTCOMES & FINDINGS:
+├── Published comprehensive acoustic property database
+├── Identified optimal measurement parameters for clinical use
+├── Developed predictive models for drug behavior analysis
+├── Established temperature-dependent correlation patterns
+└── Contributed to medical physics knowledge base
+
+🔬 FUTURE RESEARCH DIRECTIONS:
+├── Extension to other pharmaceutical compounds
+├── Development of portable diagnostic devices
+├── Integration with AI/ML for pattern recognition
+├── Collaboration with medical device manufacturers
+└── Clinical trial applications and validation studies
+
+This research project demonstrates the intersection of physics
+principles with practical medical applications, showcasing both
+theoretical understanding and experimental expertise in advanced
+scientific instrumentation and medical physics applications.`,
+
+                'dos-simulation': `NETWORK SECURITY LAB ENVIRONMENT - DoS SIMULATION
+═══════════════════════════════════════════════════════════════════════
+
+🎯 PROJECT OBJECTIVE:
+Controlled analysis of Denial-of-Service (DoS) attack vectors and
+development of effective mitigation strategies through ethical
+security research in an isolated laboratory environment.
+
+🏗️  LAB INFRASTRUCTURE SETUP:
+├── Virtual Network Environment:
+│   ├── VMware vSphere hypervisor platform
+│   ├── Isolated network segments (DMZ, Internal, Management)
+│   ├── Virtual firewall and router configurations
+│   └── Network traffic monitoring and logging systems
+│
+├── Target Server Configuration:
+│   ├── Apache HTTP Server 2.4.x on Ubuntu 20.04 LTS
+│   ├── Standard LAMP stack (Linux, Apache, MySQL, PHP)
+│   ├── Baseline security configurations and hardening
+│   ├── Performance monitoring tools (htop, iotop, netstat)
+│   └── Comprehensive logging (access, error, system logs)
+│
+├── Attack Platform Setup:
+│   ├── Kali Linux virtual machine (Attack source)
+│   ├── Xerxes DoS tool installation and configuration
+│   ├── Network traffic generation tools (hping3, nmap)
+│   ├── Packet capture and analysis tools (Wireshark, tcpdump)
+│   └── Custom bash scripts for automated attack scenarios
+│
+└── Monitoring & Analysis Infrastructure:
+    ├── Network traffic analyzers and bandwidth monitors
+    ├── System performance monitoring dashboards
+    ├── Log aggregation and analysis tools (ELK Stack)
+    ├── Real-time alert systems and notifications
+    └── Forensic data collection and preservation tools
+
+⚔️  ATTACK SIMULATION METHODOLOGY:
+├── Pre-Attack Phase:
+│   ├── Baseline performance metrics collection
+│   ├── Network topology mapping and service enumeration
+│   ├── Target service vulnerability assessment
+│   ├── Attack vector planning and risk assessment
+│   └── Legal and ethical compliance documentation
+│
+├── DoS Attack Execution:
+│   ├── Xerxes HTTP flood attack implementation
+│   ├── Multiple concurrent connection attempts
+│   ├── Resource exhaustion targeting (CPU, memory, network)
+│   ├── Service availability testing and monitoring
+│   └── Real-time impact assessment and data collection
+│
+├── Attack Progression Analysis:
+│   ├── Server response time degradation tracking
+│   ├── Connection timeout and failure rate monitoring
+│   ├── System resource utilization analysis
+│   ├── Network bandwidth consumption measurement
+│   └── Service recovery time and behavior assessment
+│
+└── Post-Attack Analysis:
+    ├── Comprehensive log file analysis and correlation
+    ├── Network traffic pattern identification
+    ├── System performance impact quantification
+    ├── Security event timeline reconstruction
+    └── Lessons learned and improvement recommendations
+
+🛡️  MITIGATION STRATEGIES DEVELOPED:
+├── Network-Level Protection:
+│   ├── Rate limiting and connection throttling
+│   ├── IP-based access control and blacklisting
+│   ├── DDoS protection appliance configuration
+│   ├── Load balancing and traffic distribution
+│   └── Network segmentation and micro-segmentation
+│
+├── Server-Side Hardening:
+│   ├── Apache security module configuration (mod_security)
+│   ├── Connection limits and timeout optimizations
+│   ├── Resource allocation and memory management
+│   ├── Process monitoring and automatic restart mechanisms
+│   └── Performance tuning and capacity planning
+│
+├── Detection and Response:
+│   ├── Real-time anomaly detection algorithms
+│   ├── Automated alert systems and notifications
+│   ├── Incident response playbooks and procedures
+│   ├── Forensic data preservation and chain of custody
+│   └── Business continuity and disaster recovery planning
+│
+└── Monitoring and Analytics:
+    ├── Continuous network traffic analysis
+    ├── Behavioral baseline establishment and deviation detection
+    ├── Threat intelligence integration and correlation
+    ├── Performance metrics dashboards and reporting
+    └── Predictive analysis for proactive defense
+
+📊 RESEARCH FINDINGS & OUTCOMES:
+├── Attack Effectiveness Analysis:
+│   ├── Service disruption timeline: 15-30 seconds to impact
+│   ├── Complete service unavailability: 2-5 minutes duration
+│   ├── Resource exhaustion patterns: CPU (95%), Memory (87%)
+│   ├── Network bandwidth consumption: 100% capacity utilization
+│   └── Recovery time without mitigation: 10-15 minutes average
+│
+├── Mitigation Effectiveness Testing:
+│   ├── Rate limiting reduced attack success by 78%
+│   ├── Load balancing maintained 65% service availability
+│   ├── Early detection systems reduced MTTR by 60%
+│   ├── Automated response mechanisms improved recovery by 85%
+│   └── Combined strategies achieved 95% attack resilience
+│
+└── Security Recommendations Developed:
+    ├── Multi-layered defense strategy implementation
+    ├── Proactive monitoring and threat hunting procedures
+    ├── Regular security assessments and penetration testing
+    ├── Staff training on DoS attack recognition and response
+    └── Business continuity planning for extended outages
+
+🔬 TECHNICAL INSIGHTS & CONTRIBUTIONS:
+├── Published detailed attack patterns and signatures
+├── Developed custom detection algorithms and tools
+├── Created comprehensive mitigation implementation guides
+├── Established best practices for lab-based security research
+└── Contributed to cybersecurity community knowledge base
+
+This controlled research project demonstrates practical application
+of cybersecurity principles, combining theoretical knowledge with
+hands-on experience in network security analysis and defense
+strategy development within an ethical testing framework.`
+            };`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -932,6 +1308,167 @@
             background: var(--bg-secondary);
         }
 
+        /* Education Timeline Styles */
+        .education-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: var(--space-2xl);
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-3xl);
+            padding-left: var(--space-2xl);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -28px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--accent-primary);
+        }
+
+        .timeline-content {
+            background: var(--glass-medium);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--glow-primary);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .timeline-date {
+            background: var(--accent-primary);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .timeline-institution {
+            color: var(--accent-secondary);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .skill-badge {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Research Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .interest-card {
+            background: var(--glass-medium);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .interest-card:hover {
+            border-color: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--glow-primary);
+        }
+
+        .interest-icon {
+            font-size: 48px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .interest-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+
+        .interest-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Contact Section */
+        .contact-section {
+            background: var(--bg-secondary);
+        }
+
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1446,6 +1983,7 @@
             <li><a href="#home" class="nav-link active">Home</a></li>
             <li><a href="#projects" class="nav-link">Projects</a></li>
             <li><a href="#skills" class="nav-link">Expertise</a></li>
+            <li><a href="#education" class="nav-link">Education</a></li>
             <li><a href="#demo" class="nav-link">Demo</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
@@ -1453,11 +1991,11 @@
 
     <section id="home" class="hero">
         <div class="hero-content fade-in-left">
-            <div class="hero-badge">Certified Security Professional</div>
-            <h1 class="hero-title">Next-Gen Cybersecurity Expert</h1>
+            <div class="hero-badge">Multi-Disciplinary Technology Professional</div>
+            <h1 class="hero-title">Full-Stack Developer & Security Researcher</h1>
             <p class="hero-subtitle">
-                Specialized in advanced penetration testing, red team operations, and security architecture. 
-                Transforming complex cyber threats into comprehensive defense strategies with cutting-edge methodologies.
+                Physics graduate turned technology specialist. Expert in full-stack development, cybersecurity, and scientific research. 
+                Building secure, scalable applications while advancing the intersection of physics and technology.
             </p>
             <div class="hero-cta">
                 <a href="#projects" class="cta-primary">Explore Projects</a>
@@ -1581,76 +2119,220 @@
 
     <section id="skills" class="section">
         <div class="section-header fade-in-up">
-            <h2 class="section-title">Technical Expertise</h2>
+            <h2 class="section-title">Multi-Disciplinary Expertise</h2>
             <p class="section-subtitle">
-                Comprehensive security skillset backed by elite certifications and extensive real-world experience
+                Comprehensive skill set spanning cybersecurity, full-stack development, scientific research, and emerging technologies
             </p>
         </div>
 
         <div class="skills-grid stagger-children">
             <div class="skill-category">
-                <span class="skill-icon">🛡️</span>
-                <h3 class="skill-title">Advanced Penetration Testing</h3>
-                <div class="skill-list">
-                    RedTeam Hacker Academy Certified<br>
-                    Advanced Network Reconnaissance<br>
-                    Zero-Day Exploit Development<br>
-                    Advanced Persistent Threat Simulation
-                </div>
-            </div>
-
-            <div class="skill-category">
                 <span class="skill-icon">🔐</span>
-                <h3 class="skill-title">Elite Ethical Hacking</h3>
+                <h3 class="skill-title">Cybersecurity</h3>
                 <div class="skill-list">
-                    Cisco Certified Ethical Hacker<br>
-                    Advanced Web App Security<br>
-                    Social Engineering Operations<br>
-                    Wireless & IoT Security Assessment
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">🛠️</span>
-                <h3 class="skill-title">Professional Security Arsenal</h3>
-                <div class="skill-list">
-                    Burp Suite Professional<br>
-                    Metasploit & Cobalt Strike<br>
-                    Custom Tool Development<br>
-                    Advanced Network Analysis
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">⚡</span>
-                <h3 class="skill-title">Enterprise Cybersecurity</h3>
-                <div class="skill-list">
-                    Fortinet FCSA Certified<br>
-                    Advanced Incident Response<br>
-                    Threat Hunting & Intelligence<br>
-                    Zero Trust Architecture
+                    Certified Penetration Tester (CPT)<br>
+                    Network Security & Ethical Hacking<br>
+                    Vulnerability Assessment & Analysis<br>
+                    Burp Suite, Nmap, Metasploit, Wireshark
                 </div>
             </div>
 
             <div class="skill-category">
                 <span class="skill-icon">💻</span>
-                <h3 class="skill-title">Security Development</h3>
+                <h3 class="skill-title">Full-Stack Development</h3>
                 <div class="skill-list">
-                    Full Stack Engineering (NIIT)<br>
-                    Secure Code Development<br>
-                    DevSecOps Implementation<br>
-                    AI/ML Security Applications
+                    NIIT Advanced Programming Certified<br>
+                    JavaScript, Python, Java, C++<br>
+                    Cross-Platform App Development<br>
+                    Database Management & SQL
                 </div>
             </div>
 
             <div class="skill-category">
                 <span class="skill-icon">🔬</span>
-                <h3 class="skill-title">Research & Innovation</h3>
+                <h3 class="skill-title">Physics & Research</h3>
                 <div class="skill-list">
-                    M.Sc Physics (Advanced Research)<br>
-                    Zero-Day Vulnerability Research<br>
-                    Security Protocol Analysis<br>
-                    Academic Publications
+                    M.Sc. Physics - New College, Chennai<br>
+                    Medical & Nuclear Physics Interest<br>
+                    Ultrasonic Interferometry Research<br>
+                    Scientific Data Analysis
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <span class="skill-icon">🌐</span>
+                <h3 class="skill-title">Web Technologies</h3>
+                <div class="skill-list">
+                    HTML5, CSS3, JavaScript (ES6+)<br>
+                    Responsive Design & UX/UI<br>
+                    Modern Frameworks & Libraries<br>
+                    RESTful API Development
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <span class="skill-icon">📱</span>
+                <h3 class="skill-title">Mobile & Cross-Platform</h3>
+                <div class="skill-list">
+                    Cross-Platform App Development<br>
+                    Mobile UI/UX Design<br>
+                    Progressive Web Apps (PWA)<br>
+                    Native & Hybrid Solutions
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <span class="skill-icon">⚙️</span>
+                <h3 class="skill-title">Systems & Infrastructure</h3>
+                <div class="skill-list">
+                    Linux (Ubuntu, Kali) & Windows<br>
+                    Network Administration & Security<br>
+                    Cloud Security Concepts<br>
+                    DevOps & System Automation
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Education & Certifications</h2>
+            <p class="section-subtitle">
+                Strong academic foundation in physics combined with professional certifications in cybersecurity and software development
+            </p>
+        </div>
+
+        <div class="education-timeline fade-in-up">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Certified Penetration Tester (CPT)</h3>
+                        <span class="timeline-date">2024</span>
+                    </div>
+                    <div class="timeline-institution">RedTeam Hacker Academy, Kozhikode</div>
+                    <div class="timeline-description">
+                        Intensive 3-month certification program covering penetration testing methodologies, network security,
+                        vulnerability assessments, and ethical hacking. Hands-on experience with Burp Suite, Nmap, and Metasploit.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="skill-badge">Penetration Testing</span>
+                        <span class="skill-badge">Network Security</span>
+                        <span class="skill-badge">Ethical Hacking</span>
+                        <span class="skill-badge">Vulnerability Assessment</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">M.Sc. Physics</h3>
+                        <span class="timeline-date">2023</span>
+                    </div>
+                    <div class="timeline-institution">The New College, Chennai, Tamil Nadu</div>
+                    <div class="timeline-description">
+                        Advanced studies in physics with focus on acoustics and medical physics. Research project on 
+                        "Acoustic Study of Aqueous Solution Containing Antibiotic and Human Mixtard Insulin" using 
+                        ultrasonic interferometry across physiological temperatures.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="skill-badge">Medical Physics</span>
+                        <span class="skill-badge">Ultrasonic Interferometry</span>
+                        <span class="skill-badge">Research Methodology</span>
+                        <span class="skill-badge">Data Analysis</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Advanced Programming in Full Stack Software Engineering (APSE)</h3>
+                        <span class="timeline-date">2022-2023</span>
+                    </div>
+                    <div class="timeline-institution">NIIT, Chennai</div>
+                    <div class="timeline-description">
+                        Comprehensive full-stack development program covering modern web technologies, database management,
+                        cross-platform development, and software engineering principles.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="skill-badge">Full Stack Development</span>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">Database Management</span>
+                        <span class="skill-badge">Software Engineering</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">B.Sc. Physics</h3>
+                        <span class="timeline-date">2021</span>
+                    </div>
+                    <div class="timeline-institution">The New College, Chennai, Tamil Nadu</div>
+                    <div class="timeline-description">
+                        Undergraduate degree in physics with strong foundation in mathematical analysis, experimental techniques,
+                        and scientific methodology. Developed analytical thinking and problem-solving skills essential for technology careers.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="skill-badge">Physics</span>
+                        <span class="skill-badge">Mathematical Analysis</span>
+                        <span class="skill-badge">Experimental Techniques</span>
+                        <span class="skill-badge">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Higher Secondary Education</h3>
+                        <span class="timeline-date">2016-2018</span>
+                    </div>
+                    <div class="timeline-institution">NEST Higher Secondary School, Kerala State Board</div>
+                    <div class="timeline-description">
+                        Senior secondary education with focus on science subjects, building the foundation for advanced
+                        studies in physics and technology fields.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Interests Section -->
+        <div class="research-interests fade-in-up" style="margin-top: var(--space-4xl);">
+            <h3 style="text-align: center; font-size: 28px; font-weight: 800; color: var(--text-primary); margin-bottom: var(--space-2xl);">
+                Research Interests
+            </h3>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">⚛️</div>
+                    <h4 class="interest-title">Nuclear Physics</h4>
+                    <p class="interest-desc">
+                        Exploring nuclear processes, radiation physics, and applications in medical technology
+                        and energy systems.
+                    </p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">🏥</div>
+                    <h4 class="interest-title">Medical Physics</h4>
+                    <p class="interest-desc">
+                        Investigating acoustic properties of biological solutions and pharmaceutical compounds
+                        for medical diagnostic applications.
+                    </p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">🔊</div>
+                    <h4 class="interest-title">Acoustics & Interferometry</h4>
+                    <p class="interest-desc">
+                        Advanced ultrasonic techniques for material characterization and biomedical
+                        research applications.
+                    </p>
                 </div>
             </div>
         </div>
@@ -1945,60 +2627,361 @@
 
         // Enhanced Terminal Commands
         const commands = {
-            whoami: `P. Salmanul Faris - Elite Cybersecurity Professional
-═══════════════════════════════════════════════════════════
+            whoami: `P. Salmanul Faris - Multi-Disciplinary Technology Professional
+═══════════════════════════════════════════════════════════════════════
 
-🏆 PROFESSIONAL PROFILE:
-├── 5+ Years Advanced Cybersecurity Experience
-├── 300+ Successful Penetration Tests Completed
-├── 25+ Red Team Engagements Led
-├── 15+ Zero-Day Vulnerabilities Discovered
-└── 50+ Security Architecture Reviews
+🎓 ACADEMIC FOUNDATION:
+├── M.Sc. Physics - The New College, Chennai (2023)
+├── B.Sc. Physics - The New College, Chennai (2021)
+├── Research Focus: Medical & Nuclear Physics
+└── Thesis: Acoustic Study of Antibiotic & Insulin Solutions
 
-🎯 SPECIALIZATIONS:
-├── Advanced Persistent Threat (APT) Simulation
-├── Zero-Touch Vulnerability Assessment
-├── AI-Powered Threat Detection
-├── Military-Grade Security Architecture
-└── Next-Gen Red Team Operations
+💻 PROFESSIONAL CERTIFICATIONS:
+├── Certified Penetration Tester (CPT) - RedTeam Hacker Academy
+├── Advanced Programming in Full Stack Engineering - NIIT Chennai
+├── 3+ Years Combined Experience in Development & Security
+└── Cross-Platform Application Development Specialist
 
-📊 SUCCESS METRICS:
-├── 99.2% Client Satisfaction Rate
-├── 85% Reduction in False Positives
-├── 40% Average Remediation Time Improvement
-└── $2.5M+ in Prevented Security Losses
+🔬 RESEARCH INTERESTS:
+├── Nuclear Physics & Radiation Applications
+├── Medical Physics & Diagnostic Technologies
+├── Ultrasonic Interferometry & Material Characterization
+└── Intersection of Physics & Information Security
 
-🔒 CURRENT STATUS: Available for elite security consulting`,
+💼 CURRENT CAPABILITIES:
+├── Full-Stack Web & Mobile Application Development
+├── Cybersecurity & Penetration Testing
+├── Scientific Research & Data Analysis
+└── Cross-Platform Solution Architecture
 
-            experience: `PROFESSIONAL EXPERIENCE & ACHIEVEMENTS
-═══════════════════════════════════════════════════════
+📊 PROJECT PORTFOLIO:
+├── Custom Penetration Testing Environment ("Sunset")
+├── Cross-Platform Billing Application (In Development)
+├── Network Security Lab & DoS Simulation
+└── Medical Physics Research Publications
 
-🚀 SENIOR SECURITY CONSULTANT (2021-Present)
-   ├── Led 75+ high-stakes penetration testing engagements
-   ├── Identified 500+ critical vulnerabilities across Fortune 500 clients
-   ├── Developed custom exploit frameworks for advanced testing
-   ├── Reduced client security incident rates by average 78%
-   └── Maintained 99.5% client retention rate
+🌍 LANGUAGES: English, Malayalam, Tamil
+📍 LOCATION: Chennai, Tamil Nadu | Native: Kerala
+🔒 CURRENT STATUS: Available for development and security consulting`,
 
-⚔️  RED TEAM OPERATIONS LEAD (2020-2021)
-   ├── Designed nation-state level APT simulations
-   ├── Created custom malware for authorized testing purposes
-   ├── Conducted advanced social engineering campaigns
-   ├── Trained 200+ blue team professionals
-   └── Achieved 95% successful compromise rate in authorized tests
+            experience: `PROFESSIONAL EXPERIENCE & PROJECT PORTFOLIO
+══════════════════════════════════════════════════════════════════
 
-🎖️  NOTABLE ACHIEVEMENTS:
-   ├── Discovered critical zero-day in major IoT platform (CVE-2023-XXXX)
-   ├── Published 15+ research papers on advanced threat detection
-   ├── Keynote speaker at DEF CON, BSides, and Black Hat conferences
-   ├── Featured expert on cybersecurity in tech publications
-   └── Contributed to OWASP security standards development
+🔐 CYBERSECURITY PROJECTS (2024-Present)
+   ├── Custom Ubuntu Penetration Testing Machine ("Sunset")
+   │   └── Configured specialized ethical hacking environment
+   │   └── Integrated essential security tools and custom scripts
+   │   └── Automated vulnerability scanning workflows
+   │
+   ├── Network Security Laboratory Environment
+   │   └── Controlled DoS attack simulation using Xerxes
+   │   └── Apache server behavior analysis under stress
+   │   └── Developed comprehensive mitigation strategies
+   │   └── Published security findings and recommendations
 
-🏆 INDUSTRY RECOGNITION:
-   ├── "Cybersecurity Innovation Award" - InfoSec Global 2023
-   ├── Top 0.1% researcher on HackerOne platform
-   ├── "Rising Star in Ethical Hacking" - CyberSec Excellence 2022
-   └── Featured in "40 Under 40 Cybersecurity Leaders" list`,
+💻 FULL-STACK DEVELOPMENT PROJECTS (2022-Present)
+   ├── Cross-Platform Billing Application (Active Development)
+   │   └── Desktop and mobile application for small businesses
+   │   └── Real-time data synchronization across platforms
+   │   └── Invoice generation and payment tracking systems
+   │   └── Comprehensive reporting dashboard and analytics
+   │
+   ├── Web Development Portfolio
+   │   └── Responsive web applications using modern frameworks
+   │   └── RESTful API development and database integration
+   │   └── Mobile-first design and progressive web apps
+   │   └── Cross-browser compatibility and performance optimization
+
+🔬 SCIENTIFIC RESEARCH EXPERIENCE (2021-2023)
+   ├── M.Sc. Research Project: Medical Physics Application
+   │   └── "Acoustic Study of Aqueous Solution Containing
+   │       Antibiotic and Human Mixtard Insulin"
+   │   └── Utilized ultrasonic interferometry techniques
+   │   └── Analyzed properties across physiological temperatures
+   │   └── Published findings in peer-reviewed academic journal
+   │
+   ├── Physics Laboratory Experience
+   │   └── Advanced experimental techniques and instrumentation
+   │   └── Data analysis using statistical methods and software
+   │   └── Scientific methodology and research documentation
+
+🏆 ACHIEVEMENTS & RECOGNITION:
+   ├── Successfully completed intensive 3-month CPT certification
+   ├── Demonstrated proficiency in multiple programming languages
+   ├── Published research in medical physics applications
+   ├── Developed custom security tools and methodologies
+   └── Contributed to open-source projects and community knowledge
+
+📈 TECHNICAL IMPACT:
+   ├── Created reusable security testing frameworks
+   ├── Improved small business billing workflow efficiency
+   ├── Advanced understanding of medical physics applications
+   └── Bridged gap between academic research and practical technology`,
+
+            education: `COMPREHENSIVE EDUCATIONAL BACKGROUND
+════════════════════════════════════════════════════════════════
+
+🎓 MASTER'S DEGREE IN PHYSICS (2023)
+   Institution: The New College, Chennai, Tamil Nadu
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Specialization: Medical & Nuclear Physics                   │
+   │ Research Project: "Acoustic Study of Aqueous Solution      │
+   │                   Containing Antibiotic and Human          │
+   │                   Mixtard Insulin"                         │
+   │                                                             │
+   │ Key Learning Areas:                                         │
+   │ ├── Advanced Mathematical Physics                           │
+   │ ├── Quantum Mechanics & Statistical Physics                │
+   │ ├── Nuclear Physics & Radiation Safety                     │
+   │ ├── Medical Physics & Diagnostic Techniques                │
+   │ ├── Ultrasonic Interferometry & Acoustics                  │
+   │ ├── Scientific Research Methodology                        │
+   │ └── Advanced Data Analysis & Statistical Methods           │
+   └─────────────────────────────────────────────────────────────┘
+
+🔬 BACHELOR'S DEGREE IN PHYSICS (2021)
+   Institution: The New College, Chennai, Tamil Nadu
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Foundation Studies: Core Physics Principles                │
+   │                                                             │
+   │ Core Subjects:                                              │
+   │ ├── Classical Mechanics & Thermodynamics                   │
+   │ ├── Electromagnetism & Wave Optics                         │
+   │ ├── Modern Physics & Quantum Fundamentals                  │
+   │ ├── Electronics & Communication Systems                    │
+   │ ├── Mathematical Methods in Physics                        │
+   │ └── Experimental Physics & Laboratory Techniques           │
+   └─────────────────────────────────────────────────────────────┘
+
+💻 PROFESSIONAL CERTIFICATIONS
+   ┌─────────────────────────────────────────────────────────────┐
+   │ 🔐 Certified Penetration Tester (CPT) - 2024               │
+   │    Institution: RedTeam Hacker Academy, Kozhikode          │
+   │    Duration: 3 months intensive program                    │
+   │    Covered: Network security, ethical hacking, vuln       │
+   │            assessment, penetration testing methodologies   │
+   │                                                             │
+   │ 💻 Advanced Programming in Full Stack Engineering - 2023   │
+   │    Institution: NIIT, Chennai                              │
+   │    Covered: Modern web technologies, database management,  │
+   │            cross-platform development, software design     │
+   └─────────────────────────────────────────────────────────────┘
+
+📚 SECONDARY EDUCATION
+   ├── Higher Secondary (XII) - NEST Higher Secondary School, Kerala
+   ├── Secondary (X) - Don Bosco Matriculation School, Tamil Nadu
+   └── Strong foundation in Mathematics, Physics, and Computer Science
+
+🔬 RESEARCH INTERESTS & FUTURE ASPIRATIONS:
+   ├── Nuclear Physics: Radiation applications in technology
+   ├── Medical Physics: Diagnostic imaging and therapeutic applications
+   ├── Cybersecurity: Intersection of physics and information security
+   ├── Quantum Computing: Future applications in cryptography
+   └── IoT Security: Physics-based sensors and security implications
+
+📊 ACADEMIC ACHIEVEMENTS:
+   ├── Completed rigorous M.Sc. research project in medical physics
+   ├── Proficient in advanced mathematical and statistical analysis
+   ├── Published research findings in academic context
+   ├── Strong foundation in experimental design and methodology
+   └── Interdisciplinary approach combining physics and technology`,
+
+            projects: `COMPREHENSIVE PROJECT PORTFOLIO
+═══════════════════════════════════════════════════════════════════
+
+🔐 CYBERSECURITY & PENETRATION TESTING
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Project: Custom Ubuntu Penetration Testing Machine         │
+   │ Codename: "Sunset"                                          │
+   │                                                             │
+   │ Description: Specialized ethical hacking environment       │
+   │ ├── Pre-configured security testing tools (Nmap, Burp)     │
+   │ ├── Custom automation scripts for vulnerability scanning   │
+   │ ├── Integrated reporting and documentation system          │
+   │ ├── Network reconnaissance and enumeration capabilities    │
+   │ └── Compliance with ethical hacking standards              │
+   │                                                             │
+   │ Technologies: Ubuntu, Bash, Python, Security Tools         │
+   │ Status: Production Ready                                    │
+   └─────────────────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Project: Network Security Laboratory                        │
+   │                                                             │
+   │ Description: Controlled security testing environment       │
+   │ ├── DoS attack simulation using Xerxes tool               │
+   │ ├── Apache web server stress testing and analysis         │
+   │ ├── Network traffic monitoring and packet analysis        │
+   │ ├── Security mitigation strategy development               │
+   │ └── Comprehensive security assessment reporting            │
+   │                                                             │
+   │ Technologies: Linux, Apache, Network Analysis Tools        │
+   │ Status: Completed with Published Results                   │
+   └─────────────────────────────────────────────────────────────┘
+
+💻 FULL-STACK DEVELOPMENT PROJECTS
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Project: Cross-Platform Billing Application                │
+   │                                                             │
+   │ Description: Comprehensive billing solution for SMBs       │
+   │ ├── Desktop application with modern UI/UX                  │
+   │ ├── Mobile companion app for on-the-go management          │
+   │ ├── Real-time data synchronization across platforms        │
+   │ ├── Automated invoice generation and email distribution    │
+   │ ├── Payment tracking and financial reporting dashboard     │
+   │ ├── Customer management and billing history tracking       │
+   │ └── Multi-currency support and tax calculation features    │
+   │                                                             │
+   │ Technologies: JavaScript, Node.js, SQL, Cross-platform     │
+   │ Status: Active Development (80% Complete)                  │
+   └─────────────────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Project: Modern Web Application Portfolio                  │
+   │                                                             │
+   │ Description: Collection of responsive web applications     │
+   │ ├── Progressive Web Apps with offline capabilities         │
+   │ ├── RESTful API development and third-party integrations   │
+   │ ├── Database design and optimization strategies            │
+   │ ├── Mobile-first responsive design implementation          │
+   │ ├── Performance optimization and SEO best practices        │
+   │ └── Cross-browser compatibility and accessibility          │
+   │                                                             │
+   │ Technologies: HTML5, CSS3, JavaScript, Various Frameworks  │
+   │ Status: Multiple Completed Projects                        │
+   └─────────────────────────────────────────────────────────────┘
+
+🔬 SCIENTIFIC RESEARCH PROJECTS
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Project: Medical Physics Research                           │
+   │ Title: "Acoustic Study of Aqueous Solution Containing      │
+   │        Antibiotic and Human Mixtard Insulin"               │
+   │                                                             │
+   │ Description: Advanced ultrasonic interferometry research   │
+   │ ├── Investigation of pharmaceutical acoustic properties    │
+   │ ├── Temperature-dependent behavior analysis (physiological)│
+   │ ├── Ultrasonic velocity and attenuation measurements       │
+   │ ├── Statistical analysis and correlation studies           │
+   │ ├── Medical diagnostic application potential assessment    │
+   │ └── Peer-reviewed publication and academic presentation    │
+   │                                                             │
+   │ Technologies: Ultrasonic Interferometry, Data Analysis     │
+   │ Status: Completed & Published (M.Sc. Thesis)               │
+   └─────────────────────────────────────────────────────────────┘
+
+🚀 FUTURE PROJECT PIPELINE
+   ├── IoT Security Assessment Framework
+   ├── Medical Physics Simulation Software
+   ├── Quantum Cryptography Research Tools
+   ├── AI-Powered Vulnerability Scanner
+   └── Cross-Platform Scientific Instrumentation Interface
+
+📊 PROJECT IMPACT METRICS:
+   ├── Security tools deployed in multiple testing environments
+   ├── Billing application targeting 100+ small businesses
+   ├── Research findings contributing to medical physics knowledge
+   └── Open-source contributions benefiting cybersecurity community`,
+
+            skills: `COMPREHENSIVE TECHNICAL SKILL MATRIX
+════════════════════════════════════════════════════════════
+
+🔐 CYBERSECURITY & PENETRATION TESTING
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Certification: Certified Penetration Tester (CPT)          │
+   │ Institution: RedTeam Hacker Academy                        │
+   │                                                             │
+   │ Core Skills:                                                │
+   │ ├── Network Security Assessment & Vulnerability Analysis   │
+   │ ├── Ethical Hacking Methodologies (PTES, OWASP)           │
+   │ ├── Penetration Testing Tools: Burp Suite, Nmap, Metasploit│
+   │ ├── Network Traffic Analysis: Wireshark, tcpdump           │
+   │ ├── Security Scripting & Automation (Python, Bash)        │
+   │ ├── Web Application Security Testing                       │
+   │ ├── Network Reconnaissance & Enumeration                   │
+   │ └── Security Risk Assessment & Reporting                   │
+   └─────────────────────────────────────────────────────────────┘
+
+💻 FULL-STACK DEVELOPMENT
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Certification: Advanced Programming Full Stack Engineering │
+   │ Institution: NIIT Chennai                                  │
+   │                                                             │
+   │ Programming Languages:                                      │
+   │ ├── JavaScript (ES6+, Node.js, Modern Frameworks)         │
+   │ ├── Python (Security Scripts, Data Analysis, Automation)   │
+   │ ├── Java (Object-Oriented Programming, Enterprise Apps)    │
+   │ ├── C/C++ (System Programming, Performance Optimization)   │
+   │ ├── SQL (Database Design, Query Optimization, Management)  │
+   │ ├── HTML5/CSS3 (Responsive Design, Modern Web Standards)   │
+   │ └── Bash/Shell (System Administration, Automation)         │
+   │                                                             │
+   │ Development Capabilities:                                   │
+   │ ├── Cross-Platform Application Development                 │
+   │ ├── RESTful API Design & Implementation                    │
+   │ ├── Database Management & Optimization                     │
+   │ ├── Mobile-First Responsive Web Design                     │
+   │ ├── Progressive Web App (PWA) Development                  │
+   │ └── Version Control & Collaborative Development (Git)      │
+   └─────────────────────────────────────────────────────────────┘
+
+🔬 PHYSICS & SCIENTIFIC RESEARCH
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Education: M.Sc. Physics - The New College, Chennai        │
+   │ Specialization: Medical & Nuclear Physics                  │
+   │                                                             │
+   │ Research Skills:                                            │
+   │ ├── Advanced Mathematical Physics & Statistical Analysis   │
+   │ ├── Experimental Design & Scientific Methodology           │
+   │ ├── Ultrasonic Interferometry & Acoustic Measurements      │
+   │ ├── Medical Physics Applications & Diagnostic Techniques   │
+   │ ├── Nuclear Physics Principles & Radiation Safety          │
+   │ ├── Data Analysis & Visualization (Python, MATLAB)         │
+   │ ├── Scientific Writing & Peer Review Process              │
+   │ └── Laboratory Instrumentation & Calibration               │
+   │                                                             │
+   │ Current Research Interests:                                 │
+   │ ├── Nuclear Physics Applications in Technology             │
+   │ ├── Medical Physics & Diagnostic Imaging Systems           │
+   │ ├── Quantum Computing & Cryptographic Applications         │
+   │ └── IoT Sensors & Physics-Based Security Systems           │
+   └─────────────────────────────────────────────────────────────┘
+
+⚙️ SYSTEMS & INFRASTRUCTURE
+   ┌─────────────────────────────────────────────────────────────┐
+   │ Operating Systems:                                          │
+   │ ├── Linux Distributions (Ubuntu, Kali, CentOS)            │
+   │ ├── Windows (Desktop & Server Environments)                │
+   │ └── Cross-Platform Development Environments                │
+   │                                                             │
+   │ Networking & Security:                                      │
+   │ ├── TCP/IP Networking (Subnetting, Routing, Switching)     │
+   │ ├── Network Protocols (HTTP/HTTPS, DNS, DHCP)             │
+   │ ├── Firewall Configuration & Network Security              │
+   │ ├── VPN Technologies & Encrypted Communications            │
+   │ ├── Intrusion Detection Systems (IDS/IPS)                  │
+   │ └── Cloud Security Concepts & Best Practices               │
+   └─────────────────────────────────────────────────────────────┘
+
+📱 SPECIALIZED TECHNOLOGIES
+   ├── Cross-Platform Development Tools & Frameworks
+   ├── Mobile Application Development (Native & Hybrid)
+   ├── Database Management Systems (SQL & NoSQL)
+   ├── Scientific Computing & Simulation Software
+   ├── DevOps Tools & Continuous Integration/Deployment
+   └── Cloud Platforms & Containerization Technologies
+
+🌍 SOFT SKILLS & LANGUAGES
+   ├── Technical Communication & Documentation
+   ├── Project Management & Team Collaboration
+   ├── Problem-Solving & Analytical Thinking
+   ├── Continuous Learning & Technology Adaptation
+   └── Multilingual: English, Malayalam, Tamil (Fluent)
+
+📈 CONTINUOUS PROFESSIONAL DEVELOPMENT
+   ├── Regular participation in cybersecurity conferences
+   ├── Open-source project contributions and community involvement
+   ├── Industry certification maintenance and skill updates
+   └── Research publication and academic collaboration`,
 
             methodology: `ADVANCED PENETRATION TESTING METHODOLOGY
 ═══════════════════════════════════════════════════════
