@@ -17,6 +17,22 @@
             color: #ffffff;
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            z-index: -2;
+            pointer-events: none;
         }
 
         /* ===== CINEMATIC LOADING SCREEN ===== */
@@ -242,33 +258,76 @@
             text-align: center;
             padding: 0 20px;
             position: relative;
+            overflow: hidden;
         }
 
         .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent, rgba(0, 255, 136, 0.1), transparent),
+                radial-gradient(circle at center, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+            animation: rotate-gradient 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .hero::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            background: 
+                linear-gradient(45deg, transparent 49%, rgba(0, 212, 255, 0.03) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(0, 255, 136, 0.03) 50%, transparent 51%);
+            background-size: 60px 60px;
+            animation: move-grid 10s linear infinite;
             pointer-events: none;
+        }
+
+        @keyframes rotate-gradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes move-grid {
+            from { transform: translate(0, 0); }
+            to { transform: translate(60px, 60px); }
         }
 
         .hero-title {
             font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 700;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff, #00d4ff, #00ff88);
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 30%, #00ff88 60%, #ffffff 100%);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glow 3s ease-in-out infinite alternate;
+            animation: gradient-shift 4s ease-in-out infinite, title-glow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
         }
 
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3)); }
-            to { filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.6)); }
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes title-glow {
+            from { 
+                filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+                text-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            }
+            to { 
+                filter: drop-shadow(0 0 40px rgba(0, 255, 136, 0.6));
+                text-shadow: 0 0 80px rgba(0, 255, 136, 0.4);
+            }
         }
 
         .hero-subtitle {
@@ -276,14 +335,30 @@
             color: #00d4ff;
             margin-bottom: 30px;
             font-weight: 300;
+            position: relative;
+            z-index: 2;
+            animation: pulse-subtitle 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-subtitle {
+            0%, 100% { opacity: 0.8; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-2px); }
         }
 
         .hero-description {
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 600px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
             margin-bottom: 50px;
             line-height: 1.8;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(26, 26, 46, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
         }
 
         .hero-actions {
@@ -1216,8 +1291,8 @@
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
-                                <h4 class="timeline-title">Cybersecurity Engineer</h4>
-                                <div class="timeline-date">July 2024 - Present</div>
+                                <h4 class="timeline-title">Cybersecurity Trainee</h4>
+                                <div class="timeline-date">June 2024 - Present</div>
                                 <p class="timeline-description">
                                     <strong>Sesame Technologies Pvt. Ltd., Kozhikode</strong><br>
                                     Conducting external penetration testing and vulnerability assessments on real-world client applications including Belton Technology. Using industry-standard tools like Nmap, Nikto, OWASP ZAP, and Burp Suite for comprehensive security testing.
@@ -2257,4 +2332,3 @@
     </script>
 </body>
 </html>
-
