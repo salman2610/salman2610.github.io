@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salman - 3D Cybersecurity Portfolio</title>
+    <title>P. Salmanul Faris - Cybersecurity Professional</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -38,33 +37,35 @@
         }
 
         /* Navigation */
-        .nav-3d {
+        .cyber-nav {
             position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 100;
+            top: 0;
+            width: 100%;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+            background: rgba(10, 10, 22, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
         }
 
-        .nav-item {
-            width: 50px;
-            height: 50px;
-            background: rgba(10, 10, 30, 0.7);
-            border: 1px solid #00d4ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        .nav-link {
+            color: #e0e0ff;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            border-radius: 30px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .nav-item::before {
+        .nav-link::before {
             content: '';
             position: absolute;
             top: 0;
@@ -75,54 +76,30 @@
             transition: left 0.5s;
         }
 
-        .nav-item:hover::before {
+        .nav-link:hover::before {
             left: 100%;
         }
 
-        .nav-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+        .nav-link:hover, .nav-link.active {
+            color: #00d4ff;
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
 
-        .nav-item.active {
-            background: rgba(0, 212, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
-        }
-
-        .nav-tooltip {
-            position: absolute;
-            right: 60px;
-            background: rgba(10, 10, 30, 0.9);
-            padding: 5px 10px;
-            border-radius: 4px;
-            border: 1px solid #00d4ff;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .nav-item:hover .nav-tooltip {
-            opacity: 1;
-        }
-
-        /* Sections */
-        .section-3d {
+        /* Hero Section */
+        .hero-section {
             min-height: 100vh;
-            padding: 100px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 150px 20px 100px;
             position: relative;
         }
 
-        .hero-section {
-            padding-top: 150px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 4rem;
+        .hero-title {
+            font-size: 5rem;
             margin-bottom: 20px;
             background: linear-gradient(90deg, #00d4ff, #ff00ff);
             -webkit-background-clip: text;
@@ -132,9 +109,9 @@
             transform: translateY(50px);
         }
 
-        .section-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
+        .hero-subtitle {
+            font-size: 2rem;
+            margin-bottom: 30px;
             color: #00d4ff;
             opacity: 0;
             transform: translateY(50px);
@@ -150,10 +127,45 @@
             transform: translateY(50px);
         }
 
-        /* 3D Card Grid */
-        .card-grid-3d {
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00d4ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.3rem;
+        }
+
+        /* 3D Cards */
+        .cards-3d {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 50px;
             perspective: 1000px;
@@ -203,10 +215,26 @@
 
         .card-content {
             color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
         }
 
         /* Cyber Button */
-        .cyber-btn-3d {
+        .cyber-button {
             display: inline-block;
             padding: 15px 30px;
             background: transparent;
@@ -221,11 +249,9 @@
             cursor: pointer;
             transform-style: preserve-3d;
             transform: translateZ(0);
-            opacity: 0;
-            transform: translateY(50px);
         }
 
-        .cyber-btn-3d::before {
+        .cyber-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -236,137 +262,267 @@
             transition: left 0.5s;
         }
 
-        .cyber-btn-3d:hover::before {
+        .cyber-button:hover::before {
             left: 100%;
         }
 
-        .cyber-btn-3d:hover {
+        .cyber-button:hover {
             background: rgba(0, 212, 255, 0.1);
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.7);
             transform: translateY(-5px) translateZ(10px);
         }
 
-        /* 3D Threat Visualization */
-        .threat-visualization {
-            height: 500px;
-            margin: 50px 0;
+        /* Timeline */
+        .timeline {
             position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #00d4ff, #ff00ff);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(20, 20, 40, 0.7);
             border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
-        #threat-canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        .threat-stats-3d {
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
             position: absolute;
             top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            backdrop-filter: blur(10px);
-            transform: translateZ(20px);
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid rgba(0, 212, 255, 0.3);
         }
 
-        .stat-item {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(0, 212, 255, 0.3);
         }
 
-        .stat-value {
-            color: #00d4ff;
+        .timeline-date {
             font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
         }
 
-        /* Interactive Lab */
-        .lab-container-3d {
-            height: 600px;
-            margin: 50px 0;
-            position: relative;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #e0e0ff;
         }
 
-        #lab-canvas {
-            width: 100%;
-            height: 100%;
+        .timeline-desc {
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .lab-controls-3d {
+        .timeline-dot {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 20;
+            width: 20px;
+            height: 20px;
+            background: #00d4ff;
+            border: 3px solid #0a0a16;
+            border-radius: 50%;
+            top: 20px;
+            z-index: 1;
         }
 
-        /* Timeline 3D */
-        .timeline-3d {
-            position: relative;
-            margin: 50px 0;
-            height: 400px;
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
         }
 
-        .timeline-item-3d {
-            position: absolute;
-            width: 250px;
-            padding: 20px;
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+
+        /* Skills Visualization */
+        .skills-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .skill-category {
             background: rgba(20, 20, 40, 0.7);
             border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 10px;
-            transform-style: preserve-3d;
-            transition: all 0.5s ease;
+            padding: 25px;
             backdrop-filter: blur(10px);
         }
 
-        .timeline-item-3d:hover {
-            transform: translateZ(30px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            border-color: #00d4ff;
+        .skill-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            text-align: center;
         }
 
-        /* Contact Form 3D */
-        .contact-form-3d {
-            max-width: 600px;
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-name {
+            flex: 1;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-left: 15px;
+            flex: 2;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #ff00ff);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            max-width: 800px;
             margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .contact-item {
             background: rgba(20, 20, 40, 0.7);
             border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-            padding: 40px;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(5deg);
+            border-radius: 10px;
+            padding: 25px;
             backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(10, 10, 30, 0.7);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            color: #e0e0ff;
-            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
-        .form-input:focus {
-            outline: none;
+        .contact-item:hover {
+            transform: translateY(-5px);
             border-color: #00d4ff;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+
+        .contact-text {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cyber-nav {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+            
+            .nav-link {
+                margin: 5px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section {
+                padding: 100px 20px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .cards-3d {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                display: none;
+            }
+            
+            .timeline-dot {
+                left: 22px;
+            }
         }
 
         /* Animations */
@@ -378,242 +534,322 @@
         .floating {
             animation: float 6s ease-in-out infinite;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-3d {
-                flex-direction: row;
-                top: 20px;
-                right: 20px;
-            }
-            
-            .nav-item {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
-            
-            .section-3d {
-                padding: 100px 20px;
-            }
-            
-            .card-grid-3d {
-                grid-template-columns: 1fr;
-            }
-            
-            .threat-visualization, .lab-container-3d {
-                height: 300px;
-            }
-            
-            .lab-controls-3d {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- WebGL Container -->
+    <!-- WebGL Background -->
     <div id="webgl-container"></div>
 
-    <!-- 3D Navigation -->
-    <div class="nav-3d">
-        <div class="nav-item active" data-target="home">
-            <span>🏠</span>
-            <div class="nav-tooltip">Home</div>
-        </div>
-        <div class="nav-item" data-target="projects">
-            <span>💼</span>
-            <div class="nav-tooltip">Projects</div>
-        </div>
-        <div class="nav-item" data-target="threats">
-            <span>🌐</span>
-            <div class="nav-tooltip">Threat Map</div>
-        </div>
-        <div class="nav-item" data-target="lab">
-            <span>🔬</span>
-            <div class="nav-tooltip">Pentest Lab</div>
-        </div>
-        <div class="nav-item" data-target="about">
-            <span>👤</span>
-            <div class="nav-tooltip">About</div>
-        </div>
-        <div class="nav-item" data-target="contact">
-            <span>📞</span>
-            <div class="nav-tooltip">Contact</div>
-        </div>
-    </div>
+    <!-- Navigation -->
+    <nav class="cyber-nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
 
     <!-- Main Content -->
     <div class="main-content">
         <!-- Hero Section -->
-        <section id="home" class="section-3d hero-section">
-            <h1 class="section-title floating">P. Salmanul Faris</h1>
-            <h2 class="section-subtitle">Certified Penetration Tester & Cybersecurity Professional</h2>
+        <section id="home" class="hero-section">
+            <h1 class="hero-title floating">P. SALMANUL FARIS</h1>
+            <h2 class="hero-subtitle">Cybersecurity Professional | Certified Penetration Tester</h2>
             <p class="hero-description">
-                Certified Penetration Tester with strong foundation in cybersecurity and hands-on experience in network security and ethical hacking. Backed by M.Sc. Physics and expertise in vulnerability assessments, risk analysis, and system security.
+                Certified Penetration Tester with a strong foundation in cybersecurity and hands-on experience in network security and ethical hacking. 
+                Backed by a master's in physics and expertise in vulnerability assessments, risk analysis, and system security.
             </p>
             <div class="hero-actions">
-                <a href="#projects" class="cyber-btn-3d">View Projects</a>
-                <a href="#lab" class="cyber-btn-3d">Access Lab</a>
-                <a href="#contact" class="cyber-btn-3d">Contact Me</a>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section-3d">
-            <h2 class="section-title">Cybersecurity Projects</h2>
-            <p class="section-subtitle">Real-world penetration testing and security research projects</p>
-            
-            <div class="card-grid-3d">
-                <div class="card-3d">
-                    <h3 class="card-title">Network Vulnerability Scanner</h3>
-                    <p class="card-content">Custom-built scanner to identify security weaknesses in network infrastructure with detailed reporting.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Nmap</span>
-                        <span class="tech-tag">Network Security</span>
-                    </div>
-                </div>
-                
-                <div class="card-3d">
-                    <h3 class="card-title">Web Application Penetration Testing</h3>
-                    <p class="card-content">Comprehensive security assessment of web applications identifying SQLi, XSS, and other vulnerabilities.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">OWASP</span>
-                        <span class="tech-tag">Burp Suite</span>
-                        <span class="tech-tag">Web Security</span>
-                    </div>
-                </div>
-                
-                <div class="card-3d">
-                    <h3 class="card-title">Security Operations Center</h3>
-                    <p class="card-content">Designed and implemented a SOC with SIEM integration for real-time threat monitoring.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">SIEM</span>
-                        <span class="tech-tag">Splunk</span>
-                        <span class="tech-tag">Incident Response</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Threat Map Section -->
-        <section id="threats" class="section-3d">
-            <h2 class="section-title">Live Threat Intelligence</h2>
-            <p class="section-subtitle">Real-time global cybersecurity threat monitoring and visualization</p>
-            
-            <div class="threat-visualization">
-                <canvas id="threat-canvas"></canvas>
-                <div class="threat-stats-3d">
-                    <div class="stat-item">
-                        <span>Threats Blocked Today:</span>
-                        <span class="stat-value" id="threats-blocked">47,829</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Active Attacks:</span>
-                        <span class="stat-value" id="active-attacks">127</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Countries Affected:</span>
-                        <span class="stat-value" id="countries-affected">34</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pentest Lab Section -->
-        <section id="lab" class="section-3d">
-            <h2 class="section-title">Interactive Penetration Testing Lab</h2>
-            <p class="section-subtitle">Experience real-world security testing in a controlled 3D environment</p>
-            
-            <div class="lab-container-3d">
-                <canvas id="lab-canvas"></canvas>
-                <div class="lab-controls-3d">
-                    <button class="cyber-btn-3d" id="scan-btn">🔍 Scan Network</button>
-                    <button class="cyber-btn-3d" id="exploit-btn">⚡ Exploit Vulnerabilities</button>
-                    <button class="cyber-btn-3d" id="defend-btn">🛡️ Activate Defenses</button>
-                </div>
+                <a href="#projects" class="cyber-button">View Projects</a>
+                <a href="#contact" class="cyber-button">Contact Me</a>
+                <a href="#about" class="cyber-button">Learn More</a>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="section-3d">
-            <h2 class="section-title">Professional Journey</h2>
-            <p class="section-subtitle">From M.Sc. Physics to Certified Penetration Tester</p>
-            
-            <div class="timeline-3d" id="timeline-container">
-                <!-- Timeline items will be generated by JavaScript -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    Combining analytical thinking from physics with hands-on cybersecurity expertise
+                </p>
+                
+                <div class="cards-3d">
+                    <div class="card-3d">
+                        <h3 class="card-title">Education</h3>
+                        <p class="card-content">
+                            <strong>M.Sc. Physics</strong> - The New College, Chennai (2023)<br>
+                            <strong>B.Sc. Physics</strong> - The New College, Chennai (2021)<br>
+                            <strong>Certified Penetration Tester</strong> - RedTeam Hacker Academy (2024)
+                        </p>
+                    </div>
+                    
+                    <div class="card-3d">
+                        <h3 class="card-title">Certifications</h3>
+                        <p class="card-content">
+                            Certified Penetration Tester (CPT) with training in:<br>
+                            • Penetration testing methodologies<br>
+                            • Network security<br>
+                            • Vulnerability assessments<br>
+                            • Ethical hacking tools
+                        </p>
+                    </div>
+                    
+                    <div class="card-3d">
+                        <h3 class="card-title">Objective</h3>
+                        <p class="card-content">
+                            Skilled in identifying vulnerabilities, analyzing risks, and securing systems against threats. 
+                            Strong analytical mindset with a keen eye for detail and a problem-solving approach. 
+                            Eager to contribute to a security-focused organization.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">
+                    Proficiency in cybersecurity tools, programming languages, and security concepts
+                </p>
+                
+                <div class="skills-visual">
+                    <div class="skill-category">
+                        <h3 class="skill-title">Penetration Testing</h3>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-name">Burp Suite</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Nmap</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Metasploit</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Wireshark</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3 class="skill-title">Programming</h3>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-name">Python</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Java</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Bash</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="70"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3 class="skill-title">Security Concepts</h3>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-name">Vulnerability Assessment</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Network Security</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Encryption</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-name">Firewalls/IDS/IPS</span>
+                                <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="container">
+                <h2 class="section-title">Experience & Education</h2>
+                <p class="section-subtitle">
+                    Professional journey from physics to cybersecurity
+                </p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024</div>
+                            <h3 class="timeline-title">Certified Penetration Tester</h3>
+                            <p class="timeline-desc">RedTeam Hacker Academy - Training in penetration testing methodologies, network security, vulnerability assessments, and ethical hacking tools.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023</div>
+                            <h3 class="timeline-title">M.Sc. Physics</h3>
+                            <p class="timeline-desc">The New College, Chennai - Developed strong analytical and problem-solving skills applied to complex systems analysis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021</div>
+                            <h3 class="timeline-title">B.Sc. Physics</h3>
+                            <p class="timeline-desc">The New College, Chennai - Foundation in scientific methodology and analytical thinking.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025 (June)</div>
+                            <h3 class="timeline-title">Cybersecurity Trainee</h3>
+                            <p class="timeline-desc">Sesame Technologies Pvt. Ltd. - Conducted external penetration testing and vulnerability assessments on real-world client applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">
+                    Hands-on cybersecurity and development projects
+                </p>
+                
+                <div class="cards-3d">
+                    <div class="card-3d">
+                        <h3 class="card-title">Custom Ubuntu Pentesting Machine ("Sunset")</h3>
+                        <p class="card-content">Configured a customized Ubuntu environment for ethical hacking with essential tools and scripts for security testing.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Ubuntu</span>
+                            <span class="tech-tag">Penetration Testing</span>
+                            <span class="tech-tag">Security Tools</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-3d">
+                        <h3 class="card-title">DoS Attack Simulation (Lab-Based)</h3>
+                        <p class="card-content">Executed a controlled Denial-of-Service attack using Xerxes on a test Apache server. Observed service behavior and developed mitigation strategies.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">DoS</span>
+                            <span class="tech-tag">Apache</span>
+                            <span class="tech-tag">Security Testing</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-3d">
+                        <h3 class="card-title">Cross-Platform Billing App</h3>
+                        <p class="card-content">Developing a desktop and mobile app using cross-platform tools to simplify billing processes for small businesses.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Cross-Platform</span>
+                            <span class="tech-tag">App Development</span>
+                            <span class="tech-tag">Business Solutions</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-3d">
+                        <h3 class="card-title">M.Sc Research Project</h3>
+                        <p class="card-content">"Acoustic Study of Aqueous Solution Containing Antibiotic and Human Mixtard Insulin" — used ultrasonic interferometry and studied properties across physiological temperatures.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Research</span>
+                            <span class="tech-tag">Physics</span>
+                            <span class="tech-tag">Data Analysis</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section-3d">
-            <h2 class="section-title">Ready to Strengthen Your Security?</h2>
-            <p class="section-subtitle">Get in touch for penetration testing, vulnerability assessments, and security consulting</p>
-            
-            <div class="contact-form-3d">
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Your Name">
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-section">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">
+                        Ready to strengthen your security? Let's connect!
+                    </p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-text">salmanulfariss642@gmail.com</div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <div class="contact-text">+91 9962726106</div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-text">Kolathur, Chennai, 600099</div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">💼</div>
+                            <div class="contact-text">linkedin.com/in/salmanul-faris-68b733249</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 50px;">
+                        <a href="mailto:salmanulfariss642@gmail.com" class="cyber-button">Send Message</a>
+                        <a href="https://salman2610.github.io" class="cyber-button" target="_blank">Visit Website</a>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" class="form-input" placeholder="Your Email">
-                </div>
-                <div class="form-group">
-                    <textarea class="form-input" rows="5" placeholder="Your Message"></textarea>
-                </div>
-                <button class="cyber-btn-3d" style="width: 100%;">Send Secure Message</button>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <p>📍 Chennai, Tamil Nadu | 📱 +91 9962726106</p>
-                <p>📧 salmanulfariss642@gmail.com</p>
             </div>
         </section>
     </div>
 
     <script>
-        // Main Three.js Scene
-        class CyberPortfolio3D {
+        // Three.js 3D Background
+        class CyberBackground {
             constructor() {
-                this.scene = null;
-                this.camera = null;
-                this.renderer = null;
-                this.controls = null;
-                this.mouseX = 0;
-                this.mouseY = 0;
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                 
                 this.particles = null;
                 this.floatingObjects = [];
+                this.mouseX = 0;
+                this.mouseY = 0;
                 
                 this.init();
             }
             
             init() {
-                // Create scene
-                this.scene = new THREE.Scene();
-                
-                // Create camera
-                this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                this.camera.position.z = 50;
-                
-                // Create renderer
-                this.renderer = new THREE.WebGLRenderer({ 
-                    antialias: true,
-                    alpha: true 
-                });
+                // Setup renderer
                 this.renderer.setSize(window.innerWidth, window.innerHeight);
                 this.renderer.setClearColor(0x000000, 0);
                 document.getElementById('webgl-container').appendChild(this.renderer.domElement);
                 
-                // Add orbit controls
-                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-                this.controls.enableDamping = true;
-                this.controls.dampingFactor = 0.05;
-                this.controls.enableZoom = false;
+                // Setup camera
+                this.camera.position.z = 50;
                 
                 // Add lighting
                 const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
@@ -622,10 +858,6 @@
                 const directionalLight = new THREE.DirectionalLight(0x00d4ff, 0.8);
                 directionalLight.position.set(1, 1, 1);
                 this.scene.add(directionalLight);
-                
-                const pointLight = new THREE.PointLight(0xff00ff, 0.5, 100);
-                pointLight.position.set(0, 0, 50);
-                this.scene.add(pointLight);
                 
                 // Create particles
                 this.createParticles();
@@ -638,9 +870,6 @@
                 
                 // Start animation
                 this.animate();
-                
-                // Initialize animations
-                this.initAnimations();
             }
             
             createParticles() {
@@ -654,9 +883,9 @@
                     positions[i + 1] = (Math.random() - 0.5) * 200;
                     positions[i + 2] = (Math.random() - 0.5) * 200;
                     
-                    colors[i] = Math.random() * 0.5 + 0.5; // R
-                    colors[i + 1] = Math.random() * 0.3 + 0.7; // G
-                    colors[i + 2] = Math.random() * 0.5 + 0.5; // B
+                    colors[i] = Math.random() * 0.5 + 0.5;
+                    colors[i + 1] = Math.random() * 0.3 + 0.7;
+                    colors[i + 2] = Math.random() * 0.5 + 0.5;
                 }
                 
                 particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -674,24 +903,21 @@
             }
             
             createFloatingObjects() {
-                // Create floating geometric objects
                 const geometries = [
                     new THREE.BoxGeometry(5, 5, 5),
                     new THREE.SphereGeometry(3, 16, 16),
                     new THREE.ConeGeometry(3, 6, 16),
-                    new THREE.TorusGeometry(4, 1, 16, 32),
-                    new THREE.OctahedronGeometry(4)
+                    new THREE.TorusGeometry(4, 1, 16, 32)
                 ];
                 
                 const materials = [
                     new THREE.MeshPhongMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.7 }),
                     new THREE.MeshPhongMaterial({ color: 0xff00ff, transparent: true, opacity: 0.7 }),
                     new THREE.MeshPhongMaterial({ color: 0xffff00, transparent: true, opacity: 0.7 }),
-                    new THREE.MeshPhongMaterial({ color: 0x00ff88, transparent: true, opacity: 0.7 }),
-                    new THREE.MeshPhongMaterial({ color: 0xff8800, transparent: true, opacity: 0.7 })
+                    new THREE.MeshPhongMaterial({ color: 0x00ff88, transparent: true, opacity: 0.7 })
                 ];
                 
-                for (let i = 0; i < 15; i++) {
+                for (let i = 0; i < 10; i++) {
                     const geometry = geometries[Math.floor(Math.random() * geometries.length)];
                     const material = materials[Math.floor(Math.random() * materials.length)];
                     
@@ -704,7 +930,6 @@
                     mesh.rotation.x = Math.random() * Math.PI;
                     mesh.rotation.y = Math.random() * Math.PI;
                     
-                    // Add animation properties
                     mesh.userData = {
                         speed: {
                             x: (Math.random() - 0.5) * 0.01,
@@ -730,36 +955,12 @@
                     this.mouseX = (event.clientX - window.innerWidth / 2) * 0.0005;
                     this.mouseY = (event.clientY - window.innerHeight / 2) * 0.0005;
                 });
-                
-                // Navigation
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.addEventListener('click', () => {
-                        const target = item.getAttribute('data-target');
-                        this.navigateToSection(target);
-                        
-                        // Update active nav item
-                        document.querySelectorAll('.nav-item').forEach(navItem => {
-                            navItem.classList.remove('active');
-                        });
-                        item.classList.add('active');
-                    });
-                });
             }
             
             onWindowResize() {
                 this.camera.aspect = window.innerWidth / window.innerHeight;
                 this.camera.updateProjectionMatrix();
                 this.renderer.setSize(window.innerWidth, window.innerHeight);
-            }
-            
-            navigateToSection(sectionId) {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    window.scrollTo({
-                        top: section.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
             }
             
             animate() {
@@ -789,522 +990,137 @@
                 const scrollY = window.scrollY;
                 this.camera.position.y = -scrollY * 0.01;
                 
-                this.controls.update();
                 this.renderer.render(this.scene, this.camera);
             }
-            
-            initAnimations() {
-                // Animate elements on scroll
-                const observerOptions = {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -50px 0px'
-                };
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (entry.target.classList.contains('section-title')) {
-                                gsap.to(entry.target, {
-                                    duration: 1,
-                                    opacity: 1,
-                                    y: 0,
-                                    ease: 'power3.out'
-                                });
-                            }
-                            
-                            if (entry.target.classList.contains('section-subtitle')) {
-                                gsap.to(entry.target, {
-                                    duration: 1,
-                                    opacity: 1,
-                                    y: 0,
-                                    delay: 0.2,
-                                    ease: 'power3.out'
-                                });
-                            }
-                            
-                            if (entry.target.classList.contains('cyber-btn-3d')) {
-                                gsap.to(entry.target, {
-                                    duration: 0.8,
-                                    opacity: 1,
-                                    y: 0,
-                                    delay: 0.4,
-                                    ease: 'back.out(1.7)'
-                                });
-                            }
-                            
-                            if (entry.target.classList.contains('card-3d')) {
-                                gsap.to(entry.target, {
-                                    duration: 0.8,
-                                    opacity: 1,
-                                    y: 0,
-                                    rotationX: 0,
-                                    stagger: 0.1,
-                                    ease: 'power3.out'
-                                });
-                            }
-                        }
-                    });
-                }, observerOptions);
-                
-                // Observe all animatable elements
-                document.querySelectorAll('.section-title, .section-subtitle, .cyber-btn-3d, .card-3d').forEach(el => {
-                    observer.observe(el);
-                });
-            }
         }
-        
-        // Threat Visualization
-        class ThreatVisualization {
-            constructor() {
-                this.canvas = document.getElementById('threat-canvas');
-                this.ctx = this.canvas.getContext('2d');
-                this.threats = [];
-                this.init();
-            }
-            
-            init() {
-                this.resizeCanvas();
-                window.addEventListener('resize', this.resizeCanvas.bind(this));
-                
-                // Create initial threats
-                this.createThreats(50);
-                
-                // Start animation
-                this.animate();
-                
-                // Update stats
-                this.updateStats();
-            }
-            
-            resizeCanvas() {
-                this.canvas.width = this.canvas.offsetWidth;
-                this.canvas.height = this.canvas.offsetHeight;
-            }
-            
-            createThreats(count) {
-                const threatTypes = [
-                    { color: '#ff4444', size: 3, speed: 1.5 }, // DDoS
-                    { color: '#ff8800', size: 2, speed: 2 },   // Malware
-                    { color: '#ffff00', size: 2.5, speed: 1 }, // Phishing
-                    { color: '#ff00ff', size: 4, speed: 0.8 }, // Data Breach
-                    { color: '#00d4ff', size: 1.5, speed: 2.5 } // Bot Traffic
-                ];
-                
-                for (let i = 0; i < count; i++) {
-                    const type = threatTypes[Math.floor(Math.random() * threatTypes.length)];
-                    
-                    this.threats.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height,
-                        size: type.size,
-                        color: type.color,
-                        speed: type.speed,
-                        angle: Math.random() * Math.PI * 2,
-                        pulse: Math.random() * Math.PI * 2
-                    });
-                }
-            }
-            
-            animate() {
-                requestAnimationFrame(this.animate.bind(this));
-                
-                // Clear canvas with slight transparency for trails
-                this.ctx.fillStyle = 'rgba(10, 10, 30, 0.1)';
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Draw and update threats
-                this.threats.forEach(threat => {
-                    // Update position
-                    threat.x += Math.cos(threat.angle) * threat.speed;
-                    threat.y += Math.sin(threat.angle) * threat.speed;
-                    
-                    // Bounce off edges
-                    if (threat.x < 0 || threat.x > this.canvas.width) {
-                        threat.angle = Math.PI - threat.angle;
-                    }
-                    if (threat.y < 0 || threat.y > this.canvas.height) {
-                        threat.angle = -threat.angle;
-                    }
-                    
-                    // Update pulse
-                    threat.pulse += 0.05;
-                    
-                    // Draw threat with glow effect
-                    const pulseSize = threat.size + Math.sin(threat.pulse) * 1.5;
-                    
-                    // Glow
-                    const gradient = this.ctx.createRadialGradient(
-                        threat.x, threat.y, 0,
-                        threat.x, threat.y, pulseSize * 2
-                    );
-                    gradient.addColorStop(0, threat.color);
-                    gradient.addColorStop(1, 'transparent');
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(threat.x, threat.y, pulseSize * 2, 0, Math.PI * 2);
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.fill();
-                    
-                    // Main threat
-                    this.ctx.beginPath();
-                    this.ctx.arc(threat.x, threat.y, pulseSize, 0, Math.PI * 2);
-                    this.ctx.fillStyle = threat.color;
-                    this.ctx.fill();
-                    
-                    // Connection lines to nearby threats
-                    this.threats.forEach(otherThreat => {
-                        const dx = threat.x - otherThreat.x;
-                        const dy = threat.y - otherThreat.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 100 && distance > 0) {
-                            this.ctx.beginPath();
-                            this.ctx.moveTo(threat.x, threat.y);
-                            this.ctx.lineTo(otherThreat.x, otherThreat.y);
-                            this.ctx.strokeStyle = `rgba(${parseInt(threat.color.slice(1, 3), 16)}, ${parseInt(threat.color.slice(3, 5), 16)}, ${parseInt(threat.color.slice(5, 7), 16)}, ${0.3 * (1 - distance/100)})`;
-                            this.ctx.lineWidth = 0.5;
-                            this.ctx.stroke();
-                        }
-                    });
-                });
-            }
-            
-            updateStats() {
-                setInterval(() => {
-                    document.getElementById('threats-blocked').textContent = 
-                        Math.floor(47829 + Math.random() * 1000).toLocaleString();
-                    document.getElementById('active-attacks').textContent = 
-                        Math.floor(127 + Math.random() * 20);
-                    document.getElementById('countries-affected').textContent = 
-                        Math.floor(34 + Math.random() * 5);
-                }, 3000);
-            }
-        }
-        
-        // Initialize everything when DOM is loaded
+
+        // Initialize animations and interactions
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if WebGL is supported
+            // Initialize 3D background if WebGL is supported
             if (!!window.WebGLRenderingContext) {
-                const portfolio3D = new CyberPortfolio3D();
-                const threatViz = new ThreatVisualization();
-                
-                // Initialize pentest lab
-                initPentestLab();
-                
-                // Initialize timeline
-                initTimeline();
-            } else {
-                // Fallback for browsers without WebGL
-                document.getElementById('webgl-container').innerHTML = 
-                    '<div style="color: white; text-align: center; padding: 50px;">WebGL not supported. Please use a modern browser.</div>';
-            }
-        });
-        
-        // Pentest Lab Simulation
-        function initPentestLab() {
-            const canvas = document.getElementById('lab-canvas');
-            const ctx = canvas.getContext('2d');
-            const scanBtn = document.getElementById('scan-btn');
-            const exploitBtn = document.getElementById('exploit-btn');
-            const defendBtn = document.getElementById('defend-btn');
-            
-            let nodes = [];
-            let connections = [];
-            let scanActive = false;
-            let exploitActive = false;
-            let defendActive = false;
-            
-            // Resize canvas
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-                drawNetwork();
+                new CyberBackground();
             }
             
-            // Create network nodes
-            function createNetwork() {
-                nodes = [];
-                connections = [];
-                
-                const nodeCount = 15;
-                const nodeTypes = [
-                    { type: 'server', color: '#00d4ff', size: 20 },
-                    { type: 'workstation', color: '#ff00ff', size: 15 },
-                    { type: 'router', color: '#ffff00', size: 18 },
-                    { type: 'firewall', color: '#00ff88', size: 22 }
-                ];
-                
-                // Create nodes
-                for (let i = 0; i < nodeCount; i++) {
-                    const nodeType = nodeTypes[Math.floor(Math.random() * nodeTypes.length)];
-                    
-                    nodes.push({
-                        x: Math.random() * (canvas.width - 100) + 50,
-                        y: Math.random() * (canvas.height - 100) + 50,
-                        type: nodeType.type,
-                        color: nodeType.color,
-                        size: nodeType.size,
-                        status: 'normal', // normal, scanned, vulnerable, exploited, secured
-                        pulse: 0,
-                        connections: []
-                    });
-                }
-                
-                // Create connections
-                for (let i = 0; i < nodes.length; i++) {
-                    for (let j = i + 1; j < nodes.length; j++) {
-                        if (Math.random() < 0.3) { // 30% chance of connection
-                            connections.push({
-                                from: i,
-                                to: j,
-                                status: 'normal'
-                            });
-                            nodes[i].connections.push(j);
-                            nodes[j].connections.push(i);
-                        }
-                    }
-                }
-            }
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
             
-            // Draw the network
-            function drawNetwork() {
-                // Clear canvas
-                ctx.fillStyle = 'rgba(10, 10, 30, 0.9)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw connections
-                connections.forEach(conn => {
-                    const fromNode = nodes[conn.from];
-                    const toNode = nodes[conn.to];
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(fromNode.x, fromNode.y);
-                    ctx.lineTo(toNode.x, toNode.y);
-                    
-                    let lineColor = 'rgba(255, 255, 255, 0.2)';
-                    let lineWidth = 1;
-                    
-                    if (conn.status === 'scanned') {
-                        lineColor = 'rgba(0, 212, 255, 0.6)';
-                        lineWidth = 2;
-                    } else if (conn.status === 'exploited') {
-                        lineColor = 'rgba(255, 0, 0, 0.8)';
-                        lineWidth = 3;
-                    } else if (conn.status === 'secured') {
-                        lineColor = 'rgba(0, 255, 136, 0.8)';
-                        lineWidth = 2;
-                    }
-                    
-                    ctx.strokeStyle = lineColor;
-                    ctx.lineWidth = lineWidth;
-                    ctx.stroke();
-                });
-                
-                // Draw nodes
-                nodes.forEach(node => {
-                    // Node glow
-                    const gradient = ctx.createRadialGradient(
-                        node.x, node.y, 0,
-                        node.x, node.y, node.size * 2
-                    );
-                    
-                    let glowColor = node.color;
-                    if (node.status === 'scanned') glowColor = '#00d4ff';
-                    else if (node.status === 'vulnerable') glowColor = '#ff8800';
-                    else if (node.status === 'exploited') glowColor = '#ff4444';
-                    else if (node.status === 'secured') glowColor = '#00ff88';
-                    
-                    gradient.addColorStop(0, glowColor);
-                    gradient.addColorStop(1, 'transparent');
-                    
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, node.size * 2, 0, Math.PI * 2);
-                    ctx.fillStyle = gradient;
-                    ctx.fill();
-                    
-                    // Node body
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-                    
-                    let fillColor = node.color;
-                    if (node.status === 'scanned') fillColor = '#00d4ff';
-                    else if (node.status === 'vulnerable') fillColor = '#ff8800';
-                    else if (node.status === 'exploited') fillColor = '#ff4444';
-                    else if (node.status === 'secured') fillColor = '#00ff88';
-                    
-                    ctx.fillStyle = fillColor;
-                    ctx.fill();
-                    
-                    // Node pulse if active
-                    if (node.status !== 'normal') {
-                        node.pulse += 0.1;
-                        const pulseSize = node.size + Math.sin(node.pulse) * 5;
-                        
-                        ctx.beginPath();
-                        ctx.arc(node.x, node.y, pulseSize, 0, Math.PI * 2);
-                        ctx.strokeStyle = glowColor;
-                        ctx.lineWidth = 2;
-                        ctx.stroke();
-                    }
-                });
-            }
-            
-            // Scan network function
-            function scanNetwork() {
-                scanActive = true;
-                exploitActive = false;
-                defendActive = false;
-                
-                let scannedCount = 0;
-                
-                const scanInterval = setInterval(() => {
-                    if (scannedCount < nodes.length) {
-                        nodes[scannedCount].status = 'scanned';
-                        
-                        // Mark connections as scanned
-                        nodes[scannedCount].connections.forEach(connIndex => {
-                            connections.forEach(conn => {
-                                if ((conn.from === scannedCount && conn.to === connIndex) || 
-                                    (conn.to === scannedCount && conn.from === connIndex)) {
-                                    conn.status = 'scanned';
-                                }
-                            });
-                        });
-                        
-                        scannedCount++;
-                    } else {
-                        // After scanning, mark some nodes as vulnerable
-                        nodes.forEach((node, index) => {
-                            if (Math.random() < 0.4) { // 40% chance to be vulnerable
-                                setTimeout(() => {
-                                    node.status = 'vulnerable';
-                                }, index * 200);
-                            }
-                        });
-                        
-                        clearInterval(scanInterval);
-                    }
-                    
-                    drawNetwork();
-                }, 300);
-            }
-            
-            // Exploit vulnerabilities function
-            function exploitVulnerabilities() {
-                if (!scanActive) return;
-                
-                exploitActive = true;
-                defendActive = false;
-                
-                let exploitedCount = 0;
-                const vulnerableNodes = nodes.filter(node => node.status === 'vulnerable');
-                
-                const exploitInterval = setInterval(() => {
-                    if (exploitedCount < vulnerableNodes.length) {
-                        vulnerableNodes[exploitedCount].status = 'exploited';
-                        
-                        // Mark connections as exploited
-                        vulnerableNodes[exploitedCount].connections.forEach(connIndex => {
-                            connections.forEach(conn => {
-                                if ((conn.from === nodes.indexOf(vulnerableNodes[exploitedCount]) && conn.to === connIndex) || 
-                                    (conn.to === nodes.indexOf(vulnerableNodes[exploitedCount]) && conn.from === connIndex)) {
-                                    conn.status = 'exploited';
-                                }
-                            });
-                        });
-                        
-                        exploitedCount++;
-                    } else {
-                        clearInterval(exploitInterval);
-                    }
-                    
-                    drawNetwork();
-                }, 500);
-            }
-            
-            // Activate defenses function
-            function activateDefenses() {
-                defendActive = true;
-                
-                let securedCount = 0;
-                
-                const defendInterval = setInterval(() => {
-                    if (securedCount < nodes.length) {
-                        if (nodes[securedCount].status === 'exploited' || nodes[securedCount].status === 'vulnerable') {
-                            nodes[securedCount].status = 'secured';
-                            
-                            // Mark connections as secured
-                            nodes[securedCount].connections.forEach(connIndex => {
-                                connections.forEach(conn => {
-                                    if ((conn.from === securedCount && conn.to === connIndex) || 
-                                        (conn.to === securedCount && conn.from === connIndex)) {
-                                        conn.status = 'secured';
-                                    }
-                                });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('hero-title')) {
+                            gsap.to(entry.target, {
+                                duration: 1,
+                                opacity: 1,
+                                y: 0,
+                                ease: 'power3.out'
                             });
                         }
                         
-                        securedCount++;
-                    } else {
-                        clearInterval(defendInterval);
+                        if (entry.target.classList.contains('hero-subtitle')) {
+                            gsap.to(entry.target, {
+                                duration: 1,
+                                opacity: 1,
+                                y: 0,
+                                delay: 0.2,
+                                ease: 'power3.out'
+                            });
+                        }
+                        
+                        if (entry.target.classList.contains('hero-description')) {
+                            gsap.to(entry.target, {
+                                duration: 1,
+                                opacity: 1,
+                                y: 0,
+                                delay: 0.4,
+                                ease: 'power3.out'
+                            });
+                        }
+                        
+                        if (entry.target.classList.contains('card-3d')) {
+                            gsap.to(entry.target, {
+                                duration: 0.8,
+                                opacity: 1,
+                                y: 0,
+                                rotationX: 0,
+                                stagger: 0.1,
+                                ease: 'power3.out'
+                            });
+                        }
+                        
+                        if (entry.target.classList.contains('timeline-item')) {
+                            gsap.to(entry.target, {
+                                duration: 0.8,
+                                opacity: 1,
+                                y: 0,
+                                stagger: 0.2,
+                                ease: 'power3.out'
+                            });
+                        }
+                        
+                        if (entry.target.classList.contains('skill-progress')) {
+                            const width = entry.target.getAttribute('data-width');
+                            gsap.to(entry.target, {
+                                duration: 1.5,
+                                width: width + '%',
+                                ease: 'power3.out'
+                            });
+                        }
                     }
+                });
+            }, observerOptions);
+            
+            // Observe all animatable elements
+            document.querySelectorAll('.hero-title, .hero-subtitle, .hero-description, .card-3d, .timeline-item, .skill-progress').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
                     
-                    drawNetwork();
-                }, 200);
-            }
-            
-            // Button event listeners
-            scanBtn.addEventListener('click', scanNetwork);
-            exploitBtn.addEventListener('click', exploitVulnerabilities);
-            defendBtn.addEventListener('click', activateDefenses);
-            
-            // Initialize
-            resizeCanvas();
-            createNetwork();
-            drawNetwork();
-            
-            // Animation loop
-            setInterval(() => {
-                drawNetwork();
-            }, 50);
-            
-            window.addEventListener('resize', resizeCanvas);
-        }
-        
-        // Timeline initialization
-        function initTimeline() {
-            const timelineData = [
-                { date: '2023 - Present', title: 'Certified Penetration Tester', desc: 'Advanced training in ethical hacking and vulnerability assessment' },
-                { date: '2021 - 2023', title: 'M.Sc. Physics', desc: 'Developed strong analytical and problem-solving skills' },
-                { date: '2020 - 2021', title: 'Cybersecurity Fundamentals', desc: 'Comprehensive study of network security and cryptography' },
-                { date: '2019 - 2020', title: 'IT Security Basics', desc: 'Introduction to information security principles' }
-            ];
-            
-            const container = document.getElementById('timeline-container');
-            
-            timelineData.forEach((item, index) => {
-                const timelineItem = document.createElement('div');
-                timelineItem.className = 'timeline-item-3d';
-                timelineItem.style.left = `${20 + index * 25}%`;
-                timelineItem.style.top = `${50 + (index % 2 === 0 ? -30 : 30)}px`;
-                timelineItem.innerHTML = `
-                    <div class="timeline-date">${item.date}</div>
-                    <h3 class="timeline-title">${item.title}</h3>
-                    <p class="timeline-desc">${item.desc}</p>
-                `;
-                
-                container.appendChild(timelineItem);
-                
-                // Animate timeline items
-                gsap.to(timelineItem, {
-                    duration: 1,
-                    opacity: 1,
-                    y: 0,
-                    delay: index * 0.2,
-                    ease: 'power3.out'
+                    if (targetSection) {
+                        // Update active nav link
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        link.classList.add('active');
+                        
+                        // Scroll to section
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
-        }
+            
+            // Update active nav link on scroll
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('.section, .hero-section');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.pageYOffset >= sectionTop) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
