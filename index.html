@@ -3280,6 +3280,18 @@ solely for the use of the client organization. Unauthorized distribution is proh
     </section>
 
     <script>
+        // Immediately hide loading screen on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.visibility = 'hidden';
+                    setTimeout(() => loadingScreen.remove(), 500);
+                }
+            }, 500);
+        });
+
         // Performance optimized variables
         let scene, camera, renderer, particles;
         let mouse = { x: 0, y: 0 };
