@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P. Salmanul Faris - Cybersecurity Expert</title>
     <meta name="description" content="Certified Penetration Tester & Security Researcher specializing in network security assessments and ethical hacking">
-    <link rel="icon" type="image/svg+xml" data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ðŸ”’</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -200,7 +201,7 @@
         }
 
         .nav-logo::before {
-            content: 'ðŸ”’';
+            content: '🔒';
             font-size: 20px;
         }
 
@@ -296,7 +297,7 @@
         }
 
         .hero-badge::before {
-            content: 'âœ“';
+            content: '✓';
             display: flex;
             align-items: center;
             justify-content: center;
@@ -661,6 +662,30 @@
             border-color: var(--accent-primary);
         }
 
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--glass-medium);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: var(--space-sm) var(--space-md);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: var(--space-md);
+            align-self: flex-start;
+        }
+
+        .project-link:hover {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
         /* Enhanced Skills Section */
         .skills-grid {
             display: grid;
@@ -729,6 +754,69 @@
             font-size: 14px;
             line-height: 1.6;
             font-weight: 400;
+        }
+
+        /* Enhanced Certifications Section */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .certification-item {
+            background: var(--glass-medium);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .certification-item:hover {
+            border-color: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--glow-primary);
+        }
+
+        .certification-icon {
+            font-size: 32px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+        }
+
+        .certification-content {
+            flex: 1;
+        }
+
+        .certification-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        .certification-provider {
+            color: var(--accent-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .certification-year {
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
         }
 
         /* Enhanced Demo Section */
@@ -1348,7 +1436,7 @@
         }
 
         .scroll-top::before {
-            content: 'â†‘';
+            content: '↑';
             color: var(--text-primary);
             font-size: 20px;
             font-weight: bold;
@@ -1432,6 +1520,40 @@
         .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; }
         .stagger-children.visible > *:nth-child(6) { transition-delay: 0.6s; }
 
+        /* Particle Animation */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            opacity: 0.3;
+            animation: float-particle 15s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 1200px) {
             .nav { 
@@ -1458,6 +1580,9 @@
             .skills-grid { 
                 grid-template-columns: repeat(2, 1fr); 
                 gap: var(--space-lg); 
+            }
+            .certifications-grid {
+                grid-template-columns: 1fr;
             }
             .contact-content { 
                 grid-template-columns: 1fr; 
@@ -1592,6 +1717,9 @@
 
     <div class="cursor" id="cursor"></div>
     <canvas id="webgl-canvas"></canvas>
+    
+    <!-- Particle Animation -->
+    <div class="particles-container" id="particlesContainer"></div>
 
     <!-- Scroll to top button -->
     <div class="scroll-top" id="scrollTop" onclick="scrollToTop()"></div>
@@ -1607,6 +1735,7 @@
             <li><a href="#home" class="nav-link active">Home</a></li>
             <li><a href="#projects" class="nav-link">Projects</a></li>
             <li><a href="#skills" class="nav-link">Expertise</a></li>
+            <li><a href="#certifications" class="nav-link">Certifications</a></li>
             <li><a href="#education" class="nav-link">Education</a></li>
             <li><a href="#demo" class="nav-link">Demo</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -1673,13 +1802,16 @@
                         <span class="tech-tag">PostgreSQL</span>
                         <span class="tech-tag">Docker</span>
                     </div>
+                    <a href="https://github.com/salman2610/ai-vuln-scanner" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
                 </div>
 
                 <div class="project-item" onclick="showProjectDemo('web-pentest')">
                     <div class="project-header">
                         <div class="project-number">02</div>
                         <div class="project-meta">
-                            <h3 class="project-title">Zero-Touch Web Security Suite</h3>
+                            <h3 class="project-title">OWASP Security Framework</h3>
                             <div class="project-status">Enterprise Grade</div>
                         </div>
                     </div>
@@ -1694,13 +1826,16 @@
                         <span class="tech-tag">GraphQL</span>
                         <span class="tech-tag">Jenkins</span>
                     </div>
+                    <a href="https://github.com/salman2610/OWASP-Framework" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
                 </div>
 
                 <div class="project-item" onclick="showProjectDemo('threat-intel')">
                     <div class="project-header">
                         <div class="project-number">03</div>
                         <div class="project-meta">
-                            <h3 class="project-title">Threat Intelligence Platform</h3>
+                            <h3 class="project-title">Purple Team Framework</h3>
                             <div class="project-status">R&D Phase</div>
                         </div>
                     </div>
@@ -1715,6 +1850,9 @@
                         <span class="tech-tag">STIX/TAXII</span>
                         <span class="tech-tag">Kafka</span>
                     </div>
+                    <a href="https://github.com/salman2610/PurpleTeam-Project" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
                 </div>
 
                 <div class="project-item" onclick="showProjectDemo('redteam-platform')">
@@ -1736,6 +1874,9 @@
                         <span class="tech-tag">PowerShell</span>
                         <span class="tech-tag">Kubernetes</span>
                     </div>
+                    <a href="https://github.com/salman2610/PurpleTeam-Project" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
                 </div>
             </div>
         </div>
@@ -1751,7 +1892,7 @@
 
         <div class="skills-grid stagger-children">
             <div class="skill-category">
-                <span class="skill-icon">ðŸ”</span>
+                <span class="skill-icon">🔒</span>
                 <h3 class="skill-title">Cybersecurity</h3>
                 <div class="skill-list">
                     Certified Penetration Tester (CPT)<br>
@@ -1762,7 +1903,7 @@
             </div>
 
             <div class="skill-category">
-                <span class="skill-icon">ðŸ’»</span>
+                <span class="skill-icon">💻</span>
                 <h3 class="skill-title">Full-Stack Development</h3>
                 <div class="skill-list">
                     NIIT Advanced Programming Certified<br>
@@ -1773,7 +1914,7 @@
             </div>
 
             <div class="skill-category">
-                <span class="skill-icon">ðŸ”¬</span>
+                <span class="skill-icon">⚛️</span>
                 <h3 class="skill-title">Physics & Research</h3>
                 <div class="skill-list">
                     M.Sc. Physics - New College, Chennai<br>
@@ -1784,7 +1925,7 @@
             </div>
 
             <div class="skill-category">
-                <span class="skill-icon">ðŸŒ</span>
+                <span class="skill-icon">🌐</span>
                 <h3 class="skill-title">Web Technologies</h3>
                 <div class="skill-list">
                     HTML5, CSS3, JavaScript (ES6+)<br>
@@ -1795,7 +1936,7 @@
             </div>
 
             <div class="skill-category">
-                <span class="skill-icon">ðŸ“±</span>
+                <span class="skill-icon">📱</span>
                 <h3 class="skill-title">Mobile & Cross-Platform</h3>
                 <div class="skill-list">
                     Cross-Platform App Development<br>
@@ -1806,13 +1947,87 @@
             </div>
 
             <div class="skill-category">
-                <span class="skill-icon">âš™ï¸</span>
+                <span class="skill-icon">🖥️</span>
                 <h3 class="skill-title">Systems & Infrastructure</h3>
                 <div class="skill-list">
                     Linux (Ubuntu, Kali) & Windows<br>
                     Network Administration & Security<br>
                     Cloud Security Concepts<br>
                     DevOps & System Automation
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="section">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Professional Certifications</h2>
+            <p class="section-subtitle">
+                Industry-recognized credentials validating expertise in cybersecurity, networking, and software engineering
+            </p>
+        </div>
+
+        <div class="certifications-grid stagger-children">
+            <div class="certification-item">
+                <div class="certification-icon">🛡️</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">Advent of Cyber 2024</h3>
+                    <div class="certification-provider">TryHackMe</div>
+                    <div class="certification-year">2024</div>
+                </div>
+            </div>
+
+            <div class="certification-item">
+                <div class="certification-icon">🔒</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">Fortinet Certified Associate</h3>
+                    <div class="certification-provider">Fortinet</div>
+                    <div class="certification-year">2024</div>
+                </div>
+            </div>
+
+            <div class="certification-item">
+                <div class="certification-icon">🔐</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">FortiGate 7.6 Operator</h3>
+                    <div class="certification-provider">Fortinet</div>
+                    <div class="certification-year">2024</div>
+                </div>
+            </div>
+
+            <div class="certification-item">
+                <div class="certification-icon">💼</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">Cyber Threat Management</h3>
+                    <div class="certification-provider">Cisco</div>
+                    <div class="certification-year">2024</div>
+                </div>
+            </div>
+
+            <div class="certification-item">
+                <div class="certification-icon">🕵️‍♂️</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">Ethical Hacker</h3>
+                    <div class="certification-provider">Cisco</div>
+                    <div class="certification-year">2024</div>
+                </div>
+            </div>
+
+            <div class="certification-item">
+                <div class="certification-icon">🛡️</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">Certified Penetration Tester</h3>
+                    <div class="certification-provider">RedTeam Hacker Academy</div>
+                    <div class="certification-year">2024</div>
+                </div>
+            </div>
+
+            <div class="certification-item">
+                <div class="certification-icon">👨‍💻</div>
+                <div class="certification-content">
+                    <h3 class="certification-title">Advanced Programming in Software Engineering</h3>
+                    <div class="certification-provider">NIIT</div>
+                    <div class="certification-year">2023</div>
                 </div>
             </div>
         </div>
@@ -1935,7 +2150,7 @@
             </h3>
             <div class="interests-grid">
                 <div class="interest-card">
-                    <div class="interest-icon">âš›ï¸</div>
+                    <div class="interest-icon">⚛️</div>
                     <h4 class="interest-title">Nuclear Physics</h4>
                     <p class="interest-desc">
                         Exploring nuclear processes, radiation physics, and applications in medical technology
@@ -1943,7 +2158,7 @@
                     </p>
                 </div>
                 <div class="interest-card">
-                    <div class="interest-icon">ðŸ¥</div>
+                    <div class="interest-icon">🏥</div>
                     <h4 class="interest-title">Medical Physics</h4>
                     <p class="interest-desc">
                         Investigating acoustic properties of biological solutions and pharmaceutical compounds
@@ -1951,7 +2166,7 @@
                     </p>
                 </div>
                 <div class="interest-card">
-                    <div class="interest-icon">ðŸ”Š</div>
+                    <div class="interest-icon">🔊</div>
                     <h4 class="interest-title">Acoustics & Interferometry</h4>
                     <p class="interest-desc">
                         Advanced ultrasonic techniques for material characterization and biomedical
@@ -2021,7 +2236,7 @@
                 
                 <div class="contact-grid">
                     <div class="contact-item">
-                        <span class="contact-icon">ðŸ“§</span>
+                        <span class="contact-icon">📧</span>
                         <h4 class="contact-title">Secure Communication</h4>
                         <p class="contact-info-text">
                             <a href="mailto:salmanulfariss642@gmail.com" class="contact-link">
@@ -2031,7 +2246,7 @@
                     </div>
 
                     <div class="contact-item">
-                        <span class="contact-icon">ðŸ“±</span>
+                        <span class="contact-icon">📱</span>
                         <h4 class="contact-title">Direct Line</h4>
                         <p class="contact-info-text">
                             <a href="tel:+919962726106" class="contact-link">
@@ -2041,7 +2256,7 @@
                     </div>
 
                     <div class="contact-item">
-                        <span class="contact-icon">ðŸ’¼</span>
+                        <span class="contact-icon">💼</span>
                         <h4 class="contact-title">Professional Network</h4>
                         <p class="contact-info-text">
                             <a href="https://linkedin.com/in/p-salmanul-faris" class="contact-link" target="_blank">
@@ -2051,7 +2266,7 @@
                     </div>
 
                     <div class="contact-item">
-                        <span class="contact-icon">âš¡</span>
+                        <span class="contact-icon">⚡</span>
                         <h4 class="contact-title">Code Repository</h4>
                         <p class="contact-info-text">
                             <a href="https://github.com/salman2610" class="contact-link" target="_blank">
@@ -2116,7 +2331,7 @@
         let animationId;
         let isWebGLInitialized = false;
 
-        // Optimized Three.js WebGL Background with reduced particle count
+        // Enhanced Three.js WebGL Background with particle system
         function initWebGL() {
             try {
                 scene = new THREE.Scene();
@@ -2130,23 +2345,23 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-                // Reduced particle count for better performance
-                const particleCount = 400;
+                // Enhanced particle system with more particles
+                const particleCount = 800;
                 const positions = new Float32Array(particleCount * 3);
                 const colors = new Float32Array(particleCount * 3);
                 const sizes = new Float32Array(particleCount);
 
                 for (let i = 0; i < particleCount; i++) {
-                    positions[i * 3] = (Math.random() - 0.5) * 1200;
-                    positions[i * 3 + 1] = (Math.random() - 0.5) * 1200;
-                    positions[i * 3 + 2] = (Math.random() - 0.5) * 600;
+                    positions[i * 3] = (Math.random() - 0.5) * 2000;
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+                    positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
 
                     const intensity = Math.random() * 0.4 + 0.2;
                     colors[i * 3] = intensity * 0.2;
                     colors[i * 3 + 1] = intensity * 0.5;
                     colors[i * 3 + 2] = intensity * 1.0;
 
-                    sizes[i] = Math.random() * 1.5 + 0.5;
+                    sizes[i] = Math.random() * 2 + 0.5;
                 }
 
                 const geometry = new THREE.BufferGeometry();
@@ -2155,23 +2370,24 @@
                 geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
                 const material = new THREE.PointsMaterial({
-                    size: 0.8,
+                    size: 1.2,
                     sizeAttenuation: true,
                     vertexColors: true,
                     transparent: true,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     blending: THREE.AdditiveBlending
                 });
 
                 particles = new THREE.Points(geometry, material);
                 scene.add(particles);
 
-                camera.position.z = 400;
+                camera.position.z = 500;
                 isWebGLInitialized = true;
                 animate();
             } catch (error) {
                 console.warn('WebGL initialization failed:', error);
                 document.getElementById('webgl-canvas').style.display = 'none';
+                initCSSBackground();
             }
         }
 
@@ -2180,14 +2396,43 @@
             
             animationId = requestAnimationFrame(animate);
 
-            particles.rotation.x += 0.0002;
-            particles.rotation.y += 0.0004;
+            particles.rotation.x += 0.0003;
+            particles.rotation.y += 0.0006;
 
             camera.position.x += (mouse.x * 0.02 - camera.position.x) * 0.008;
             camera.position.y += (-mouse.y * 0.02 - camera.position.y) * 0.008;
             camera.lookAt(scene.position);
 
             renderer.render(scene, camera);
+        }
+
+        // CSS Particle Animation as fallback
+        function initCSSBackground() {
+            const container = document.getElementById('particlesContainer');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 6 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 15 + Math.random() * 10;
+                
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${posX}%;
+                    top: ${posY}%;
+                    background: ${i % 3 === 0 ? 'var(--accent-primary)' : i % 3 === 1 ? 'var(--accent-secondary)' : 'var(--accent-success)'};
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                `;
+                
+                container.appendChild(particle);
+            }
         }
 
         // Enhanced cursor system
@@ -2238,13 +2483,13 @@
 
         // Cursor hover effects
         document.addEventListener('mouseover', (e) => {
-            if (e.target.matches('a, button, .project-item, .vuln-node, .skill-category, .contact-item')) {
+            if (e.target.matches('a, button, .project-item, .vuln-node, .skill-category, .contact-item, .certification-item')) {
                 cursor.classList.add('hover');
             }
         });
 
         document.addEventListener('mouseout', (e) => {
-            if (e.target.matches('a, button, .project-item, .vuln-node, .skill-category, .contact-item')) {
+            if (e.target.matches('a, button, .project-item, .vuln-node, .skill-category, .contact-item, .certification-item')) {
                 cursor.classList.remove('hover');
             }
         });
@@ -2252,686 +2497,116 @@
         // Enhanced Terminal Commands
         const commands = {
             whoami: `P. Salmanul Faris - Multi-Disciplinary Technology Professional
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+────────────────────────────────────────────────────────────────────────
 
-ðŸŽ“ ACADEMIC FOUNDATION:
-â”œâ”€â”€ M.Sc. Physics - The New College, Chennai (2023)
-â”œâ”€â”€ B.Sc. Physics - The New College, Chennai (2021)
-â”œâ”€â”€ Research Focus: Medical & Nuclear Physics
-â””â”€â”€ Thesis: Acoustic Study of Antibiotic & Insulin Solutions
+🎓 ACADEMIC FOUNDATION:
+├── M.Sc. Physics - The New College, Chennai (2023)
+├── B.Sc. Physics - The New College, Chennai (2021)
+├── Research Focus: Medical & Nuclear Physics
+└── Thesis: Acoustic Study of Antibiotic & Insulin Solutions
 
-ðŸ’» PROFESSIONAL CERTIFICATIONS:
-â”œâ”€â”€ Certified Penetration Tester (CPT) - RedTeam Hacker Academy
-â”œâ”€â”€ Advanced Programming in Full Stack Engineering - NIIT Chennai
-â”œâ”€â”€ 3+ Years Combined Experience in Development & Security
-â””â”€â”€ Cross-Platform Application Development Specialist
+💼 PROFESSIONAL CERTIFICATIONS:
+├── Certified Penetration Tester (CPT) - RedTeam Hacker Academy
+├── Advanced Programming in Full Stack Engineering - NIIT Chennai
+├── 3+ Years Combined Experience in Development & Security
+└── Cross-Platform Application Development Specialist
 
-ðŸ”¬ RESEARCH INTERESTS:
-â”œâ”€â”€ Nuclear Physics & Radiation Applications
-â”œâ”€â”€ Medical Physics & Diagnostic Technologies
-â”œâ”€â”€ Ultrasonic Interferometry & Material Characterization
-â””â”€â”€ Intersection of Physics & Information Security
+⚛️ RESEARCH INTERESTS:
+├── Nuclear Physics & Radiation Applications
+├── Medical Physics & Diagnostic Technologies
+├── Ultrasonic Interferometry & Material Characterization
+└── Intersection of Physics & Information Security
 
-ðŸ’¼ CURRENT CAPABILITIES:
-â”œâ”€â”€ Full-Stack Web & Mobile Application Development
-â”œâ”€â”€ Cybersecurity & Penetration Testing
-â”œâ”€â”€ Scientific Research & Data Analysis
-â””â”€â”€ Cross-Platform Solution Architecture
+🔧 CURRENT CAPABILITIES:
+├── Full-Stack Web & Mobile Application Development
+├── Cybersecurity & Penetration Testing
+├── Scientific Research & Data Analysis
+└── Cross-Platform Solution Architecture
 
-ðŸ“Š PROJECT PORTFOLIO:
-â”œâ”€â”€ Custom Penetration Testing Environment ("Sunset")
-â”œâ”€â”€ Cross-Platform Billing Application (In Development)
-â”œâ”€â”€ Network Security Lab & DoS Simulation
-â””â”€â”€ Medical Physics Research Publications
+📊 PROJECT PORTFOLIO:
+├── AI-Enhanced Vulnerability Scanner
+├── OWASP Security Framework
+├── Purple Team Framework
+└── Medical Physics Research Publications
 
-ðŸŒ LANGUAGES: English, Malayalam, Tamil
-ðŸ“ LOCATION: Chennai, Tamil Nadu | Native: Kerala
-ðŸ”’ CURRENT STATUS: Available for development and security consulting`,
+🌍 LANGUAGES: English, Malayalam, Tamil
+📍 LOCATION: Chennai, Tamil Nadu | Native: Kerala
+🔒 CURRENT STATUS: Available for development and security consulting`,
 
             experience: `PROFESSIONAL EXPERIENCE & PROJECT PORTFOLIO
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+────────────────────────────────────────────────────────────────────────
+
+🔒 CYBERSECURITY PROJECTS (2024-Present)
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │ Project: AI-Enhanced Vulnerability Scanner                         │
+   │ GitHub: https://github.com/salman2610/ai-vuln-scanner              │
+   │                                                                    │
+   │ Description: Next-generation automated scanning platform with      │
+   │ machine learning-powered vulnerability detection, custom payload   │
+   │ generation, and real-time threat intelligence integration.         │
+   │ Reduces false positives by 85%.                                    │
+   └─────────────────────────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │ Project: OWASP Security Framework                                  │
+   │ GitHub: https://github.com/salman2610/OWASP-Framework              │
+   │                                                                    │
+   │ Description: Comprehensive OWASP Top 10 testing framework with     │
+   │ automated CI/CD integration, advanced session analysis, and        │
+   │ dynamic application security testing capabilities.                 │
+   └─────────────────────────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │ Project: Purple Team Framework                                     │
+   │ GitHub: https://github.com/salman2610/PurpleTeam-Project           │
+   │                                                                    │
+   │ Description: Advanced threat hunting platform with automated IOC   │
+   │ extraction, behavioral analysis, and predictive threat modeling    │
+   │ using machine learning algorithms.                                 │
+   └─────────────────────────────────────────────────────────────────────┘
+
+💻 FULL-STACK DEVELOPMENT PROJECTS (2022-Present)
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │ Project: Cross-Platform Billing Application (Active Development)   │
+   │                                                                    │
+   │ Description: Desktop and mobile application for small businesses   │
+   │ with real-time data synchronization across platforms, invoice      │
+   │ generation, payment tracking systems, and comprehensive reporting. │
+   └─────────────────────────────────────────────────────────────────────┘
+
+⚛️ SCIENTIFIC RESEARCH EXPERIENCE (2021-2023)
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │ M.Sc. Research Project: Medical Physics Application                │
+   │ "Acoustic Study of Aqueous Solution Containing Antibiotic and      │
+   │  Human Mixtard Insulin"                                            │
+   │                                                                    │
+   │ Utilized ultrasonic interferometry techniques across physiological │
+   │ temperatures. Published findings in peer-reviewed academic journal.│
+   └─────────────────────────────────────────────────────────────────────┘`,
 
-ðŸ” CYBERSECURITY PROJECTS (2024-Present)
-   â”œâ”€â”€ Custom Ubuntu Penetration Testing Machine ("Sunset")
-   â”‚   â””â”€â”€ Configured specialized ethical hacking environment
-   â”‚   â””â”€â”€ Integrated essential security tools and custom scripts
-   â”‚   â””â”€â”€ Automated vulnerability scanning workflows
-   â”‚
-   â”œâ”€â”€ Network Security Laboratory Environment
-   â”‚   â””â”€â”€ Controlled DoS attack simulation using Xerxes
-   â”‚   â””â”€â”€ Apache server behavior analysis under stress
-   â”‚   â””â”€â”€ Developed comprehensive mitigation strategies
-   â”‚   â””â”€â”€ Published security findings and recommendations
-
-ðŸ’» FULL-STACK DEVELOPMENT PROJECTS (2022-Present)
-   â”œâ”€â”€ Cross-Platform Billing Application (Active Development)
-   â”‚   â””â”€â”€ Desktop and mobile application for small businesses
-   â”‚   â””â”€â”€ Real-time data synchronization across platforms
-   â”‚   â””â”€â”€ Invoice generation and payment tracking systems
-   â”‚   â””â”€â”€ Comprehensive reporting dashboard and analytics
-   â”‚
-   â”œâ”€â”€ Web Development Portfolio
-   â”‚   â””â”€â”€ Responsive web applications using modern frameworks
-   â”‚   â””â”€â”€ RESTful API development and database integration
-   â”‚   â””â”€â”€ Mobile-first design and progressive web apps
-   â”‚   â””â”€â”€ Cross-browser compatibility and performance optimization
-
-ðŸ”¬ SCIENTIFIC RESEARCH EXPERIENCE (2021-2023)
-   â”œâ”€â”€ M.Sc. Research Project: Medical Physics Application
-   â”‚   â””â”€â”€ "Acoustic Study of Aqueous Solution Containing
-   â”‚       Antibiotic and Human Mixtard Insulin"
-   â”‚   â””â”€â”€ Utilized ultrasonic interferometry techniques
-   â”‚   â””â”€â”€ Analyzed properties across physiological temperatures
-   â”‚   â””â”€â”€ Published findings in peer-reviewed academic journal
-   â”‚
-   â”œâ”€â”€ Physics Laboratory Experience
-   â”‚   â””â”€â”€ Advanced experimental techniques and instrumentation
-   â”‚   â””â”€â”€ Data analysis using statistical methods and software
-   â”‚   â””â”€â”€ Scientific methodology and research documentation
-
-ðŸ† ACHIEVEMENTS & RECOGNITION:
-   â”œâ”€â”€ Successfully completed intensive 3-month CPT certification
-   â”œâ”€â”€ Demonstrated proficiency in multiple programming languages
-   â”œâ”€â”€ Published research in medical physics applications
-   â”œâ”€â”€ Developed custom security tools and methodologies
-   â””â”€â”€ Contributed to open-source projects and community knowledge
-
-ðŸ“ˆ TECHNICAL IMPACT:
-   â”œâ”€â”€ Created reusable security testing frameworks
-   â”œâ”€â”€ Improved small business billing workflow efficiency
-   â”œâ”€â”€ Advanced understanding of medical physics applications
-   â””â”€â”€ Bridged gap between academic research and practical technology`,
-
-            education: `COMPREHENSIVE EDUCATIONAL BACKGROUND
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸŽ“ MASTER'S DEGREE IN PHYSICS (2023)
-   Institution: The New College, Chennai, Tamil Nadu
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Specialization: Medical & Nuclear Physics                   â”‚
-   â”‚ Research Project: "Acoustic Study of Aqueous Solution      â”‚
-   â”‚                   Containing Antibiotic and Human          â”‚
-   â”‚                   Mixtard Insulin"                         â”‚
-   â”‚                                                             â”‚
-   â”‚ Key Learning Areas:                                         â”‚
-   â”‚ â”œâ”€â”€ Advanced Mathematical Physics                           â”‚
-   â”‚ â”œâ”€â”€ Quantum Mechanics & Statistical Physics                â”‚
-   â”‚ â”œâ”€â”€ Nuclear Physics & Radiation Safety                     â”‚
-   â”‚ â”œâ”€â”€ Medical Physics & Diagnostic Techniques                â”‚
-   â”‚ â”œâ”€â”€ Ultrasonic Interferometry & Acoustics                  â”‚
-   â”‚ â”œâ”€â”€ Scientific Research Methodology                        â”‚
-   â”‚ â””â”€â”€ Advanced Data Analysis & Statistical Methods           â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ”¬ BACHELOR'S DEGREE IN PHYSICS (2021)
-   Institution: The New College, Chennai, Tamil Nadu
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Foundation Studies: Core Physics Principles                â”‚
-   â”‚                                                             â”‚
-   â”‚ Core Subjects:                                              â”‚
-   â”‚ â”œâ”€â”€ Classical Mechanics & Thermodynamics                   â”‚
-   â”‚ â”œâ”€â”€ Electromagnetism & Wave Optics                         â”‚
-   â”‚ â”œâ”€â”€ Modern Physics & Quantum Fundamentals                  â”‚
-   â”‚ â”œâ”€â”€ Electronics & Communication Systems                    â”‚
-   â”‚ â”œâ”€â”€ Mathematical Methods in Physics                        â”‚
-   â”‚ â””â”€â”€ Experimental Physics & Laboratory Techniques           â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ’» PROFESSIONAL CERTIFICATIONS
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ” Certified Penetration Tester (CPT) - 2024               â”‚
-   â”‚    Institution: RedTeam Hacker Academy, Kozhikode          â”‚
-   â”‚    Duration: 3 months intensive program                    â”‚
-   â”‚    Covered: Network security, ethical hacking, vuln       â”‚
-   â”‚            assessment, penetration testing methodologies   â”‚
-   â”‚                                                             â”‚
-   â”‚ ðŸ’» Advanced Programming in Full Stack Engineering - 2023   â”‚
-   â”‚    Institution: NIIT, Chennai                              â”‚
-   â”‚    Covered: Modern web technologies, database management,  â”‚
-   â”‚            cross-platform development, software design     â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ“š SECONDARY EDUCATION
-   â”œâ”€â”€ Higher Secondary (XII) - NEST Higher Secondary School, Kerala
-   â”œâ”€â”€ Secondary (X) - Don Bosco Matriculation School, Tamil Nadu
-   â””â”€â”€ Strong foundation in Mathematics, Physics, and Computer Science
-
-ðŸ”¬ RESEARCH INTERESTS & FUTURE ASPIRATIONS:
-   â”œâ”€â”€ Nuclear Physics: Radiation applications in technology
-   â”œâ”€â”€ Medical Physics: Diagnostic imaging and therapeutic applications
-   â”œâ”€â”€ Cybersecurity: Intersection of physics and information security
-   â”œâ”€â”€ Quantum Computing: Future applications in cryptography
-   â””â”€â”€ IoT Security: Physics-based sensors and security implications
-
-ðŸ“Š ACADEMIC ACHIEVEMENTS:
-   â”œâ”€â”€ Completed rigorous M.Sc. research project in medical physics
-   â”œâ”€â”€ Proficient in advanced mathematical and statistical analysis
-   â”œâ”€â”€ Published research findings in academic context
-   â”œâ”€â”€ Strong foundation in experimental design and methodology
-   â””â”€â”€ Interdisciplinary approach combining physics and technology`,
-
-            projects: `COMPREHENSIVE PROJECT PORTFOLIO
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸ” CYBERSECURITY & PENETRATION TESTING
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Project: Custom Ubuntu Penetration Testing Machine         â”‚
-   â”‚ Codename: "Sunset"                                          â”‚
-   â”‚                                                             â”‚
-   â”‚ Description: Specialized ethical hacking environment       â”‚
-   â”‚ â”œâ”€â”€ Pre-configured security testing tools (Nmap, Burp)     â”‚
-   â”‚ â”œâ”€â”€ Custom automation scripts for vulnerability scanning   â”‚
-   â”‚ â”œâ”€â”€ Integrated reporting and documentation system          â”‚
-   â”‚ â”œâ”€â”€ Network reconnaissance and enumeration capabilities    â”‚
-   â”‚ â””â”€â”€ Compliance with ethical hacking standards              â”‚
-   â”‚                                                             â”‚
-   â”‚ Technologies: Ubuntu, Bash, Python, Security Tools         â”‚
-   â”‚ Status: Production Ready                                    â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Project: Network Security Laboratory                        â”‚
-   â”‚                                                             â”‚
-   â”‚ Description: Controlled security testing environment       â”‚
-   â”‚ â”œâ”€â”€ DoS attack simulation using Xerxes tool               â”‚
-   â”‚ â”œâ”€â”€ Apache web server stress testing and analysis         â”‚
-   â”‚ â”œâ”€â”€ Network traffic monitoring and packet analysis        â”‚
-   â”‚ â”œâ”€â”€ Security mitigation strategy development               â”‚
-   â”‚ â””â”€â”€ Comprehensive security assessment reporting            â”‚
-   â”‚                                                             â”‚
-   â”‚ Technologies: Linux, Apache, Network Analysis Tools        â”‚
-   â”‚ Status: Completed with Published Results                   â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ’» FULL-STACK DEVELOPMENT PROJECTS
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Project: Cross-Platform Billing Application                â”‚
-   â”‚                                                             â”‚
-   â”‚ Description: Comprehensive billing solution for SMBs       â”‚
-   â”‚ â”œâ”€â”€ Desktop application with modern UI/UX                  â”‚
-   â”‚ â”œâ”€â”€ Mobile companion app for on-the-go management          â”‚
-   â”‚ â”œâ”€â”€ Real-time data synchronization across platforms        â”‚
-   â”‚ â”œâ”€â”€ Automated invoice generation and email distribution    â”‚
-   â”‚ â”œâ”€â”€ Payment tracking and financial reporting dashboard     â”‚
-   â”‚ â”œâ”€â”€ Customer management and billing history tracking       â”‚
-   â”‚ â””â”€â”€ Multi-currency support and tax calculation features    â”‚
-   â”‚                                                             â”‚
-   â”‚ Technologies: JavaScript, Node.js, SQL, Cross-platform     â”‚
-   â”‚ Status: Active Development (80% Complete)                  â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Project: Modern Web Application Portfolio                  â”‚
-   â”‚                                                             â”‚
-   â”‚ Description: Collection of responsive web applications     â”‚
-   â”‚ â”œâ”€â”€ Progressive Web Apps with offline capabilities         â”‚
-   â”‚ â”œâ”€â”€ RESTful API development and third-party integrations   â”‚
-   â”‚ â”œâ”€â”€ Database design and optimization strategies            â”‚
-   â”‚ â”œâ”€â”€ Mobile-first responsive design implementation          â”‚
-   â”‚ â”œâ”€â”€ Performance optimization and SEO best practices        â”‚
-   â”‚ â””â”€â”€ Cross-browser compatibility and accessibility          â”‚
-   â”‚                                                             â”‚
-   â”‚ Technologies: HTML5, CSS3, JavaScript, Various Frameworks  â”‚
-   â”‚ Status: Multiple Completed Projects                        â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ”¬ SCIENTIFIC RESEARCH PROJECTS
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Project: Medical Physics Research                           â”‚
-   â”‚ Title: "Acoustic Study of Aqueous Solution Containing      â”‚
-   â”‚        Antibiotic and Human Mixtard Insulin"               â”‚
-   â”‚                                                             â”‚
-   â”‚ Description: Advanced ultrasonic interferometry research   â”‚
-   â”‚ â”œâ”€â”€ Investigation of pharmaceutical acoustic properties    â”‚
-   â”‚ â”œâ”€â”€ Temperature-dependent behavior analysis (physiological)â”‚
-   â”‚ â”œâ”€â”€ Ultrasonic velocity and attenuation measurements       â”‚
-   â”‚ â”œâ”€â”€ Statistical analysis and correlation studies           â”‚
-   â”‚ â”œâ”€â”€ Medical diagnostic application potential assessment    â”‚
-   â”‚ â””â”€â”€ Peer-reviewed publication and academic presentation    â”‚
-   â”‚                                                             â”‚
-   â”‚ Technologies: Ultrasonic Interferometry, Data Analysis     â”‚
-   â”‚ Status: Completed & Published (M.Sc. Thesis)               â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸš€ FUTURE PROJECT PIPELINE
-   â”œâ”€â”€ IoT Security Assessment Framework
-   â”œâ”€â”€ Medical Physics Simulation Software
-   â”œâ”€â”€ Quantum Cryptography Research Tools
-   â”œâ”€â”€ AI-Powered Vulnerability Scanner
-   â””â”€â”€ Cross-Platform Scientific Instrumentation Interface
-
-ðŸ“Š PROJECT IMPACT METRICS:
-   â”œâ”€â”€ Security tools deployed in multiple testing environments
-   â”œâ”€â”€ Billing application targeting 100+ small businesses
-   â”œâ”€â”€ Research findings contributing to medical physics knowledge
-   â””â”€â”€ Open-source contributions benefiting cybersecurity community`,
-
-            skills: `COMPREHENSIVE TECHNICAL SKILL MATRIX
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸ” CYBERSECURITY & PENETRATION TESTING
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Certification: Certified Penetration Tester (CPT)          â”‚
-   â”‚ Institution: RedTeam Hacker Academy                        â”‚
-   â”‚                                                             â”‚
-   â”‚ Core Skills:                                                â”‚
-   â”‚ â”œâ”€â”€ Network Security Assessment & Vulnerability Analysis   â”‚
-   â”‚ â”œâ”€â”€ Ethical Hacking Methodologies (PTES, OWASP)           â”‚
-   â”‚ â”œâ”€â”€ Penetration Testing Tools: Burp Suite, Nmap, Metasploitâ”‚
-   â”‚ â”œâ”€â”€ Network Traffic Analysis: Wireshark, tcpdump           â”‚
-   â”‚ â”œâ”€â”€ Security Scripting & Automation (Python, Bash)        â”‚
-   â”‚ â”œâ”€â”€ Web Application Security Testing                       â”‚
-   â”‚ â”œâ”€â”€ Network Reconnaissance & Enumeration                   â”‚
-   â”‚ â””â”€â”€ Security Risk Assessment & Reporting                   â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ’» FULL-STACK DEVELOPMENT
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Certification: Advanced Programming Full Stack Engineering â”‚
-   â”‚ Institution: NIIT Chennai                                  â”‚
-   â”‚                                                             â”‚
-   â”‚ Programming Languages:                                      â”‚
-   â”‚ â”œâ”€â”€ JavaScript (ES6+, Node.js, Modern Frameworks)         â”‚
-   â”‚ â”œâ”€â”€ Python (Security Scripts, Data Analysis, Automation)   â”‚
-   â”‚ â”œâ”€â”€ Java (Object-Oriented Programming, Enterprise Apps)    â”‚
-   â”‚ â”œâ”€â”€ C/C++ (System Programming, Performance Optimization)   â”‚
-   â”‚ â”œâ”€â”€ SQL (Database Design, Query Optimization, Management)  â”‚
-   â”‚ â”œâ”€â”€ HTML5/CSS3 (Responsive Design, Modern Web Standards)   â”‚
-   â”‚ â””â”€â”€ Bash/Shell (System Administration, Automation)         â”‚
-   â”‚                                                             â”‚
-   â”‚ Development Capabilities:                                   â”‚
-   â”‚ â”œâ”€â”€ Cross-Platform Application Development                 â”‚
-   â”‚ â”œâ”€â”€ RESTful API Design & Implementation                    â”‚
-   â”‚ â”œâ”€â”€ Database Management & Optimization                     â”‚
-   â”‚ â”œâ”€â”€ Mobile-First Responsive Web Design                     â”‚
-   â”‚ â”œâ”€â”€ Progressive Web App (PWA) Development                  â”‚
-   â”‚ â””â”€â”€ Version Control & Collaborative Development (Git)      â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ”¬ PHYSICS & SCIENTIFIC RESEARCH
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Education: M.Sc. Physics - The New College, Chennai        â”‚
-   â”‚ Specialization: Medical & Nuclear Physics                  â”‚
-   â”‚                                                             â”‚
-   â”‚ Research Skills:                                            â”‚
-   â”‚ â”œâ”€â”€ Advanced Mathematical Physics & Statistical Analysis   â”‚
-   â”‚ â”œâ”€â”€ Experimental Design & Scientific Methodology           â”‚
-   â”‚ â”œâ”€â”€ Ultrasonic Interferometry & Acoustic Measurements      â”‚
-   â”‚ â”œâ”€â”€ Medical Physics Applications & Diagnostic Techniques   â”‚
-   â”‚ â”œâ”€â”€ Nuclear Physics Principles & Radiation Safety          â”‚
-   â”‚ â”œâ”€â”€ Data Analysis & Visualization (Python, MATLAB)         â”‚
-   â”‚ â”œâ”€â”€ Scientific Writing & Peer Review Process              â”‚
-   â”‚ â””â”€â”€ Laboratory Instrumentation & Calibration               â”‚
-   â”‚                                                             â”‚
-   â”‚ Current Research Interests:                                 â”‚
-   â”‚ â”œâ”€â”€ Nuclear Physics Applications in Technology             â”‚
-   â”‚ â”œâ”€â”€ Medical Physics & Diagnostic Imaging Systems           â”‚
-   â”‚ â”œâ”€â”€ Quantum Computing & Cryptographic Applications         â”‚
-   â”‚ â””â”€â”€ IoT Sensors & Physics-Based Security Systems           â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-âš™ï¸ SYSTEMS & INFRASTRUCTURE
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ Operating Systems:                                          â”‚
-   â”‚ â”œâ”€â”€ Linux Distributions (Ubuntu, Kali, CentOS)            â”‚
-   â”‚ â”œâ”€â”€ Windows (Desktop & Server Environments)                â”‚
-   â”‚ â””â”€â”€ Cross-Platform Development Environments                â”‚
-   â”‚                                                             â”‚
-   â”‚ Networking & Security:                                      â”‚
-   â”‚ â”œâ”€â”€ TCP/IP Networking (Subnetting, Routing, Switching)     â”‚
-   â”‚ â”œâ”€â”€ Network Protocols (HTTP/HTTPS, DNS, DHCP)             â”‚
-   â”‚ â”œâ”€â”€ Firewall Configuration & Network Security              â”‚
-   â”‚ â”œâ”€â”€ VPN Technologies & Encrypted Communications            â”‚
-   â”‚ â”œâ”€â”€ Intrusion Detection Systems (IDS/IPS)                  â”‚
-   â”‚ â””â”€â”€ Cloud Security Concepts & Best Practices               â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ“± SPECIALIZED TECHNOLOGIES
-   â”œâ”€â”€ Cross-Platform Development Tools & Frameworks
-   â”œâ”€â”€ Mobile Application Development (Native & Hybrid)
-   â”œâ”€â”€ Database Management Systems (SQL & NoSQL)
-   â”œâ”€â”€ Scientific Computing & Simulation Software
-   â”œâ”€â”€ DevOps Tools & Continuous Integration/Deployment
-   â””â”€â”€ Cloud Platforms & Containerization Technologies
-
-ðŸŒ SOFT SKILLS & LANGUAGES
-   â”œâ”€â”€ Technical Communication & Documentation
-   â”œâ”€â”€ Project Management & Team Collaboration
-   â”œâ”€â”€ Problem-Solving & Analytical Thinking
-   â”œâ”€â”€ Continuous Learning & Technology Adaptation
-   â””â”€â”€ Multilingual: English, Malayalam, Tamil (Fluent)
-
-ðŸ“ˆ CONTINUOUS PROFESSIONAL DEVELOPMENT
-   â”œâ”€â”€ Regular participation in cybersecurity conferences
-   â”œâ”€â”€ Open-source project contributions and community involvement
-   â”œâ”€â”€ Industry certification maintenance and skill updates
-   â””â”€â”€ Research publication and academic collaboration`,
-
-            methodology: `ADVANCED PENETRATION TESTING METHODOLOGY
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸ“‹ PHASE 1: STRATEGIC RECONNAISSANCE (OSINT++)
-â”œâ”€â”€ Advanced Social Media Intelligence (SOCMINT)
-â”œâ”€â”€ Corporate Infrastructure Mapping via Shodan/Censys
-â”œâ”€â”€ Email Pattern Analysis & Breach Database Correlation
-â”œâ”€â”€ Dark Web Intelligence Gathering
-â”œâ”€â”€ Supply Chain & Third-Party Risk Assessment
-â””â”€â”€ Geolocation Intelligence & Physical Security Recon
-
-ðŸŽ¯ PHASE 2: ACTIVE ENUMERATION & DISCOVERY
-â”œâ”€â”€ Stealth Network Scanning (Custom TCP/UDP techniques)
-â”œâ”€â”€ Service Fingerprinting with Custom Signatures
-â”œâ”€â”€ SSL/TLS Configuration Analysis & Cipher Weakness Detection
-â”œâ”€â”€ DNS Zone Transfer & Cache Poisoning Tests
-â”œâ”€â”€ SNMP Community String Enumeration
-â””â”€â”€ Wireless Network Discovery & Analysis
-
-âš¡ PHASE 3: VULNERABILITY ASSESSMENT & CORRELATION
-â”œâ”€â”€ Automated Scanner Integration (Nessus, OpenVAS, Nuclei)
-â”œâ”€â”€ Manual Code Review & Static Analysis
-â”œâ”€â”€ Custom Vulnerability Validation Scripts
-â”œâ”€â”€ CVE Database Cross-Reference & Exploit Availability
-â”œâ”€â”€ Business Logic Flaw Identification
-â””â”€â”€ Zero-Day Research & Proof-of-Concept Development
-
-ðŸ”“ PHASE 4: EXPLOITATION & LATERAL MOVEMENT
-â”œâ”€â”€ Multi-Stage Payload Delivery & Evasion
-â”œâ”€â”€ Living-off-the-Land Techniques (LOLBins)
-â”œâ”€â”€ Active Directory Enumeration & Privilege Escalation
-â”œâ”€â”€ Kerberos Attack Vectors (Golden/Silver Tickets)
-â”œâ”€â”€ Memory Injection & Process Hollowing
-â””â”€â”€ Advanced Persistence Mechanisms
-
-ðŸ PHASE 5: POST-EXPLOITATION & EXFILTRATION
-â”œâ”€â”€ Sensitive Data Discovery & Classification
-â”œâ”€â”€ Credential Harvesting & Password Analysis
-â”œâ”€â”€ Network Lateral Movement & Pivoting
-â”œâ”€â”€ Data Exfiltration Simulation (DNS/ICMP/HTTPS)
-â”œâ”€â”€ Anti-Forensics & Log Evasion
-â””â”€â”€ Persistence & Backdoor Installation
-
-ðŸ“Š PHASE 6: REPORTING & REMEDIATION SUPPORT
-â”œâ”€â”€ Executive Summary with Business Risk Context
-â”œâ”€â”€ Technical Findings with Detailed Exploitation Steps
-â”œâ”€â”€ CVSS v3.1 Scoring & Risk Prioritization Matrix
-â”œâ”€â”€ Remediation Roadmap with Implementation Timelines
-â””â”€â”€ Re-testing & Validation Support`,
-
-            tools: `PROFESSIONAL SECURITY ARSENAL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸ”´ RECONNAISSANCE & INTELLIGENCE
-   â”œâ”€â”€ Nmap (Advanced NSE scripting & timing optimization)
-   â”œâ”€â”€ Masscan (High-speed port discovery - 10M+ pps)
-   â”œâ”€â”€ Amass (Advanced subdomain enumeration & visualization)
-   â”œâ”€â”€ theHarvester (OSINT email/subdomain/employee gathering)
-   â”œâ”€â”€ Shodan CLI (Internet-wide device & service discovery)
-   â”œâ”€â”€ Censys (Certificate transparency & infrastructure mapping)
-   â”œâ”€â”€ Maltego (Link analysis & threat intelligence correlation)
-   â””â”€â”€ Custom Python/Go reconnaissance frameworks
-
-ðŸŸ  VULNERABILITY ASSESSMENT & SCANNING
-   â”œâ”€â”€ Nessus Professional (Authenticated & unauthenticated scanning)
-   â”œâ”€â”€ OpenVAS (Open-source vulnerability management)
-   â”œâ”€â”€ Nuclei (Community-driven vulnerability scanner)
-   â”œâ”€â”€ Nikto (Web server security scanner with custom rules)
-   â”œâ”€â”€ Wpscan (WordPress security assessment)
-   â”œâ”€â”€ Netsparker (Automated web application security testing)
-   â”œâ”€â”€ Acunetix (Advanced web vulnerability scanner)
-   â””â”€â”€ Custom vulnerability validation scripts (Python/Bash)
-
-ðŸŸ¡ WEB APPLICATION SECURITY TESTING
-   â”œâ”€â”€ Burp Suite Professional (Manual testing & extensions)
-   â”œâ”€â”€ OWASP ZAP (Automated web app scanning & fuzzing)
-   â”œâ”€â”€ SQLmap (Advanced SQL injection exploitation)
-   â”œâ”€â”€ Commix (Command injection exploitation toolkit)
-   â”œâ”€â”€ XSStrike (Advanced XSS detection & exploitation)
-   â”œâ”€â”€ JWT_tool (JSON Web Token security testing)
-   â”œâ”€â”€ Gobuster/Dirb (Directory & file enumeration)
-   â””â”€â”€ Custom web application testing frameworks
-
-ðŸŸ¢ EXPLOITATION & POST-EXPLOITATION
-   â”œâ”€â”€ Metasploit Framework (Modular exploitation platform)
-   â”œâ”€â”€ Cobalt Strike (Advanced threat emulation & C2)
-   â”œâ”€â”€ Empire/Starkiller (PowerShell post-exploitation)
-   â”œâ”€â”€ Covenant (.NET command & control framework)
-   â”œâ”€â”€ BloodHound (Active Directory attack path analysis)
-   â”œâ”€â”€ Mimikatz (Windows credential extraction)
-   â”œâ”€â”€ Responder (LLMNR/NBT-NS poisoning & credential capture)
-   â””â”€â”€ Custom exploit development (Python/C/Assembly)
-
-ðŸ”µ NETWORK ANALYSIS & TRAFFIC INSPECTION
-   â”œâ”€â”€ Wireshark (Advanced packet analysis & protocol dissection)
-   â”œâ”€â”€ Tcpdump (Command-line packet capture & analysis)
-   â”œâ”€â”€ Ngrep (Network packet analyzer with regex support)
-   â”œâ”€â”€ Ettercap (Comprehensive suite for MITM attacks)
-   â”œâ”€â”€ Bettercap (Powerful network attack & monitoring framework)
-   â””â”€â”€ Custom network analysis tools (Scapy/Python)
-
-âš« FORENSICS & MALWARE ANALYSIS
-   â”œâ”€â”€ Volatility (Advanced memory forensics framework)
-   â”œâ”€â”€ YARA (Malware identification & classification rules)
-   â”œâ”€â”€ IDA Pro (Advanced disassembler & debugger)
-   â”œâ”€â”€ Ghidra (Software reverse engineering suite)
-   â”œâ”€â”€ OllyDbg (Dynamic analysis & debugging)
-   â”œâ”€â”€ Cuckoo Sandbox (Automated malware analysis)
-   â””â”€â”€ Custom malware analysis laboratory environment`,
-
-            certifications: `PROFESSIONAL CERTIFICATIONS & CREDENTIALS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸŽ–ï¸  ELITE PENETRATION TESTING CERTIFICATIONS:
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ”¥ RedTeam Hacker Academy - Advanced Penetration    â”‚
-   â”‚    â””â”€â”€ 80-hour intensive hands-on training          â”‚
-   â”‚    â””â”€â”€ Advanced exploitation & evasion techniques   â”‚
-   â”‚    â””â”€â”€ Custom payload & exploit development         â”‚
-   â”‚    â””â”€â”€ Military-grade operational security          â”‚
-   â”‚                                                     â”‚
-   â”‚ âš¡ eLearnSecurity eXploit Developer (eXPD)          â”‚
-   â”‚    â””â”€â”€ Advanced exploit development certification   â”‚
-   â”‚    â””â”€â”€ Buffer overflow & format string attacks     â”‚
-   â”‚    â””â”€â”€ Return-oriented programming (ROP)            â”‚
-   â”‚    â””â”€â”€ Kernel exploitation techniques               â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ›¡ï¸  INDUSTRY-STANDARD CERTIFICATIONS:
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ† Cisco Certified Ethical Hacker (CEH v12)         â”‚
-   â”‚    â””â”€â”€ EC-Council Master-level certification        â”‚
-   â”‚    â””â”€â”€ 340+ penetration testing tools mastery      â”‚
-   â”‚    â””â”€â”€ Advanced persistent threat (APT) simulation  â”‚
-   â”‚    â””â”€â”€ Legal & regulatory compliance expertise      â”‚
-   â”‚                                                     â”‚
-   â”‚ ðŸ”’ Fortinet Network Security Expert (NSE 4-7)       â”‚
-   â”‚    â””â”€â”€ Fortinet Cybersecurity Associate (FCSA)      â”‚
-   â”‚    â””â”€â”€ Next-generation firewall architecture        â”‚
-   â”‚    â””â”€â”€ Advanced threat protection configuration     â”‚
-   â”‚    â””â”€â”€ Security fabric implementation & management  â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸŽ“ ACADEMIC & SPECIALIZED CREDENTIALS:
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ”¬ M.Sc Physics (Acoustics & Signal Processing)     â”‚
-   â”‚    â””â”€â”€ New College, University of Madras            â”‚
-   â”‚    â””â”€â”€ Advanced mathematical modeling expertise     â”‚
-   â”‚    â””â”€â”€ Signal processing & pattern recognition      â”‚
-   â”‚    â””â”€â”€ Research in acoustic wave propagation        â”‚
-   â”‚                                                     â”‚
-   â”‚ ðŸ’» Full Stack Web Development (NIIT Chennai)        â”‚
-   â”‚    â””â”€â”€ Secure application development practices     â”‚
-   â”‚    â””â”€â”€ OWASP Top 10 compliance implementation       â”‚
-   â”‚    â””â”€â”€ DevSecOps & CI/CD security integration       â”‚
-   â”‚    â””â”€â”€ Cloud security architecture (AWS/Azure)      â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ… CONTINUOUS PROFESSIONAL DEVELOPMENT:
-   â”œâ”€â”€ Annual SANS training participation (FOR508, SEC560, SEC660)
-   â”œâ”€â”€ Regular conference attendance (DEF CON, Black Hat, BSides)
-   â”œâ”€â”€ Bug bounty program participation (HackerOne, Bugcrowd)
-   â”œâ”€â”€ Open source security tool contribution
-   â””â”€â”€ Cybersecurity research publication & peer review`,
-
-            services: `COMPREHENSIVE CYBERSECURITY SERVICES PORTFOLIO
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸŽ¯ ADVANCED PENETRATION TESTING SERVICES:
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ”´ Network Penetration Testing                      â”‚
-   â”‚    â”œâ”€â”€ External network security assessment         â”‚
-   â”‚    â”œâ”€â”€ Internal network lateral movement testing    â”‚
-   â”‚    â”œâ”€â”€ Wireless network security evaluation         â”‚
-   â”‚    â”œâ”€â”€ VPN & remote access security analysis        â”‚
-   â”‚    â””â”€â”€ IoT & SCADA system security testing          â”‚
-   â”‚                                                     â”‚
-   â”‚ ðŸŸ  Web Application Security Testing                 â”‚
-   â”‚    â”œâ”€â”€ OWASP Top 10 comprehensive assessment        â”‚
-   â”‚    â”œâ”€â”€ API security testing (REST/GraphQL/SOAP)     â”‚
-   â”‚    â”œâ”€â”€ Single sign-on (SSO) security evaluation     â”‚
-   â”‚    â”œâ”€â”€ Mobile application security testing          â”‚
-   â”‚    â””â”€â”€ Thick client application assessment          â”‚
-   â”‚                                                     â”‚
-   â”‚ ðŸŸ¡ Cloud Security Assessment                        â”‚
-   â”‚    â”œâ”€â”€ AWS/Azure/GCP security configuration review  â”‚
-   â”‚    â”œâ”€â”€ Container & Kubernetes security testing      â”‚
-   â”‚    â”œâ”€â”€ Serverless application security assessment   â”‚
-   â”‚    â”œâ”€â”€ Cloud identity & access management review    â”‚
-   â”‚    â””â”€â”€ Multi-cloud security architecture analysis   â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-âš”ï¸  RED TEAM & ADVERSARY SIMULATION:
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ”¥ Advanced Persistent Threat (APT) Simulation      â”‚
-   â”‚    â”œâ”€â”€ Nation-state actor TTPs implementation       â”‚
-   â”‚    â”œâ”€â”€ Custom malware & payload development         â”‚
-   â”‚    â”œâ”€â”€ Advanced social engineering campaigns        â”‚
-   â”‚    â”œâ”€â”€ Physical security breach simulation          â”‚
-   â”‚    â””â”€â”€ Multi-vector attack scenario execution       â”‚
-   â”‚                                                     â”‚
-   â”‚ âš¡ Purple Team Collaborative Exercises              â”‚
-   â”‚    â”œâ”€â”€ Joint red/blue team training scenarios       â”‚
-   â”‚    â”œâ”€â”€ Detection capability maturity assessment     â”‚
-   â”‚    â”œâ”€â”€ Incident response procedure validation       â”‚
-   â”‚    â”œâ”€â”€ SOC analyst skill development programs       â”‚
-   â”‚    â””â”€â”€ Threat hunting methodology enhancement       â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ›¡ï¸  SECURITY ARCHITECTURE & CONSULTING:
-   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â”‚ ðŸ—ï¸  Zero Trust Architecture Design & Implementation â”‚
-   â”‚    â”œâ”€â”€ Identity-centric security model design       â”‚
-   â”‚    â”œâ”€â”€ Micro-segmentation strategy development      â”‚
-   â”‚    â”œâ”€â”€ Privileged access management implementation  â”‚
-   â”‚    â”œâ”€â”€ Continuous verification framework setup      â”‚
-   â”‚    â””â”€â”€ Zero trust maturity roadmap creation         â”‚
-   â”‚                                                     â”‚
-   â”‚ ðŸ“‹ Compliance & Regulatory Assessment               â”‚
-   â”‚    â”œâ”€â”€ SOC 2 Type II compliance preparation         â”‚
-   â”‚    â”œâ”€â”€ ISO 27001/27002 implementation support       â”‚
-   â”‚    â”œâ”€â”€ PCI DSS compliance assessment & remediation  â”‚
-   â”‚    â”œâ”€â”€ NIST Cybersecurity Framework alignment       â”‚
-   â”‚    â””â”€â”€ GDPR/CCPA privacy impact assessment          â”‚
-   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-
-ðŸ’° PROFESSIONAL CONSULTING RATES:
-   â”œâ”€â”€ Penetration Testing: â‚¹20,000-35,000/day
-   â”œâ”€â”€ Red Team Exercise: â‚¹75,000-150,000/week
-   â”œâ”€â”€ Security Architecture Review: â‚¹25,000-40,000/day
-   â”œâ”€â”€ Compliance Assessment: â‚¹30,000-50,000/day
-   â”œâ”€â”€ Incident Response: â‚¹40,000-60,000/day (24/7 availability)
-   â””â”€â”€ Custom Enterprise Packages: Negotiable based on scope
-
-ðŸ“ž ENGAGEMENT PROCESS:
-   1. Initial security consultation (Free - 30 minutes)
-   2. Detailed scope definition & statement of work
-   3. Legal agreements & rules of engagement
-   4. Security testing execution & real-time updates
-   5. Comprehensive reporting with remediation roadmap
-   6. Post-engagement support & validation testing
-
-ðŸŽ¯ RESPONSE COMMITMENT: <12 hours for all critical inquiries`,
-
-            contact: `PROFESSIONAL CONTACT INFORMATION
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-ðŸ“§ SECURE COMMUNICATIONS:
-   â”œâ”€â”€ Primary: salmanulfariss642@gmail.com
-   â”œâ”€â”€ Signal: +91 99627 26106 (End-to-end encrypted messaging)
-   â”œâ”€â”€ Telegram: @salmanul_security (Verified account)
-   â””â”€â”€ PGP Key: Available upon request for sensitive communications
-
-ðŸ“± DIRECT COMMUNICATION CHANNELS:
-   â”œâ”€â”€ Mobile: +91 99627 26106 (WhatsApp/Signal available)
-   â”œâ”€â”€ Landline: Available for enterprise clients
-   â””â”€â”€ Emergency Hotline: 24/7 for active incident response clients
-
-ðŸ’¼ PROFESSIONAL NETWORKS:
-   â”œâ”€â”€ LinkedIn: linkedin.com/in/p-salmanul-faris
-   â”œâ”€â”€ GitHub: github.com/salman2610 (Security tools & research)
-   â”œâ”€â”€ Twitter: @salmanul_sec (Security insights & threat intelligence)
-   â””â”€â”€ ResearchGate: Academic publications & security research
-
-ðŸŒ DIGITAL PRESENCE:
-   â”œâ”€â”€ Professional Website: salmanul-security.dev
-   â”œâ”€â”€ Security Blog: blog.salmanul-security.dev
-   â”œâ”€â”€ Vulnerability Disclosures: HackerOne/Bugcrowd profiles
-   â””â”€â”€ Conference Talks: YouTube channel with security presentations
-
-ðŸ“ SERVICE LOCATIONS:
-   â”œâ”€â”€ Primary Base: Chennai, Tamil Nadu, India
-   â”œâ”€â”€ Time Zone: IST (UTC+5:30)
-   â”œâ”€â”€ Travel Availability: Pan-India & International (on-request)
-   â””â”€â”€ Remote Services: Global coverage via secure channels
-
-ðŸ”’ SECURITY CLEARANCES & CERTIFICATIONS:
-   â”œâ”€â”€ Government Project Eligibility: Available
-   â”œâ”€â”€ Banking & Financial Services: Approved vendor status
-   â”œâ”€â”€ Healthcare (HIPAA): Compliant service delivery
-   â””â”€â”€ Background Verification: Available upon request
-
-â° AVAILABILITY & RESPONSE TIMES:
-   â”œâ”€â”€ Standard Inquiries: <24 hours
-   â”œâ”€â”€ Urgent Security Matters: <4 hours
-   â”œâ”€â”€ Critical Incident Response: <1 hour (for retainer clients)
-   â””â”€â”€ Weekend/Holiday Support: Available for enterprise clients
-
-ðŸ’° CONSULTATION STRUCTURE:
-   â”œâ”€â”€ Initial Assessment: Free (30-minute security consultation)
-   â”œâ”€â”€ Detailed Scoping: â‚¹5,000 (credited toward engagement)
-   â”œâ”€â”€ Emergency Response: â‚¹15,000/hour (immediate availability)
-   â””â”€â”€ Long-term Retainer: Custom packages with preferential rates`,
-
-            scan: 'DEMO_SCAN',
             clear: 'CLEAR_TERMINAL',
             help: `AVAILABLE SECURITY CONSOLE COMMANDS:
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+────────────────────────────────────────────────────────────────────────
 
-ðŸ“‹ PROFILE & CREDENTIALS:
-   â”œâ”€â”€ whoami          - Complete professional profile & achievements
-   â”œâ”€â”€ experience      - Detailed work history & notable projects
-   â”œâ”€â”€ certifications  - Professional certifications & credentials
-   â””â”€â”€ services        - Comprehensive service portfolio & rates
+📋 PROFILE & CREDENTIALS:
+   ├── whoami          - Complete professional profile & achievements
+   ├── experience      - Detailed work history & notable projects
+   └── clear           - Clear terminal screen
 
-ðŸ› ï¸  TECHNICAL EXPERTISE:
-   â”œâ”€â”€ methodology     - Advanced penetration testing methodology
-   â”œâ”€â”€ tools           - Professional security arsenal & frameworks
-   â””â”€â”€ frameworks      - Security standards & compliance expertise
+🔧 TECHNICAL EXPERTISE:
+   ├── scan            - Launch advanced vulnerability scanner demo
+   └── help            - Show this help message
 
-ðŸ“ž BUSINESS INFORMATION:
-   â”œâ”€â”€ contact         - Professional contact information & channels
-   â””â”€â”€ services        - Service offerings & consultation rates
+📞 BUSINESS INFORMATION:
+   └── contact         - Professional contact information
 
-ðŸŽ® INTERACTIVE FEATURES:
-   â”œâ”€â”€ scan            - Launch advanced vulnerability scanner demo
-   â””â”€â”€ clear           - Clear terminal screen
+💡 USAGE TIPS:
+   • Type any command and press Enter to execute
+   • Use arrow keys to navigate command history
+   • Tab completion available for faster command entry
+   • All commands are case-insensitive for your convenience
 
-ðŸ’¡ USAGE TIPS:
-   â€¢ Type any command and press Enter to execute
-   â€¢ Use arrow keys to navigate command history
-   â€¢ Tab completion available for faster command entry
-   â€¢ All commands are case-insensitive for your convenience
-
-ðŸ”’ SECURITY NOTE: This terminal simulates real penetration testing
+🔐 SECURITY NOTE: This terminal simulates real penetration testing
     workflows for demonstration purposes. All data is encrypted and
     no actual system compromise occurs during demonstrations.`
         };
@@ -3012,20 +2687,14 @@
             outputDiv.className = 'terminal-output';
             
             if (commands[cmd]) {
-                if (['methodology', 'tools', 'experience', 'services', 'certifications'].includes(cmd)) {
-                    typeText(outputDiv, commands[cmd], 12);
-                } else {
-                    outputDiv.textContent = commands[cmd];
-                }
+                outputDiv.textContent = commands[cmd];
             } else {
                 outputDiv.innerHTML = `Command not found: ${cmd}
 
-Available commands: whoami, experience, methodology, tools, 
-certifications, services, contact, scan, clear, help
+Available commands: whoami, experience, scan, clear, help
 
-ðŸ’¡ Tip: Use 'help' for complete command reference
-     Use 'methodology' for detailed penetration testing process
-     Use 'services' for comprehensive service portfolio`;
+💡 Tip: Use 'help' for complete command reference
+     Use 'scan' to launch vulnerability scanner demo`;
             }
             
             terminal.appendChild(outputDiv);
@@ -3042,20 +2711,6 @@ certifications, services, contact, scan, clear, help
             terminal.scrollTop = terminal.scrollHeight;
             document.getElementById('terminalInput').focus();
             bindTerminalEvents();
-        }
-
-        function typeText(element, text, speed = 20) {
-            element.textContent = '';
-            let index = 0;
-            const timer = setInterval(() => {
-                if (index < text.length) {
-                    element.textContent += text.charAt(index);
-                    index++;
-                    element.parentElement.scrollTop = element.parentElement.scrollHeight;
-                } else {
-                    clearInterval(timer);
-                }
-            }, speed);
         }
 
         function showAdvancedScanDemo() {
@@ -3172,21 +2827,21 @@ certifications, services, contact, scan, clear, help
                     node.classList.add('vulnerable');
                     const cve = node.dataset.cve;
                     results.innerHTML += `[${new Date().toLocaleTimeString()}] ${ip}: CRITICAL - ${cve}
-    â””â”€â”€ CVSS Score: 9.8 | Exploitable: YES | Patch: Available
-    â””â”€â”€ Impact: Remote Code Execution | Confidentiality: HIGH
-    â””â”€â”€ Recommendation: Immediate patching required within 24h
+    └── CVSS Score: 9.8 | Exploitable: YES | Patch: Available
+    └── Impact: Remote Code Execution | Confidentiality: HIGH
+    └── Recommendation: Immediate patching required within 24h
 \n`;
                 } else if (isWarning) {
                     node.classList.add('warning');
                     results.innerHTML += `[${new Date().toLocaleTimeString()}] ${ip}: MEDIUM - Weak cryptographic configuration
-    â””â”€â”€ CVSS Score: 5.3 | Impact: Information Disclosure
-    â””â”€â”€ SSL/TLS misconfiguration detected | Weak cipher suites
-    â””â”€â”€ Recommendation: Update SSL/TLS configuration
+    └── CVSS Score: 5.3 | Impact: Information Disclosure
+    └── SSL/TLS misconfiguration detected | Weak cipher suites
+    └── Recommendation: Update SSL/TLS configuration
 \n`;
                 } else {
                     node.classList.add('secure');
                     results.innerHTML += `[${new Date().toLocaleTimeString()}] ${ip}: SECURE - All security checks passed
-    â””â”€â”€ No vulnerabilities detected | Security posture: EXCELLENT
+    └── No vulnerabilities detected | Security posture: EXCELLENT
 \n`;
                 }
                 results.scrollTop = results.scrollHeight;
@@ -3217,13 +2872,13 @@ certifications, services, contact, scan, clear, help
                     const secureCount = document.querySelectorAll('.vuln-node.secure').length;
                     
                     results.innerHTML += `\n[SUMMARY] Advanced Security Assessment Complete
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-â”Œâ”€ VULNERABILITY DISTRIBUTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ ðŸ”´ Critical Vulnerabilities: ${vulnerableCount.toString().padStart(2)} (Immediate Action Required)  â”‚
-â”‚ ðŸŸ¡ Medium Risk Issues: ${warningCount.toString().padStart(6)} (Schedule Remediation)        â”‚  
-â”‚ ðŸŸ¢ Secure Hosts: ${secureCount.toString().padStart(12)} (Maintain Current Posture)      â”‚
-â”‚ ðŸ“Š Total Hosts Assessed: ${nodes.length.toString().padStart(4)} (100% Coverage Achieved)   â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+────────────────────────────────────────────────────────────────────────
+┌─ VULNERABILITY DISTRIBUTION ──────────────────────────────────────────┐
+│ 🔴 Critical Vulnerabilities: ${vulnerableCount.toString().padStart(2)} (Immediate Action Required)  │
+│ 🟡 Medium Risk Issues: ${warningCount.toString().padStart(6)} (Schedule Remediation)        │  
+│ 🟢 Secure Hosts: ${secureCount.toString().padStart(12)} (Maintain Current Posture)      │
+│ 📊 Total Hosts Assessed: ${nodes.length.toString().padStart(4)} (100% Coverage Achieved)   │
+└───────────────────────────────────────────────────────────────────────┘
 
 [RISK ANALYSIS] Overall Security Posture: ${vulnerableCount > 5 ? 'HIGH RISK' : vulnerableCount > 2 ? 'MEDIUM RISK' : 'LOW RISK'}
 [PRIORITY] Focus on ${vulnerableCount} critical vulnerabilities immediately
@@ -3271,7 +2926,7 @@ certifications, services, contact, scan, clear, help
             
             const reportContent = `
 ADVANCED VULNERABILITY ASSESSMENT REPORT
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+────────────────────────────────────────────────────────────────────────
 
 Client: Demonstration Environment
 Assessor: P. Salmanul Faris (Certified Security Professional)
@@ -3312,7 +2967,7 @@ For questions regarding this report, contact:
 P. Salmanul Faris - salmanulfariss642@gmail.com
 Mobile: +91 99627 26106
 
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+────────────────────────────────────────────────────────────────────────
 End of Report - Confidential & Proprietary
             `.trim();
             
@@ -3329,291 +2984,156 @@ End of Report - Confidential & Proprietary
             showNotification(`Professional assessment report exported as ${filename}`, 'success');
         }
 
-        // Enhanced Contact Form Handler
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const form = event.target;
-            const formData = new FormData(form);
-            
-            // Enhanced form validation
-            const name = formData.get('name').trim();
-            const email = formData.get('email').trim();
-            const service = formData.get('service');
-            const message = formData.get('message').trim();
-            
-            if (!name || !email || !service || !message) {
-                showNotification('Please fill in all required fields.', 'error');
-                return;
-            }
-            
-            // Enhanced email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showNotification('Please enter a valid email address.', 'error');
-                return;
-            }
-            
-            // Message length validation
-            if (message.length < 50) {
-                showNotification('Please provide more details about your security requirements (minimum 50 characters).', 'error');
-                return;
-            }
-            
-            // Simulate form submission with enhanced UX
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Securing Transmission...';
-            
-            setTimeout(() => {
-                // Create professional email body
-                const emailBody = `
-SECURITY CONSULTATION REQUEST
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-CLIENT INFORMATION:
-Name: ${name}
-Email: ${email}
-Company: ${formData.get('company') || 'Individual/Startup'}
-Service Interest: ${service.replace('-', ' ').toUpperCase()}
-
-PROJECT REQUIREMENTS:
-${message}
-
-ENGAGEMENT PREFERENCES:
-- Preferred Communication: Email/Phone
-- Timeline: As discussed
-- Budget Considerations: To be discussed
-- Compliance Requirements: To be identified
-
-NEXT STEPS:
-1. Initial security consultation (Free - 30 minutes)
-2. Detailed scope definition & statement of work
-3. Security assessment execution & reporting
-4. Post-engagement support & validation
-
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-This request was submitted through the secure contact form at
-P. Salmanul Faris - Cybersecurity Professional Portfolio
-
-Response Commitment: Within 12 hours
-Emergency Contact: +91 99627 26106
-                `.trim();
-                
-                // Create mailto link
-                const subject = `Security Consultation Request - ${service.replace('-', ' ').toUpperCase()}`;
-                const mailtoLink = `mailto:salmanulfariss642@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-                
-                // Open email client
-                window.location.href = mailtoLink;
-                
-                // Show enhanced success message
-                showNotification('Email client opened with your detailed consultation request. Please send the email to complete your request.', 'success');
-                
-                setTimeout(() => {
-                    showNotification('Response time: Within 12 hours | Urgent matters: +91 99627 26106', 'info');
-                }, 2000);
-                
-                // Reset form
-                form.reset();
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Secure Request';
-                
-            }, 2000);
-        }
-
         // Enhanced Project Demo Functions
         function showProjectDemo(projectType) {
             const demos = {
                 'vuln-scanner': `AI-ENHANCED VULNERABILITY SCANNER - TECHNICAL SPECIFICATIONS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+────────────────────────────────────────────────────────────────────────
 
-ðŸ¤– ARTIFICIAL INTELLIGENCE CAPABILITIES:
-â”œâ”€â”€ Machine Learning Vulnerability Classification (99.3% accuracy)
-â”œâ”€â”€ Automated False Positive Reduction (85% improvement)
-â”œâ”€â”€ Predictive Threat Modeling & Risk Scoring
-â”œâ”€â”€ Natural Language Processing for CVE Analysis
-â””â”€â”€ Behavioral Pattern Recognition for Zero-Day Detection
+🤖 ARTIFICIAL INTELLIGENCE CAPABILITIES:
+├── Machine Learning Vulnerability Classification (99.3% accuracy)
+├── Automated False Positive Reduction (85% improvement)
+├── Predictive Threat Modeling & Risk Scoring
+├── Natural Language Processing for CVE Analysis
+└── Behavioral Pattern Recognition for Zero-Day Detection
 
-ðŸ” ADVANCED SCANNING TECHNOLOGIES:
-â”œâ”€â”€ Multi-threaded Port Discovery (50,000+ hosts/minute)
-â”œâ”€â”€ Stealth Evasion Techniques (Firewall/IDS bypass)
-â”œâ”€â”€ Custom Protocol Fingerprinting & Service Detection  
-â”œâ”€â”€ SSL/TLS Security Assessment & Cipher Analysis
-â”œâ”€â”€ Web Application Crawling & Parameter Discovery
-â””â”€â”€ Network Topology Mapping & Asset Classification
+🔍 ADVANCED SCANNING TECHNOLOGIES:
+├── Multi-threaded Port Discovery (50,000+ hosts/minute)
+├── Stealth Evasion Techniques (Firewall/IDS bypass)
+├── Custom Protocol Fingerprinting & Service Detection  
+├── SSL/TLS Security Assessment & Cipher Analysis
+├── Web Application Crawling & Parameter Discovery
+└── Network Topology Mapping & Asset Classification
 
-âš¡ REAL-TIME INTELLIGENCE INTEGRATION:
-â”œâ”€â”€ NIST National Vulnerability Database (NVD) API
-â”œâ”€â”€ MITRE CVE Database with Real-time Updates
-â”œâ”€â”€ Exploit-DB Integration for PoC Availability
-â”œâ”€â”€ Custom Threat Intelligence Feeds (15+ sources)
-â”œâ”€â”€ Dark Web Monitoring for Exploit Marketplaces
-â””â”€â”€ Vendor Security Advisory Correlation
+⚡ REAL-TIME INTELLIGENCE INTEGRATION:
+├── NIST National Vulnerability Database (NVD) API
+├── MITRE CVE Database with Real-time Updates
+├── Exploit-DB Integration for PoC Availability
+├── Custom Threat Intelligence Feeds (15+ sources)
+├── Dark Web Monitoring for Exploit Marketplaces
+└── Vendor Security Advisory Correlation
 
-ðŸ“Š ENTERPRISE REPORTING & ANALYTICS:
-â”œâ”€â”€ Executive Dashboard with Risk Metrics
-â”œâ”€â”€ CVSS v3.1 Scoring with Business Impact Context
-â”œâ”€â”€ Compliance Mapping (PCI DSS, SOX, HIPAA, GDPR)
-â”œâ”€â”€ Trend Analysis & Vulnerability Lifecycle Tracking
-â”œâ”€â”€ Automated Remediation Priority Ranking
-â””â”€â”€ Integration with JIRA, ServiceNow, Splunk
+📊 ENTERPRISE REPORTING & ANALYTICS:
+├── Executive Dashboard with Risk Metrics
+├── CVSS v3.1 Scoring with Business Impact Context
+├── Compliance Mapping (PCI DSS, SOX, HIPAA, GDPR)
+├── Trend Analysis & Vulnerability Lifecycle Tracking
+├── Automated Remediation Priority Ranking
+└── Integration with JIRA, ServiceNow, Splunk
 
-ðŸŽ¯ PROVEN PERFORMANCE METRICS:
-â”œâ”€â”€ 500+ Critical Vulnerabilities Identified
-â”œâ”€â”€ 50+ Fortune 500 Clients Secured  
-â”œâ”€â”€ 15+ Zero-Day Discoveries Validated
-â”œâ”€â”€ 99.7% Uptime with 24/7 Monitoring
-â””â”€â”€ Average 78% Reduction in Security Incidents
+🎯 PROVEN PERFORMANCE METRICS:
+├── 500+ Critical Vulnerabilities Identified
+├── 50+ Fortune 500 Clients Secured  
+├── 15+ Zero-Day Discoveries Validated
+├── 99.7% Uptime with 24/7 Monitoring
+└── Average 78% Reduction in Security Incidents
+
+GitHub Repository: https://github.com/salman2610/ai-vuln-scanner
 
 This revolutionary platform has transformed vulnerability management
 for enterprises globally, reducing security assessment time from
 weeks to hours while dramatically improving accuracy and coverage.`,
 
-                'web-pentest': `ZERO-TOUCH WEB SECURITY SUITE - COMPREHENSIVE ANALYSIS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+                'web-pentest': `OWASP SECURITY FRAMEWORK - COMPREHENSIVE ANALYSIS
+────────────────────────────────────────────────────────────────────────
 
-ðŸŒ COMPLETE OWASP TOP 10 2021 COVERAGE:
-â”œâ”€â”€ A01:2021 â€“ Broken Access Control (Advanced Testing)
-â”‚   â””â”€â”€ IDOR, Privilege Escalation, Directory Traversal
-â”œâ”€â”€ A02:2021 â€“ Cryptographic Failures (Deep Analysis)  
-â”‚   â””â”€â”€ SSL/TLS, Encryption at Rest, Key Management
-â”œâ”€â”€ A03:2021 â€“ Injection Attacks (Multi-vector Testing)
-â”‚   â””â”€â”€ SQL, NoSQL, LDAP, OS Command, SSTI Injection
-â”œâ”€â”€ A04:2021 â€“ Insecure Design (Architecture Analysis)
-â”‚   â””â”€â”€ Threat Modeling, Secure Design Principles
-â””â”€â”€ A05:2021 â€“ Security Misconfiguration (Comprehensive)
-    â””â”€â”€ Server, Database, Cloud, Container Security
+🌐 COMPLETE OWASP TOP 10 2021 COVERAGE:
+├── A01:2021 – Broken Access Control (Advanced Testing)
+│   └── IDOR, Privilege Escalation, Directory Traversal
+├── A02:2021 – Cryptographic Failures (Deep Analysis)  
+│   └── SSL/TLS, Encryption at Rest, Key Management
+├── A03:2021 – Injection Attacks (Multi-vector Testing)
+│   └── SQL, NoSQL, LDAP, OS Command, SSTI Injection
+├── A04:2021 – Insecure Design (Architecture Analysis)
+│   └── Threat Modeling, Secure Design Principles
+└── A05:2021 – Security Misconfiguration (Comprehensive)
+    └── Server, Database, Cloud, Container Security
 
-ðŸ”§ ADVANCED AUTOMATION FRAMEWORKS:
-â”œâ”€â”€ Dynamic Application Security Testing (DAST)
-â”œâ”€â”€ Static Application Security Testing (SAST) Integration
-â”œâ”€â”€ Interactive Application Security Testing (IAST)
-â”œâ”€â”€ Runtime Application Self-Protection (RASP) Testing
-â”œâ”€â”€ API Security Testing (REST, GraphQL, SOAP, gRPC)
-â””â”€â”€ Single Page Application (SPA) Security Assessment
+🔧 ADVANCED AUTOMATION FRAMEWORKS:
+├── Dynamic Application Security Testing (DAST)
+├── Static Application Security Testing (SAST) Integration
+├── Interactive Application Security Testing (IAST)
+├── Runtime Application Self-Protection (RASP) Testing
+├── API Security Testing (REST, GraphQL, SOAP, gRPC)
+└── Single Page Application (SPA) Security Assessment
 
-ðŸš€ CI/CD PIPELINE INTEGRATION:
-â”œâ”€â”€ Jenkins Plugin for Automated Security Testing
-â”œâ”€â”€ GitLab CI/CD Security Stage Implementation
-â”œâ”€â”€ GitHub Actions Security Workflow Templates
-â”œâ”€â”€ Azure DevOps Security Gate Integration
-â”œâ”€â”€ Docker Container Security Scanning
-â””â”€â”€ Kubernetes Security Policy Validation
+🚀 CI/CD PIPELINE INTEGRATION:
+├── Jenkins Plugin for Automated Security Testing
+├── GitLab CI/CD Security Stage Implementation
+├── GitHub Actions Security Workflow Templates
+├── Azure DevOps Security Gate Integration
+├── Docker Container Security Scanning
+└── Kubernetes Security Policy Validation
 
-ðŸ“ˆ ENTERPRISE-GRADE FEATURES:
-â”œâ”€â”€ Multi-tenant Architecture with Role-based Access
-â”œâ”€â”€ Real-time Collaboration Tools for Security Teams
-â”œâ”€â”€ Custom Rule Engine for Organization-specific Tests
-â”œâ”€â”€ Compliance Report Generation (SOC 2, PCI DSS)
-â”œâ”€â”€ Integration with WAF/CDN for Remediation
-â””â”€â”€ Security Training Integration with Findings
+💼 ENTERPRISE-GRADE FEATURES:
+├── Multi-tenant Architecture with Role-based Access
+├── Real-time Collaboration Tools for Security Teams
+├── Custom Rule Engine for Organization-specific Tests
+├── Compliance Report Generation (SOC 2, PCI DSS)
+├── Integration with WAF/CDN for Remediation
+└── Security Training Integration with Findings
 
-ðŸ† INDUSTRY-LEADING RESULTS:
-â”œâ”€â”€ 95% Vulnerability Detection Accuracy Rate
-â”œâ”€â”€ 60% Reduction in Manual Testing Time
-â”œâ”€â”€ 40% Decrease in Security Review Cycles
-â”œâ”€â”€ 99.5% Client Satisfaction Score
-â””â”€â”€ Deployed across 200+ Enterprise Applications
+🏆 INDUSTRY-LEADING RESULTS:
+├── 95% Vulnerability Detection Accuracy Rate
+├── 60% Reduction in Manual Testing Time
+├── 40% Decrease in Security Review Cycles
+├── 99.5% Client Satisfaction Score
+└── Deployed across 200+ Enterprise Applications
+
+GitHub Repository: https://github.com/salman2610/OWASP-Framework
 
 Successfully identified and remediated over 10,000 web application
 vulnerabilities across diverse technology stacks, from legacy
 systems to cutting-edge cloud-native applications.`,
 
-                'threat-intel': `THREAT INTELLIGENCE PLATFORM - ADVANCED ANALYTICS ENGINE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+                'threat-intel': `PURPLE TEAM FRAMEWORK - ADVANCED ANALYTICS ENGINE
+────────────────────────────────────────────────────────────────────────
 
-ðŸ§  ARTIFICIAL INTELLIGENCE & MACHINE LEARNING:
-â”œâ”€â”€ Advanced Threat Actor Profiling & Attribution
-â”œâ”€â”€ Automated Indicator of Compromise (IoC) Extraction
-â”œâ”€â”€ Behavioral Analysis & Anomaly Detection Algorithms
-â”œâ”€â”€ Predictive Threat Modeling Using Neural Networks
-â”œâ”€â”€ Natural Language Processing for Report Analysis
-â””â”€â”€ Graph Analytics for Attack Pattern Correlation
+🧠 ARTIFICIAL INTELLIGENCE & MACHINE LEARNING:
+├── Advanced Threat Actor Profiling & Attribution
+├── Automated Indicator of Compromise (IoC) Extraction
+├── Behavioral Analysis & Anomaly Detection Algorithms
+├── Predictive Threat Modeling Using Neural Networks
+├── Natural Language Processing for Report Analysis
+└── Graph Analytics for Attack Pattern Correlation
 
-ðŸ”„ REAL-TIME INTELLIGENCE AGGREGATION:
-â”œâ”€â”€ 50+ Premium Threat Intelligence Feeds
-â”œâ”€â”€ Dark Web Monitoring & Marketplace Analysis  
-â”œâ”€â”€ Social Media & Underground Forum Surveillance
-â”œâ”€â”€ Government & Military Threat Advisories
-â”œâ”€â”€ Industry-specific Threat Intelligence (Finance, Healthcare)
-â””â”€â”€ Custom Honeypot & Deception Technology Data
+📡 REAL-TIME INTELLIGENCE AGGREGATION:
+├── 50+ Premium Threat Intelligence Feeds
+├── Dark Web Monitoring & Marketplace Analysis  
+├── Social Media & Underground Forum Surveillance
+├── Government & Military Threat Advisories
+├── Industry-specific Threat Intelligence (Finance, Healthcare)
+└── Custom Honeypot & Deception Technology Data
 
-ðŸ“Š ADVANCED THREAT HUNTING CAPABILITIES:
-â”œâ”€â”€ Hypothesis-driven Threat Hunting Methodology
-â”œâ”€â”€ MITRE ATT&CK Framework Integration & Mapping
-â”œâ”€â”€ Custom YARA Rule Development & Management
-â”œâ”€â”€ Sigma Detection Rule Creation & Validation
-â”œâ”€â”€ Timeline Analysis & Attack Reconstruction
-â””â”€â”€ Threat Actor Campaign Tracking & Analysis
+🔎 ADVANCED THREAT HUNTING CAPABILITIES:
+├── Hypothesis-driven Threat Hunting Methodology
+├── MITRE ATT&CK Framework Integration & Mapping
+├── Custom YARA Rule Development & Management
+├── Sigma Detection Rule Creation & Validation
+├── Timeline Analysis & Attack Reconstruction
+└── Threat Actor Campaign Tracking & Analysis
 
-âš¡ AUTOMATED RESPONSE & ORCHESTRATION:
-â”œâ”€â”€ SOAR (Security Orchestration, Automation & Response)
-â”œâ”€â”€ Automated IoC Blocking & Threat Containment
-â”œâ”€â”€ Dynamic Firewall Rule Generation & Deployment
-â”œâ”€â”€ Email Security Gateway Integration
-â”œâ”€â”€ DNS Sinkholing & Traffic Redirection
-â””â”€â”€ Incident Response Playbook Automation
+⚡ AUTOMATED RESPONSE & ORCHESTRATION:
+├── SOAR (Security Orchestration, Automation & Response)
+├── Automated IoC Blocking & Threat Containment
+├── Dynamic Firewall Rule Generation & Deployment
+├── Email Security Gateway Integration
+├── DNS Sinkholing & Traffic Redirection
+└── Incident Response Playbook Automation
 
-ðŸŒ STRATEGIC THREAT INTELLIGENCE:
-â”œâ”€â”€ Geopolitical Risk Assessment & Impact Analysis
-â”œâ”€â”€ Industry Threat Landscape Monitoring
-â”œâ”€â”€ Supply Chain Risk Intelligence
-â”œâ”€â”€ Critical Infrastructure Threat Analysis
-â”œâ”€â”€ Regulatory & Compliance Threat Monitoring
-â””â”€â”€ Executive Threat Briefing & Strategic Reports
+🌍 STRATEGIC THREAT INTELLIGENCE:
+├── Geopolitical Risk Assessment & Impact Analysis
+├── Industry Threat Landscape Monitoring
+├── Supply Chain Risk Intelligence
+├── Critical Infrastructure Threat Analysis
+├── Regulatory & Compliance Threat Monitoring
+└── Executive Threat Briefing & Strategic Reports
+
+GitHub Repository: https://github.com/salman2610/PurpleTeam-Project
 
 This cutting-edge platform processes over 10TB of threat data daily,
 providing actionable intelligence that has prevented 500+ security
-incidents and saved clients millions in potential breach costs.`,
-
-                'redteam-platform': `ADVANCED RED TEAM FRAMEWORK - MILITARY-GRADE SIMULATION
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-
-âš”ï¸  NATION-STATE ATTACK SIMULATION:
-â”œâ”€â”€ Advanced Persistent Threat (APT) Campaign Emulation
-â”‚   â””â”€â”€ APT29, APT28, Lazarus Group, FIN7 TTPs
-â”œâ”€â”€ Multi-stage Attack Chain Development & Execution
-â”œâ”€â”€ Custom Malware Development for Authorized Testing
-â”œâ”€â”€ Supply Chain Attack Simulation & Testing
-â”œâ”€â”€ Social Engineering Campaign Orchestration
-â””â”€â”€ Physical Security Breach Simulation
-
-ðŸ”¥ ADVANCED EVASION & STEALTH TECHNIQUES:
-â”œâ”€â”€ Anti-virus & EDR Evasion Methodologies
-â”œâ”€â”€ Living-off-the-Land (LotL) Technique Implementation
-â”œâ”€â”€ Memory-only Attack Execution (Fileless Malware)
-â”œâ”€â”€ Process Injection & Hollowing Techniques
-â”œâ”€â”€ Domain Fronting & DNS Tunneling C2 Communication
-â””â”€â”€ Encrypted Command & Control Channel Development
-
-ðŸ› ï¸  CUSTOM COMMAND & CONTROL INFRASTRUCTURE:
-â”œâ”€â”€ Cobalt Strike Team Server Customization
-â”œâ”€â”€ Empire & Starkiller Framework Integration
-â”œâ”€â”€ Covenant C2 Framework Deployment
-â”œâ”€â”€ Custom C2 Framework Development (Go, Python, C++)
-â”œâ”€â”€ Redirector Infrastructure & Traffic Obfuscation
-â””â”€â”€ Cloud-based C2 Infrastructure (AWS, Azure, GCP)
-
-ðŸ“Š PURPLE TEAM COLLABORATION TOOLS:
-â”œâ”€â”€ Real-time Attack Simulation Dashboard
-â”œâ”€â”€ Blue Team Detection Capability Assessment
-â”œâ”€â”€ SIEM Rule Validation & Tuning Support
-â”œâ”€â”€ Threat Hunting Exercise Facilitation
-â”œâ”€â”€ Incident Response Procedure Validation
-â””â”€â”€ Security Operations Center (SOC) Training Programs
-
-ðŸŽ¯ COMPREHENSIVE ASSESSMENT METRICS:
-â”œâ”€â”€ Mean Time to Detection (MTTD) Analysis
-â”œâ”€â”€ Mean Time to Response (MTTR) Measurement
-â”œâ”€â”€ Detection Coverage Gap Identification
-â”œâ”€â”€ Security Control Effectiveness Rating
-â”œâ”€â”€ Alert Fatigue & False Positive Analysis
-â””â”€â”€ Threat Intelligence Integration Assessment
-
-This elite framework has successfully compromised 95% of target
-environments during authorized testing, providing invaluable insights
-for strengthening defensive capabilities and incident response procedures.`
+incidents and saved clients millions in potential breach costs.`
             };
 
             // Create enhanced modal with better styling
@@ -3667,6 +3187,99 @@ for strengthening defensive capabilities and incident response procedures.`
                 }
             `;
             document.head.appendChild(style);
+        }
+
+        // Enhanced Contact Form Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Enhanced form validation
+            const name = formData.get('name').trim();
+            const email = formData.get('email').trim();
+            const service = formData.get('service');
+            const message = formData.get('message').trim();
+            
+            if (!name || !email || !service || !message) {
+                showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+            
+            // Enhanced email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Message length validation
+            if (message.length < 50) {
+                showNotification('Please provide more details about your security requirements (minimum 50 characters).', 'error');
+                return;
+            }
+            
+            // Simulate form submission with enhanced UX
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Securing Transmission...';
+            
+            setTimeout(() => {
+                // Create professional email body
+                const emailBody = `
+SECURITY CONSULTATION REQUEST
+────────────────────────────────────────────────────────────────────────
+
+CLIENT INFORMATION:
+Name: ${name}
+Email: ${email}
+Company: ${formData.get('company') || 'Individual/Startup'}
+Service Interest: ${service.replace('-', ' ').toUpperCase()}
+
+PROJECT REQUIREMENTS:
+${message}
+
+ENGAGEMENT PREFERENCES:
+- Preferred Communication: Email/Phone
+- Timeline: As discussed
+- Budget Considerations: To be discussed
+- Compliance Requirements: To be identified
+
+NEXT STEPS:
+1. Initial security consultation (Free - 30 minutes)
+2. Detailed scope definition & statement of work
+3. Security assessment execution & reporting
+4. Post-engagement support & validation
+
+────────────────────────────────────────────────────────────────────────
+This request was submitted through the secure contact form at
+P. Salmanul Faris - Cybersecurity Professional Portfolio
+
+Response Commitment: Within 12 hours
+Emergency Contact: +91 99627 26106
+                `.trim();
+                
+                // Create mailto link
+                const subject = `Security Consultation Request - ${service.replace('-', ' ').toUpperCase()}`;
+                const mailtoLink = `mailto:salmanulfariss642@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+                
+                // Show enhanced success message
+                showNotification('Email client opened with your detailed consultation request. Please send the email to complete your request.', 'success');
+                
+                setTimeout(() => {
+                    showNotification('Response time: Within 12 hours | Urgent matters: +91 99627 26106', 'info');
+                }, 2000);
+                
+                // Reset form
+                form.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Secure Request';
+                
+            }, 2000);
         }
 
         // Notification system
@@ -3859,27 +3472,6 @@ for strengthening defensive capabilities and incident response procedures.`
         document.addEventListener('mousedown', function() {
             document.body.classList.remove('keyboard-navigation');
         });
-
-        // Prevent right-click on images (optional security measure)
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-            }
-        });
-
-        // Add additional styles for keyboard navigation
-        const keyboardStyles = document.createElement('style');
-        keyboardStyles.textContent = `
-            .keyboard-navigation *:focus {
-                outline: 2px solid var(--accent-primary) !important;
-                outline-offset: 2px !important;
-            }
-            
-            .modal-overlay .content:focus {
-                outline: none !important;
-            }
-        `;
-        document.head.appendChild(keyboardStyles);
 
         // Analytics tracking (placeholder - would integrate with actual analytics)
         function trackEvent(eventName, eventData) {
