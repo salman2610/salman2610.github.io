@@ -1775,82 +1775,107 @@
         .gdot.active { background: var(--accent-primary); width: 18px; border-radius: 3px; }
 
         /* ── SCROLL TEXT ───────────────────────────────────────── */
-        .scroll-text-section { background: var(--bg-primary); }
-
-        .sth {
-            min-height: 55vh; display: flex; place-items: center;
-            padding: 0 5rem;
+        .scroll-text-section {
+            background: var(--bg-primary);
         }
-        .sth h2 {
-            font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 900;
-            line-height: 0.9; margin: 0; letter-spacing: -0.03em;
-            background: linear-gradient(135deg,#fff 55%,rgba(255,255,255,.3));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        /* Tall wrapper creates the scroll runway */
+        .st-track {
+            position: relative;
+            height: 250vh;   /* scroll distance = 250% of viewport */
         }
-
-        /* Two-column layout: sticky prefix | scrolling list */
-        .stc {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            align-items: start;
-            width: 100%;
-            padding: 0 5rem;
-        }
-
-        /* "I can " — sticks to vertical center while list scrolls */
-        .st-prefix {
+        /* The visible panel sticks while you scroll through the track */
+        .st-panel {
             position: sticky;
-            top: 50vh;
-            transform: translateY(-50%);
-            font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 800;
-            letter-spacing: -0.03em; white-space: nowrap;
-            background: linear-gradient(135deg,#fff 50%,rgba(255,255,255,.4));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            align-self: start;
-            padding-right: 0.15em;
-            z-index: 2;
-            line-height: 1.35;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
-
-        /* Scrolling word list */
-        .stl {
-            list-style: none; padding: 0;
-            margin: 30vh 0;          /* creates scroll runway */
+        /* "I can  [word]" centred line */
+        .st-line {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0;
         }
-        .stl li {
-            font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 800;
-            letter-spacing: -0.03em; line-height: 1.35;
-            opacity: 0.1;
-            transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
-            cursor: default;
-            --step: calc((340 - 220) / 19);
-            color: oklch(72% 0.26 calc(220 + var(--step) * var(--i)));
+        .st-prefix {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #fff 50%, rgba(255,255,255,.45));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            flex-shrink: 0;
         }
-        .stl li:last-child { color: #fff; }
-
-        .stl li.st-active {
+        /* Word slot — words stack on top of each other, only active shown */
+        .st-word-wrap {
+            position: relative;
+            display: inline-block;
+            /* width set by JS to widest word so layout doesn't jump */
+        }
+        .st-word {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            white-space: nowrap;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            --step: calc((340 - 200) / 19);
+            color: oklch(78% 0.28 calc(200 + var(--step) * var(--i)));
+        }
+        .st-word:last-child { color: #fff; }
+        .st-word.st-active {
             opacity: 1;
-            filter: brightness(1.2);
-            transform: translateX(6px);
+            transform: translateY(0);
         }
-        .stl li.st-near1 { opacity: 0.4; }
-        .stl li.st-near2 { opacity: 0.2; }
-
-        .stf {
-            min-height: 40vh; display: flex;
-            place-items: center; justify-content: center;
+        .st-word.st-exit-up {
+            opacity: 0;
+            transform: translateY(-40px);
         }
-        .stf h3 {
-            font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 900;
-            background: linear-gradient(135deg,#fff 55%,rgba(255,255,255,.3));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        /* Progress dots */
+        .st-dots {
+            display: flex;
+            gap: 6px;
+            margin-top: 2.5rem;
         }
-
+        .st-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .st-dot.active {
+            background: var(--accent-primary);
+            transform: scale(1.4);
+        }
+        /* Hint text */
+        .st-hint {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 13px;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            animation: hintBob 2s ease-in-out infinite;
+        }
+        @keyframes hintBob {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(6px); }
+        }
         @media (max-width: 768px) {
-            .sth { padding: 0 1.5rem; }
-            .stc { padding: 0 1.5rem; }
-            .st-prefix, .stl li { font-size: 1.9rem; }
-            .sth h2, .stf h3 { font-size: 2.4rem; }
+            .st-prefix, .st-word {
+                font-size: clamp(2.2rem, 9vw, 3.5rem);
+            }
         }
 
     </style>
@@ -2016,33 +2041,37 @@
 
     <!-- Scroll Text Animation -->
     <section class="scroll-text-section" id="scrollTextSection">
-        <div class="sth"><h2>I can<br>secure.</h2></div>
-        <div class="stc">
-            <span class="st-prefix">I can&nbsp;</span>
-            <ul class="stl" id="scrollTextList">
-                <li style="--i:0">penetrate.</li>
-                <li style="--i:1">audit.</li>
-                <li style="--i:2">defend.</li>
-                <li style="--i:3">research.</li>
-                <li style="--i:4">develop.</li>
-                <li style="--i:5">analyze.</li>
-                <li style="--i:6">detect.</li>
-                <li style="--i:7">respond.</li>
-                <li style="--i:8">exploit.</li>
-                <li style="--i:9">patch.</li>
-                <li style="--i:10">architect.</li>
-                <li style="--i:11">reverse.</li>
-                <li style="--i:12">automate.</li>
-                <li style="--i:13">monitor.</li>
-                <li style="--i:14">harden.</li>
-                <li style="--i:15">decode.</li>
-                <li style="--i:16">encrypt.</li>
-                <li style="--i:17">report.</li>
-                <li style="--i:18">consult.</li>
-                <li style="--i:19">deliver.</li>
-            </ul>
+        <div class="st-track" id="stTrack">
+            <div class="st-panel" id="stPanel">
+                <div class="st-line">
+                    <span class="st-prefix">I can&nbsp;</span>
+                    <div class="st-word-wrap" id="stWordWrap">
+                        <span class="st-word" style="--i:0">penetrate.</span>
+                        <span class="st-word" style="--i:1">audit.</span>
+                        <span class="st-word" style="--i:2">defend.</span>
+                        <span class="st-word" style="--i:3">research.</span>
+                        <span class="st-word" style="--i:4">develop.</span>
+                        <span class="st-word" style="--i:5">analyze.</span>
+                        <span class="st-word" style="--i:6">detect.</span>
+                        <span class="st-word" style="--i:7">respond.</span>
+                        <span class="st-word" style="--i:8">exploit.</span>
+                        <span class="st-word" style="--i:9">patch.</span>
+                        <span class="st-word" style="--i:10">architect.</span>
+                        <span class="st-word" style="--i:11">reverse.</span>
+                        <span class="st-word" style="--i:12">automate.</span>
+                        <span class="st-word" style="--i:13">monitor.</span>
+                        <span class="st-word" style="--i:14">harden.</span>
+                        <span class="st-word" style="--i:15">decode.</span>
+                        <span class="st-word" style="--i:16">encrypt.</span>
+                        <span class="st-word" style="--i:17">report.</span>
+                        <span class="st-word" style="--i:18">consult.</span>
+                        <span class="st-word" style="--i:19">deliver.</span>
+                    </div>
+                </div>
+                <div class="st-dots" id="stDots"></div>
+                <div class="st-hint">scroll</div>
+            </div>
         </div>
-        <div class="stf"><h3>certified.</h3></div>
     </section>
 
     <section id="certifications" class="section gallery-outer" style="padding-bottom:0;">
@@ -3389,49 +3418,88 @@ Emergency Contact: +91 99627 26106
             resume();
         }
 
-        // ── Scroll Text Animation (scroll-event driven, works in ALL browsers) ──
+        // ── Scroll Text Animation — pinned panel, scroll-driven word switcher ──
         function initScrollTextFallback() {
-            var list = document.getElementById('scrollTextList');
-            if (!list) return;
-            var items = Array.from(list.querySelectorAll('li'));
-            if (!items.length) return;
+            var track   = document.getElementById('stTrack');
+            var wrap    = document.getElementById('stWordWrap');
+            var dotsEl  = document.getElementById('stDots');
+            if (!track || !wrap) return;
 
-            var mid = window.innerHeight / 2;
-            var ticking = false;
+            var words   = Array.from(wrap.querySelectorAll('.st-word'));
+            var total   = words.length;
+            if (!total) return;
 
-            function update() {
-                ticking = false;
-                var bestIdx  = -1;
-                var bestDist = Infinity;
+            // ── Size the wrap to the widest word so layout never shifts ──
+            // Temporarily make all visible to measure
+            words.forEach(function(w) {
+                w.style.position = 'static';
+                w.style.opacity  = '1';
+            });
+            var maxW = wrap.scrollWidth;
+            var maxH = wrap.scrollHeight;
+            words.forEach(function(w) {
+                w.style.position = '';
+                w.style.opacity  = '';
+            });
+            wrap.style.width  = maxW + 'px';
+            wrap.style.height = maxH + 'px';
 
-                items.forEach(function(li, i) {
-                    var r      = li.getBoundingClientRect();
-                    var center = r.top + r.height / 2;
-                    var dist   = Math.abs(center - mid);
-                    if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+            // ── Build dots ──
+            words.forEach(function(_, i) {
+                var d = document.createElement('div');
+                d.className = 'st-dot';
+                dotsEl.appendChild(d);
+            });
+            var dots = Array.from(dotsEl.querySelectorAll('.st-dot'));
+
+            var current = -1;
+
+            function showWord(idx) {
+                if (idx === current) return;
+                var prev = current;
+                current  = idx;
+
+                words.forEach(function(w, i) {
+                    w.classList.remove('st-active', 'st-exit-up');
+                    if (i === idx) {
+                        w.classList.add('st-active');
+                    } else if (i === prev) {
+                        w.classList.add('st-exit-up');
+                    }
                 });
 
-                items.forEach(function(li, i) {
-                    var dist = Math.abs(i - bestIdx);
-                    li.classList.toggle('st-active', dist === 0);
-                    li.classList.toggle('st-near1',  dist === 1);
-                    li.classList.toggle('st-near2',  dist === 2);
-                    if      (dist === 0) li.style.opacity = '1';
-                    else if (dist === 1) li.style.opacity = '0.4';
-                    else if (dist === 2) li.style.opacity = '0.2';
-                    else                 li.style.opacity = '0.1';
+                dots.forEach(function(d, i) {
+                    d.classList.toggle('active', i === idx);
                 });
             }
 
+            function onScroll() {
+                var rect     = track.getBoundingClientRect();
+                var trackH   = track.offsetHeight;
+                var panelH   = window.innerHeight;
+                // scrolled distance within the track (0 → trackH - panelH)
+                var scrolled = -rect.top;
+                var maxScroll = trackH - panelH;
+
+                if (scrolled < 0 || scrolled > maxScroll) return;
+
+                var progress = scrolled / maxScroll;           // 0 → 1
+                var idx      = Math.min(
+                    Math.floor(progress * total),
+                    total - 1
+                );
+                showWord(idx);
+            }
+
+            var ticking = false;
             window.addEventListener('scroll', function() {
-                if (!ticking) { requestAnimationFrame(update); ticking = true; }
+                if (!ticking) {
+                    requestAnimationFrame(function() { onScroll(); ticking = false; });
+                    ticking = true;
+                }
             }, { passive: true });
 
-            window.addEventListener('resize', function() {
-                mid = window.innerHeight / 2; update();
-            });
-
-            update();
+            showWord(0);   // show first word immediately
         }
 
 
