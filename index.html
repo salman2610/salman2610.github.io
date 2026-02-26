@@ -1778,12 +1778,10 @@
         .scroll-text-section {
             background: var(--bg-primary);
         }
-        /* Tall wrapper creates the scroll runway */
         .st-track {
             position: relative;
-            height: 250vh;   /* scroll distance = 250% of viewport */
+            height: 700vh;  /* 20 words × 35vh each */
         }
-        /* The visible panel sticks while you scroll through the track */
         .st-panel {
             position: sticky;
             top: 0;
@@ -1794,88 +1792,103 @@
             justify-content: center;
             overflow: hidden;
         }
-        /* "I can  [word]" centred line */
+        /* Single centred row */
         .st-line {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: center;
-            gap: 0;
+            white-space: nowrap;
+            min-height: 1.2em;
         }
         .st-prefix {
             font-size: clamp(3rem, 7vw, 5.5rem);
             font-weight: 900;
             letter-spacing: -0.03em;
             white-space: nowrap;
-            background: linear-gradient(135deg, #fff 50%, rgba(255,255,255,.45));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1.1;
+            color: #ffffff;
             flex-shrink: 0;
         }
-        /* Word slot — words stack on top of each other, only active shown */
+        /* All words overlap inside here */
         .st-word-wrap {
             position: relative;
             display: inline-block;
-            /* width set by JS to widest word so layout doesn't jump */
+            /* height matches the font line height */
+            height: 1.1em;
+            /* min-width set by JS */
+            min-width: 4ch;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1.1;
         }
         .st-word {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: inherit;
             font-weight: 900;
             letter-spacing: -0.03em;
+            line-height: 1.1;
             white-space: nowrap;
             position: absolute;
             left: 0;
             top: 0;
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            --step: calc((340 - 200) / 19);
-            color: oklch(78% 0.28 calc(200 + var(--step) * var(--i)));
+            transform: translateY(30px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            color: #ffffff;
         }
-        .st-word:last-child { color: #fff; }
         .st-word.st-active {
             opacity: 1;
             transform: translateY(0);
+            color: var(--accent-primary);
+            text-shadow: 0 0 40px rgba(59,130,246,0.4);
         }
         .st-word.st-exit-up {
             opacity: 0;
-            transform: translateY(-40px);
+            transform: translateY(-30px);
         }
-        /* Progress dots */
-        .st-dots {
+        /* Progress bar + counter */
+        .st-progress {
             display: flex;
-            gap: 6px;
+            align-items: center;
+            gap: 12px;
             margin-top: 2.5rem;
         }
-        .st-dot {
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transition: background 0.3s ease, transform 0.3s ease;
+        .st-bar-bg {
+            width: 160px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
         }
-        .st-dot.active {
-            background: var(--accent-primary);
-            transform: scale(1.4);
+        .st-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+            transition: width 0.35s ease;
+            box-shadow: 0 0 6px var(--accent-primary);
+            width: 5%;
         }
-        /* Hint text */
+        .st-counter {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.05em;
+            min-width: 3.5ch;
+        }
         .st-hint {
             position: absolute;
             bottom: 2rem;
-            font-size: 13px;
-            color: rgba(255,255,255,0.25);
-            letter-spacing: 0.1em;
+            font-size: 11px;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             font-family: 'JetBrains Mono', monospace;
             animation: hintBob 2s ease-in-out infinite;
         }
         @keyframes hintBob {
-            0%,100% { transform: translateY(0); }
-            50%      { transform: translateY(6px); }
+            0%,100% { transform: translateY(0); opacity: 0.2; }
+            50%      { transform: translateY(5px); opacity: 0.4; }
         }
         @media (max-width: 768px) {
-            .st-prefix, .st-word {
-                font-size: clamp(2.2rem, 9vw, 3.5rem);
-            }
+            .st-prefix, .st-word { font-size: clamp(2rem, 8vw, 3rem); }
         }
 
     </style>
@@ -2068,7 +2081,10 @@
                         <span class="st-word" style="--i:19">deliver.</span>
                     </div>
                 </div>
-                <div class="st-dots" id="stDots"></div>
+                <div class="st-progress">
+                    <div class="st-bar-bg"><div class="st-bar-fill" id="stBarFill"></div></div>
+                    <span class="st-counter" id="stCounter">01 / 20</span>
+                </div>
                 <div class="st-hint">scroll</div>
             </div>
         </div>
@@ -3422,35 +3438,23 @@ Emergency Contact: +91 99627 26106
         function initScrollTextFallback() {
             var track   = document.getElementById('stTrack');
             var wrap    = document.getElementById('stWordWrap');
-            var dotsEl  = document.getElementById('stDots');
+            var barFill = document.getElementById('stBarFill');
+            var counter = document.getElementById('stCounter');
             if (!track || !wrap) return;
 
-            var words   = Array.from(wrap.querySelectorAll('.st-word'));
-            var total   = words.length;
+            var words = Array.from(wrap.querySelectorAll('.st-word'));
+            var total = words.length;
             if (!total) return;
 
-            // ── Size the wrap to the widest word so layout never shifts ──
-            // Temporarily make all visible to measure
+            // Measure widest word so the slot never shifts width
+            var maxW = 0;
             words.forEach(function(w) {
-                w.style.position = 'static';
-                w.style.opacity  = '1';
+                w.style.cssText = 'position:static;opacity:1;transform:none;transition:none;display:inline-block;';
+                var ww = w.getBoundingClientRect().width;
+                if (ww > maxW) maxW = ww;
+                w.style.cssText = '';
             });
-            var maxW = wrap.scrollWidth;
-            var maxH = wrap.scrollHeight;
-            words.forEach(function(w) {
-                w.style.position = '';
-                w.style.opacity  = '';
-            });
-            wrap.style.width  = maxW + 'px';
-            wrap.style.height = maxH + 'px';
-
-            // ── Build dots ──
-            words.forEach(function(_, i) {
-                var d = document.createElement('div');
-                d.className = 'st-dot';
-                dotsEl.appendChild(d);
-            });
-            var dots = Array.from(dotsEl.querySelectorAll('.st-dot'));
+            if (maxW > 0) wrap.style.width = (maxW + 4) + 'px';
 
             var current = -1;
 
@@ -3458,48 +3462,57 @@ Emergency Contact: +91 99627 26106
                 if (idx === current) return;
                 var prev = current;
                 current  = idx;
-
                 words.forEach(function(w, i) {
                     w.classList.remove('st-active', 'st-exit-up');
-                    if (i === idx) {
-                        w.classList.add('st-active');
-                    } else if (i === prev) {
-                        w.classList.add('st-exit-up');
-                    }
+                    if      (i === idx)  w.classList.add('st-active');
+                    else if (i === prev) w.classList.add('st-exit-up');
                 });
-
-                dots.forEach(function(d, i) {
-                    d.classList.toggle('active', i === idx);
-                });
+                if (barFill) barFill.style.width = ((idx + 1) / total * 100) + '%';
+                if (counter) {
+                    counter.textContent =
+                        String(idx + 1).padStart(2, '0') + ' / ' +
+                        String(total).padStart(2, '0');
+                }
             }
 
+            // Use absolute page positions — reliable regardless of sticky/iframe
+            function getTrackBounds() {
+                var el = track, top = 0;
+                while (el) { top += el.offsetTop; el = el.offsetParent; }
+                return { top: top, height: track.offsetHeight };
+            }
+
+            var trackTop = 0, trackHeight = 0;
+            function cacheBounds() {
+                var b = getTrackBounds();
+                trackTop    = b.top;
+                trackHeight = b.height;
+            }
+            cacheBounds();
+            window.addEventListener('resize', cacheBounds);
+
+            var ticking = false;
             function onScroll() {
-                var rect     = track.getBoundingClientRect();
-                var trackH   = track.offsetHeight;
-                var panelH   = window.innerHeight;
-                // scrolled distance within the track (0 → trackH - panelH)
-                var scrolled = -rect.top;
-                var maxScroll = trackH - panelH;
+                ticking = false;
+                var scrollY   = window.pageYOffset || document.documentElement.scrollTop;
+                var scrolled  = scrollY - trackTop;              // px into the track
+                var maxScroll = trackHeight - window.innerHeight; // scrollable distance
 
-                if (scrolled < 0 || scrolled > maxScroll) return;
+                if (scrolled <= 0)           { showWord(0);           return; }
+                if (scrolled >= maxScroll)   { showWord(total - 1);   return; }
 
-                var progress = scrolled / maxScroll;           // 0 → 1
-                var idx      = Math.min(
-                    Math.floor(progress * total),
-                    total - 1
-                );
+                var progress = scrolled / maxScroll;   // 0 → 1
+                var idx = Math.min(Math.floor(progress * total), total - 1);
                 showWord(idx);
             }
 
-            var ticking = false;
             window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(function() { onScroll(); ticking = false; });
-                    ticking = true;
-                }
+                if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
             }, { passive: true });
 
-            showWord(0);   // show first word immediately
+            showWord(0);
+            // Re-cache after fonts/images settle, then re-run
+            setTimeout(function() { cacheBounds(); onScroll(); }, 500);
         }
 
 
