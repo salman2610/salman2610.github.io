@@ -1895,6 +1895,212 @@
 </head>
 <body>
 
+    <!-- ═══════════════════════════════════════════════════════════
+         LOADING SCREEN  — shapes morph into S · A · L · M · A · N
+         then name assembles, then reveal
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="loadScreen" style="
+        position:fixed;inset:0;z-index:99999;
+        background:#0a0a0f;
+        display:flex;flex-direction:column;
+        align-items:center;justify-content:center;
+        overflow:hidden;
+    ">
+        <!-- grid bg -->
+        <div style="
+            position:absolute;inset:0;
+            background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),
+                             linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);
+            background-size:48px 48px;
+            animation:gridPan 8s linear infinite;
+        "></div>
+
+        <!-- shapes SVG -->
+        <svg id="loadSvg" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 760 400"
+            style="width:min(90vw,760px);position:relative;z-index:2;">
+            <defs>
+                <linearGradient id="lg1" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0" stop-color="#f8dbb9"/>
+                    <stop offset="1" stop-color="#3b82f6"/>
+                </linearGradient>
+                <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0" stop-color="#f8dbb9"/>
+                    <stop offset="1" stop-color="#f59e0b"/>
+                </linearGradient>
+                <radialGradient id="lg3" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="#f8dbb9"/>
+                    <stop offset="1" stop-color="#10b981"/>
+                </radialGradient>
+            </defs>
+
+            <!-- Shape 1: triangle → morphs to first letter cluster -->
+            <polygon id="ls-tri"  fill="url(#lg1)" points="241,242 283,157 326,242"/>
+            <!-- Shape 2: square → second letter cluster -->
+            <rect    id="ls-sq"   fill="url(#lg2)" x="363" y="157" width="85" height="85"/>
+            <!-- Shape 3: circle → third letter cluster -->
+            <circle  id="ls-circ" fill="url(#lg3)" cx="530" cy="200" r="42.5"/>
+        </svg>
+
+        <!-- Name reveal (shown after morph) -->
+        <div id="loadName" style="
+            position:absolute;z-index:3;
+            display:flex;flex-direction:column;align-items:center;gap:0.15em;
+            opacity:0;transform:translateY(20px);
+            transition:opacity .6s ease, transform .6s ease;
+        ">
+            <div style="
+                font-family:'JetBrains Mono',monospace;
+                font-size:clamp(2.8rem,7vw,5.5rem);
+                font-weight:700;
+                letter-spacing:0.18em;
+                color:#fff;
+                display:flex;gap:0.06em;
+            " id="loadNameChars1"></div>
+            <div style="
+                font-family:'JetBrains Mono',monospace;
+                font-size:clamp(1.2rem,3vw,2.2rem);
+                font-weight:400;
+                letter-spacing:0.35em;
+                color:rgba(255,255,255,0.45);
+                text-transform:uppercase;
+            ">Certified Penetration Tester</div>
+        </div>
+
+        <!-- progress line -->
+        <div style="
+            position:absolute;bottom:3rem;
+            width:min(320px,70vw);height:1px;
+            background:rgba(255,255,255,0.08);
+            overflow:hidden;
+        ">
+            <div id="loadBar" style="
+                height:100%;width:0%;
+                background:linear-gradient(90deg,#3b82f6,#f59e0b);
+                transition:width .1s linear;
+                box-shadow:0 0 8px #3b82f6;
+            "></div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes gridPan { to { background-position: 0 48px; } }
+
+        /* letter-by-letter pop-in */
+        .ls-char {
+            display:inline-block;
+            opacity:0;
+            transform:translateY(30px) scale(0.8);
+            transition:opacity .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+        }
+        .ls-char.show {
+            opacity:1;
+            transform:translateY(0) scale(1);
+        }
+
+        /* shape animation classes */
+        #ls-tri, #ls-sq, #ls-circ {
+            transition:
+                r    0.7s cubic-bezier(.4,0,.2,1),
+                rx   0.7s cubic-bezier(.4,0,.2,1),
+                ry   0.7s cubic-bezier(.4,0,.2,1),
+                x    0.7s cubic-bezier(.4,0,.2,1),
+                y    0.7s cubic-bezier(.4,0,.2,1),
+                width  0.7s cubic-bezier(.4,0,.2,1),
+                height 0.7s cubic-bezier(.4,0,.2,1),
+                cx   0.7s cubic-bezier(.4,0,.2,1),
+                cy   0.7s cubic-bezier(.4,0,.2,1),
+                opacity 0.5s ease,
+                transform 0.8s cubic-bezier(.4,0,.2,1);
+            transform-origin:center;
+            transform-box:fill-box;
+        }
+
+        /* morph to dot state */
+        #ls-tri.morph  { transform: scale(0.2) translateY(100px); opacity:0.4; }
+        #ls-sq.morph   { transform: scale(0.2) translateY(100px); opacity:0.4; }
+        #ls-circ.morph { transform: scale(0.2) translateY(100px); opacity:0.4; }
+
+        /* loading screen exit */
+        #loadScreen.exit {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            opacity:0;
+            transform:scale(1.04);
+            pointer-events:none;
+        }
+
+        /* lock body scroll while loading */
+        body.loading { overflow:hidden; }
+    </style>
+
+    <script>
+    (function() {
+        document.body.classList.add('loading');
+        var bar    = document.getElementById('loadBar');
+        var tri    = document.getElementById('ls-tri');
+        var sq     = document.getElementById('ls-sq');
+        var circ   = document.getElementById('ls-circ');
+        var nameEl = document.getElementById('loadName');
+        var chars1 = document.getElementById('loadNameChars1');
+        var screen = document.getElementById('loadScreen');
+
+        // Build character spans for "SALMANUL FARIS"
+        var name = 'SALMANUL FARIS';
+        name.split('').forEach(function(ch) {
+            var s = document.createElement('span');
+            s.className = 'ls-char';
+            s.textContent = ch === ' ' ? ' ' : ch;
+            s.style.color = ch === ' ' ? 'transparent' : '';
+            chars1.appendChild(s);
+        });
+        var charSpans = Array.from(chars1.querySelectorAll('.ls-char'));
+
+        function setBar(pct) {
+            bar.style.width = pct + '%';
+        }
+
+        function delay(ms) {
+            return new Promise(function(res) { setTimeout(res, ms); });
+        }
+
+        async function run() {
+            setBar(10);
+            await delay(400);
+
+            // Phase 1: shapes pulse in
+            setBar(30);
+            await delay(300);
+
+            // Phase 2: shapes scale up then morph down
+            setBar(55);
+            [tri, sq, circ].forEach(function(el) { el.classList.add('morph'); });
+            await delay(700);
+
+            // Phase 3: name fades in
+            setBar(75);
+            nameEl.style.opacity = '1';
+            nameEl.style.transform = 'translateY(0)';
+
+            // Phase 4: letters pop in one by one
+            for (var i = 0; i < charSpans.length; i++) {
+                charSpans[i].classList.add('show');
+                await delay(60);
+            }
+            setBar(100);
+            await delay(800);
+
+            // Phase 5: exit
+            screen.classList.add('exit');
+            document.body.classList.remove('loading');
+            await delay(850);
+            screen.style.display = 'none';
+        }
+
+        run();
+    })();
+    </script>
+
+
     <div class="cursor" id="cursor"></div>
     <canvas id="webgl-canvas"></canvas>
     
