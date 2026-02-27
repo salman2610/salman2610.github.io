@@ -1780,7 +1780,7 @@
         }
         .st-track {
             position: relative;
-            height: 700vh;  /* 20 words × 35vh each */
+            height: 100vh;  /* just enough to pin the panel, wheel events drive the words */
         }
         .st-panel {
             position: sticky;
@@ -3456,9 +3456,13 @@ Emergency Contact: +91 99627 26106
             });
             if (maxW > 0) wrap.style.width = (maxW + 4) + 'px';
 
-            var current = -1;
+            var current = 0;
+            var locked  = false;   // true while we're consuming scroll inside the section
+            var cooldown = false;  // brief cooldown after unlock to prevent double-trigger
+            var touchStartY = 0;
 
             function showWord(idx) {
+                idx = Math.max(0, Math.min(idx, total - 1));
                 if (idx === current) return;
                 var prev = current;
                 current  = idx;
@@ -3468,51 +3472,99 @@ Emergency Contact: +91 99627 26106
                     else if (i === prev) w.classList.add('st-exit-up');
                 });
                 if (barFill) barFill.style.width = ((idx + 1) / total * 100) + '%';
-                if (counter) {
-                    counter.textContent =
-                        String(idx + 1).padStart(2, '0') + ' / ' +
-                        String(total).padStart(2, '0');
+                if (counter) counter.textContent =
+                    String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+            }
+
+            // Is the panel currently in the viewport?
+            function panelInView() {
+                var r = track.getBoundingClientRect();
+                return r.top <= 10 && r.bottom >= window.innerHeight - 10;
+            }
+
+            // Scroll the page so the track top aligns with viewport top
+            function snapToTrack() {
+                var absTop = 0, el = track;
+                while (el) { absTop += el.offsetTop; el = el.offsetParent; }
+                window.scrollTo({ top: absTop, behavior: 'smooth' });
+            }
+
+            // ── Wheel handler ─────────────────────────────────────────────
+            window.addEventListener('wheel', function(e) {
+                if (cooldown) return;
+
+                var r = track.getBoundingClientRect();
+                var entering = r.top > 0 && r.top < window.innerHeight && e.deltaY > 0;
+                var inside   = panelInView();
+
+                if (!inside && !entering) return;
+
+                // Snap page to track if we're just entering
+                if (!locked) {
+                    locked = true;
+                    snapToTrack();
+                    showWord(0);
                 }
-            }
 
-            // Use absolute page positions — reliable regardless of sticky/iframe
-            function getTrackBounds() {
-                var el = track, top = 0;
-                while (el) { top += el.offsetTop; el = el.offsetParent; }
-                return { top: top, height: track.offsetHeight };
-            }
+                e.preventDefault();
 
-            var trackTop = 0, trackHeight = 0;
-            function cacheBounds() {
-                var b = getTrackBounds();
-                trackTop    = b.top;
-                trackHeight = b.height;
-            }
-            cacheBounds();
-            window.addEventListener('resize', cacheBounds);
+                if (e.deltaY > 0) {
+                    // Scrolling down — advance word
+                    if (current < total - 1) {
+                        showWord(current + 1);
+                    } else {
+                        // Last word — unlock and let page scroll
+                        unlock();
+                    }
+                } else if (e.deltaY < 0) {
+                    // Scrolling up
+                    if (current > 0) {
+                        showWord(current - 1);
+                    } else {
+                        // First word — unlock upward
+                        unlock();
+                    }
+                }
+            }, { passive: false });
 
-            var ticking = false;
-            function onScroll() {
-                ticking = false;
-                var scrollY   = window.pageYOffset || document.documentElement.scrollTop;
-                var scrolled  = scrollY - trackTop;              // px into the track
-                var maxScroll = trackHeight - window.innerHeight; // scrollable distance
-
-                if (scrolled <= 0)           { showWord(0);           return; }
-                if (scrolled >= maxScroll)   { showWord(total - 1);   return; }
-
-                var progress = scrolled / maxScroll;   // 0 → 1
-                var idx = Math.min(Math.floor(progress * total), total - 1);
-                showWord(idx);
-            }
-
-            window.addEventListener('scroll', function() {
-                if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+            // ── Touch handler ─────────────────────────────────────────────
+            window.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
             }, { passive: true });
 
+            window.addEventListener('touchmove', function(e) {
+                if (cooldown) return;
+                var r = track.getBoundingClientRect();
+                var inside = panelInView();
+                var dy = touchStartY - e.touches[0].clientY;
+                var entering = r.top > 0 && r.top < window.innerHeight && dy > 0;
+
+                if (!inside && !entering) return;
+
+                if (!locked) { locked = true; snapToTrack(); showWord(0); }
+
+                e.preventDefault();
+
+                if (Math.abs(dy) < 20) return; // debounce tiny moves
+                touchStartY = e.touches[0].clientY;
+
+                if (dy > 0) {
+                    if (current < total - 1) { showWord(current + 1); }
+                    else { unlock(); }
+                } else {
+                    if (current > 0) { showWord(current - 1); }
+                    else { unlock(); }
+                }
+            }, { passive: false });
+
+            function unlock() {
+                locked   = false;
+                cooldown = true;
+                setTimeout(function() { cooldown = false; }, 800);
+            }
+
+            // Show first word on load
             showWord(0);
-            // Re-cache after fonts/images settle, then re-run
-            setTimeout(function() { cacheBounds(); onScroll(); }, 500);
         }
 
 
