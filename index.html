@@ -1891,6 +1891,224 @@
             .st-prefix, .st-word { font-size: clamp(2rem, 8vw, 3rem); }
         }
 
+
+        /* ═══════════════════════════════════════════════
+           EYEBALL WIDGET
+        ═══════════════════════════════════════════════ */
+        :root {
+            --ew-size:      72px;
+            --ew-iris:      40px;
+            --ew-pupil:     18px;
+            --ew-shine:     7px;
+        }
+
+        #eye-widget {
+            position: fixed;
+            bottom: 24px;
+            left:   24px;
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: ewEntrance .7s cubic-bezier(.34,1.56,.64,1) both;
+            animation-delay: .5s;
+        }
+        @keyframes ewEntrance {
+            from { transform: translateY(30px) scale(.5); opacity: 0; }
+            to   { transform: translateY(0)    scale(1);  opacity: 1; }
+        }
+
+        /* Speech bubble */
+        #ew-bubble {
+            background: #fffbeb;
+            color: #1a1a2e;
+            border-radius: 10px;
+            padding: 5px 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.08);
+            position: relative;
+            pointer-events: none;
+            transform-origin: bottom center;
+        }
+        #ew-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 50%; transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #fffbeb;
+            border-bottom: none;
+        }
+        #ew-bubble.ew-hidden { display: none; }
+        #ew-bubble.ew-pop {
+            animation: ewBubblePop .3s cubic-bezier(.34,1.56,.64,1) both;
+        }
+        @keyframes ewBubblePop {
+            from { transform: scale(.4); opacity: 0; }
+            to   { transform: scale(1);  opacity: 1; }
+        }
+
+        /* Eyeball shell */
+        #ew-ball {
+            width:  var(--ew-size);
+            height: var(--ew-size);
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 32%, #fff 0%, #ede9e0 55%, #ccc6b8 100%);
+            box-shadow:
+                0 6px 24px rgba(0,0,0,.5),
+                0 2px 6px  rgba(0,0,0,.3),
+                inset 0 -3px 10px rgba(0,0,0,.15);
+            position: relative;
+            cursor: pointer;
+            animation: ewBob 3.5s ease-in-out infinite;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+        #ew-ball:hover {
+            box-shadow:
+                0 8px 28px rgba(59,130,246,.35),
+                0 2px 6px rgba(0,0,0,.3),
+                inset 0 -3px 10px rgba(0,0,0,.15);
+        }
+        @keyframes ewBob {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-4px); }
+        }
+        #ew-ball.ew-blinking { animation: none; }
+
+        /* Click squish */
+        #ew-ball.ew-squish {
+            animation: ewSquish .25s ease both !important;
+        }
+        @keyframes ewSquish {
+            0%   { transform: scale(1); }
+            35%  { transform: scale(1.25,.78); }
+            70%  { transform: scale(.88,1.18); }
+            100% { transform: scale(1); }
+        }
+
+        /* Eyelids */
+        #ew-lid-top, #ew-lid-bot {
+            position: absolute;
+            left: 0; right: 0;
+            height: 50%;
+            background: #0f0f1a;
+            transition: transform .18s ease;
+            z-index: 4;
+            pointer-events: none;
+        }
+        #ew-lid-top {
+            top: 0;
+            border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+            transform-origin: top center;
+            transform: scaleY(0);
+        }
+        #ew-lid-bot {
+            bottom: 0;
+            border-radius: 0 0 50% 50% / 0 0 60% 60%;
+            transform-origin: bottom center;
+            transform: scaleY(0);
+        }
+        #ew-ball.ew-blink    #ew-lid-top { transform: scaleY(1); }
+        #ew-ball.ew-angry    #ew-lid-top { transform: scaleY(.4); }
+        #ew-ball.ew-angry    #ew-lid-bot { transform: scaleY(.15); }
+
+        /* Angry brow */
+        #ew-ball::before {
+            content: '';
+            position: absolute;
+            top: -9px; left: 6px; right: 6px;
+            height: 5px;
+            background: #0f0f1a;
+            border-radius: 3px;
+            transform: rotate(0deg) scaleY(0);
+            transform-origin: center;
+            transition: transform .25s ease, top .25s ease;
+            z-index: 5;
+        }
+        #ew-ball.ew-angry::before {
+            transform: rotate(-9deg) scaleY(1);
+            top: -11px;
+        }
+
+        /* Iris */
+        #ew-iris {
+            position: absolute;
+            top: 50%; left: 50%;
+            width:  var(--ew-iris);
+            height: var(--ew-iris);
+            border-radius: 50%;
+            background: radial-gradient(circle at 38% 32%,
+                #5b8dd9 0%, #2563eb 50%, #1e3a6e 100%);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,.45);
+            transform: translate(-50%,-50%);
+            transition: background .35s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+        #ew-ball.ew-angry #ew-iris {
+            background: radial-gradient(circle at 38% 32%,
+                #ef4444 0%, #991b1b 50%, #450a0a 100%);
+        }
+        #ew-iris::before {
+            content: '';
+            position: absolute; inset: 4px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.15);
+        }
+
+        /* Pupil */
+        #ew-pupil {
+            position: absolute;
+            top: 50%; left: 50%;
+            width:  var(--ew-pupil);
+            height: var(--ew-pupil);
+            border-radius: 50%;
+            background: #050505;
+            transform: translate(-50%,-50%);
+            z-index: 3;
+            transition: width .2s ease, height .2s ease;
+            pointer-events: none;
+        }
+        #ew-ball.ew-angry #ew-pupil { width: 12px; height: 12px; }
+
+        /* Shine dots */
+        #ew-shine1, #ew-shine2 {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        #ew-shine1 { width: var(--ew-shine); height: var(--ew-shine); top: 8px; left: 9px; background: rgba(255,255,255,.88); }
+        #ew-shine2 { width: 4px; height: 4px; top: 13px; left: 15px; background: rgba(255,255,255,.45); }
+
+        /* Veins */
+        #ew-veins {
+            position: absolute; inset: 0;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: .2;
+        }
+
+        /* click ripple */
+        .ew-ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(59,130,246,.6);
+            animation: ewRipple .6s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @keyframes ewRipple {
+            from { width: 72px; height: 72px; top: 0; left: 0; opacity: .8; }
+            to   { width: 130px; height: 130px; top: -29px; left: -29px; opacity: 0; }
+        }
+        #ew-ball.ew-angry .ew-ripple { border-color: rgba(239,68,68,.6); }
+
     </style>
 </head>
 <body>
@@ -1914,28 +2132,28 @@
             <defs>
                 <!-- per-letter accent colours -->
                 <linearGradient id="lc0" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#60a5fa"/>
-                    <stop offset="1" stop-color="#3b82f6"/>
+                    <stop offset="0" stop-color="#4ade80"/>
+                    <stop offset="1" stop-color="#22c55e"/>
                 </linearGradient>
                 <linearGradient id="lc1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#f59e0b"/>
-                    <stop offset="1" stop-color="#fb923c"/>
+                    <stop offset="0" stop-color="#86efac"/>
+                    <stop offset="1" stop-color="#16a34a"/>
                 </linearGradient>
                 <linearGradient id="lc2" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#10b981"/>
-                    <stop offset="1" stop-color="#34d399"/>
+                    <stop offset="0" stop-color="#00ff88"/>
+                    <stop offset="1" stop-color="#00cc66"/>
                 </linearGradient>
                 <linearGradient id="lc3" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#a78bfa"/>
-                    <stop offset="1" stop-color="#8b5cf6"/>
+                    <stop offset="0" stop-color="#a3e635"/>
+                    <stop offset="1" stop-color="#65a30d"/>
                 </linearGradient>
                 <linearGradient id="lc4" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#f472b6"/>
-                    <stop offset="1" stop-color="#ec4899"/>
+                    <stop offset="0" stop-color="#39ff14"/>
+                    <stop offset="1" stop-color="#00b300"/>
                 </linearGradient>
                 <linearGradient id="lc5" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#38bdf8"/>
-                    <stop offset="1" stop-color="#0ea5e9"/>
+                    <stop offset="0" stop-color="#6ee7b7"/>
+                    <stop offset="1" stop-color="#059669"/>
                 </linearGradient>
                 <linearGradient id="lc6" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0" stop-color="#fb7185"/>
@@ -1998,8 +2216,8 @@
         .ls-grid {
             position: absolute; inset: 0; z-index: 0;
             background-image:
-                linear-gradient(rgba(59,130,246,.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59,130,246,.05) 1px, transparent 1px);
+                linear-gradient(rgba(0,255,136,.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,136,.06) 1px, transparent 1px);
             background-size: 60px 60px;
             animation: lsGridPan 6s linear infinite;
         }
@@ -2008,7 +2226,7 @@
         /* scan line */
         .ls-scan {
             position: absolute; left: 0; right: 0; height: 2px; z-index: 1;
-            background: linear-gradient(90deg, transparent, rgba(59,130,246,.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0,255,136,.7), transparent);
             animation: lsScan 2s linear infinite;
             top: 0;
         }
@@ -2060,9 +2278,9 @@
         }
         .ls-bar-fill {
             height: 100%; width: 0%;
-            background: linear-gradient(90deg, #3b82f6, #f59e0b, #10b981);
+            background: linear-gradient(90deg, #00ff88, #22c55e, #16a34a);
             transition: width 0.15s linear;
-            box-shadow: 0 0 6px rgba(59,130,246,.6);
+            box-shadow: 0 0 8px rgba(0,255,136,.7);
         }
 
         /* exit */
@@ -3980,6 +4198,231 @@ Emergency Contact: +91 99627 26106
         document.addEventListener('mousedown', function() {
             document.body.classList.remove('keyboard-navigation');
         });
+
+        /* ═══════════════════════════════════════════════════════════
+           EYEBALL WIDGET — vanilla JS, no dependencies
+           Features: pupil tracking, angry (fast move 2s),
+                     idle blink (5s), click reactions, auto-blink
+        ═══════════════════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', function () {
+            'use strict';
+
+            /* ── DOM ── */
+            const ball   = document.getElementById('ew-ball');
+            const iris   = document.getElementById('ew-iris');
+            const bubble = document.getElementById('ew-bubble');
+            if (!ball) return;
+
+            /* ── Geometry ── */
+            const EYE_R    = 36;  // half of --ew-size (72px)
+            const IRIS_R   = 20;  // half of --ew-iris (40px)
+            const MAX_OFF  = EYE_R - IRIS_R - 2;
+            const EASE     = 0.11;
+
+            /* ── State ── */
+            const s = {
+                irisX: 0, irisY: 0,
+                targetX: 0, targetY: 0,
+                mouseX: window.innerWidth  / 2,
+                mouseY: window.innerHeight / 2,
+                prevX: 0, prevY: 0,
+                fastMoveSince: null,
+                isAngry: false,
+                isBlinking: false,
+                lastMove: Date.now(),
+                idleTimer: null,
+                bubbleTimer: null,
+                calmTimer: null,
+            };
+
+            const SPEED_TH      = 6;     // px/frame = "fast"
+            const ANGRY_MS      = 2000;  // continuous fast movement to trigger anger
+            const CALM_AFTER    = 2500;  // ms after fast stops → calm down
+            const IDLE_AFTER    = 5000;  // ms idle → blink + message
+
+            /* ── Click messages (cycles through) ── */
+            const clickMsgs = [
+                '👁 I see you!',
+                'Ow! That hurt!',
+                'Stop poking me!',
+                '🔒 I’m watching...',
+                'H-hello there!',
+                '😵 Dizzy...',
+                'I know what you did.',
+            ];
+            let clickIdx = 0;
+
+            /* ══════════════════════════════════════════════
+               MOUSE TRACKING
+            ══════════════════════════════════════════════ */
+            document.addEventListener('mousemove', (e) => {
+                s.mouseX = e.clientX;
+                s.mouseY = e.clientY;
+                s.lastMove = Date.now();
+                resetIdleTimer();
+            });
+
+            /* ══════════════════════════════════════════════
+               CLICK HANDLER — squish + ripple + message
+            ══════════════════════════════════════════════ */
+            ball.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                /* Squish animation */
+                ball.classList.remove('ew-squish');
+                void ball.offsetWidth;
+                ball.classList.add('ew-squish');
+                ball.addEventListener('animationend', () => {
+                    ball.classList.remove('ew-squish');
+                }, { once: true });
+
+                /* Ripple */
+                const ripple = document.createElement('div');
+                ripple.className = 'ew-ripple';
+                ball.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
+
+                /* Rotate message */
+                showBubble(clickMsgs[clickIdx % clickMsgs.length], 2200);
+                clickIdx++;
+            });
+
+            /* ══════════════════════════════════════════════
+               BUBBLE HELPERS
+            ══════════════════════════════════════════════ */
+            function showBubble(text, ms) {
+                clearTimeout(s.bubbleTimer);
+                bubble.textContent = text;
+                bubble.classList.remove('ew-hidden', 'ew-pop');
+                void bubble.offsetWidth;
+                bubble.classList.add('ew-pop');
+                if (ms) s.bubbleTimer = setTimeout(hideBubble, ms);
+            }
+            function hideBubble() {
+                bubble.classList.add('ew-hidden');
+            }
+
+            /* ══════════════════════════════════════════════
+               BLINK
+            ══════════════════════════════════════════════ */
+            function triggerBlink() {
+                if (s.isBlinking || s.isAngry) return;
+                s.isBlinking = true;
+                ball.classList.add('ew-blink', 'ew-blinking');
+                setTimeout(() => {
+                    ball.classList.remove('ew-blink');
+                    setTimeout(() => {
+                        ball.classList.remove('ew-blinking');
+                        s.isBlinking = false;
+                    }, 160);
+                }, 160);
+            }
+
+            /* Auto-blink every 4–7 s */
+            (function autoBlink() {
+                setTimeout(() => {
+                    triggerBlink();
+                    autoBlink();
+                }, 4000 + Math.random() * 3000);
+            })();
+
+            /* ══════════════════════════════════════════════
+               IDLE DETECTION
+            ══════════════════════════════════════════════ */
+            function resetIdleTimer() {
+                clearTimeout(s.idleTimer);
+                if (bubble.textContent === 'You still there? 👀') hideBubble();
+                s.idleTimer = setTimeout(() => {
+                    if (s.isAngry) return;
+                    triggerBlink();
+                    showBubble('You still there? 👀', 4000);
+                }, IDLE_AFTER);
+            }
+
+            /* ══════════════════════════════════════════════
+               ANGRY STATE
+            ══════════════════════════════════════════════ */
+            function checkSpeed(speed) {
+                const now = Date.now();
+                if (speed > SPEED_TH) {
+                    if (!s.fastMoveSince) s.fastMoveSince = now;
+                    if (!s.isAngry && now - s.fastMoveSince >= ANGRY_MS) setAngry(true);
+                    clearTimeout(s.calmTimer);
+                    s.calmTimer = setTimeout(() => setAngry(false), CALM_AFTER);
+                } else {
+                    if (!s.isAngry) s.fastMoveSince = null;
+                }
+            }
+
+            function setAngry(angry) {
+                if (s.isAngry === angry) return;
+                s.isAngry = angry;
+                ball.classList.toggle('ew-angry', angry);
+                if (angry) showBubble("Don't make me dizzy! 😠", 3000);
+                else { s.fastMoveSince = null; hideBubble(); }
+            }
+
+            /* ══════════════════════════════════════════════
+               RAF LOOP — smooth pupil tracking
+            ══════════════════════════════════════════════ */
+            function tick() {
+                /* Eye centre in viewport */
+                const r   = ball.getBoundingClientRect();
+                const ecx = r.left + r.width  / 2;
+                const ecy = r.top  + r.height / 2;
+
+                /* Direction to cursor */
+                const dx    = s.mouseX - ecx;
+                const dy    = s.mouseY - ecy;
+                const angle = Math.atan2(dy, dx);
+                const dist  = Math.min(Math.hypot(dx, dy), MAX_OFF);
+
+                /* Ideal position */
+                const ix = Math.cos(angle) * dist;
+                const iy = Math.sin(angle) * dist;
+
+                /* Ease toward ideal */
+                s.irisX += (ix - s.irisX) * EASE;
+                s.irisY += (iy - s.irisY) * EASE;
+
+                /* Apply */
+                iris.style.transform =
+                    `translate(calc(-50% + ${s.irisX.toFixed(2)}px), calc(-50% + ${s.irisY.toFixed(2)}px))`;
+
+                /* Speed check */
+                checkSpeed(Math.hypot(s.mouseX - s.prevX, s.mouseY - s.prevY));
+                s.prevX = s.mouseX;
+                s.prevY = s.mouseY;
+
+                requestAnimationFrame(tick);
+            }
+
+            resetIdleTimer();
+            requestAnimationFrame(tick);
+        });
+
     </script>
+
+    <!-- ═══════════════════════════════════════════════════════
+         EYEBALL WIDGET — fixed bottom-left, interactive
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="eye-widget">
+        <div id="ew-bubble" class="ew-hidden">👀</div>
+        <div id="ew-ball">
+            <div id="ew-lid-top"></div>
+            <div id="ew-lid-bot"></div>
+            <div id="ew-iris">
+                <div id="ew-pupil"></div>
+            </div>
+            <div id="ew-shine1"></div>
+            <div id="ew-shine2"></div>
+            <svg id="ew-veins" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+                <path d="M36 36 Q46 28 56 32" stroke="#dc2626" stroke-width=".8" fill="none"/>
+                <path d="M36 36 Q44 44 52 46" stroke="#dc2626" stroke-width=".6" fill="none"/>
+                <path d="M36 36 Q26 30 18 33" stroke="#dc2626" stroke-width=".5" fill="none"/>
+            </svg>
+        </div>
+    </div>
+
 </body>
 </html>
