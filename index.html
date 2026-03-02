@@ -1053,104 +1053,6 @@
         }
 
         /* Education Timeline Styles */
-        .education-timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            padding-left: var(--space-2xl);
-        }
-
-        .education-timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: var(--space-3xl);
-            padding-left: var(--space-2xl);
-        }
-
-        .timeline-marker {
-            position: absolute;
-            left: -28px;
-            top: 8px;
-            width: 16px;
-            height: 16px;
-            background: var(--accent-primary);
-            border: 3px solid var(--bg-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px var(--accent-primary);
-        }
-
-        .timeline-content {
-            background: var(--glass-medium);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-2xl);
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: var(--accent-primary);
-            background: rgba(59, 130, 246, 0.05);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px var(--glow-primary);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: var(--space-md);
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-        }
-
-        .timeline-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1.3;
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .timeline-date {
-            background: var(--accent-primary);
-            color: white;
-            padding: var(--space-xs) var(--space-md);
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .timeline-institution {
-            color: var(--accent-secondary);
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: var(--space-md);
-        }
-
-        .timeline-description {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: var(--space-lg);
-        }
-
-        .timeline-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-        }
 
         .skill-badge {
             background: rgba(59, 130, 246, 0.1);
@@ -1165,48 +1067,6 @@
         }
 
         /* Research Interests */
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--space-xl);
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .interest-card {
-            background: var(--glass-medium);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-2xl);
-            text-align: center;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-        }
-
-        .interest-card:hover {
-            border-color: var(--accent-primary);
-            background: rgba(59, 130, 246, 0.05);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px var(--glow-primary);
-        }
-
-        .interest-icon {
-            font-size: 48px;
-            margin-bottom: var(--space-lg);
-        }
-
-        .interest-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: var(--space-md);
-        }
-
-        .interest-desc {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-        }
 
         /* Enhanced Contact Section */
         .contact-section {
@@ -2431,6 +2291,403 @@
             .dock-icon { width: 34px !important; height: 34px !important; font-size: 16px !important; }
         }
 
+
+        /* ═══════════════════════════════════════════════════════
+           EDUCATION — Cinematic scroll-reveal timeline
+           Design: dark sci-fi, glowing orbital nodes,
+           cards fly in from alternating sides
+        ═══════════════════════════════════════════════════════ */
+
+        #education {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle animated grid background */
+        #education .edu-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59,130,246,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            animation: eduGridDrift 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes eduGridDrift {
+            from { background-position: 0 0; }
+            to   { background-position: 48px 48px; }
+        }
+
+        /* Ambient glow orb */
+        #education .edu-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        #education .edu-orb-1 {
+            width: 600px; height: 600px;
+            top: -200px; right: -150px;
+            background: radial-gradient(circle, rgba(59,130,246,.07) 0%, transparent 65%);
+        }
+        #education .edu-orb-2 {
+            width: 400px; height: 400px;
+            bottom: 0; left: -100px;
+            background: radial-gradient(circle, rgba(245,158,11,.05) 0%, transparent 65%);
+        }
+
+        /* Section content sits above bg */
+        #education .section-header,
+        .edu-timeline-wrap { position: relative; z-index: 1; }
+
+        /* ── Central timeline spine ── */
+        .edu-timeline-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            padding: 1rem 0 2rem;
+        }
+
+        .edu-spine {
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 2px;
+            transform: translateX(-50%);
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(59,130,246,.5) 8%,
+                rgba(59,130,246,.3) 92%,
+                transparent 100%
+            );
+            overflow: hidden;
+        }
+
+        /* Travelling light along spine */
+        .edu-spine::after {
+            content: '';
+            position: absolute;
+            top: -60px; left: 0;
+            width: 100%; height: 60px;
+            background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+            animation: spineLight 3.5s ease-in-out infinite;
+        }
+        @keyframes spineLight {
+            0%   { top: -60px; opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* ── Each timeline entry ── */
+        .edu-entry {
+            display: grid;
+            grid-template-columns: 1fr 48px 1fr;
+            align-items: start;
+            gap: 0 1.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        /* Left & right card slots */
+        .edu-entry-left  { grid-column: 1; text-align: right; }
+        .edu-entry-node  { grid-column: 2; display: flex; flex-direction: column; align-items: center; padding-top: .5rem; }
+        .edu-entry-right { grid-column: 3; }
+
+        /* Entries alternate: even = card left, odd = card right */
+        .edu-entry:nth-child(even) .edu-entry-left  { order: 1; }
+        .edu-entry:nth-child(even) .edu-entry-node  { order: 2; }
+        .edu-entry:nth-child(even) .edu-entry-right { order: 3; display: none; }
+        .edu-entry:nth-child(even) .edu-entry-left  { display: block; }
+
+        .edu-entry:nth-child(odd) .edu-entry-left  { display: none; }
+        .edu-entry:nth-child(odd) .edu-entry-right { display: block; }
+
+        /* ── Orbital node ── */
+        .edu-node {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--node-color, #3b82f6);
+            background: var(--bg-primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 0 4px rgba(59,130,246,.08), 0 0 20px rgba(59,130,246,.15);
+            transition: box-shadow .3s, transform .3s;
+        }
+        .edu-entry:hover .edu-node {
+            box-shadow: 0 0 0 6px rgba(59,130,246,.15), 0 0 36px var(--node-color, #3b82f6);
+            transform: scale(1.12);
+        }
+
+        /* Pulsing ring around node */
+        .edu-node-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid var(--node-color, #3b82f6);
+            opacity: 0;
+            animation: nodeRing 2.8s ease-out infinite;
+        }
+        .edu-entry:nth-child(2) .edu-node-ring { animation-delay: -.9s; }
+        .edu-entry:nth-child(3) .edu-node-ring { animation-delay: -1.8s; }
+        .edu-entry:nth-child(4) .edu-node-ring { animation-delay: -.4s; }
+        .edu-entry:nth-child(5) .edu-node-ring { animation-delay: -1.3s; }
+        @keyframes nodeRing {
+            0%   { transform: scale(.9); opacity: .6; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        /* Year label below node */
+        .edu-node-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--node-color, #3b82f6);
+            letter-spacing: .1em;
+            margin-top: .4rem;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* Horizontal connector line from node to card */
+        .edu-connector-h {
+            position: absolute;
+            top: 24px;
+            height: 1px;
+            width: 1.5rem;
+            background: linear-gradient(90deg, transparent, var(--node-color, #3b82f6));
+        }
+        .edu-entry:nth-child(odd)  .edu-connector-h { left: calc(100% + 2px); background: linear-gradient(90deg, var(--node-color,#3b82f6), transparent); }
+        .edu-entry:nth-child(even) .edu-connector-h { right: calc(100% + 2px); left: auto; }
+
+        /* ── Education card ── */
+        .edu-card {
+            background: rgba(10,10,20,.75);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s, box-shadow .3s, transform .35s cubic-bezier(.22,1,.36,1);
+            backdrop-filter: blur(12px);
+            /* scroll reveal — start hidden */
+            opacity: 0;
+            transform: translateX(var(--slide-from, -40px));
+        }
+        .edu-entry:nth-child(odd)  .edu-card { --slide-from: 40px; }
+        .edu-entry:nth-child(even) .edu-card { --slide-from: -40px; }
+
+        .edu-card.edu-visible {
+            opacity: 1;
+            transform: translateX(0) !important;
+            transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1), border-color .3s, box-shadow .3s;
+        }
+
+        .edu-card:hover {
+            border-color: var(--node-color, #3b82f6);
+            box-shadow:
+                0 12px 40px rgba(0,0,0,.5),
+                0 0 0 1px rgba(59,130,246,.2),
+                0 0 30px rgba(59,130,246,.06);
+            transform: translateY(-4px) !important;
+        }
+
+        /* Top accent bar */
+        .edu-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--node-color, #3b82f6), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .45s cubic-bezier(.22,1,.36,1);
+        }
+        .edu-card:hover::before,
+        .edu-card.edu-visible::before { transform: scaleX(1); }
+
+        /* Glow blob inside card */
+        .edu-card-glow {
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--node-color, rgba(59,130,246,.12)) 0%, transparent 70%);
+            opacity: .5;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+        .edu-card:hover .edu-card-glow { opacity: 1; }
+
+        .edu-card-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--node-color, #3b82f6);
+            margin-bottom: .5rem;
+        }
+        .edu-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.35;
+            margin-bottom: .3rem;
+        }
+        .edu-card-inst {
+            font-size: 12px;
+            color: rgba(255,255,255,.38);
+            font-style: italic;
+            margin-bottom: .75rem;
+        }
+        .edu-card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: .9rem;
+        }
+        .edu-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .3rem;
+        }
+        .edu-tag {
+            font-size: 9px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: .06em;
+            padding: .22rem .5rem;
+            border-radius: 4px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.09);
+            color: rgba(255,255,255,.5);
+            transition: all .2s;
+        }
+        .edu-card:hover .edu-tag {
+            border-color: var(--node-color, rgba(59,130,246,.4));
+            color: rgba(255,255,255,.75);
+            background: rgba(59,130,246,.06);
+        }
+
+        /* ── Research strip ── */
+        .edu-research-strip {
+            position: relative;
+            z-index: 1;
+            margin-top: 3.5rem;
+        }
+        .edu-research-label {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin-bottom: 1.5rem;
+        }
+        .edu-research-label::before,
+        .edu-research-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(245,158,11,.3), transparent);
+        }
+        .edu-research-label span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .2em;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .edu-research-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .edu-ri-card {
+            padding: 1.5rem 1.25rem;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(20,20,35,.9) 0%, rgba(15,15,25,.9) 100%);
+            border: 1px solid rgba(255,255,255,.06);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .55s, transform .55s cubic-bezier(.22,1,.36,1), border-color .3s, box-shadow .3s;
+        }
+        .edu-ri-card.edu-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .edu-ri-card:hover {
+            border-color: rgba(245,158,11,.3);
+            box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 0 24px rgba(245,158,11,.06);
+        }
+        /* Animated gradient border on hover */
+        .edu-ri-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(245,158,11,.04), transparent 50%);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .edu-ri-card:hover::after { opacity: 1; }
+
+        .edu-ri-icon {
+            font-size: 32px;
+            margin-bottom: .75rem;
+            display: block;
+            animation: riFloat 4s ease-in-out infinite;
+        }
+        .edu-ri-card:nth-child(2) .edu-ri-icon { animation-delay: -1.4s; }
+        .edu-ri-card:nth-child(3) .edu-ri-icon { animation-delay: -2.8s; }
+        @keyframes riFloat {
+            0%,100% { transform: translateY(0) rotate(0deg); }
+            50%      { transform: translateY(-5px) rotate(3deg); }
+        }
+        .edu-ri-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: .4rem;
+        }
+        .edu-ri-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .edu-entry {
+                grid-template-columns: 32px 1fr;
+                gap: 0 1rem;
+                margin-bottom: 2rem;
+            }
+            .edu-entry-node  { grid-column: 1; }
+            .edu-entry-left,
+            .edu-entry-right { grid-column: 2; display: block !important; text-align: left; }
+            .edu-entry:nth-child(even) .edu-entry-left,
+            .edu-entry:nth-child(odd)  .edu-entry-right { display: block !important; }
+            .edu-entry:nth-child(even) .edu-entry-right,
+            .edu-entry:nth-child(odd)  .edu-entry-left  { display: none !important; }
+            .edu-node { width: 32px; height: 32px; font-size: 14px; }
+            .edu-node-year { display: none; }
+            .edu-spine { left: 16px; }
+            .edu-research-row { grid-template-columns: 1fr; }
+            .edu-connector-h { display: none; }
+            .edu-card { --slide-from: 20px !important; }
+        }
+        @media (max-width: 480px) {
+            .edu-card { padding: 1.1rem; }
+            .edu-card-title { font-size: 13px; }
+            .edu-card-desc { font-size: 12px; }
+        }
+
     </style>
 </head>
 <body>
@@ -2920,147 +3177,181 @@
     </section>
 
     <section id="education" class="section">
+
+        <!-- Decorative background layers -->
+        <div class="edu-grid-bg"></div>
+        <div class="edu-orb edu-orb-1"></div>
+        <div class="edu-orb edu-orb-2"></div>
+
         <div class="section-header fade-in-up">
-            <h2 class="section-title">Education & Certifications</h2>
+            <h2 class="section-title">Education</h2>
             <p class="section-subtitle">
-                Strong academic foundation in physics combined with professional certifications in cybersecurity and software development
+                A physics mind wired for security — from ultrasonic interferometry to penetration testing
             </p>
         </div>
 
-        <div class="education-timeline fade-in-up">
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3 class="timeline-title">Certified Penetration Tester (CPT)</h3>
-                        <span class="timeline-date">2024</span>
+        <!-- ══ Timeline ══════════════════════════════════════════ -->
+        <div class="edu-timeline-wrap">
+            <!-- Central spine -->
+            <div class="edu-spine"></div>
+
+            <!-- ── Entry 1: CPT ── -->
+            <div class="edu-entry" style="--node-color:#3b82f6;">
+                <div class="edu-entry-left">
+                    <div class="edu-card" data-edu-index="0">
+                        <div class="edu-card-glow" style="background:radial-gradient(circle,rgba(59,130,246,.15) 0%,transparent 70%)"></div>
+                        <div class="edu-card-type">Certification</div>
+                        <div class="edu-card-title">Certified Penetration Tester (CPT)</div>
+                        <div class="edu-card-inst">RedTeam Hacker Academy, Kozhikode</div>
+                        <div class="edu-card-desc">Intensive 3-month program covering penetration testing methodologies, network security, vulnerability assessment and ethical hacking. Hands-on with Burp Suite, Nmap and Metasploit.</div>
+                        <div class="edu-card-tags">
+                            <span class="edu-tag">Pentest</span>
+                            <span class="edu-tag">Network Sec</span>
+                            <span class="edu-tag">Burp Suite</span>
+                            <span class="edu-tag">Metasploit</span>
+                        </div>
                     </div>
-                    <div class="timeline-institution">RedTeam Hacker Academy, Kozhikode</div>
-                    <div class="timeline-description">
-                        Intensive 3-month certification program covering penetration testing methodologies, network security,
-                        vulnerability assessments, and ethical hacking. Hands-on experience with Burp Suite, Nmap, and Metasploit.
+                </div>
+                <div class="edu-entry-node">
+                    <div class="edu-node" style="--node-color:#3b82f6;">
+                        <div class="edu-node-ring"></div>
+                        🔐
                     </div>
-                    <div class="timeline-skills">
-                        <span class="skill-badge">Penetration Testing</span>
-                        <span class="skill-badge">Network Security</span>
-                        <span class="skill-badge">Ethical Hacking</span>
-                        <span class="skill-badge">Vulnerability Assessment</span>
+                    <div class="edu-node-year">2024</div>
+                </div>
+                <div class="edu-entry-right"></div>
+            </div>
+
+            <!-- ── Entry 2: MSc Physics ── -->
+            <div class="edu-entry" style="--node-color:#8b5cf6;">
+                <div class="edu-entry-left"></div>
+                <div class="edu-entry-node">
+                    <div class="edu-node" style="--node-color:#8b5cf6;">
+                        <div class="edu-node-ring"></div>
+                        ⚛️
+                    </div>
+                    <div class="edu-node-year">2023</div>
+                </div>
+                <div class="edu-entry-right">
+                    <div class="edu-card" data-edu-index="1">
+                        <div class="edu-card-glow" style="background:radial-gradient(circle,rgba(139,92,246,.15) 0%,transparent 70%)"></div>
+                        <div class="edu-card-type">Postgraduate Degree</div>
+                        <div class="edu-card-title">M.Sc. Physics</div>
+                        <div class="edu-card-inst">The New College, Chennai, Tamil Nadu</div>
+                        <div class="edu-card-desc">Advanced studies in acoustics and medical physics. Research: <em>"Acoustic Study of Aqueous Solution Containing Antibiotic and Human Mixtard Insulin"</em> using ultrasonic interferometry across physiological temperatures.</div>
+                        <div class="edu-card-tags">
+                            <span class="edu-tag">Medical Physics</span>
+                            <span class="edu-tag">Interferometry</span>
+                            <span class="edu-tag">Research</span>
+                            <span class="edu-tag">Data Analysis</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3 class="timeline-title">M.Sc. Physics</h3>
-                        <span class="timeline-date">2023</span>
+            <!-- ── Entry 3: APSE ── -->
+            <div class="edu-entry" style="--node-color:#10b981;">
+                <div class="edu-entry-left">
+                    <div class="edu-card" data-edu-index="2">
+                        <div class="edu-card-glow" style="background:radial-gradient(circle,rgba(16,185,129,.15) 0%,transparent 70%)"></div>
+                        <div class="edu-card-type">Professional Certification</div>
+                        <div class="edu-card-title">Advanced Programming in Full Stack SE (APSE)</div>
+                        <div class="edu-card-inst">NIIT, Chennai</div>
+                        <div class="edu-card-desc">Comprehensive full-stack development covering modern web technologies, database management, cross-platform development and software engineering principles.</div>
+                        <div class="edu-card-tags">
+                            <span class="edu-tag">Full Stack</span>
+                            <span class="edu-tag">JavaScript</span>
+                            <span class="edu-tag">Databases</span>
+                            <span class="edu-tag">Software Eng</span>
+                        </div>
                     </div>
-                    <div class="timeline-institution">The New College, Chennai, Tamil Nadu</div>
-                    <div class="timeline-description">
-                        Advanced studies in physics with focus on acoustics and medical physics. Research project on 
-                        "Acoustic Study of Aqueous Solution Containing Antibiotic and Human Mixtard Insulin" using 
-                        ultrasonic interferometry across physiological temperatures.
+                </div>
+                <div class="edu-entry-node">
+                    <div class="edu-node" style="--node-color:#10b981;">
+                        <div class="edu-node-ring"></div>
+                        💻
                     </div>
-                    <div class="timeline-skills">
-                        <span class="skill-badge">Medical Physics</span>
-                        <span class="skill-badge">Ultrasonic Interferometry</span>
-                        <span class="skill-badge">Research Methodology</span>
-                        <span class="skill-badge">Data Analysis</span>
+                    <div class="edu-node-year">2022–23</div>
+                </div>
+                <div class="edu-entry-right"></div>
+            </div>
+
+            <!-- ── Entry 4: BSc ── -->
+            <div class="edu-entry" style="--node-color:#f59e0b;">
+                <div class="edu-entry-left"></div>
+                <div class="edu-entry-node">
+                    <div class="edu-node" style="--node-color:#f59e0b;">
+                        <div class="edu-node-ring"></div>
+                        🔬
+                    </div>
+                    <div class="edu-node-year">2021</div>
+                </div>
+                <div class="edu-entry-right">
+                    <div class="edu-card" data-edu-index="3">
+                        <div class="edu-card-glow" style="background:radial-gradient(circle,rgba(245,158,11,.15) 0%,transparent 70%)"></div>
+                        <div class="edu-card-type">Undergraduate Degree</div>
+                        <div class="edu-card-title">B.Sc. Physics</div>
+                        <div class="edu-card-inst">The New College, Chennai, Tamil Nadu</div>
+                        <div class="edu-card-desc">Strong foundation in mathematical analysis, experimental techniques and scientific methodology. Developed analytical thinking and problem-solving skills essential for technology careers.</div>
+                        <div class="edu-card-tags">
+                            <span class="edu-tag">Physics</span>
+                            <span class="edu-tag">Mathematics</span>
+                            <span class="edu-tag">Experiments</span>
+                            <span class="edu-tag">Problem Solving</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3 class="timeline-title">Advanced Programming in Full Stack Software Engineering (APSE)</h3>
-                        <span class="timeline-date">2022-2023</span>
-                    </div>
-                    <div class="timeline-institution">NIIT, Chennai</div>
-                    <div class="timeline-description">
-                        Comprehensive full-stack development program covering modern web technologies, database management,
-                        cross-platform development, and software engineering principles.
-                    </div>
-                    <div class="timeline-skills">
-                        <span class="skill-badge">Full Stack Development</span>
-                        <span class="skill-badge">JavaScript</span>
-                        <span class="skill-badge">Database Management</span>
-                        <span class="skill-badge">Software Engineering</span>
+            <!-- ── Entry 5: Higher Secondary ── -->
+            <div class="edu-entry" style="--node-color:#ec4899;">
+                <div class="edu-entry-left">
+                    <div class="edu-card" data-edu-index="4">
+                        <div class="edu-card-glow" style="background:radial-gradient(circle,rgba(236,72,153,.15) 0%,transparent 70%)"></div>
+                        <div class="edu-card-type">Secondary Education</div>
+                        <div class="edu-card-title">Higher Secondary Education</div>
+                        <div class="edu-card-inst">NEST Higher Secondary School, Kerala State Board</div>
+                        <div class="edu-card-desc">Science stream providing the foundation for advanced physics and technology studies. Developed core discipline and analytical mindset.</div>
+                        <div class="edu-card-tags">
+                            <span class="edu-tag">Science</span>
+                            <span class="edu-tag">Foundation</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3 class="timeline-title">B.Sc. Physics</h3>
-                        <span class="timeline-date">2021</span>
+                <div class="edu-entry-node">
+                    <div class="edu-node" style="--node-color:#ec4899;">
+                        <div class="edu-node-ring"></div>
+                        🎓
                     </div>
-                    <div class="timeline-institution">The New College, Chennai, Tamil Nadu</div>
-                    <div class="timeline-description">
-                        Undergraduate degree in physics with strong foundation in mathematical analysis, experimental techniques,
-                        and scientific methodology. Developed analytical thinking and problem-solving skills essential for technology careers.
-                    </div>
-                    <div class="timeline-skills">
-                        <span class="skill-badge">Physics</span>
-                        <span class="skill-badge">Mathematical Analysis</span>
-                        <span class="skill-badge">Experimental Techniques</span>
-                        <span class="skill-badge">Problem Solving</span>
-                    </div>
+                    <div class="edu-node-year">2016–18</div>
                 </div>
+                <div class="edu-entry-right"></div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3 class="timeline-title">Higher Secondary Education</h3>
-                        <span class="timeline-date">2016-2018</span>
-                    </div>
-                    <div class="timeline-institution">NEST Higher Secondary School, Kerala State Board</div>
-                    <div class="timeline-description">
-                        Senior secondary education with focus on science subjects, building the foundation for advanced
-                        studies in physics and technology fields.
-                    </div>
+        </div><!-- /edu-timeline-wrap -->
+
+        <!-- ══ Research interests ════════════════════════════════ -->
+        <div class="edu-research-strip">
+            <div class="edu-research-label"><span>research interests</span></div>
+            <div class="edu-research-row">
+                <div class="edu-ri-card" data-edu-index="5">
+                    <span class="edu-ri-icon">⚛️</span>
+                    <div class="edu-ri-title">Nuclear Physics</div>
+                    <div class="edu-ri-desc">Exploring nuclear processes, radiation physics, and applications in medical technology and energy systems.</div>
+                </div>
+                <div class="edu-ri-card" data-edu-index="6">
+                    <span class="edu-ri-icon">🏥</span>
+                    <div class="edu-ri-title">Medical Physics</div>
+                    <div class="edu-ri-desc">Investigating acoustic properties of biological solutions and pharmaceutical compounds for medical diagnostics.</div>
+                </div>
+                <div class="edu-ri-card" data-edu-index="7">
+                    <span class="edu-ri-icon">🔊</span>
+                    <div class="edu-ri-title">Acoustics &amp; Interferometry</div>
+                    <div class="edu-ri-desc">Advanced ultrasonic techniques for material characterisation and biomedical research applications.</div>
                 </div>
             </div>
         </div>
 
-        <!-- Research Interests Section -->
-        <div class="research-interests fade-in-up" style="margin-top: var(--space-4xl);">
-            <h3 style="text-align: center; font-size: 28px; font-weight: 800; color: var(--text-primary); margin-bottom: var(--space-2xl);">
-                Research Interests
-            </h3>
-            <div class="interests-grid">
-                <div class="interest-card">
-                    <div class="interest-icon">⚛️</div>
-                    <h4 class="interest-title">Nuclear Physics</h4>
-                    <p class="interest-desc">
-                        Exploring nuclear processes, radiation physics, and applications in medical technology
-                        and energy systems.
-                    </p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-icon">🏥</div>
-                    <h4 class="interest-title">Medical Physics</h4>
-                    <p class="interest-desc">
-                        Investigating acoustic properties of biological solutions and pharmaceutical compounds
-                        for medical diagnostic applications.
-                    </p>
-                </div>
-                <div class="interest-card">
-                    <div class="interest-icon">🔊</div>
-                    <h4 class="interest-title">Acoustics & Interferometry</h4>
-                    <p class="interest-desc">
-                        Advanced ultrasonic techniques for material characterization and biomedical
-                        research applications.
-                    </p>
-                </div>
-            </div>
-        </div>
     </section>
 
     <section id="demo" class="section demo-section">
@@ -4817,6 +5108,49 @@ Emergency Contact: +91 99627 26106
 
             resetIdleTimer();
             requestAnimationFrame(tick);
+
+        /* ══════════════════════════════════════════════════════
+           EDUCATION — Scroll-reveal + staggered animation
+        ══════════════════════════════════════════════════════ */
+        (function initEduReveal() {
+            // Cards fly in from left/right as they enter viewport
+            var cards = document.querySelectorAll('.edu-card, .edu-ri-card');
+            if (!cards.length) return;
+
+            var delays = [0, 80, 160, 240, 320, 0, 120, 240];
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    var el  = entry.target;
+                    var idx = parseInt(el.getAttribute('data-edu-index') || '0', 10);
+                    var delay = delays[idx] || 0;
+                    setTimeout(function() {
+                        el.classList.add('edu-visible');
+                    }, delay);
+                    observer.unobserve(el);
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+            cards.forEach(function(card) { observer.observe(card); });
+
+            // Node entrance — scale up when spine passes by
+            var nodes = document.querySelectorAll('.edu-node');
+            var nodeObs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .3s';
+                    entry.target.style.transform = 'scale(1)';
+                    nodeObs.unobserve(entry.target);
+                });
+            }, { threshold: 0.5 });
+
+            nodes.forEach(function(n) {
+                n.style.transform = 'scale(0)';
+                nodeObs.observe(n);
+            });
+        })();
+
         }); // end eyeball tick/DOMContentLoaded
 
     </script>
