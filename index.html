@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>P. Salmanul Faris - Cybersecurity Expert</title>
     <meta name="description" content="Certified Penetration Tester & Security Researcher specializing in network security assessments and ethical hacking">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
@@ -432,7 +432,7 @@
         /* Enhanced Terminal */
         .hero-terminal {
             width: 520px;
-            height: 640px;
+            height: clamp(300px, 50vh, 640px);
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--border-medium);
             border-radius: var(--radius-lg);
@@ -565,7 +565,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
             gap: var(--space-xl);
             margin-top: var(--space-2xl);
         }
@@ -721,7 +721,7 @@
         /* Enhanced Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
             gap: var(--space-xl);
             max-width: 1200px;
             margin: 0 auto;
@@ -2181,6 +2181,255 @@
             to   { width: 130px; height: 130px; top: -29px; left: -29px; opacity: 0; }
         }
         #ew-ball.ew-angry .ew-ripple { border-color: rgba(239,68,68,.6); }
+
+
+        /* ═══════════════════════════════════════════════════════════
+           MOBILE-FIRST RESPONSIVE OVERHAUL
+           Breakpoints: 480px, 600px, 768px, 1024px
+        ═══════════════════════════════════════════════════════════ */
+
+        /* ── Shared: add bottom padding so dock never overlaps content ── */
+        body { padding-bottom: 80px; }
+
+        /* ── Touch: make tap targets at least 44px ── */
+        a, button, .dock-item, .cta-primary, .cta-secondary,
+        .form-submit, .card-prev, .card-next {
+            min-height: 44px;
+        }
+
+        /* ── Prevent horizontal overflow globally ── */
+        html, body { max-width: 100%; overflow-x: hidden; }
+
+        /* ─────────────────────────────────────────────
+           1024px — Large tablet / small laptop
+        ───────────────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 6rem 2rem 3rem;
+                gap: 2.5rem;
+            }
+            .hero-content { max-width: 100%; }
+            .hero-cta { justify-content: center; }
+            .hero-terminal {
+                width: min(520px, 90vw);
+                height: auto;
+                min-height: 360px;
+            }
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            }
+            .section { padding: 4rem 2.5rem; }
+        }
+
+        /* ─────────────────────────────────────────────
+           768px — Tablet portrait
+        ───────────────────────────────────────────── */
+        @media (max-width: 768px) {
+
+            /* Typography scale-down */
+            .hero-title  { font-size: clamp(2rem, 9vw, 3rem); }
+            .section-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+
+            /* Hero */
+            .hero {
+                padding: 5rem 1.5rem 2.5rem;
+                min-height: auto;
+            }
+            .hero-terminal {
+                width: min(480px, 92vw);
+                height: auto;
+                min-height: 300px;
+                max-height: 440px;
+            }
+            .terminal-body { font-size: 12px; padding: 1rem; }
+
+            /* Sections */
+            .section { padding: 3rem 1.5rem; }
+
+            /* Projects */
+            .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .project-item  { min-height: auto; padding: 1.5rem; }
+
+            /* Gallery cards — smaller on tablet */
+            .gallery-stage { height: 380px; }
+            .card-slide    { width: 150px; }
+
+            /* Skills */
+            .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .skill-category { padding: 1.25rem 1rem; }
+
+            /* Education timeline */
+            .education-timeline { padding-left: 1.5rem; }
+            .timeline-item      { padding-left: 1.5rem; }
+            .timeline-marker    { left: -20px; }
+
+            /* Contact */
+            .contact-grid  { grid-template-columns: 1fr; }
+            .contact-form  { padding: 1.5rem; }
+            .contact-section > .section-content {
+                flex-direction: column;
+            }
+
+            /* Demo section */
+            .demo-interactive { padding: 1.25rem; }
+            .vulnerability-grid { grid-template-columns: repeat(8, 1fr); }
+            .scan-controls { flex-wrap: wrap; gap: .5rem; }
+            .scan-controls button { flex: 1; min-width: 120px; }
+
+            /* Scroll text */
+            .st-prefix, .st-word { font-size: clamp(2rem, 9vw, 3rem) !important; }
+            .st-progress { margin-top: 1.5rem; }
+            .st-bar-bg   { width: 120px; }
+
+            /* Eyeball — move slightly so dock doesn't overlap */
+            #eye-widget { bottom: 90px; left: 16px; }
+            #ew-ball    { width: 56px; height: 56px; }
+            :root { --ew-size: 56px; --ew-iris: 32px; --ew-pupil: 14px; }
+
+            /* Dock — full-width on tablet */
+            #dock-wrapper { width: 100%; }
+            #dock {
+                width: 100%;
+                border-radius: 0;
+                padding: 8px 4px 0;
+                justify-content: space-around;
+            }
+            .dock-item  { width: 44px; height: 44px; margin: 0; }
+            .dock-icon  { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
+            .dock-label { font-size: 9px; bottom: 105%; }
+            .dock-sep   { display: none; }
+
+            /* Scroll-to-top button — above dock */
+            .scroll-top { bottom: 80px; right: 1rem; }
+        }
+
+        /* ─────────────────────────────────────────────
+           600px — Large phone
+        ───────────────────────────────────────────── */
+        @media (max-width: 600px) {
+
+            /* Hero */
+            .hero { padding: 4.5rem 1rem 2rem; gap: 2rem; }
+            .hero-title { font-size: clamp(1.8rem, 10vw, 2.6rem); }
+            .hero-subtitle { font-size: 0.95rem; }
+            .hero-description { font-size: 0.9rem; line-height: 1.6; }
+            .hero-terminal {
+                width: 100%;
+                min-height: 260px;
+                max-height: 360px;
+            }
+            .hero-badge { font-size: 11px; padding: .35rem .75rem; }
+            .cta-primary, .cta-secondary {
+                padding: .75rem 1.25rem;
+                font-size: .85rem;
+            }
+            .hero-cta { flex-direction: column; gap: .75rem; width: 100%; }
+            .cta-primary, .cta-secondary { text-align: center; width: 100%; }
+
+            /* Sections */
+            .section { padding: 2.5rem 1rem; }
+            .section-header { margin-bottom: 1.5rem; }
+
+            /* Project cards */
+            .project-item { padding: 1.25rem; border-radius: 12px; }
+            .project-tech  { flex-wrap: wrap; gap: .4rem; }
+            .tech-tag      { font-size: 10px; padding: .25rem .5rem; }
+
+            /* Gallery */
+            .gallery-stage { height: 300px; }
+            .card-slide    { width: 120px; }
+            .gallery-controls { gap: .5rem; margin-top: .75rem; }
+
+            /* Skills */
+            .skills-grid { grid-template-columns: 1fr; }
+
+            /* Certifications list */
+            .cert-grid, .cert-list {
+                grid-template-columns: 1fr;
+                gap: .75rem;
+            }
+
+            /* Education */
+            .edu-card { padding: 1.25rem; }
+
+            /* Demo / terminal */
+            .terminal-header { padding: .5rem .75rem; }
+            .terminal-body   { padding: .75rem; font-size: 11px; min-height: 180px; }
+            .demo-controls   { flex-wrap: wrap; }
+            .vulnerability-grid { grid-template-columns: repeat(6, 1fr); }
+
+            /* Contact form */
+            .contact-form   { padding: 1.25rem; }
+            .form-row       { flex-direction: column; gap: 0; }
+            .contact-grid   { gap: .75rem; }
+            .contact-item   { padding: 1rem; }
+
+            /* Dock */
+            #dock { padding: 6px 2px 0; }
+            .dock-item  { width: 40px; height: 40px; }
+            .dock-icon  { width: 34px; height: 34px; font-size: 16px; border-radius: 9px; }
+
+            /* Eyeball smaller */
+            #ew-ball { width: 48px; height: 48px; }
+            :root { --ew-size: 48px; --ew-iris: 28px; --ew-pupil: 12px; }
+        }
+
+        /* ─────────────────────────────────────────────
+           480px — Phone portrait
+        ───────────────────────────────────────────── */
+        @media (max-width: 480px) {
+
+            /* Base */
+            .hero { padding: 4rem .875rem 1.75rem; }
+            .hero-title { font-size: clamp(1.6rem, 11vw, 2.2rem); }
+
+            /* Scroll text — stacked on very small screens */
+            .st-line { flex-direction: column; align-items: center; gap: .1em; }
+            .st-prefix { font-size: clamp(1.4rem, 9vw, 2rem) !important; }
+            .st-word   { font-size: clamp(1.4rem, 9vw, 2rem) !important; position: absolute; }
+            .st-word-wrap { min-width: 8ch; }
+
+            /* Gallery — single card centered */
+            .gallery-stage { height: 260px; }
+            .card-slide    { width: 100px; }
+
+            /* Skills single column */
+            .skills-grid { grid-template-columns: 1fr; }
+
+            /* Section padding */
+            .section { padding: 2rem .875rem; }
+
+            /* Demo */
+            .vulnerability-grid { grid-template-columns: repeat(5, 1fr); }
+
+            /* Contact */
+            .form-submit { width: 100%; justify-content: center; }
+            .contact-grid { grid-template-columns: 1fr; }
+
+            /* Dock — tighter */
+            #dock { padding: 4px 0 0; gap: 0; }
+            .dock-item  { width: 36px; height: 36px; margin: 0 1px; }
+            .dock-icon  { width: 30px; height: 30px; font-size: 14px; border-radius: 8px; }
+            .dock-label { display: none; } /* tooltips off on tiny screens */
+
+            /* Hide eyeball on very small screens to avoid clutter */
+            #eye-widget { display: none; }
+
+            /* Scroll top */
+            .scroll-top { bottom: 68px; width: 36px; height: 36px; }
+        }
+
+        /* ── Touch: disable magnify animation on mobile (performance) ── */
+        @media (hover: none) {
+            .dock-item:hover .dock-icon { box-shadow: none; }
+            /* Dock magnification via JS is already pointer-event driven,
+               but prevent stale hover states on touch */
+            .dock-item { transform: none !important; }
+            .dock-icon { width: 34px !important; height: 34px !important; font-size: 16px !important; }
+        }
 
     </style>
 </head>
@@ -4165,11 +4414,15 @@ Emergency Contact: +91 99627 26106
             });
 
             // ── Mousemove → compute per-icon scale + translate ────
-            dock.addEventListener('mousemove', function(e) {
-                var dockLeft = dock.getBoundingClientRect().left;
-                var pointer  = e.clientX - dockLeft - items[0].offsetLeft;
-                updateIcons(pointer);
-            });
+            // Only on pointer devices — touch gets flat icons for performance
+            var isTouchOnly = window.matchMedia('(hover: none)').matches;
+            if (!isTouchOnly) {
+                dock.addEventListener('mousemove', function(e) {
+                    var dockLeft = dock.getBoundingClientRect().left;
+                    var pointer  = e.clientX - dockLeft - items[0].offsetLeft;
+                    updateIcons(pointer);
+                });
+            }
 
             // ── Mouseleave → reset all icons ─────────────────────
             dock.addEventListener('mouseleave', function() {
