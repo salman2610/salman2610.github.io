@@ -127,99 +127,172 @@
 
 
         /* Enhanced Navigation */
-        .nav {
+        /* ══════════════════════════════════════════════════════
+           DOCK NAV — macOS-style magnifying bottom dock
+        ══════════════════════════════════════════════════════ */
+
+        /* Hide old navbar elements we no longer need */
+        .nav { display: none !important; }
+
+        /* ── Dock wrapper (centred, fixed bottom) ── */
+        #dock-wrapper {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: var(--space-lg) var(--space-4xl);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 8000;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 15, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border-subtle);
-            transition: all 0.3s ease;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 0;
+            pointer-events: none;
+            overflow: visible;
         }
 
-        .nav.scrolled {
-            background: rgba(10, 10, 15, 0.95);
-            border-bottom-color: var(--border-medium);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .nav-logo::before {
-            content: '🔒';
-            font-size: 20px;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: var(--space-2xl);
+        /* ── Dock shelf ── */
+        #dock {
+            display: inline-flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 0;
+            padding: 10px 18px 0 18px;
+            background: rgba(15, 15, 25, 0.55);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-bottom: none;
+            border-radius: 18px 18px 0 0;
+            overflow: visible;
+            box-shadow:
+                0 -4px 40px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.07);
             list-style: none;
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0;
+            pointer-events: all;
+            /* reflects the doc example structure */
             position: relative;
-            padding: var(--space-sm) 0;
-            letter-spacing: -0.01em;
+            height: 68px;
         }
 
-        .nav-link::after {
+        /* ── Each dock item ── */
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: 48px;
+            height: 48px;
+            margin: 0 3px;
+            cursor: pointer;
+            transform-origin: 50% 120%;
+            position: relative;
+            z-index: 1;
+            isolation: isolate;
+        }
+
+        /* ── Icon bubble ── */
+        .dock-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            position: relative;
+            transition: box-shadow 0.2s ease;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        /* Active glow */
+        .dock-item.dock-active .dock-icon {
+            background: rgba(59,130,246,0.18);
+            border-color: rgba(59,130,246,0.4);
+            box-shadow:
+                0 0 18px rgba(59,130,246,0.35),
+                0 2px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Hover glow */
+        .dock-item:hover .dock-icon {
+            box-shadow:
+                0 0 24px rgba(255,255,255,0.15),
+                0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        /* ── Active dot indicator ── */
+        .dock-item::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -6px;
             left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .dock-item.dock-active::after { opacity: 1; }
+
+        /* ── Tooltip label ── */
+        .dock-label {
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: rgba(15, 15, 25, 0.92);
+            backdrop-filter: blur(12px);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            z-index: 100;
+        }
+        .dock-label::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(15,15,25,0.92);
+        }
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--text-primary);
+        /* ── Dock separator (thin vertical rule) ── */
+        .dock-sep {
+            width: 1px;
+            height: 32px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 8px 8px;
+            align-self: flex-end;
+            flex-shrink: 0;
         }
 
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        /* ── Mobile: smaller icons, no magnify ── */
+        @media (max-width: 600px) {
+            #dock { padding: 8px 10px 0; gap: 0; }
+            .dock-item { width: 38px; height: 38px; margin: 0 2px; }
+            .dock-icon  { width: 34px; height: 34px; font-size: 17px; border-radius: 9px; }
+            .dock-sep { display: none; }
         }
 
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: var(--space-sm);
-        }
-
-        .nav-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
 
         /* Enhanced Hero Section */
         .hero {
@@ -2370,23 +2443,41 @@
     <!-- Scroll to top button -->
     <div class="scroll-top" id="scrollTop" onclick="scrollToTop()"></div>
 
-    <nav class="nav" id="navbar">
-        <div class="nav-logo">P. SALMANUL FARIS</div>
-        <button class="nav-toggle" id="navToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#skills" class="nav-link">Expertise</a></li>
-            <li><a href="#certifications" class="nav-link">Certifications</a></li>
-            <li><a href="#education" class="nav-link">Education</a></li>
-            <li><a href="#demo" class="nav-link">Demo</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
+    <!-- macOS-style Dock Navigation -->
+    <div id="dock-wrapper">
+        <ul id="dock">
+            <li class="dock-item dock-active" data-target="#home">
+                <div class="dock-icon">🏠</div>
+                <span class="dock-label">Home</span>
+            </li>
+            <li class="dock-item" data-target="#projects">
+                <div class="dock-icon">🛡️</div>
+                <span class="dock-label">Projects</span>
+            </li>
+            <li class="dock-item" data-target="#skills">
+                <div class="dock-icon">⚡</div>
+                <span class="dock-label">Expertise</span>
+            </li>
+            <div class="dock-sep"></div>
+            <li class="dock-item" data-target="#certifications">
+                <div class="dock-icon">🏆</div>
+                <span class="dock-label">Certifications</span>
+            </li>
+            <li class="dock-item" data-target="#education">
+                <div class="dock-icon">🎓</div>
+                <span class="dock-label">Education</span>
+            </li>
+            <div class="dock-sep"></div>
+            <li class="dock-item" data-target="#demo">
+                <div class="dock-icon">💻</div>
+                <span class="dock-label">Demo</span>
+            </li>
+            <li class="dock-item" data-target="#contact">
+                <div class="dock-icon">📡</div>
+                <span class="dock-label">Contact</span>
+            </li>
         </ul>
-    </nav>
+    </div>
 
     <section id="home" class="hero">
         <div class="hero-content fade-in-left">
@@ -4049,62 +4140,136 @@ Emergency Contact: +91 99627 26106
             setTimeout(() => notification.remove(), 4300);
         }
 
-        // Enhanced Navigation
-        function updateActiveNavigation() {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-                        });
+        // Enhanced Navigation (replaced by dock scroll spy)
+        function updateActiveNavigation() {}
+
+        // ══════════════════════════════════════════════════════════
+        //  DOCK — Blake Bowen-style cosine magnification
+        //  No GSAP needed — pure CSS transitions + inline transforms
+        // ══════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', function initDock() {
+            var dock  = document.getElementById('dock');
+            var items = Array.from(document.querySelectorAll('#dock .dock-item'));
+            if (!dock || !items.length) return;
+
+            // ── Constants matching the reference exactly ──────────
+            var min   = 56;          // base item slot width (px incl. margin)
+            var max   = 68;          // max icon size — subtle, no overlap
+            var bound = min * 1.8;   // tighter influence radius
+
+            // ── Seed each item's transform origin (Blake's trick) ──
+            items.forEach(function(item) {
+                item.style.transformOrigin = '50% 120%';
+                item.style.height = '48px';
+                item.style.willChange = 'transform';
+            });
+
+            // ── Mousemove → compute per-icon scale + translate ────
+            dock.addEventListener('mousemove', function(e) {
+                var dockLeft = dock.getBoundingClientRect().left;
+                var pointer  = e.clientX - dockLeft - items[0].offsetLeft;
+                updateIcons(pointer);
+            });
+
+            // ── Mouseleave → reset all icons ─────────────────────
+            dock.addEventListener('mouseleave', function() {
+                items.forEach(function(item) {
+                    item.style.transition = 'transform 0.3s ease';
+                    item.style.transform  = 'scale(1) translateX(0px)';
+                    item.style.zIndex = 1;
+                    var icon = item.querySelector('.dock-icon');
+                    if (icon) {
+                        icon.style.transition = 'width .3s ease, height .3s ease, font-size .3s ease, box-shadow .2s ease';
+                        icon.style.width      = '';
+                        icon.style.height     = '';
+                        icon.style.fontSize   = '';
                     }
                 });
-            }, { threshold: 0.3 });
-            
-            sections.forEach(section => observer.observe(section));
-        }
+            });
 
-        // Smooth scrolling navigation
-        document.querySelectorAll('.nav-link, .cta-primary, .cta-secondary').forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-                    
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+            // ── Core magnification algorithm (Blake Bowen) ────────
+            function updateIcons(pointer) {
+                items.forEach(function(item, i) {
+                    // distance from pointer to this icon's centre
+                    var distance = (i * min + min / 2) - pointer;
+                    var x     = 0;
+                    var scale = 1;
+
+                    if (-bound < distance && distance < bound) {
+                        var rad = (distance / min) * 0.5;
+                        scale = 1 + (max / min - 1) * Math.cos(rad);
+                        x     = 1.2 * (max - min) * Math.sin(rad);
+                    } else {
+                        x = (distance > 0 ? 1.2 : -1.2) * (max - min);
                     }
+
+                    item.style.transition = 'transform 0.15s ease, z-index 0s';
+                    item.style.transform  = 'translateX(' + x.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
+                    item.style.zIndex = scale > 1.05 ? Math.round(scale * 10) : 1;
+
+                    // Also scale the icon bubble for extra pop
+                    var icon = item.querySelector('.dock-icon');
+                    if (icon) {
+                        var s = 44 * scale;
+                        icon.style.transition = 'width .15s ease, height .15s ease, font-size .15s ease';
+                        icon.style.width      = s + 'px';
+                        icon.style.height     = s + 'px';
+                        icon.style.fontSize   = (22 * Math.min(scale, 1.6)).toFixed(1) + 'px';
+                    }
+                });
+            }
+
+            // ── Click → smooth scroll to section ─────────────────
+            items.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    var target = item.getAttribute('data-target');
+                    if (!target) return;
+                    var el = document.querySelector(target);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            // ── Wire CTA buttons ──────────────────────────────────
+            document.querySelectorAll('.cta-primary, .cta-secondary').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    var href = btn.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        var el = document.querySelector(href);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // ── Scroll spy — active highlight ─────────────────────
+            var sectionMap = [];
+            items.forEach(function(item) {
+                var t = item.getAttribute('data-target');
+                if (t) {
+                    var el = document.querySelector(t);
+                    if (el) sectionMap.push({ el: el, item: item });
                 }
             });
-        });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            const scrollTop = document.getElementById('scrollTop');
-            
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-                scrollTop.classList.add('visible');
-            } else {
-                navbar.classList.remove('scrolled');
-                scrollTop.classList.remove('visible');
-            }
-        });
+            var spyTick = false;
+            window.addEventListener('scroll', function() {
+                if (!spyTick) {
+                    spyTick = true;
+                    requestAnimationFrame(function() {
+                        spyTick = false;
+                        var scrollY  = window.pageYOffset;
+                        var viewMid  = scrollY + window.innerHeight * 0.35;
+                        var current  = sectionMap[0];
+                        sectionMap.forEach(function(s) {
+                            if (s.el.offsetTop <= viewMid) current = s;
+                        });
+                        items.forEach(function(i) { i.classList.remove('dock-active'); });
+                        if (current) current.item.classList.add('dock-active');
+                    });
+                }
+            }, { passive: true });
 
-        // Mobile navigation toggle
-        document.getElementById('navToggle').addEventListener('click', function() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('nav-open');
-        });
+        }); // end initDock
 
         // Scroll to top functionality
         function scrollToTop() {
@@ -4399,7 +4564,7 @@ Emergency Contact: +91 99627 26106
 
             resetIdleTimer();
             requestAnimationFrame(tick);
-        });
+        }); // end eyeball tick/DOMContentLoaded
 
     </script>
 
