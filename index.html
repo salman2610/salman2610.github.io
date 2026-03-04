@@ -40,9 +40,37 @@
             --border-medium: rgba(255, 255, 255, 0.12);
             --border-strong: rgba(255, 255, 255, 0.16);
             
-            --glass-subtle: rgba(255, 255, 255, 0.02);
-            --glass-medium: rgba(255, 255, 255, 0.05);
-            --glass-strong: rgba(255, 255, 255, 0.08);
+            /* ── Liquid Glass token system ── */
+            --glass-subtle:  rgba(255,255,255,0.028);
+            --glass-medium:  rgba(255,255,255,0.055);
+            --glass-strong:  rgba(255,255,255,0.09);
+            --lg-base:       rgba(255,255,255,0.07);
+            --lg-raised:     rgba(255,255,255,0.10);
+            --lg-overlay:    rgba(255,255,255,0.13);
+
+            /* Blur tiers */
+            --blur-xs:  blur(8px);
+            --blur-sm:  blur(16px);
+            --blur-md:  blur(28px);
+            --blur-lg:  blur(40px);
+            --blur-xl:  blur(60px);
+
+            /* Specular edge (top shimmer + side catch-lights) */
+            --lg-shine:
+                inset 0 1px 0 rgba(255,255,255,0.18),
+                inset 0 -1px 0 rgba(0,0,0,0.20),
+                inset 1px 0 0 rgba(255,255,255,0.06),
+                inset -1px 0 0 rgba(255,255,255,0.06);
+
+            /* Outer shadow for depth */
+            --lg-shadow-sm:  0 4px 16px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
+            --lg-shadow-md:  0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.25);
+            --lg-shadow-lg:  0 16px 56px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3);
+            --lg-shadow-xl:  0 24px 80px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.35);
+
+            --border-subtle: rgba(255,255,255,0.07);
+            --border-medium: rgba(255,255,255,0.11);
+            --border-glass:  rgba(255,255,255,0.16);
             
             --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.2);
             --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -137,14 +165,13 @@
         /* ── Dock wrapper (centred, fixed bottom) ── */
         #dock-wrapper {
             position: fixed;
-            bottom: 0;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 8000;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            padding-bottom: 0;
             pointer-events: none;
             overflow: visible;
         }
@@ -154,23 +181,28 @@
             display: inline-flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 0;
-            padding: 10px 18px 0 18px;
-            background: rgba(15, 15, 25, 0.55);
-            backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-bottom: none;
-            border-radius: 18px 18px 0 0;
-            overflow: visible;
-            box-shadow:
-                0 -4px 40px rgba(0,0,0,0.5),
-                inset 0 1px 0 rgba(255,255,255,0.07);
+            padding: 10px 20px 12px;
+            gap: 6px;
+            background: rgba(28, 28, 38, 0.82);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 22px;
             list-style: none;
             margin: 0;
             pointer-events: all;
-            /* reflects the doc example structure */
             position: relative;
-            height: 68px;
+            overflow: visible;
+            box-shadow:
+                0 24px 64px rgba(0,0,0,0.65),
+                0 4px 16px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                inset 0 -1px 0 rgba(0,0,0,0.2);
+            animation: dockFloat 4s ease-in-out infinite;
+        }
+        @keyframes dockFloat {
+            0%, 100% { transform: translateY(0px);   box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.04), inset 0 1px 0 rgba(255,255,255,.08); }
+            50%       { transform: translateY(-5px);  box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 4px 16px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.04), inset 0 1px 0 rgba(255,255,255,.08); }
         }
 
         /* ── Each dock item ── */
@@ -179,48 +211,47 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            width: 48px;
-            height: 48px;
-            margin: 0 3px;
+            width: var(--di-base, 46px);
+            height: var(--di-base, 46px);
             cursor: pointer;
-            transform-origin: 50% 120%;
+            transform-origin: 50% 100%;
             position: relative;
             z-index: 1;
-            isolation: isolate;
+            flex-shrink: 0;
         }
 
         /* ── Icon bubble ── */
         .dock-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: var(--di-icon, 38px);
+            height: var(--di-icon, 38px);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            position: relative;
-            transition: box-shadow 0.2s ease;
-            background: rgba(255,255,255,0.07);
+            font-size: 20px;
+            background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            transition: width .25s cubic-bezier(.34,1.56,.64,1),
+                        height .25s cubic-bezier(.34,1.56,.64,1),
+                        font-size .2s ease,
+                        background .2s ease,
+                        box-shadow .2s ease,
+                        border-radius .2s ease;
             user-select: none;
             flex-shrink: 0;
+            position: relative;
+            overflow: visible;
         }
 
         /* Active glow */
         .dock-item.dock-active .dock-icon {
             background: rgba(59,130,246,0.18);
             border-color: rgba(59,130,246,0.4);
-            box-shadow:
-                0 0 18px rgba(59,130,246,0.35),
-                0 2px 12px rgba(0,0,0,0.3);
         }
 
         /* Hover glow */
         .dock-item:hover .dock-icon {
-            box-shadow:
-                0 0 24px rgba(255,255,255,0.15),
-                0 4px 20px rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.13);
         }
 
         /* ── Active dot indicator ── */
@@ -230,12 +261,12 @@
             bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             border-radius: 50%;
-            background: var(--accent-primary);
+            background: rgba(255,255,255,0.7);
             opacity: 0;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.2s ease;
         }
         .dock-item.dock-active::after { opacity: 1; }
 
@@ -247,6 +278,7 @@
             transform: translateX(-50%) translateY(4px);
             background: rgba(15, 15, 25, 0.92);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
@@ -278,9 +310,9 @@
         /* ── Dock separator (thin vertical rule) ── */
         .dock-sep {
             width: 1px;
-            height: 32px;
+            height: 24px;
             background: rgba(255,255,255,0.1);
-            margin: 0 8px 8px;
+            margin: 0 4px 8px;
             align-self: flex-end;
             flex-shrink: 0;
         }
@@ -324,6 +356,7 @@
             color: var(--accent-success);
             margin-bottom: var(--space-2xl);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: var(--shadow-small);
             animation: float 3s ease-in-out infinite;
         }
@@ -437,6 +470,7 @@
             border: 1px solid var(--border-medium);
             border-radius: var(--radius-lg);
             backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
             overflow: hidden;
             position: relative;
             box-shadow: var(--shadow-large);
@@ -580,6 +614,7 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: var(--shadow-small);
             height: auto;
             min-height: 320px;
@@ -734,6 +769,7 @@
             border-radius: var(--radius-lg);
             background: var(--glass-medium);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -863,6 +899,7 @@
             padding: var(--space-3xl);
             margin-top: var(--space-3xl);
             backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
@@ -1117,6 +1154,7 @@
             border-radius: var(--radius-lg);
             padding: var(--space-xl);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
             position: relative;
@@ -1188,6 +1226,7 @@
             border-radius: var(--radius-xl);
             padding: var(--space-3xl);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--shadow-large);
         }
 
@@ -1224,6 +1263,7 @@
             font-size: 14px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .form-input:focus,
@@ -1303,6 +1343,7 @@
             border: 1px solid var(--border-medium);
             border-radius: 50%;
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1687,7 +1728,10 @@
         .gallery-controls {
             display: flex; align-items: center; justify-content: center;
             gap: 1rem; padding: 1.25rem 1.5rem;
-            background: var(--bg-secondary);
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: var(--blur-sm);
+            -webkit-backdrop-filter: var(--blur-sm);
+            border-top: 1px solid rgba(255,255,255,0.08);
         }
         .gallery-btn {
             background: var(--glass-medium);
@@ -1696,6 +1740,7 @@
             font-weight: 600; font-size: 13px;
             padding: 0.55rem 1.25rem; border-radius: 10px;
             cursor: pointer; backdrop-filter: blur(12px);
+            -webkit-cursor: pointer; backdrop-filter: blur(12px);
             transition: all 0.25s ease;
         }
         .gallery-btn:hover { background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; }
@@ -2149,17 +2194,16 @@
             #ew-ball    { width: 56px; height: 56px; }
             :root { --ew-size: 56px; --ew-iris: 32px; --ew-pupil: 14px; }
 
-            /* Dock — full-width on tablet */
-            #dock-wrapper { width: 100%; }
+            /* Dock — floating pill on tablet */
+            #dock-wrapper { width: auto; bottom: 16px; }
             #dock {
-                width: 100%;
-                border-radius: 0;
-                padding: 8px 4px 0;
-                justify-content: space-around;
+                border-radius: 20px;
+                padding: 8px 12px;
+                animation: dockFloat 4s ease-in-out infinite;
             }
-            .dock-item  { width: 44px; height: 44px; margin: 0; }
-            .dock-icon  { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
-            .dock-label { font-size: 9px; bottom: 105%; }
+            .dock-item  { width: 40px; height: 40px; margin: 0 2px; }
+            .dock-icon  { width: 34px; height: 34px; font-size: 17px; border-radius: 9px; }
+            .dock-label { font-size: 9px; bottom: 110%; }
             .dock-sep   { display: none; }
 
             /* Scroll-to-top button — above dock */
@@ -2282,14 +2326,7 @@
             .scroll-top { bottom: 68px; width: 36px; height: 36px; }
         }
 
-        /* ── Touch: disable magnify animation on mobile (performance) ── */
-        @media (hover: none) {
-            .dock-item:hover .dock-icon { box-shadow: none; }
-            /* Dock magnification via JS is already pointer-event driven,
-               but prevent stale hover states on touch */
-            .dock-item { transform: none !important; }
-            .dock-icon { width: 34px !important; height: 34px !important; font-size: 16px !important; }
-        }
+        /* touch: magnify disabled via JS matchMedia hover:none check */
 
 
         /* ═══════════════════════════════════════════════════════
@@ -2474,6 +2511,7 @@
             overflow: hidden;
             transition: border-color .3s, box-shadow .3s, transform .35s cubic-bezier(.22,1,.36,1);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             /* scroll reveal — start hidden */
             opacity: 0;
             transform: translateX(var(--slide-from, -40px));
@@ -2686,6 +2724,426 @@
             .edu-card { padding: 1.1rem; }
             .edu-card-title { font-size: 13px; }
             .edu-card-desc { font-size: 12px; }
+        }
+
+
+
+    
+        /* ╔══════════════════════════════════════════════════════════╗
+           ║   LIQUID GLASS UI  —  Apple visionOS / iOS 26 style     ║
+           ║   True frosted glass: multi-layer blur, specular edges, ║
+           ║   chromatic tint, depth shadows, dynamic refraction     ║
+           ╚══════════════════════════════════════════════════════════╝ */
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           UTILITY MIXIN — applied via class .lg everywhere needed
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .lg {
+            background:        var(--lg-base);
+            backdrop-filter:   var(--blur-md) saturate(180%) brightness(1.05);
+            -webkit-backdrop-filter: var(--blur-md) saturate(180%) brightness(1.05);
+            border:            1px solid var(--border-glass);
+            box-shadow:        var(--lg-shine), var(--lg-shadow-md);
+        }
+        .lg-raised {
+            background:        var(--lg-raised);
+            backdrop-filter:   var(--blur-lg) saturate(200%) brightness(1.08);
+            -webkit-backdrop-filter: var(--blur-lg) saturate(200%) brightness(1.08);
+            border:            1px solid rgba(255,255,255,0.18);
+            box-shadow:        var(--lg-shine), var(--lg-shadow-lg);
+        }
+        .lg-overlay {
+            background:        var(--lg-overlay);
+            backdrop-filter:   var(--blur-xl) saturate(220%) brightness(1.1);
+            -webkit-backdrop-filter: var(--blur-xl) saturate(220%) brightness(1.1);
+            border:            1px solid rgba(255,255,255,0.22);
+            box-shadow:        var(--lg-shine), var(--lg-shadow-xl);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           BODY  — rich dark base so glass has depth to blur against
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        body {
+            background:
+                radial-gradient(ellipse 80% 60% at 10% 20%,  rgba(59,130,246,0.10) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 40% at 90% 80%,  rgba(139,92,246,0.08) 0%, transparent 55%),
+                radial-gradient(ellipse 70% 50% at 50% 50%,  rgba(16,185,129,0.04) 0%, transparent 60%),
+                #08080f !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           HERO TERMINAL
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .hero-terminal {
+            background:              rgba(12,12,22,0.52) !important;
+            backdrop-filter:         var(--blur-xl) saturate(200%) brightness(1.06) !important;
+            -webkit-backdrop-filter: var(--blur-xl) saturate(200%) brightness(1.06) !important;
+            border:                  1px solid rgba(255,255,255,0.16) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-xl) !important;
+        }
+        .terminal-header {
+            background:              rgba(255,255,255,0.05) !important;
+            backdrop-filter:         blur(4px) !important;
+            -webkit-backdrop-filter: blur(4px) !important;
+            border-bottom:           1px solid rgba(255,255,255,0.09) !important;
+        }
+        .terminal-body {
+            background: transparent !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           HERO BADGE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .hero-badge {
+            background:              rgba(255,255,255,0.08) !important;
+            backdrop-filter:         var(--blur-sm) saturate(180%) !important;
+            -webkit-backdrop-filter: var(--blur-sm) saturate(180%) !important;
+            border:                  1px solid rgba(255,255,255,0.18) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-sm) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           CTA BUTTONS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .cta-secondary {
+            background:              rgba(255,255,255,0.08) !important;
+            backdrop-filter:         var(--blur-sm) saturate(160%) !important;
+            -webkit-backdrop-filter: var(--blur-sm) saturate(160%) !important;
+            border:                  1px solid rgba(255,255,255,0.18) !important;
+            box-shadow:              var(--lg-shine), 0 2px 8px rgba(0,0,0,0.3) !important;
+            transition:              all 0.25s cubic-bezier(.4,0,.2,1) !important;
+        }
+        .cta-secondary:hover {
+            background:              rgba(255,255,255,0.13) !important;
+            border-color:            rgba(255,255,255,0.28) !important;
+            box-shadow:              var(--lg-shine), 0 4px 16px rgba(0,0,0,0.4) !important;
+            transform:               translateY(-1px) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROJECT CARDS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .project-item {
+            background:              rgba(255,255,255,0.06) !important;
+            backdrop-filter:         var(--blur-md) saturate(180%) brightness(1.04) !important;
+            -webkit-backdrop-filter: var(--blur-md) saturate(180%) brightness(1.04) !important;
+            border:                  1px solid rgba(255,255,255,0.13) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-md) !important;
+            transition:              transform 0.3s ease, border-color 0.3s ease,
+                                     box-shadow 0.3s ease, background 0.3s ease !important;
+        }
+        .project-item:hover {
+            background:              rgba(255,255,255,0.09) !important;
+            border-color:            rgba(255,255,255,0.22) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-lg),
+                                     0 0 0 1px rgba(59,130,246,0.2) !important;
+            transform:               translateY(-4px) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           SKILL CARDS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .skill-category {
+            background:              rgba(255,255,255,0.06) !important;
+            backdrop-filter:         var(--blur-md) saturate(180%) brightness(1.04) !important;
+            -webkit-backdrop-filter: var(--blur-md) saturate(180%) brightness(1.04) !important;
+            border:                  1px solid rgba(255,255,255,0.13) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-sm) !important;
+            transition:              all 0.3s cubic-bezier(.4,0,.2,1) !important;
+        }
+        .skill-category:hover {
+            background:              rgba(255,255,255,0.10) !important;
+            border-color:            rgba(255,255,255,0.22) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-md) !important;
+            transform:               translateY(-3px) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           CONTACT FORM + ITEMS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .contact-form {
+            background:              rgba(255,255,255,0.06) !important;
+            backdrop-filter:         var(--blur-lg) saturate(200%) brightness(1.06) !important;
+            -webkit-backdrop-filter: var(--blur-lg) saturate(200%) brightness(1.06) !important;
+            border:                  1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-lg) !important;
+        }
+        .contact-item {
+            background:              rgba(255,255,255,0.05) !important;
+            backdrop-filter:         var(--blur-sm) saturate(160%) !important;
+            -webkit-backdrop-filter: var(--blur-sm) saturate(160%) !important;
+            border:                  1px solid rgba(255,255,255,0.11) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-sm) !important;
+            transition:              all 0.25s ease !important;
+        }
+        .contact-item:hover {
+            background:              rgba(255,255,255,0.09) !important;
+            border-color:            rgba(255,255,255,0.20) !important;
+            transform:               translateY(-2px) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           FORM INPUTS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .form-input, .form-textarea, .form-select {
+            background:              rgba(255,255,255,0.05) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(255,255,255,0.12) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.07),
+                                     inset 0 -1px 0 rgba(0,0,0,0.15) !important;
+            color:                   var(--text-primary) !important;
+            transition:              border-color .2s, background .2s, box-shadow .2s !important;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            background:              rgba(255,255,255,0.08) !important;
+            border-color:            rgba(59,130,246,0.55) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.09),
+                                     0 0 0 3px rgba(59,130,246,0.15) !important;
+            outline:                 none !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           DEMO PANEL
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .demo-interactive {
+            background:              rgba(255,255,255,0.05) !important;
+            backdrop-filter:         var(--blur-lg) saturate(180%) !important;
+            -webkit-backdrop-filter: var(--blur-lg) saturate(180%) !important;
+            border:                  1px solid rgba(255,255,255,0.12) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-lg) !important;
+        }
+        .scan-controls button {
+            background:              rgba(255,255,255,0.07) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:              var(--lg-shine) !important;
+            transition:              all .2s ease !important;
+        }
+        .scan-controls button:hover {
+            background:              rgba(255,255,255,0.13) !important;
+            border-color:            rgba(255,255,255,0.24) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           EDUCATION CARDS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .edu-card {
+            background:              rgba(255,255,255,0.055) !important;
+            backdrop-filter:         var(--blur-md) saturate(180%) brightness(1.04) !important;
+            -webkit-backdrop-filter: var(--blur-md) saturate(180%) brightness(1.04) !important;
+            border:                  1px solid rgba(255,255,255,0.12) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-md) !important;
+        }
+        .edu-card:hover {
+            background:              rgba(255,255,255,0.09) !important;
+            border-color:            rgba(255,255,255,0.22) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-lg) !important;
+        }
+        .edu-ri-card {
+            background:              rgba(255,255,255,0.045) !important;
+            backdrop-filter:         var(--blur-sm) saturate(160%) !important;
+            -webkit-backdrop-filter: var(--blur-sm) saturate(160%) !important;
+            border:                  1px solid rgba(255,255,255,0.10) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-sm) !important;
+        }
+        .edu-ri-card:hover {
+            background:              rgba(255,255,255,0.08) !important;
+            border-color:            rgba(255,255,255,0.18) !important;
+        }
+        .edu-node {
+            background:              rgba(255,255,255,0.07) !important;
+            backdrop-filter:         var(--blur-sm) !important;
+            -webkit-backdrop-filter: var(--blur-sm) !important;
+            box-shadow:              var(--lg-shine),
+                                     0 0 0 4px rgba(255,255,255,0.04),
+                                     0 4px 16px rgba(0,0,0,0.4) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           GALLERY CONTROLS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .gallery-controls {
+            background:              rgba(255,255,255,0.05) !important;
+            backdrop-filter:         var(--blur-sm) !important;
+            -webkit-backdrop-filter: var(--blur-sm) !important;
+            border-top:              1px solid rgba(255,255,255,0.09) !important;
+        }
+        .card-prev, .card-next {
+            background:              rgba(255,255,255,0.08) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:              var(--lg-shine) !important;
+            transition:              all .2s ease !important;
+        }
+        .card-prev:hover, .card-next:hover {
+            background:              rgba(255,255,255,0.15) !important;
+            border-color:            rgba(255,255,255,0.25) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           TAGS, BADGES, PILLS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .skill-badge {
+            background:              rgba(59,130,246,0.10) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(59,130,246,0.22) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.08) !important;
+        }
+        .tech-tag {
+            background:              rgba(255,255,255,0.06) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(255,255,255,0.12) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.07) !important;
+        }
+        .edu-tag {
+            background:              rgba(255,255,255,0.05) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(255,255,255,0.10) !important;
+        }
+        .card-badge {
+            background:              rgba(16,185,129,0.12) !important;
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(16,185,129,0.28) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.1) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           SCROLL-TO-TOP BUTTON
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .scroll-top {
+            background:              rgba(255,255,255,0.08) !important;
+            backdrop-filter:         var(--blur-md) !important;
+            -webkit-backdrop-filter: var(--blur-md) !important;
+            border:                  1px solid rgba(255,255,255,0.16) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-md) !important;
+        }
+        .scroll-top:hover {
+            background:              rgba(59,130,246,0.18) !important;
+            border-color:            rgba(59,130,246,0.40) !important;
+            box-shadow:              var(--lg-shine),
+                                     0 0 24px rgba(59,130,246,0.3) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           EYEBALL BUBBLE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        #ew-bubble {
+            background:              rgba(255,253,235,0.82) !important;
+            backdrop-filter:         var(--blur-md) saturate(150%) !important;
+            -webkit-backdrop-filter: var(--blur-md) saturate(150%) !important;
+            border:                  1px solid rgba(255,255,255,0.35) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.5),
+                                     0 8px 32px rgba(0,0,0,0.35) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           DOCK ICON BUBBLES — pure glass, no solid bg
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .dock-icon {
+            background:              rgba(255,255,255,0.09) !important;
+            backdrop-filter:         var(--blur-sm) saturate(180%) !important;
+            -webkit-backdrop-filter: var(--blur-sm) saturate(180%) !important;
+            border:                  1px solid rgba(255,255,255,0.18) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.22),
+                                     inset 0 -1px 0 rgba(0,0,0,0.15),
+                                     0 4px 12px rgba(0,0,0,0.35) !important;
+        }
+        .dock-item.dock-active .dock-icon {
+            background:              rgba(59,130,246,0.20) !important;
+            border-color:            rgba(59,130,246,0.45) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.25),
+                                     0 0 20px rgba(59,130,246,0.3) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           MODAL / PROJECT DETAIL
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .modal-content, .project-modal, #projectModal > div {
+            background:              rgba(255,255,255,0.08) !important;
+            backdrop-filter:         var(--blur-xl) saturate(220%) brightness(1.05) !important;
+            -webkit-backdrop-filter: var(--blur-xl) saturate(220%) brightness(1.05) !important;
+            border:                  1px solid rgba(255,255,255,0.18) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-xl) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           VULN NODES
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .vuln-node {
+            backdrop-filter:         var(--blur-xs) !important;
+            -webkit-backdrop-filter: var(--blur-xs) !important;
+            border:                  1px solid rgba(255,255,255,0.08) !important;
+            box-shadow:              inset 0 1px 0 rgba(255,255,255,0.05) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           NOTIFICATION TOAST
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        #notification {
+            backdrop-filter:         var(--blur-md) saturate(180%) !important;
+            -webkit-backdrop-filter: var(--blur-md) saturate(180%) !important;
+            border:                  1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:              var(--lg-shine), var(--lg-shadow-md) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           CARD OVERLAY (gallery cards)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .card-overlay {
+            background: linear-gradient(
+                to top,
+                rgba(0,0,0,0.85) 0%,
+                rgba(0,0,0,0.05) 50%,
+                transparent 100%
+            ) !important;
+            backdrop-filter:         blur(0px) !important;
+            -webkit-backdrop-filter: blur(0px) !important;
+        }
+        .card-slide {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.08) !important;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           LIQUID GLASS REFRACTION SHIMMER
+           Subtle animated highlight that sweeps across glass surfaces
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @keyframes lgShimmer {
+            0%   { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(300%)  skewX(-15deg); }
+        }
+
+        .project-item::after,
+        .skill-category::after,
+        .edu-card::after,
+        .edu-ri-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 40%; height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255,255,255,0.05) 50%,
+                transparent 100%
+            );
+            transform: translateX(-100%) skewX(-15deg);
+            pointer-events: none;
+            z-index: 0;
+            transition: none;
+        }
+        .project-item:hover::after,
+        .skill-category:hover::after,
+        .edu-card:hover::after,
+        .edu-ri-card:hover::after {
+            animation: lgShimmer 0.7s ease forwards;
         }
 
     </style>
@@ -4319,7 +4777,7 @@ incidents and saved clients millions in potential breach costs.`
                 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
                 background: rgba(0,0,0,0.95); z-index: 10000;
                 display: flex; align-items: center; justify-content: center;
-                backdrop-filter: blur(20px); animation: fadeIn 0.3s ease;
+                backdrop-filter: blur(20px);-webkit-backdrop-filter:blur(20px); animation: fadeIn 0.3s ease;
             `;
             
             const content = document.createElement('div');
@@ -4675,6 +5133,7 @@ Emergency Contact: +91 99627 26106
             const notification = document.createElement('div');
             const bg = type === 'success' ? 'var(--accent-success)' : type === 'error' ? 'var(--accent-danger)' : type === 'warning' ? 'var(--accent-warning)' : 'var(--accent-primary)';
             notification.style.cssText = 'position:fixed;top:2rem;right:2rem;background:' + bg + ';color:white;padding:1rem 1.5rem;border-radius:12px;font-weight:600;z-index:10001;max-width:400px;box-shadow:0 8px 32px rgba(0,0,0,.4);backdrop-filter:blur(10px);animation:slideIn .3s ease,slideOut .3s ease 4s;';
+            notification.style.cssText = 'position:fixed;top:2rem;right:2rem;background:' + bg + ';color:white;padding:1rem 1.5rem;border-radius:12px;font-weight:600;z-index:10001;max-width:400px;box-shadow:0 8px 32px rgba(0,0,0,.4);backdrop-filter:blur(10px);animation:slideIn .3s ease,slideOut .3s ease 4s;';
             notification.textContent = message;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 4300);
@@ -4692,88 +5151,180 @@ Emergency Contact: +91 99627 26106
             var items = Array.from(document.querySelectorAll('#dock .dock-item'));
             if (!dock || !items.length) return;
 
-            // ── Constants matching the reference exactly ──────────
-            var min   = 56;          // base item slot width (px incl. margin)
-            var max   = 68;          // max icon size — subtle, no overlap
-            var bound = min * 1.8;   // tighter influence radius
+            // ── Sizing constants — must match CSS --di-* vars ────
+            var BASE_ICON  = 38;   // px — CSS var(--di-icon, 38px)
+            var MAX_ICON   = 68;   // px — peak size on hover (macOS-like ~1.8x)
+            var BASE_SLOT  = 46;   // px — CSS var(--di-base, 46px)
+            var EASE_IN    = 'cubic-bezier(.34,1.56,.64,1)'; // spring for grow
+            var EASE_OUT   = 'cubic-bezier(.4,0,.2,1)';      // smooth for shrink
+            var SPREAD     = BASE_SLOT * 2.2;  // how far the wave spreads
 
-            // ── Seed each item's transform origin (Blake's trick) ──
-            items.forEach(function(item) {
-                item.style.transformOrigin = '50% 120%';
-                item.style.height = '48px';
-                item.style.willChange = 'transform';
-            });
+            // ── Tooltip: show above icon ─────────────────────────
+            var tooltip = document.createElement('div');
+            tooltip.style.cssText = [
+                'position:fixed',
+                'background:rgba(20,20,32,0.92)',
+                'backdrop-filter:blur(12px)',
+                '-webkit-backdrop-filter:blur(12px)',
+                'color:#fff',
+                'font-family:JetBrains Mono,monospace',
+                'font-size:11px',
+                'font-weight:600',
+                'letter-spacing:.05em',
+                'padding:5px 10px',
+                'border-radius:8px',
+                'border:1px solid rgba(255,255,255,0.1)',
+                'pointer-events:none',
+                'z-index:9999',
+                'opacity:0',
+                'transition:opacity .15s ease,transform .15s ease',
+                'transform:translateX(-50%) translateY(4px)',
+                'white-space:nowrap',
+            ].join(';');
+            document.body.appendChild(tooltip);
 
-            // ── Mousemove → compute per-icon scale + translate ────
-            // Only on pointer devices — touch gets flat icons for performance
+            var tooltipTimer = null;
+
+            function showTooltip(item, icon) {
+                var label = item.querySelector('.dock-label');
+                if (!label) return;
+                var r = icon.getBoundingClientRect();
+                tooltip.textContent = label.textContent;
+                tooltip.style.left = (r.left + r.width / 2) + 'px';
+                tooltip.style.top  = (r.top - 38) + 'px';
+                tooltip.style.opacity = '1';
+                tooltip.style.transform = 'translateX(-50%) translateY(0)';
+            }
+            function hideTooltip() {
+                tooltip.style.opacity = '0';
+                tooltip.style.transform = 'translateX(-50%) translateY(4px)';
+            }
+
+            // ── macOS magnification ───────────────────────────────
+            // Uses true cosine wave — hovered icon at peak, neighbours taper off
             var isTouchOnly = window.matchMedia('(hover: none)').matches;
+            var currentHover = -1;
+
+            function applyMagnify(pointer) {
+                items.forEach(function(item, i) {
+                    var icon = item.querySelector('.dock-icon');
+                    if (!icon) return;
+
+                    // Centre of this icon slot relative to dock-left
+                    var centre   = i * (BASE_SLOT) + BASE_SLOT / 2;
+                    var distance = Math.abs(centre - pointer);
+                    var size, translateY;
+
+                    if (distance < SPREAD) {
+                        // Smooth cosine bell curve — same formula as the macOS spring
+                        var t    = (1 - distance / SPREAD);
+                        var wave = t * t * (3 - 2 * t); // smoothstep for softer falloff
+                        size     = BASE_ICON + (MAX_ICON - BASE_ICON) * wave;
+                        translateY = -(size - BASE_ICON) * 0.5; // rise up from baseline
+                    } else {
+                        size = BASE_ICON;
+                        translateY = 0;
+                    }
+
+                    var growing = size > BASE_ICON + 2;
+                    var easing  = growing ? EASE_IN : EASE_OUT;
+                    var dur     = growing ? '.18s' : '.22s';
+
+                    icon.style.transition = [
+                        'width '       + dur + ' ' + easing,
+                        'height '      + dur + ' ' + easing,
+                        'font-size '   + dur + ' ' + easing,
+                        'border-radius .15s ease',
+                        'background .15s ease',
+                        'box-shadow .15s ease',
+                    ].join(',');
+                    icon.style.width      = size.toFixed(1) + 'px';
+                    icon.style.height     = size.toFixed(1) + 'px';
+                    icon.style.fontSize   = (20 * (size / BASE_ICON)).toFixed(1) + 'px';
+                    icon.style.borderRadius = Math.round(10 * (size / BASE_ICON)) + 'px';
+
+                    // Glow on peak icon
+                    if (growing && size > MAX_ICON * 0.85) {
+                        icon.style.boxShadow = '0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.12)';
+                        icon.style.background = 'rgba(255,255,255,0.13)';
+                    } else {
+                        icon.style.boxShadow = '';
+                        icon.style.background = '';
+                    }
+
+                    // translateY on the item (not the icon) so it rises smoothly
+                    item.style.transition = 'transform ' + dur + ' ' + easing;
+                    item.style.transform  = translateY !== 0
+                        ? 'translateY(' + translateY.toFixed(1) + 'px)'
+                        : '';
+                    item.style.zIndex = size > BASE_ICON + 4 ? '10' : '1';
+                });
+            }
+
+            function resetAll(fast) {
+                var dur = fast ? '.15s' : '.25s';
+                items.forEach(function(item) {
+                    var icon = item.querySelector('.dock-icon');
+                    item.style.transition  = 'transform ' + dur + ' cubic-bezier(.4,0,.2,1)';
+                    item.style.transform   = '';
+                    item.style.zIndex      = '1';
+                    if (icon) {
+                        icon.style.transition = [
+                            'width '       + dur + ' cubic-bezier(.4,0,.2,1)',
+                            'height '      + dur + ' cubic-bezier(.4,0,.2,1)',
+                            'font-size '   + dur + ' ease',
+                            'border-radius .15s ease',
+                            'background .15s ease',
+                            'box-shadow .15s ease',
+                        ].join(',');
+                        icon.style.width        = '';
+                        icon.style.height       = '';
+                        icon.style.fontSize     = '';
+                        icon.style.borderRadius = '';
+                        icon.style.boxShadow    = '';
+                        icon.style.background   = '';
+                    }
+                });
+                hideTooltip();
+            }
+
             if (!isTouchOnly) {
                 dock.addEventListener('mousemove', function(e) {
-                    var dockLeft = dock.getBoundingClientRect().left;
-                    var pointer  = e.clientX - dockLeft - items[0].offsetLeft;
-                    updateIcons(pointer);
+                    var dockRect = dock.getBoundingClientRect();
+                    var pointer  = e.clientX - dockRect.left - (items[0] ? items[0].offsetLeft : 0);
+                    applyMagnify(pointer);
+
+                    // Show tooltip for the peak icon
+                    var peakIdx = Math.round((pointer - BASE_SLOT / 2) / BASE_SLOT);
+                    if (peakIdx !== currentHover && peakIdx >= 0 && peakIdx < items.length) {
+                        currentHover = peakIdx;
+                        clearTimeout(tooltipTimer);
+                        tooltipTimer = setTimeout(function() {
+                            var icon = items[peakIdx] && items[peakIdx].querySelector('.dock-icon');
+                            if (icon) showTooltip(items[peakIdx], icon);
+                        }, 120);
+                    }
+                });
+
+                dock.addEventListener('mouseleave', function() {
+                    currentHover = -1;
+                    clearTimeout(tooltipTimer);
+                    resetAll(false);
                 });
             }
 
-            // ── Mouseleave → reset all icons ─────────────────────
-            dock.addEventListener('mouseleave', function() {
-                items.forEach(function(item) {
-                    item.style.transition = 'transform 0.3s ease';
-                    item.style.transform  = 'scale(1) translateX(0px)';
-                    item.style.zIndex = 1;
-                    var icon = item.querySelector('.dock-icon');
-                    if (icon) {
-                        icon.style.transition = 'width .3s ease, height .3s ease, font-size .3s ease, box-shadow .2s ease';
-                        icon.style.width      = '';
-                        icon.style.height     = '';
-                        icon.style.fontSize   = '';
-                    }
-                });
-            });
-
-            // ── Core magnification algorithm (Blake Bowen) ────────
-            function updateIcons(pointer) {
-                items.forEach(function(item, i) {
-                    // distance from pointer to this icon's centre
-                    var distance = (i * min + min / 2) - pointer;
-                    var x     = 0;
-                    var scale = 1;
-
-                    if (-bound < distance && distance < bound) {
-                        var rad = (distance / min) * 0.5;
-                        scale = 1 + (max / min - 1) * Math.cos(rad);
-                        x     = 1.2 * (max - min) * Math.sin(rad);
-                    } else {
-                        x = (distance > 0 ? 1.2 : -1.2) * (max - min);
-                    }
-
-                    item.style.transition = 'transform 0.15s ease, z-index 0s';
-                    item.style.transform  = 'translateX(' + x.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
-                    item.style.zIndex = scale > 1.05 ? Math.round(scale * 10) : 1;
-
-                    // Also scale the icon bubble for extra pop
-                    var icon = item.querySelector('.dock-icon');
-                    if (icon) {
-                        var s = 44 * scale;
-                        icon.style.transition = 'width .15s ease, height .15s ease, font-size .15s ease';
-                        icon.style.width      = s + 'px';
-                        icon.style.height     = s + 'px';
-                        icon.style.fontSize   = (22 * Math.min(scale, 1.6)).toFixed(1) + 'px';
-                    }
-                });
-            }
-
-            // ── Click → smooth scroll to section ─────────────────
+            // ── Click → smooth scroll ─────────────────────────────
             items.forEach(function(item) {
                 item.addEventListener('click', function() {
                     var target = item.getAttribute('data-target');
                     if (!target) return;
                     var el = document.querySelector(target);
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    resetAll(true);
                 });
             });
 
-            // ── Wire CTA buttons ──────────────────────────────────
+            // ── CTA buttons ───────────────────────────────────────
             document.querySelectorAll('.cta-primary, .cta-secondary').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
                     var href = btn.getAttribute('href');
@@ -4785,7 +5336,7 @@ Emergency Contact: +91 99627 26106
                 });
             });
 
-            // ── Scroll spy — active highlight ─────────────────────
+            // ── Scroll spy ────────────────────────────────────────
             var sectionMap = [];
             items.forEach(function(item) {
                 var t = item.getAttribute('data-target');
