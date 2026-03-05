@@ -48,7 +48,29 @@
             --lg-raised:     rgba(255,255,255,0.10);
             --lg-overlay:    rgba(255,255,255,0.13);
 
+            /* Blur tiers */
+            --blur-xs:  blur(8px);
+            --blur-sm:  blur(16px);
+            --blur-md:  blur(28px);
+            --blur-lg:  blur(40px);
+            --blur-xl:  blur(60px);
 
+            /* Specular edge (top shimmer + side catch-lights) */
+            --lg-shine:
+                inset 0 1px 0 rgba(255,255,255,0.18),
+                inset 0 -1px 0 rgba(0,0,0,0.20),
+                inset 1px 0 0 rgba(255,255,255,0.06),
+                inset -1px 0 0 rgba(255,255,255,0.06);
+
+            /* Outer shadow for depth */
+            --lg-shadow-sm:  0 4px 16px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
+            --lg-shadow-md:  0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.25);
+            --lg-shadow-lg:  0 16px 56px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3);
+            --lg-shadow-xl:  0 24px 80px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.35);
+
+            --border-subtle: rgba(255,255,255,0.07);
+            --border-medium: rgba(255,255,255,0.11);
+            --border-glass:  rgba(255,255,255,0.16);
             
             --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.2);
             --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -58,26 +80,6 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
-
-            /* ── Blur tiers (Liquid Glass) ── */
-            --blur-xs:  blur(8px);
-            --blur-sm:  blur(16px);
-            --blur-md:  blur(28px);
-            --blur-lg:  blur(40px);
-            --blur-xl:  blur(60px);
-
-            /* ── Liquid Glass tokens ── */
-            --lg-base:    rgba(255,255,255,0.07);
-            --lg-raised:  rgba(255,255,255,0.10);
-            --lg-shine:
-                inset 0 1px 0 rgba(255,255,255,0.18),
-                inset 0 -1px 0 rgba(0,0,0,0.20),
-                inset 1px 0 0 rgba(255,255,255,0.06),
-                inset -1px 0 0 rgba(255,255,255,0.06);
-            --lg-shadow-sm: 0 4px 16px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
-            --lg-shadow-md: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.25);
-            --lg-shadow-lg: 0 16px 56px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3);
-            --lg-shadow-xl: 0 24px 80px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.35);
             
             --space-xs: 0.5rem;
             --space-sm: 0.75rem;
@@ -97,11 +99,12 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background:
-                radial-gradient(ellipse 120% 80% at 15% 10%, rgba(59,130,246,0.18) 0%, transparent 50%),
-                radial-gradient(ellipse 80% 60% at 85% 85%,  rgba(139,92,246,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse 60% 40% at 50% 50%,  rgba(16,185,129,0.07) 0%, transparent 55%),
-                radial-gradient(ellipse 100% 100% at 30% 70%, rgba(245,158,11,0.06) 0%, transparent 50%),
-                #06060e;
+                radial-gradient(ellipse 80% 70% at 0%   0%,   rgba(59,130,246,0.30)  0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 100% 100%, rgba(139,92,246,0.28)  0%, transparent 55%),
+                radial-gradient(ellipse 70% 60% at 100% 0%,   rgba(16,185,129,0.14)  0%, transparent 50%),
+                radial-gradient(ellipse 50% 40% at 0%   100%, rgba(245,158,11,0.10)  0%, transparent 50%),
+                #07070e;
+            background-attachment: fixed;
             color: var(--text-primary);
             line-height: 1.7;
             cursor: none;
@@ -559,7 +562,6 @@
         .section {
             padding: var(--space-4xl) var(--space-4xl);
             position: relative;
-            background: transparent;
         }
 
         .section-header {
@@ -616,7 +618,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             box-shadow: var(--shadow-small);
@@ -1090,7 +1092,7 @@
 
         /* Enhanced Contact Section */
         .contact-section {
-            background: rgba(255,255,255,0.025);
+            background: var(--bg-secondary);
         }
 
         /* Education Timeline Styles */
@@ -1732,10 +1734,7 @@
         .gallery-controls {
             display: flex; align-items: center; justify-content: center;
             gap: 1rem; padding: 1.25rem 1.5rem;
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255,255,255,0.08);
+            background: var(--bg-secondary);
         }
         .gallery-btn {
             background: var(--glass-medium);
@@ -2733,392 +2732,263 @@
 
 
     
-        /* ╔══════════════════════════════════════════════════════════╗
-           ║         LIQUID GLASS  —  Apple visionOS / iOS 26        ║
-           ╚══════════════════════════════════════════════════════════╝
+        /* ╔═══════════════════════════════════════════════════════════╗
+           ║  REAL LIQUID GLASS — correct, minimal, transparent       ║
+           ╚═══════════════════════════════════════════════════════════╝ */
 
-   THE SECRET: glass needs BRIGHT colourful content behind it to blur.
-   Surface alpha must be HIGH enough to see the frosted look (~0.15-0.25),
-   blur must be REAL (32px+), and the shine inset must be STRONG.
-   Dark near-black at 0.06 opacity = invisible. Light frosted = glass.
-*/
-
-        /* ── Vivid body background — the "scene behind the glass" ── */
-        body {
-            background:
-                radial-gradient(ellipse 80% 70% at 0%   0%,   rgba(59,130,246,0.55)  0%,  transparent 55%),
-                radial-gradient(ellipse 60% 50% at 100% 100%, rgba(139,92,246,0.50)  0%,  transparent 55%),
-                radial-gradient(ellipse 70% 60% at 100% 0%,   rgba(16,185,129,0.25)  0%,  transparent 50%),
-                radial-gradient(ellipse 50% 40% at 0%   100%, rgba(245,158,11,0.20)  0%,  transparent 50%),
-                radial-gradient(ellipse 40% 30% at 50%  50%,  rgba(59,130,246,0.12)  0%,  transparent 60%),
-                #080810 !important;
-            background-attachment: fixed !important;
-        }
-
-        /* ── Sections: fully transparent to show body gradient ── */
-        .section,
-        .hero,
-        #projects, #skills, #certifications,
-        #education, #demo, #contact {
+        /* Sections fully transparent so body gradient shows through */
+        .section, .hero,
+        #projects, #skills, #certifications, #education, #demo, #contact,
+        .cert-section, .contact-section, .education-section {
             background: transparent !important;
         }
-
-        /* ── Kill any opaque section alternating backgrounds ── */
         [style*="background:var(--bg-secondary)"],
-        [style*="background: var(--bg-secondary)"] {
-            background: transparent !important;
-        }
-        .cert-section,
-        .contact-section,
-        .education-section {
-            background: transparent !important;
-        }
+        [style*="background: var(--bg-secondary)"] { background: transparent !important; }
 
-        /* ════════════════════════════════════════════════════════
-           CORE GLASS SURFACE — the actual liquid glass formula
-           ════════════════════════════════════════════════════════ */
-
-        /* Shared glass mixin applied to ALL glass surfaces */
-        .project-item,
-        .skill-category,
-        .hero-terminal,
-        .contact-form,
-        .contact-item,
-        .demo-interactive,
-        .edu-card,
-        .edu-ri-card,
-        .edu-node,
-        .hero-badge,
-        .cta-secondary,
-        .scroll-top,
-        .gallery-controls,
-        .card-prev, .card-next,
-        .skill-badge, .tech-tag, .edu-tag, .card-badge,
-        .vuln-node,
-        .dock-icon,
-        #ew-bubble,
+        /* ── Shared blur on all glass surfaces ── */
+        .project-item, .skill-category, .hero-terminal,
+        .contact-form, .contact-item, .demo-interactive,
+        .edu-card, .edu-ri-card, .hero-badge,
+        .cta-secondary, .scroll-top,
+        .card-prev, .card-next, .gallery-btn,
+        .dock-icon, #ew-bubble,
         .form-input, .form-textarea {
-            backdrop-filter:         blur(32px) saturate(200%) brightness(1.15) !important;
-            -webkit-backdrop-filter: blur(32px) saturate(200%) brightness(1.15) !important;
+            backdrop-filter:         blur(42px) saturate(180%) brightness(1.06) !important;
+            -webkit-backdrop-filter: blur(42px) saturate(180%) brightness(1.06) !important;
         }
 
-        /* ── Project Cards ── */
+        /* ── Very transparent fill + strong inset shine = real glass ── */
         .project-item {
-            background: rgba(255,255,255,0.12) !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
+            background:  rgba(255,255,255,0.042) !important;
+            border:      1px solid rgba(255,255,255,0.12) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.35),
-                inset 0 -1px 0 rgba(0,0,0,0.15),
-                inset 1px 0 0 rgba(255,255,255,0.10),
-                inset -1px 0 0 rgba(255,255,255,0.10),
-                0 8px 32px rgba(0,0,0,0.4),
-                0 2px 8px rgba(0,0,0,0.2) !important;
-            transition: all 0.3s cubic-bezier(.4,0,.2,1) !important;
+                inset 0 1px 0 rgba(255,255,255,0.22),
+                inset 0 -1px 0 rgba(0,0,0,0.10),
+                0 8px 40px rgba(0,0,0,0.35) !important;
+            transition: background .25s, border-color .25s, box-shadow .25s, transform .25s !important;
         }
         .project-item:hover {
-            background: rgba(255,255,255,0.18) !important;
-            border-color: rgba(255,255,255,0.38) !important;
-            transform: translateY(-4px) !important;
+            background:   rgba(255,255,255,0.075) !important;
+            border-color: rgba(255,255,255,0.22) !important;
+            transform:    translateY(-5px) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.45),
-                inset 0 -1px 0 rgba(0,0,0,0.12),
-                0 20px 60px rgba(0,0,0,0.5),
-                0 4px 16px rgba(0,0,0,0.25) !important;
+                inset 0 1px 0 rgba(255,255,255,0.32),
+                0 20px 56px rgba(0,0,0,0.45) !important;
         }
 
-        /* ── Skill Cards ── */
         .skill-category {
-            background: rgba(255,255,255,0.10) !important;
-            border: 1px solid rgba(255,255,255,0.22) !important;
+            background:  rgba(255,255,255,0.038) !important;
+            border:      1px solid rgba(255,255,255,0.10) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.30),
-                inset 0 -1px 0 rgba(0,0,0,0.12),
-                0 6px 24px rgba(0,0,0,0.35) !important;
-            transition: all 0.3s cubic-bezier(.4,0,.2,1) !important;
+                inset 0 1px 0 rgba(255,255,255,0.20),
+                inset 0 -1px 0 rgba(0,0,0,0.08),
+                0 6px 28px rgba(0,0,0,0.30) !important;
+            transition: all .25s ease !important;
         }
         .skill-category:hover {
-            background: rgba(255,255,255,0.17) !important;
-            border-color: rgba(255,255,255,0.35) !important;
-            transform: translateY(-3px) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.42),
-                0 16px 48px rgba(0,0,0,0.45) !important;
+            background:   rgba(255,255,255,0.07) !important;
+            border-color: rgba(255,255,255,0.18) !important;
+            transform:    translateY(-4px) !important;
         }
 
-        /* ── Hero Terminal ── */
         .hero-terminal {
-            background: rgba(255,255,255,0.09) !important;
-            backdrop-filter: blur(48px) saturate(220%) brightness(1.1) !important;
-            -webkit-backdrop-filter: blur(48px) saturate(220%) brightness(1.1) !important;
-            border: 1px solid rgba(255,255,255,0.22) !important;
+            background:  rgba(255,255,255,0.035) !important;
+            border:      1px solid rgba(255,255,255,0.11) !important;
+            backdrop-filter:         blur(56px) saturate(200%) brightness(1.08) !important;
+            -webkit-backdrop-filter: blur(56px) saturate(200%) brightness(1.08) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.35),
-                inset 0 -1px 0 rgba(0,0,0,0.18),
-                0 32px 80px rgba(0,0,0,0.6),
-                0 8px 24px rgba(0,0,0,0.3) !important;
+                inset 0 1px 0 rgba(255,255,255,0.22),
+                inset 0 -1px 0 rgba(0,0,0,0.12),
+                0 32px 80px rgba(0,0,0,0.5) !important;
         }
         .terminal-header {
-            background: rgba(255,255,255,0.06) !important;
-            border-bottom: 1px solid rgba(255,255,255,0.12) !important;
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
+            background:  rgba(255,255,255,0.03) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
         }
         .terminal-body { background: transparent !important; }
 
-        /* ── Hero Badge ── */
         .hero-badge {
-            background: rgba(255,255,255,0.14) !important;
-            border: 1px solid rgba(255,255,255,0.30) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.40),
-                0 4px 16px rgba(0,0,0,0.3) !important;
+            background:  rgba(255,255,255,0.05) !important;
+            border:      1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.22) !important;
         }
 
-        /* ── CTA Secondary ── */
         .cta-secondary {
-            background: rgba(255,255,255,0.13) !important;
-            border: 1px solid rgba(255,255,255,0.28) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.38),
-                0 4px 12px rgba(0,0,0,0.25) !important;
-            transition: all 0.25s ease !important;
+            background:  rgba(255,255,255,0.048) !important;
+            border:      1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.20),
+                         0 2px 8px rgba(0,0,0,0.20) !important;
+            transition:  all .22s ease !important;
         }
         .cta-secondary:hover {
-            background: rgba(255,255,255,0.20) !important;
-            border-color: rgba(255,255,255,0.42) !important;
-            transform: translateY(-2px) !important;
+            background:   rgba(255,255,255,0.09) !important;
+            border-color: rgba(255,255,255,0.24) !important;
         }
 
-        /* ── Contact Form ── */
         .contact-form {
-            background: rgba(255,255,255,0.10) !important;
-            border: 1px solid rgba(255,255,255,0.22) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.32),
-                inset 0 -1px 0 rgba(0,0,0,0.14),
-                0 16px 56px rgba(0,0,0,0.5) !important;
-        }
-        .contact-item {
-            background: rgba(255,255,255,0.08) !important;
-            border: 1px solid rgba(255,255,255,0.18) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.25),
-                0 4px 16px rgba(0,0,0,0.3) !important;
-            transition: all 0.25s ease !important;
-        }
-        .contact-item:hover {
-            background: rgba(255,255,255,0.15) !important;
-            border-color: rgba(255,255,255,0.32) !important;
-            transform: translateY(-2px) !important;
-        }
-
-        /* ── Form Inputs ── */
-        .form-input, .form-textarea, .form-select {
-            background: rgba(255,255,255,0.07) !important;
-            border: 1px solid rgba(255,255,255,0.18) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.12),
-                inset 0 2px 4px rgba(0,0,0,0.15) !important;
-            color: var(--text-primary) !important;
-            transition: all .2s ease !important;
-        }
-        .form-input:focus, .form-textarea:focus {
-            background: rgba(255,255,255,0.12) !important;
-            border-color: rgba(59,130,246,0.65) !important;
+            background:  rgba(255,255,255,0.038) !important;
+            border:      1px solid rgba(255,255,255,0.10) !important;
             box-shadow:
                 inset 0 1px 0 rgba(255,255,255,0.18),
-                0 0 0 3px rgba(59,130,246,0.20) !important;
+                0 20px 60px rgba(0,0,0,0.40) !important;
+        }
+        .contact-item {
+            background:  rgba(255,255,255,0.032) !important;
+            border:      1px solid rgba(255,255,255,0.09) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.16) !important;
+            transition:  all .22s ease !important;
+        }
+        .contact-item:hover {
+            background:   rgba(255,255,255,0.065) !important;
+            border-color: rgba(255,255,255,0.16) !important;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            background:  rgba(255,255,255,0.03) !important;
+            border:      1px solid rgba(255,255,255,0.10) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.08),
+                         inset 0 2px 6px rgba(0,0,0,0.12) !important;
+            color: var(--text-primary) !important;
+        }
+        .form-input:focus, .form-textarea:focus {
+            background:   rgba(255,255,255,0.06) !important;
+            border-color: rgba(59,130,246,0.55) !important;
+            box-shadow:   inset 0 1px 0 rgba(255,255,255,0.12),
+                          0 0 0 3px rgba(59,130,246,0.15) !important;
             outline: none !important;
         }
 
-        /* ── Demo Panel ── */
         .demo-interactive {
-            background: rgba(255,255,255,0.09) !important;
-            border: 1px solid rgba(255,255,255,0.20) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.28),
-                0 16px 48px rgba(0,0,0,0.5) !important;
-        }
-        .scan-controls button {
-            background: rgba(255,255,255,0.10) !important;
-            border: 1px solid rgba(255,255,255,0.22) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.28) !important;
-            transition: all .2s ease !important;
-        }
-        .scan-controls button:hover {
-            background: rgba(255,255,255,0.20) !important;
-            border-color: rgba(255,255,255,0.38) !important;
+            background:  rgba(255,255,255,0.035) !important;
+            border:      1px solid rgba(255,255,255,0.09) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.16),
+                         0 16px 48px rgba(0,0,0,0.40) !important;
         }
 
-        /* ── Education Cards ── */
         .edu-card {
-            background: rgba(255,255,255,0.09) !important;
-            border: 1px solid rgba(255,255,255,0.20) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.28),
-                inset 0 -1px 0 rgba(0,0,0,0.12),
-                0 8px 32px rgba(0,0,0,0.4) !important;
+            background:  rgba(255,255,255,0.038) !important;
+            border:      1px solid rgba(255,255,255,0.10) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.18),
+                         0 8px 32px rgba(0,0,0,0.32) !important;
+            transition: all .25s ease !important;
         }
         .edu-card:hover {
-            background: rgba(255,255,255,0.15) !important;
-            border-color: rgba(255,255,255,0.32) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.38),
-                0 20px 60px rgba(0,0,0,0.5) !important;
+            background:   rgba(255,255,255,0.07) !important;
+            border-color: rgba(255,255,255,0.18) !important;
         }
         .edu-ri-card {
-            background: rgba(255,255,255,0.07) !important;
-            border: 1px solid rgba(255,255,255,0.16) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.22),
-                0 4px 20px rgba(0,0,0,0.3) !important;
+            background:  rgba(255,255,255,0.028) !important;
+            border:      1px solid rgba(255,255,255,0.08) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.14) !important;
+            transition: all .22s ease !important;
         }
         .edu-ri-card:hover {
-            background: rgba(255,255,255,0.13) !important;
-            border-color: rgba(255,255,255,0.28) !important;
-        }
-        .edu-node {
-            background: rgba(255,255,255,0.10) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.30),
-                0 0 0 4px rgba(255,255,255,0.05),
-                0 4px 16px rgba(0,0,0,0.4) !important;
+            background:   rgba(255,255,255,0.06) !important;
+            border-color: rgba(255,255,255,0.14) !important;
         }
 
-        /* ── Gallery Controls ── */
         .gallery-controls {
-            background: rgba(255,255,255,0.07) !important;
-            backdrop-filter: blur(20px) saturate(180%) !important;
-            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-            border-top: 1px solid rgba(255,255,255,0.15) !important;
+            background:  rgba(255,255,255,0.025) !important;
+            backdrop-filter:         blur(24px) !important;
+            -webkit-backdrop-filter: blur(24px) !important;
+            border-top:  1px solid rgba(255,255,255,0.08) !important;
         }
-        .card-prev, .card-next {
-            background: rgba(255,255,255,0.12) !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.30) !important;
+        .card-prev, .card-next, .gallery-btn {
+            background:  rgba(255,255,255,0.04) !important;
+            border:      1px solid rgba(255,255,255,0.11) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.14) !important;
         }
-        .card-prev:hover, .card-next:hover {
-            background: rgba(255,255,255,0.22) !important;
+        .card-prev:hover, .card-next:hover, .gallery-btn:hover {
+            background:  rgba(255,255,255,0.09) !important;
         }
 
-        /* ── Tags & Badges ── */
-        .skill-badge {
-            background: rgba(59,130,246,0.18) !important;
-            border: 1px solid rgba(59,130,246,0.35) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15) !important;
-        }
-        .tech-tag {
-            background: rgba(255,255,255,0.10) !important;
-            border: 1px solid rgba(255,255,255,0.22) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.18) !important;
-        }
-        .edu-tag {
-            background: rgba(255,255,255,0.08) !important;
-            border: 1px solid rgba(255,255,255,0.18) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.14) !important;
+        .skill-badge, .tech-tag, .edu-tag {
+            background:  rgba(255,255,255,0.04) !important;
+            border:      1px solid rgba(255,255,255,0.10) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
         }
         .card-badge {
-            background: rgba(16,185,129,0.20) !important;
-            border: 1px solid rgba(16,185,129,0.38) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15) !important;
+            background:  rgba(16,185,129,0.12) !important;
+            border:      1px solid rgba(16,185,129,0.24) !important;
         }
 
-        /* ── Scroll-to-top ── */
         .scroll-top {
-            background: rgba(255,255,255,0.12) !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.35),
-                0 8px 32px rgba(0,0,0,0.5) !important;
+            background:  rgba(255,255,255,0.048) !important;
+            border:      1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.22),
+                         0 8px 28px rgba(0,0,0,0.40) !important;
         }
         .scroll-top:hover {
-            background: rgba(59,130,246,0.28) !important;
-            border-color: rgba(59,130,246,0.55) !important;
+            background:  rgba(59,130,246,0.18) !important;
+            border-color: rgba(59,130,246,0.38) !important;
         }
 
-        /* ── Dock icons ── */
         .dock-icon {
-            background: rgba(255,255,255,0.12) !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.38),
-                inset 0 -1px 0 rgba(0,0,0,0.18),
-                0 4px 16px rgba(0,0,0,0.4) !important;
+            background:  rgba(255,255,255,0.05) !important;
+            border:      1px solid rgba(255,255,255,0.14) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.24),
+                         inset 0 -1px 0 rgba(0,0,0,0.10),
+                         0 4px 14px rgba(0,0,0,0.30) !important;
         }
         .dock-item.dock-active .dock-icon {
-            background: rgba(59,130,246,0.28) !important;
-            border-color: rgba(59,130,246,0.55) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.35),
-                0 0 24px rgba(59,130,246,0.4) !important;
+            background:  rgba(59,130,246,0.18) !important;
+            border-color: rgba(59,130,246,0.38) !important;
+        }
+        #dock {
+            background:  rgba(255,255,255,0.045) !important;
+            border:      1px solid rgba(255,255,255,0.13) !important;
+            backdrop-filter:         blur(48px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(48px) saturate(200%) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.20),
+                         0 20px 56px rgba(0,0,0,0.45) !important;
         }
 
-        /* ── Eyeball bubble ── */
         #ew-bubble {
-            background: rgba(255,253,230,0.75) !important;
-            backdrop-filter: blur(24px) saturate(160%) brightness(1.2) !important;
-            -webkit-backdrop-filter: blur(24px) saturate(160%) brightness(1.2) !important;
-            border: 1px solid rgba(255,255,255,0.45) !important;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.60),
-                0 8px 32px rgba(0,0,0,0.3) !important;
+            background:  rgba(255,253,232,0.68) !important;
+            border:      1px solid rgba(255,255,255,0.35) !important;
+            box-shadow:  inset 0 1px 0 rgba(255,255,255,0.50),
+                         0 8px 28px rgba(0,0,0,0.22) !important;
+            backdrop-filter:         blur(28px) saturate(160%) !important;
+            -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
         }
 
-        /* ── Vuln nodes ── */
-        .vuln-node {
-            background: rgba(255,255,255,0.06) !important;
-            border: 1px solid rgba(255,255,255,0.12) !important;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.10) !important;
-        }
-
-        /* ══════════════════════════════════════════════════════
-           SHIMMER  —  light sweep on hover (refraction effect)
-           ══════════════════════════════════════════════════════ */
+        /* ── Hover shimmer — no overflow:hidden needed ── */
         @keyframes lgShimmer {
-            from { transform: translateX(-120%) skewX(-15deg); opacity: 0; }
+            from { left: -60%; opacity: 0; }
             20%  { opacity: 1; }
             80%  { opacity: 1; }
-            to   { transform: translateX(220%)  skewX(-15deg); opacity: 0; }
+            to   { left: 120%; opacity: 0; }
         }
-
-        .project-item,
-        .skill-category,
-        .edu-card,
-        .contact-item,
-        .edu-ri-card {
-            overflow: hidden !important;
-            position: relative !important;
+        .project-item, .skill-category, .edu-card, .contact-item {
+            isolation: isolate;
         }
-        .project-item::before,
-        .skill-category::before,
-        .edu-card::before,
-        .contact-item::before,
-        .edu-ri-card::before {
+        .project-item::after, .skill-category::after,
+        .edu-card::after, .contact-item::after {
             content: '';
             position: absolute;
-            top: -50%; left: 0;
-            width: 45%; height: 200%;
-            background: linear-gradient(
-                105deg,
+            top: 0; left: -60%;
+            width: 35%; height: 100%;
+            background: linear-gradient(105deg,
                 transparent 0%,
-                rgba(255,255,255,0.08) 40%,
-                rgba(255,255,255,0.18) 50%,
-                rgba(255,255,255,0.08) 60%,
-                transparent 100%
-            );
-            transform: translateX(-120%) skewX(-15deg);
+                rgba(255,255,255,0.04) 40%,
+                rgba(255,255,255,0.10) 50%,
+                rgba(255,255,255,0.04) 60%,
+                transparent 100%);
+            transform: skewX(-12deg);
             pointer-events: none;
-            z-index: 10;
-            border-radius: 0;
+            z-index: 1;
+            opacity: 0;
         }
-        .project-item:hover::before,
-        .skill-category:hover::before,
-        .edu-card:hover::before,
-        .contact-item:hover::before,
-        .edu-ri-card:hover::before {
-            animation: lgShimmer 0.65s ease forwards;
+        .project-item:hover::after, .skill-category:hover::after,
+        .edu-card:hover::after, .contact-item:hover::after {
+            animation: lgShimmer 0.7s ease forwards;
         }
 
+        /* ── Slim scrollbar ── */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 2px; }
 
     </style>
 </head>
@@ -3449,7 +3319,7 @@
     </section>
 
     <section id="projects" class="section projects-section gallery-outer" style="padding-bottom:0;">
-        <div style="padding:6rem 6rem 2rem;">
+        <div style="padding:6rem 6rem 2rem;background:var(--bg-secondary);">
             <div class="section-header fade-in-up">
                 <h2 class="section-title">Security Projects</h2>
                 <p class="section-subtitle">Cutting-edge security solutions engineered with military-grade precision and industry-leading methodologies</p>
