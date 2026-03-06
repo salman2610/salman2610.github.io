@@ -335,13 +335,15 @@
         /* Enhanced Hero Section */
         .hero {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: var(--space-4xl);
+            padding: 7rem var(--space-4xl) 8rem;
             position: relative;
             overflow: hidden;
             gap: var(--space-4xl);
+            box-sizing: border-box;
         }
 
         .hero-content {
@@ -365,6 +367,7 @@
             -webkit-backdrop-filter: blur(12px);
             box-shadow: var(--shadow-small);
             animation: float 3s ease-in-out infinite;
+            margin-bottom: var(--space-lg);
         }
 
         .hero-badge::before {
