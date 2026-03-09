@@ -325,10 +325,14 @@
 
         /* ── Mobile: smaller icons, no magnify ── */
         @media (max-width: 600px) {
-            #dock { padding: 8px 10px 0; gap: 0; }
-            .dock-item { width: 38px; height: 38px; margin: 0 2px; }
-            .dock-icon  { width: 34px; height: 34px; font-size: 17px; border-radius: 9px; }
-            .dock-sep { display: none; }
+            #dock {
+                padding: 7px 10px 9px;
+                gap: 0;
+                justify-content: space-evenly;
+            }
+            .dock-item { width: 40px; height: 40px; margin: 0 1px; }
+            .dock-icon  { width: 33px; height: 33px; font-size: 16px; border-radius: 9px; }
+            .dock-sep  { display: none; }
         }
 
 
@@ -2139,80 +2143,78 @@
         ───────────────────────────────────────────── */
         @media (max-width: 768px) {
 
-            /* Typography scale-down */
-            .hero-title  { font-size: clamp(2rem, 9vw, 3rem); }
-            .section-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+            /* Typography */
+            .hero-title    { font-size: clamp(2rem, 9vw, 3rem); }
+            .section-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
 
-            /* Hero */
+            /* Hero — stack vertically */
             .hero {
-                padding: 5rem 1.5rem 2.5rem;
-                min-height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5rem 1.5rem 7rem;
+                min-height: 100dvh;
+                gap: 2rem;
             }
+            .hero-content { max-width: 100%; }
             .hero-terminal {
-                width: min(480px, 92vw);
-                height: auto;
-                min-height: 300px;
-                max-height: 440px;
+                width: 100%;
+                height: 240px;
+                min-height: unset;
             }
             .terminal-body { font-size: 12px; padding: 1rem; }
 
             /* Sections */
-            .section { padding: 3rem 1.5rem; }
+            .section { padding: 3.5rem 1.5rem 5rem; }
 
             /* Projects */
             .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
             .project-item  { min-height: auto; padding: 1.5rem; }
 
-            /* Gallery cards — smaller on tablet */
-            .gallery-stage { height: 380px; }
-            .card-slide    { width: 150px; }
+            /* Gallery */
+            .gallery-stage { height: 340px; }
+            .card-slide    { width: 140px; }
 
             /* Skills */
-            .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .skills-grid   { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
             .skill-category { padding: 1.25rem 1rem; }
 
-            /* Education timeline */
-            .education-timeline { padding-left: 1.5rem; }
-            .timeline-item      { padding-left: 1.5rem; }
-            .timeline-marker    { left: -20px; }
-
-            /* Contact */
-            .contact-grid  { grid-template-columns: 1fr; }
-            .contact-form  { padding: 1.5rem; }
-            .contact-section > .section-content {
-                flex-direction: column;
+            /* Contact — single column, better cards */
+            .contact-content { flex-direction: column; gap: 1.5rem; }
+            .contact-grid  {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
             }
+            .contact-item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem 1.25rem;
+                text-align: left;
+                border-radius: 14px;
+            }
+            .contact-icon { font-size: 1.4rem; flex-shrink: 0; }
+            .contact-title { margin-bottom: 0.15rem; }
+            .contact-form  { padding: 1.5rem; border-radius: 16px; }
 
-            /* Demo section */
-            .demo-interactive { padding: 1.25rem; }
-            .vulnerability-grid { grid-template-columns: repeat(8, 1fr); }
-            .scan-controls { flex-wrap: wrap; gap: .5rem; }
-            .scan-controls button { flex: 1; min-width: 120px; }
+            /* Form */
+            .form-group { margin-bottom: 1rem; }
 
-            /* Scroll text */
-            .st-prefix, .st-word { font-size: clamp(2rem, 9vw, 3rem) !important; }
-            .st-progress { margin-top: 1.5rem; }
-            .st-bar-bg   { width: 120px; }
-
-            /* Eyeball — move slightly so dock doesn't overlap */
-            #eye-widget { bottom: 90px; left: 16px; }
-            #ew-ball    { width: 56px; height: 56px; }
-            :root { --ew-size: 56px; --ew-iris: 32px; --ew-pupil: 14px; }
-
-            /* Dock — floating pill on tablet */
-            #dock-wrapper { width: auto; bottom: 16px; }
+            /* Dock */
+            #dock-wrapper, .dock-wrapper {
+                bottom: 12px;
+                width: calc(100% - 2rem);
+                max-width: 420px;
+            }
             #dock {
-                border-radius: 20px;
-                padding: 8px 12px;
-                animation: dockFloat 4s ease-in-out infinite;
+                width: 100%;
+                justify-content: space-evenly;
+                padding: 8px 12px 10px;
+                gap: 0;
+                border-radius: 18px;
             }
-            .dock-item  { width: 40px; height: 40px; margin: 0 2px; }
-            .dock-icon  { width: 34px; height: 34px; font-size: 17px; border-radius: 9px; }
-            .dock-label { font-size: 9px; bottom: 110%; }
-            .dock-sep   { display: none; }
-
-            /* Scroll-to-top button — above dock */
-            .scroll-top { bottom: 80px; right: 1rem; }
+            .dock-item { width: 44px; height: 44px; }
+            .dock-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 10px; }
         }
 
         /* ─────────────────────────────────────────────
@@ -2291,44 +2293,55 @@
         ───────────────────────────────────────────── */
         @media (max-width: 480px) {
 
-            /* Base */
-            .hero { padding: 4rem .875rem 1.75rem; }
-            .hero-title { font-size: clamp(1.6rem, 11vw, 2.2rem); }
+            /* Hero */
+            .hero {
+                padding: 4.5rem 1rem 7rem;
+                gap: 1.5rem;
+            }
+            .hero-title { font-size: clamp(1.8rem, 11vw, 2.4rem); }
+            .hero-subtitle { font-size: 15px; }
+            .hero-terminal { height: 200px; }
 
-            /* Scroll text — stacked on very small screens */
-            .st-line { flex-direction: column; align-items: center; gap: .1em; }
-            .st-prefix { font-size: clamp(1.4rem, 9vw, 2rem) !important; }
-            .st-word   { font-size: clamp(1.4rem, 9vw, 2rem) !important; position: absolute; }
-            .st-word-wrap { min-width: 8ch; }
+            /* Sections */
+            .section { padding: 3rem 1rem 5rem; }
+            .section-title { font-size: clamp(1.5rem, 9vw, 2rem); }
 
-            /* Gallery — single card centered */
-            .gallery-stage { height: 260px; }
-            .card-slide    { width: 100px; }
+            /* Skills */
+            .skills-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+            .skill-category { padding: 1rem; }
 
-            /* Skills single column */
-            .skills-grid { grid-template-columns: 1fr; }
+            /* Gallery */
+            .gallery-stage { height: 240px; }
+            .card-slide    { width: 90px; }
 
-            /* Section padding */
-            .section { padding: 2rem .875rem; }
-
-            /* Demo */
-            .vulnerability-grid { grid-template-columns: repeat(5, 1fr); }
-
-            /* Contact */
+            /* Contact items — full width rows */
+            .contact-item {
+                padding: 0.875rem 1rem;
+                border-radius: 12px;
+            }
+            .contact-icon { font-size: 1.2rem; }
             .form-submit { width: 100%; justify-content: center; }
-            .contact-grid { grid-template-columns: 1fr; }
 
-            /* Dock — tighter */
-            #dock { padding: 4px 0 0; gap: 0; }
-            .dock-item  { width: 36px; height: 36px; margin: 0 1px; }
-            .dock-icon  { width: 30px; height: 30px; font-size: 14px; border-radius: 8px; }
-            .dock-label { display: none; } /* tooltips off on tiny screens */
+            /* Dock — compact, full width */
+            #dock-wrapper, .dock-wrapper { bottom: 10px; }
+            #dock {
+                padding: 6px 8px 8px;
+                gap: 0;
+                border-radius: 16px;
+            }
+            .dock-item { width: 40px; height: 40px; margin: 0 2px; }
+            .dock-icon { width: 32px; height: 32px; font-size: 15px; border-radius: 9px; }
+            .dock-sep  { display: none; }
+            .dock-label { display: none; }
 
-            /* Hide eyeball on very small screens to avoid clutter */
+            /* Eyeball — hide on small screens */
             #eye-widget { display: none; }
 
             /* Scroll top */
-            .scroll-top { bottom: 68px; width: 36px; height: 36px; }
+            .scroll-top { bottom: 72px; width: 36px; height: 36px; }
+
+            /* Demo */
+            .vulnerability-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
         /* touch: magnify disabled via JS matchMedia hover:none check */
@@ -2992,6 +3005,28 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 2px; }
 
+    
+        /* ── Mobile contact item fix ── */
+        @media (max-width: 768px) {
+            .contact-item {
+                backdrop-filter: blur(24px) saturate(160%) brightness(1.06) !important;
+                -webkit-backdrop-filter: blur(24px) saturate(160%) brightness(1.06) !important;
+                background: rgba(255,255,255,0.06) !important;
+                border: 1px solid rgba(255,255,255,0.14) !important;
+            }
+            .contact-form {
+                backdrop-filter: blur(28px) saturate(160%) !important;
+                -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
+                background: rgba(255,255,255,0.055) !important;
+            }
+            /* Dock wrapper full-width centering */
+            .dock-wrapper {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: calc(100vw - 2rem) !important;
+                max-width: 400px !important;
+            }
+        }
     </style>
 </head>
 <body>
