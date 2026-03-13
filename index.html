@@ -3027,6 +3027,25 @@
                 max-width: 400px !important;
             }
         }
+    
+        /* ── Certification card logos ── */
+        .cert-logo {
+            width: auto;
+            height: 36px;
+            max-width: 120px;
+            object-fit: contain;
+            margin-bottom: 0.75rem;
+            filter: brightness(0) invert(1);
+            opacity: 0.85;
+            display: block;
+        }
+        .card-overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+
     </style>
 </head>
 <body>
@@ -3500,13 +3519,13 @@
             </div>
         </div>
         <div class="gallery-stage" id="certStage">
-            <div class="card-slide" data-i="0"><div class="card-bg" style="background:linear-gradient(160deg,#05051c,#0c1855)"></div><div class="card-overlay"><span class="card-label">RedTeam Hacker Academy · 2024</span><div class="card-title">&#127697; Certified Penetration Tester</div></div></div>
-            <div class="card-slide" data-i="1"><div class="card-bg" style="background:linear-gradient(160deg,#041806,#0a3d10)"></div><div class="card-overlay"><span class="card-label">Cisco · 2024</span><div class="card-title">&#128373; Ethical Hacker</div></div></div>
-            <div class="card-slide" data-i="2"><div class="card-bg" style="background:linear-gradient(160deg,#180800,#421f00)"></div><div class="card-overlay"><span class="card-label">Fortinet · 2024</span><div class="card-title">&#128274; Fortinet Certified Associate</div></div></div>
-            <div class="card-slide" data-i="3"><div class="card-bg" style="background:linear-gradient(160deg,#160016,#420040)"></div><div class="card-overlay"><span class="card-label">Fortinet · 2024</span><div class="card-title">&#128272; FortiGate 7.6 Operator</div></div></div>
-            <div class="card-slide" data-i="4"><div class="card-bg" style="background:linear-gradient(160deg,#001616,#003838)"></div><div class="card-overlay"><span class="card-label">NIIT · 2023</span><div class="card-title">&#128187; Advanced Programming – Software Engineering</div></div></div>
-            <div class="card-slide" data-i="5"><div class="card-bg" style="background:linear-gradient(160deg,#070710,#121238)"></div><div class="card-overlay"><span class="card-label">Cisco · 2024</span><div class="card-title">&#128188; Cyber Threat Management</div></div></div>
-            <div class="card-slide" data-i="6"><div class="card-bg" style="background:linear-gradient(160deg,#160700,#3a1200)"></div><div class="card-overlay"><span class="card-label">TryHackMe · 2024</span><div class="card-title">&#127876; Advent of Cyber 2024</div></div></div>
+            <div class="card-slide" data-i="0"><div class="card-bg" style="background:linear-gradient(160deg,#05051c,#0c1855)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Redteam CPT.png" alt="RedTeam"><span class="card-label">RedTeam Hacker Academy · 2024</span><div class="card-title">&#127697; Certified Penetration Tester</div></div></div>
+            <div class="card-slide" data-i="1"><div class="card-bg" style="background:linear-gradient(160deg,#041806,#0a3d10)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Cisco.png" alt="Cisco"><span class="card-label">Cisco · 2024</span><div class="card-title">&#128373; Ethical Hacker</div></div></div>
+            <div class="card-slide" data-i="2"><div class="card-bg" style="background:linear-gradient(160deg,#180800,#421f00)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Fortinet.png" alt="Fortinet"><span class="card-label">Fortinet · 2024</span><div class="card-title">&#128274; Fortinet Certified Associate</div></div></div>
+            <div class="card-slide" data-i="3"><div class="card-bg" style="background:linear-gradient(160deg,#160016,#420040)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Fortinet.png" alt="Fortinet"><span class="card-label">Fortinet · 2024</span><div class="card-title">&#128272; FortiGate 7.6 Operator</div></div></div>
+            <div class="card-slide" data-i="4"><div class="card-bg" style="background:linear-gradient(160deg,#001616,#003838)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/NIIT.png" alt="NIIT"><span class="card-label">NIIT · 2023</span><div class="card-title">&#128187; Advanced Programming – Software Engineering</div></div></div>
+            <div class="card-slide" data-i="5"><div class="card-bg" style="background:linear-gradient(160deg,#070710,#121238)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Cisco.png" alt="Cisco"><span class="card-label">Cisco · 2024</span><div class="card-title">&#128188; Cyber Threat Management</div></div></div>
+            <div class="card-slide" data-i="6"><div class="card-bg" style="background:linear-gradient(160deg,#160700,#3a1200)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Tryhackme.png" alt="TryHackMe"><span class="card-label">TryHackMe · 2024</span><div class="card-title">&#127876; Advent of Cyber 2024</div></div></div>
         </div>
         <div class="gallery-controls">
             <button class="gallery-btn" id="certPrev">&#8592; Prev</button>
