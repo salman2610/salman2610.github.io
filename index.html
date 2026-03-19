@@ -3046,6 +3046,145 @@
             padding: 1.5rem;
         }
 
+    
+        /* ── Writeups Section ── */
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+        }
+        .writeup-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.75rem;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.042);
+            backdrop-filter: blur(42px) saturate(180%) brightness(1.06);
+            -webkit-backdrop-filter: blur(42px) saturate(180%) brightness(1.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.14),
+                inset 0 -1px 0 rgba(0,0,0,0.10),
+                0 8px 40px rgba(0,0,0,0.35);
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+        }
+        .writeup-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.075);
+            border-color: rgba(255,255,255,0.22);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.22),
+                0 20px 56px rgba(0,0,0,0.45);
+        }
+        .writeup-accent {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            border-radius: 18px 18px 0 0;
+            opacity: 0.8;
+        }
+        .writeup-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.25rem;
+        }
+        .writeup-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.6);
+        }
+        .writeup-read {
+            margin-left: auto;
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .writeup-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: rgba(255,255,255,0.92);
+            letter-spacing: -0.02em;
+        }
+        .writeup-desc {
+            font-size: 13.5px;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.7;
+            flex: 1;
+        }
+        .writeup-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.25rem;
+            padding-top: 0.875rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+        .writeup-platform {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+        .writeup-arrow {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+            transition: color .2s, transform .2s;
+        }
+        .writeup-card:hover .writeup-arrow {
+            color: rgba(255,255,255,0.8);
+            transform: translateX(4px);
+        }
+        .writeups-cta {
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        .writeup-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 10px 24px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all .22s ease;
+        }
+        .writeup-more-btn:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .writeups-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .writeup-card  { padding: 1.25rem; }
+            .writeup-title { font-size: 1rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -3327,6 +3466,10 @@
                 <div class="dock-icon">🏆</div>
                 <span class="dock-label">Certifications</span>
             </li>
+            <li class="dock-item" data-target="#writeups">
+                <div class="dock-icon">✍️</div>
+                <span class="dock-label">Writeups</span>
+            </li>
             <li class="dock-item" data-target="#education">
                 <div class="dock-icon">🎓</div>
                 <span class="dock-label">Education</span>
@@ -3531,6 +3674,63 @@
             <button class="gallery-btn" id="certNext">Next &#8594;</button>
         </div>
     </section>
+
+
+    <section id="writeups" class="section">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Medium Writeups</h2>
+            <p class="section-subtitle">Technical deep-dives on real-world security research, penetration testing engagements, and tool development</p>
+        </div>
+
+        <div class="writeups-grid">
+
+            <a class="writeup-card fade-in-up" href="https://medium.com/@salmanulfariss642/building-a-real-time-server-monitoring-threat-detection-system-purple-agent-0fcb8452eece" target="_blank" rel="noopener">
+                <div class="writeup-accent" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"></div>
+                <div class="writeup-meta">
+                    <span class="writeup-tag">Purple Team</span>
+                    <span class="writeup-tag">Python</span>
+                    <span class="writeup-tag">Monitoring</span>
+                    <span class="writeup-read">5 min read</span>
+                </div>
+                <h3 class="writeup-title">Building a Real-Time Server Monitoring &amp; Threat Detection System</h3>
+                <p class="writeup-desc">Built Purple Agent — a modular Python-based server monitoring system providing real-time visibility, security analytics, and threat detection across metrics, logs, and network activity.</p>
+                <div class="writeup-footer">
+                    <span class="writeup-platform">
+                        <svg width="16" height="16" viewBox="0 0 1043 167" fill="currentColor" style="vertical-align:middle;opacity:0.6"><path d="M588.6 0c-46.5 0-84 37.5-84 84s37.5 84 84 84 84-37.5 84-84S635 0 588.6 0zM855 4.5l-81.4 157.4L692.2 4.5H855zM1042.8 4.5v157.4h-47.6V4.5h47.6zM467.5 83.6c0 46-37.2 83.2-83 83.2-45.8 0-83-37.2-83-83.2 0-46 37.2-83.2 83-83.2 45.8 0 83 37.2 83 83.2zM301 83.8c0 48.5-39 87.8-87.2 87.8S126.7 132.3 126.7 83.8 165.6-4 213.8-4 301 35.3 301 83.8zM127 84v73.7L42.6 10.6 127 84zm-84.4-73.4L0 167V11l42.6-.4z"/></svg>
+                        Medium
+                    </span>
+                    <span class="writeup-arrow">Read →</span>
+                </div>
+            </a>
+
+            <a class="writeup-card fade-in-up" href="https://medium.com/@salmanulfariss642/from-a-simple-api-test-to-full-server-access-a-real-world-vapt-case-study-redacted-8047a3e18491" target="_blank" rel="noopener">
+                <div class="writeup-accent" style="background:linear-gradient(135deg,#dc2626,#ea580c)"></div>
+                <div class="writeup-meta">
+                    <span class="writeup-tag">VAPT</span>
+                    <span class="writeup-tag">IDOR</span>
+                    <span class="writeup-tag">API Security</span>
+                    <span class="writeup-read">4 min read</span>
+                </div>
+                <h3 class="writeup-title">From a Simple API Test to Full Server Access: A Real-World VAPT Case Study</h3>
+                <p class="writeup-desc">A chain of small misconfigurations — IDOR in file download API, exposed .env file, and weak cPanel authentication — leading to complete server compromise during an authorized engagement.</p>
+                <div class="writeup-footer">
+                    <span class="writeup-platform">
+                        <svg width="16" height="16" viewBox="0 0 1043 167" fill="currentColor" style="vertical-align:middle;opacity:0.6"><path d="M588.6 0c-46.5 0-84 37.5-84 84s37.5 84 84 84 84-37.5 84-84S635 0 588.6 0zM855 4.5l-81.4 157.4L692.2 4.5H855zM1042.8 4.5v157.4h-47.6V4.5h47.6zM467.5 83.6c0 46-37.2 83.2-83 83.2-45.8 0-83-37.2-83-83.2 0-46 37.2-83.2 83-83.2 45.8 0 83 37.2 83 83.2zM301 83.8c0 48.5-39 87.8-87.2 87.8S126.7 132.3 126.7 83.8 165.6-4 213.8-4 301 35.3 301 83.8zM127 84v73.7L42.6 10.6 127 84zm-84.4-73.4L0 167V11l42.6-.4z"/></svg>
+                        Medium
+                    </span>
+                    <span class="writeup-arrow">Read →</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="writeups-cta fade-in-up">
+            <a href="https://medium.com/@salmanulfariss642" target="_blank" rel="noopener" class="writeup-more-btn">
+                View all on Medium →
+            </a>
+        </div>
+    </section>
+
 
     <section id="education" class="section">
 
@@ -5905,7 +6105,7 @@ function loadCMS() {
     if (done) return;
     done = true;
     cleanup();
-    console.warn('CMS timeout — using fallback data');
+    console.info('CMS: timeout — using fallback data');
     renderAll(null);
   }, 7000);
 
@@ -5932,7 +6132,7 @@ function loadCMS() {
     done = true;
     clearTimeout(timeout);
     cleanup();
-    console.warn('CMS script load failed — using fallback data');
+    console.info('CMS: using fallback data (sheet empty or not yet populated)');
     renderAll(null);
   };
   document.head.appendChild(script);
