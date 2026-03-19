@@ -1,0 +1,167 @@
+{
+  "hero": {
+    "badge": "Multi-Disciplinary Technology Professional",
+    "title": "Full-Stack Developer &amp; Security Researcher",
+    "subtitle": "Physics graduate turned technology specialist. Expert in full-stack development, cybersecurity, and scientific research. Building secure, scalable applications while advancing the intersection of physics and technology.",
+    "cta_primary_text": "Explore Projects",
+    "cta_primary_link": "#projects",
+    "cta_secondary_text": "Start Consultation",
+    "cta_secondary_link": "#contact"
+  },
+
+  "projects": [
+    {
+      "title": "AI-Enhanced Vulnerability Scanner",
+      "tech": "Python · TensorFlow · Nmap · Docker",
+      "badge": "Production Ready",
+      "gradient": "linear-gradient(160deg,#05051c,#0c1848)",
+      "description": "AI-driven scanner that identifies and prioritises vulnerabilities using machine learning."
+    },
+    {
+      "title": "OWASP Security Framework",
+      "tech": "Burp Suite Pro · OWASP ZAP · Jenkins",
+      "badge": "Enterprise Grade",
+      "gradient": "linear-gradient(160deg,#041304,#0b3410)",
+      "description": "Comprehensive web application security framework following OWASP methodologies."
+    },
+    {
+      "title": "Purple Team Framework",
+      "tech": "MISP · ELK Stack · YARA · STIX/TAXII",
+      "badge": "R&D Phase",
+      "gradient": "linear-gradient(160deg,#180700,#3a1600)",
+      "description": "Unified red and blue team platform for collaborative threat simulation and detection."
+    },
+    {
+      "title": "Advanced Red Team Framework",
+      "tech": "Cobalt Strike · Empire · Kubernetes",
+      "badge": "Client Deployed",
+      "gradient": "linear-gradient(160deg,#170017,#3d003d)",
+      "description": "Enterprise-grade adversary simulation framework for red team operations."
+    },
+    {
+      "title": "Cross-Platform Billing App",
+      "tech": "JavaScript · React · Node.js · SQL",
+      "badge": "Active Dev",
+      "gradient": "linear-gradient(160deg,#001717,#003636)",
+      "description": "Full-stack billing solution with real-time reporting and multi-platform support."
+    },
+    {
+      "title": "Threat Intelligence Platform",
+      "tech": "Python · FastAPI · PostgreSQL · Kafka",
+      "badge": "Beta",
+      "gradient": "linear-gradient(160deg,#080812,#14143a)",
+      "description": "Real-time threat intelligence aggregation and analysis platform."
+    }
+  ],
+
+  "certifications": [
+    {
+      "title": "Certified Penetration Tester",
+      "issuer": "RedTeam Hacker Academy",
+      "year": "2024",
+      "logo": "Assets/Redteam CPT.png",
+      "gradient": "linear-gradient(160deg,#05051c,#0c1855)"
+    },
+    {
+      "title": "Ethical Hacker",
+      "issuer": "Cisco",
+      "year": "2024",
+      "logo": "Assets/Cisco.png",
+      "gradient": "linear-gradient(160deg,#041806,#0a3d10)"
+    },
+    {
+      "title": "Fortinet Certified Associate",
+      "issuer": "Fortinet",
+      "year": "2024",
+      "logo": "Assets/Fortinet.png",
+      "gradient": "linear-gradient(160deg,#180800,#421f00)"
+    },
+    {
+      "title": "FortiGate 7.6 Operator",
+      "issuer": "Fortinet",
+      "year": "2024",
+      "logo": "Assets/Fortinet.png",
+      "gradient": "linear-gradient(160deg,#160016,#420040)"
+    },
+    {
+      "title": "Advanced Programming – Software Engineering",
+      "issuer": "NIIT",
+      "year": "2023",
+      "logo": "Assets/NIIT.png",
+      "gradient": "linear-gradient(160deg,#001616,#003838)"
+    },
+    {
+      "title": "Cyber Threat Management",
+      "issuer": "Cisco",
+      "year": "2024",
+      "logo": "Assets/Cisco.png",
+      "gradient": "linear-gradient(160deg,#070710,#121238)"
+    },
+    {
+      "title": "Advent of Cyber 2024",
+      "issuer": "TryHackMe",
+      "year": "2024",
+      "logo": "Assets/Tryhackme.png",
+      "gradient": "linear-gradient(160deg,#160700,#3a1200)"
+    }
+  ],
+
+  "skills": [
+    {
+      "icon": "🔒",
+      "title": "Cybersecurity",
+      "items": ["Certified Penetration Tester (CPT)", "Network Security & Ethical Hacking", "Vulnerability Assessment & Analysis", "Burp Suite, Nmap, Metasploit, Wireshark"]
+    },
+    {
+      "icon": "💻",
+      "title": "Full-Stack Development",
+      "items": ["NIIT Advanced Programming Certified", "JavaScript, Python, Java, C++", "Cross-Platform App Development", "Database Management & SQL"]
+    },
+    {
+      "icon": "⚛️",
+      "title": "Physics & Research",
+      "items": ["M.Sc. Physics - New College, Chennai", "Medical & Nuclear Physics Interest", "Ultrasonic Interferometry Research", "Scientific Data Analysis"]
+    },
+    {
+      "icon": "🌐",
+      "title": "Web Technologies",
+      "items": ["HTML5, CSS3, JavaScript (ES6+)", "Responsive Design & UX/UI", "Modern Frameworks & Libraries", "RESTful API Development"]
+    },
+    {
+      "icon": "📱",
+      "title": "Mobile & Cross-Platform",
+      "items": ["Cross-Platform App Development", "Mobile UI/UX Design", "Progressive Web Apps (PWA)", "Native & Hybrid Solutions"]
+    },
+    {
+      "icon": "🖥️",
+      "title": "Systems & Infrastructure",
+      "items": ["Linux (Ubuntu, Kali) & Windows", "Network Administration & Security", "Cloud Security Concepts", "DevOps & System Automation"]
+    }
+  ],
+
+  "writeups": [
+    {
+      "title": "Building a Real-Time Server Monitoring & Threat Detection System (Purple Agent)",
+      "description": "Built Purple Agent — a modular Python-based server monitoring system providing real-time visibility, security analytics, and threat detection across metrics, logs, and network activity.",
+      "tags": ["Purple Team", "Python", "Monitoring"],
+      "read_time": "5 min read",
+      "url": "https://medium.com/@salmanulfariss642/building-a-real-time-server-monitoring-threat-detection-system-purple-agent-0fcb8452eece",
+      "accent": "linear-gradient(135deg,#7c3aed,#4f46e5)"
+    },
+    {
+      "title": "From a Simple API Test to Full Server Access: A Real-World VAPT Case Study (Redacted)",
+      "description": "A chain of small misconfigurations — IDOR in file download API, exposed .env file, and weak cPanel authentication — leading to complete server compromise during an authorized engagement.",
+      "tags": ["VAPT", "IDOR", "API Security"],
+      "read_time": "4 min read",
+      "url": "https://medium.com/@salmanulfariss642/from-a-simple-api-test-to-full-server-access-a-real-world-vapt-case-study-redacted-8047a3e18491",
+      "accent": "linear-gradient(135deg,#dc2626,#ea580c)"
+    }
+  ],
+
+  "contact": {
+    "email": "salmanulfaris260@gmail.com",
+    "phone": "+91 99627 26106",
+    "linkedin": "linkedin.com/in/p-salmanul-faris",
+    "github": "github.com/salman2610"
+  }
+}
