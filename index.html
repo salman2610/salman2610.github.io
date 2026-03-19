@@ -3524,13 +3524,7 @@
                 <p class="section-subtitle">Cutting-edge security solutions engineered with military-grade precision and industry-leading methodologies</p>
             </div>
         </div>
-        <div class="gallery-stage" id="projStage"></div><div class="card-overlay"><span class="card-label">Python · TensorFlow · Nmap · Docker</span><div class="card-title">AI-Enhanced Vulnerability Scanner</div><span class="card-badge">Production Ready</span></div></div>
-            <div class="card-slide" data-i="1"><div class="card-bg" style="background:linear-gradient(160deg,#041304,#0b3410)"></div><div class="card-overlay"><span class="card-label">Burp Suite Pro · OWASP ZAP · Jenkins</span><div class="card-title">OWASP Security Framework</div><span class="card-badge">Enterprise Grade</span></div></div>
-            <div class="card-slide" data-i="2"><div class="card-bg" style="background:linear-gradient(160deg,#180700,#3a1600)"></div><div class="card-overlay"><span class="card-label">MISP · ELK Stack · YARA · STIX/TAXII</span><div class="card-title">Purple Team Framework</div><span class="card-badge">R&amp;D Phase</span></div></div>
-            <div class="card-slide" data-i="3"><div class="card-bg" style="background:linear-gradient(160deg,#170017,#3d003d)"></div><div class="card-overlay"><span class="card-label">Cobalt Strike · Empire · Kubernetes</span><div class="card-title">Advanced Red Team Framework</div><span class="card-badge">Client Deployed</span></div></div>
-            <div class="card-slide" data-i="4"><div class="card-bg" style="background:linear-gradient(160deg,#001717,#003636)"></div><div class="card-overlay"><span class="card-label">JavaScript · React · Node.js · SQL</span><div class="card-title">Cross-Platform Billing App</div><span class="card-badge">Active Dev</span></div></div>
-            <div class="card-slide" data-i="5"><div class="card-bg" style="background:linear-gradient(160deg,#080812,#14143a)"></div><div class="card-overlay"><span class="card-label">Python · FastAPI · PostgreSQL · Kafka</span><div class="card-title">Threat Intelligence Platform</div><span class="card-badge">Beta</span></div></div>
-        </div>
+        <div class="gallery-stage" id="projStage"></div>
         <div class="gallery-controls" style="background:var(--bg-secondary);">
             <button class="gallery-btn" id="projPrev">&#8592; Prev</button>
             <div class="gallery-dots" id="projDots"></div>
@@ -3660,14 +3654,7 @@
                 <p class="section-subtitle">Industry-recognized credentials validating expertise in cybersecurity, networking, and software engineering</p>
             </div>
         </div>
-        <div class="gallery-stage" id="certStage"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Redteam CPT.png" alt="RedTeam"><span class="card-label">RedTeam Hacker Academy · 2024</span><div class="card-title">&#127697; Certified Penetration Tester</div></div></div>
-            <div class="card-slide" data-i="1"><div class="card-bg" style="background:linear-gradient(160deg,#041806,#0a3d10)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Cisco.png" alt="Cisco"><span class="card-label">Cisco · 2024</span><div class="card-title">&#128373; Ethical Hacker</div></div></div>
-            <div class="card-slide" data-i="2"><div class="card-bg" style="background:linear-gradient(160deg,#180800,#421f00)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Fortinet.png" alt="Fortinet"><span class="card-label">Fortinet · 2024</span><div class="card-title">&#128274; Fortinet Certified Associate</div></div></div>
-            <div class="card-slide" data-i="3"><div class="card-bg" style="background:linear-gradient(160deg,#160016,#420040)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Fortinet.png" alt="Fortinet"><span class="card-label">Fortinet · 2024</span><div class="card-title">&#128272; FortiGate 7.6 Operator</div></div></div>
-            <div class="card-slide" data-i="4"><div class="card-bg" style="background:linear-gradient(160deg,#001616,#003838)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/NIIT.png" alt="NIIT"><span class="card-label">NIIT · 2023</span><div class="card-title">&#128187; Advanced Programming – Software Engineering</div></div></div>
-            <div class="card-slide" data-i="5"><div class="card-bg" style="background:linear-gradient(160deg,#070710,#121238)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Cisco.png" alt="Cisco"><span class="card-label">Cisco · 2024</span><div class="card-title">&#128188; Cyber Threat Management</div></div></div>
-            <div class="card-slide" data-i="6"><div class="card-bg" style="background:linear-gradient(160deg,#160700,#3a1200)"></div><div class="card-overlay"><img class="cert-logo" src="Assets/Tryhackme.png" alt="TryHackMe"><span class="card-label">TryHackMe · 2024</span><div class="card-title">&#127876; Advent of Cyber 2024</div></div></div>
-        </div>
+        <div class="gallery-stage" id="certStage"></div>
         <div class="gallery-controls">
             <button class="gallery-btn" id="certPrev">&#8592; Prev</button>
             <div class="gallery-dots" id="certDots"></div>
@@ -5827,70 +5814,27 @@ Emergency Contact: +91 99627 26106
 
 <script>
 /* ================================================================
-   PORTFOLIO CMS — Google Sheets powered dynamic content
-   Edit your Google Sheet to update the site — no code changes needed
+   PORTFOLIO CMS — data.json powered
+   To update the site: edit data.json in your GitHub repo.
+   No API keys, no CORS, no third-party services.
    ================================================================ */
 
-const CMS_URL = 'https://script.google.com/macros/s/AKfycbwgUrDT9IUcbvC_u78YoxSFT3hLTLpOs6VFZ5LIg7Do_nadY5B2E7FeudXZKJ8G5XjU/exec';
+var DATA_URL = 'data.json';
 
-/* ── FALLBACK DATA ── used if sheet is empty or unreachable ── */
-const FALLBACK = {
-  Hero: [{
-    badge:              'Multi-Disciplinary Technology Professional',
-    title:              'Full-Stack Developer &amp; Security Researcher',
-    subtitle:           'Physics graduate turned technology specialist. Expert in full-stack development, cybersecurity, and scientific research. Building secure, scalable applications while advancing the intersection of physics and technology.',
-    cta_primary_text:   'Explore Projects',
-    cta_primary_link:   '#projects',
-    cta_secondary_text: 'Start Consultation',
-    cta_secondary_link: '#contact'
-  }],
-  Projects: [
-    { title:'AI-Enhanced Vulnerability Scanner',          tech:'Python · TensorFlow · Nmap · Docker',     badge:'Production Ready',  gradient:'linear-gradient(160deg,#05051c,#0c1848)', description:'AI-driven scanner that identifies and prioritises vulnerabilities using machine learning.' },
-    { title:'OWASP Security Framework',                   tech:'Burp Suite Pro · OWASP ZAP · Jenkins',    badge:'Enterprise Grade',  gradient:'linear-gradient(160deg,#041304,#0b3410)', description:'Comprehensive web application security framework following OWASP methodologies.' },
-    { title:'Purple Team Framework',                      tech:'MISP · ELK Stack · YARA · STIX/TAXII',   badge:'R&D Phase',         gradient:'linear-gradient(160deg,#180700,#3a1600)', description:'Unified red and blue team platform for collaborative threat simulation and detection.' },
-    { title:'Advanced Red Team Framework',                tech:'Cobalt Strike · Empire · Kubernetes',     badge:'Client Deployed',   gradient:'linear-gradient(160deg,#170017,#3d003d)', description:'Enterprise-grade adversary simulation framework for red team operations.' },
-    { title:'Cross-Platform Billing App',                 tech:'JavaScript · React · Node.js · SQL',      badge:'Active Dev',        gradient:'linear-gradient(160deg,#001717,#003636)', description:'Full-stack billing solution with real-time reporting and multi-platform support.' },
-    { title:'Threat Intelligence Platform',               tech:'Python · FastAPI · PostgreSQL · Kafka',   badge:'Beta',              gradient:'linear-gradient(160deg,#080812,#14143a)', description:'Real-time threat intelligence aggregation and analysis platform.' }
-  ],
-  Certifications: [
-    { title:'Certified Penetration Tester',              issuer:'RedTeam Hacker Academy', year:'2024', logo:'Assets/Redteam CPT.png', gradient:'linear-gradient(160deg,#05051c,#0c1855)' },
-    { title:'Ethical Hacker',                            issuer:'Cisco',                  year:'2024', logo:'Assets/Cisco.png',        gradient:'linear-gradient(160deg,#041806,#0a3d10)' },
-    { title:'Fortinet Certified Associate',              issuer:'Fortinet',               year:'2024', logo:'Assets/Fortinet.png',     gradient:'linear-gradient(160deg,#180800,#421f00)' },
-    { title:'FortiGate 7.6 Operator',                   issuer:'Fortinet',               year:'2024', logo:'Assets/Fortinet.png',     gradient:'linear-gradient(160deg,#160016,#420040)' },
-    { title:'Advanced Programming – Software Engineering', issuer:'NIIT',                 year:'2023', logo:'Assets/NIIT.png',         gradient:'linear-gradient(160deg,#001616,#003838)' },
-    { title:'Cyber Threat Management',                   issuer:'Cisco',                  year:'2024', logo:'Assets/Cisco.png',        gradient:'linear-gradient(160deg,#070710,#121238)' },
-    { title:'Advent of Cyber 2024',                      issuer:'TryHackMe',              year:'2024', logo:'Assets/Tryhackme.png',    gradient:'linear-gradient(160deg,#160700,#3a1200)' }
-  ],
-  Skills: [
-    { icon:'🔒', title:'Cybersecurity',             items:'Certified Penetration Tester (CPT)|Network Security & Ethical Hacking|Vulnerability Assessment & Analysis|Burp Suite, Nmap, Metasploit, Wireshark' },
-    { icon:'💻', title:'Full-Stack Development',    items:'NIIT Advanced Programming Certified|JavaScript, Python, Java, C++|Cross-Platform App Development|Database Management & SQL' },
-    { icon:'⚛️', title:'Physics & Research',        items:'M.Sc. Physics - New College, Chennai|Medical & Nuclear Physics Interest|Ultrasonic Interferometry Research|Scientific Data Analysis' },
-    { icon:'🌐', title:'Web Technologies',          items:'HTML5, CSS3, JavaScript (ES6+)|Responsive Design & UX/UI|Modern Frameworks & Libraries|RESTful API Development' },
-    { icon:'📱', title:'Mobile & Cross-Platform',   items:'Cross-Platform App Development|Mobile UI/UX Design|Progressive Web Apps (PWA)|Native & Hybrid Solutions' },
-    { icon:'🖥️', title:'Systems & Infrastructure', items:'Linux (Ubuntu, Kali) & Windows|Network Administration & Security|Cloud Security Concepts|DevOps & System Automation' }
-  ],
-  Contact: [
-    { key:'email',    value:'salmanulfaris260@gmail.com' },
-    { key:'phone',    value:'+91 99627 26106' },
-    { key:'linkedin', value:'linkedin.com/in/p-salmanul-faris' },
-    { key:'github',   value:'github.com/salman2610' }
-  ]
-};
+/* ── RENDERERS ────────────────────────────────────────────── */
 
-/* ── RENDERERS ─────────────────────────────────────────────── */
-
-function renderHero(data) {
-  var d = (data && data[0]) ? data[0] : FALLBACK.Hero[0];
+function renderHero(d) {
   var badge = document.querySelector('.hero-badge');
   var title = document.querySelector('.hero-title');
   var sub   = document.querySelector('.hero-subtitle');
   var ctaP  = document.querySelector('.cta-primary');
   var ctaS  = document.querySelector('.cta-secondary');
-  if (badge && d.badge)               badge.innerHTML = '🟢 ' + d.badge;
-  if (title && d.title)               title.innerHTML = d.title;
-  if (sub   && d.subtitle)            sub.innerHTML   = d.subtitle;
-  if (ctaP  && d.cta_primary_text)  { ctaP.textContent = d.cta_primary_text;  ctaP.href = d.cta_primary_link  || '#'; }
-  if (ctaS  && d.cta_secondary_text){ ctaS.textContent = d.cta_secondary_text; ctaS.href = d.cta_secondary_link || '#'; }
+  if (!d) return;
+  if (badge) badge.innerHTML = '🟢 ' + d.badge;
+  if (title) title.innerHTML = d.title;
+  if (sub)   sub.innerHTML   = d.subtitle;
+  if (ctaP)  { ctaP.textContent = d.cta_primary_text;   ctaP.href = d.cta_primary_link   || '#'; }
+  if (ctaS)  { ctaS.textContent = d.cta_secondary_text; ctaS.href = d.cta_secondary_link || '#'; }
 }
 
 function buildCard(item, index, type) {
@@ -5945,7 +5889,7 @@ function buildCard(item, index, type) {
 }
 
 function initGallery(stageId, dotsId, prevId, nextId) {
-  var stage = document.getElementById(stageId);
+  var stage  = document.getElementById(stageId);
   if (!stage) return;
   var slides = stage.querySelectorAll('.card-slide');
   var dots   = document.getElementById(dotsId);
@@ -5958,7 +5902,7 @@ function initGallery(stageId, dotsId, prevId, nextId) {
   function update() {
     slides.forEach(function(s, i) {
       var offset = i - current;
-      var abs = Math.abs(offset);
+      var abs    = Math.abs(offset);
       s.style.transform  = 'translateX(' + (offset * 110) + '%) scale(' + (abs === 0 ? 1 : abs === 1 ? 0.88 : 0.76) + ')';
       s.style.zIndex     = 10 - abs;
       s.style.opacity    = abs > 2 ? 0 : abs === 0 ? 1 : abs === 1 ? 0.8 : 0.5;
@@ -5993,8 +5937,8 @@ function initGallery(stageId, dotsId, prevId, nextId) {
   update();
 }
 
-function renderGallery(data, stageId, dotsId, type, fallback) {
-  var items  = (data && data.length) ? data : fallback;
+function renderGallery(items, stageId, dotsId, type) {
+  if (!items || !items.length) return;
   var stage  = document.getElementById(stageId);
   var dotsEl = document.getElementById(dotsId);
   if (!stage) return;
@@ -6017,27 +5961,54 @@ function renderGallery(data, stageId, dotsId, type, fallback) {
   initGallery(stageId, dotsId, prevId, nextId);
 }
 
-function renderSkills(data) {
-  var items = (data && data.length) ? data : FALLBACK.Skills;
-  var grid  = document.getElementById('skillsGrid');
+function renderSkills(items) {
+  if (!items || !items.length) return;
+  var grid = document.getElementById('skillsGrid');
   if (!grid) return;
   grid.innerHTML = '';
   items.forEach(function(skill) {
     var cat = document.createElement('div');
     cat.className = 'skill-category fade-in-up';
-    var itemList = (skill.items || '').split('|').map(function(s) { return s.trim(); }).filter(Boolean);
+    var itemsArr = Array.isArray(skill.items) ? skill.items : (skill.items || '').split('|').map(function(s) { return s.trim(); });
     cat.innerHTML = '<span class="skill-icon">' + (skill.icon || '⚡') + '</span>'
       + '<h3 class="skill-title">' + (skill.title || '') + '</h3>'
-      + '<div class="skill-list">' + itemList.join('<br>') + '</div>';
+      + '<div class="skill-list">' + itemsArr.filter(Boolean).join('<br>') + '</div>';
     grid.appendChild(cat);
   });
 }
 
-function renderContact(data) {
-  var items = (data && data.length) ? data : FALLBACK.Contact;
-  var map = {};
-  items.forEach(function(row) { if (row.key) map[row.key] = row.value; });
+function renderWriteups(items) {
+  if (!items || !items.length) return;
+  var grid = document.querySelector('.writeups-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
 
+  var mediumSVG = '<svg width="16" height="16" viewBox="0 0 1043 167" fill="currentColor" style="vertical-align:middle;opacity:0.6"><path d="M588.6 0c-46.5 0-84 37.5-84 84s37.5 84 84 84 84-37.5 84-84S635 0 588.6 0zM855 4.5l-81.4 157.4L692.2 4.5H855zM1042.8 4.5v157.4h-47.6V4.5h47.6zM467.5 83.6c0 46-37.2 83.2-83 83.2-45.8 0-83-37.2-83-83.2 0-46 37.2-83.2 83-83.2 45.8 0 83 37.2 83 83.2zM301 83.8c0 48.5-39 87.8-87.2 87.8S126.7 132.3 126.7 83.8 165.6-4 213.8-4 301 35.3 301 83.8zM127 84v73.7L42.6 10.6 127 84zm-84.4-73.4L0 167V11l42.6-.4z"/></svg>';
+
+  items.forEach(function(item) {
+    var tags = (Array.isArray(item.tags) ? item.tags : (item.tags || '').split(',')).map(function(t) { return t.trim(); }).filter(Boolean);
+    var tagHTML = tags.map(function(t) { return '<span class="writeup-tag">' + t + '</span>'; }).join('');
+
+    var card = document.createElement('a');
+    card.className = 'writeup-card fade-in-up';
+    card.href      = item.url || '#';
+    card.target    = '_blank';
+    card.rel       = 'noopener';
+    card.innerHTML =
+      '<div class="writeup-accent" style="background:' + (item.accent || 'linear-gradient(135deg,#3b82f6,#6366f1)') + '"></div>'
+      + '<div class="writeup-meta">' + tagHTML + '<span class="writeup-read">' + (item.read_time || '') + '</span></div>'
+      + '<h3 class="writeup-title">' + (item.title || '') + '</h3>'
+      + '<p class="writeup-desc">' + (item.description || '') + '</p>'
+      + '<div class="writeup-footer">'
+      +   '<span class="writeup-platform">' + mediumSVG + ' Medium</span>'
+      +   '<span class="writeup-arrow">Read →</span>'
+      + '</div>';
+    grid.appendChild(card);
+  });
+}
+
+function renderContact(d) {
+  if (!d) return;
   var iconMap  = { email:'📧', phone:'📱', linkedin:'💼', github:'⚡', twitter:'🐦', website:'🌐' };
   var labelMap = { email:'Secure Communication', phone:'Direct Line', linkedin:'Professional Network', github:'Code Repository' };
 
@@ -6052,9 +6023,10 @@ function renderContact(data) {
   var grid = document.querySelector('.contact-grid');
   if (!grid) return;
   grid.innerHTML = '';
-  Object.keys(map).forEach(function(key) {
-    var val = map[key];
-    grid.innerHTML += '<div class="contact-item">'
+  Object.keys(d).forEach(function(key) {
+    var val = d[key];
+    grid.innerHTML +=
+      '<div class="contact-item">'
       + '<span class="contact-icon">' + (iconMap[key] || '📌') + '</span>'
       + '<h4 class="contact-title">' + (labelMap[key] || key) + '</h4>'
       + '<p class="contact-info-text"><a href="' + href(key, val) + '" class="contact-link" target="_blank">' + val + '</a></p>'
@@ -6072,79 +6044,39 @@ function showSkeleton() {
   if (sg) sg.innerHTML = '<div class="skill-skeleton"></div><div class="skill-skeleton"></div><div class="skill-skeleton"></div><div class="skill-skeleton"></div><div class="skill-skeleton"></div><div class="skill-skeleton"></div>';
 }
 
-/* ── SKELETON + CARD DESC CSS ─────────────────────────────── */
+/* ── SKELETON + CARD CSS ──────────────────────────────────── */
 var cmsStyle = document.createElement('style');
 cmsStyle.textContent = [
-  '.card-desc { font-size:12px; color:rgba(255,255,255,0.55); line-height:1.5; margin-top:0.4rem;',
-  '  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }',
-  '.card-skeleton { background:rgba(255,255,255,0.04) !important;',
-  '  animation:skPulse 1.4s ease-in-out infinite;',
-  '  border:1px solid rgba(255,255,255,0.06) !important; }',
-  '.skill-skeleton { height:160px; border-radius:16px;',
-  '  background:rgba(255,255,255,0.04) !important;',
-  '  animation:skPulse 1.4s ease-in-out infinite;',
-  '  border:1px solid rgba(255,255,255,0.06) !important; }',
-  '.skill-skeleton:nth-child(2){animation-delay:.15s}',
-  '.skill-skeleton:nth-child(3){animation-delay:.3s}',
-  '.skill-skeleton:nth-child(4){animation-delay:.45s}',
-  '.skill-skeleton:nth-child(5){animation-delay:.6s}',
-  '.skill-skeleton:nth-child(6){animation-delay:.75s}',
+  '.card-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.5;margin-top:.4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+  '.card-skeleton{background:rgba(255,255,255,.04)!important;animation:skPulse 1.4s ease-in-out infinite;border:1px solid rgba(255,255,255,.06)!important}',
+  '.skill-skeleton{height:160px;border-radius:16px;background:rgba(255,255,255,.04)!important;animation:skPulse 1.4s ease-in-out infinite;border:1px solid rgba(255,255,255,.06)!important}',
+  '.skill-skeleton:nth-child(2){animation-delay:.15s}.skill-skeleton:nth-child(3){animation-delay:.3s}',
+  '.skill-skeleton:nth-child(4){animation-delay:.45s}.skill-skeleton:nth-child(5){animation-delay:.6s}.skill-skeleton:nth-child(6){animation-delay:.75s}',
   '@keyframes skPulse{0%,100%{opacity:.35}50%{opacity:.85}}'
-].join(' ');
+].join('');
 document.head.appendChild(cmsStyle);
 
 /* ── MAIN ────────────────────────────────────────────────── */
 function loadCMS() {
   showSkeleton();
 
-  /* Google Apps Script blocks fetch() via CORS — use JSONP instead */
-  var cbName = 'cms_cb_' + Date.now();
-  var done    = false;
-
-  var timeout = setTimeout(function() {
-    if (done) return;
-    done = true;
-    cleanup();
-    console.info('CMS: timeout — using fallback data');
-    renderAll(null);
-  }, 7000);
-
-  window[cbName] = function(data) {
-    if (done) return;
-    done = true;
-    clearTimeout(timeout);
-    cleanup();
-    renderAll(data);
-    console.log('Portfolio CMS loaded from Google Sheets');
-  };
-
-  function cleanup() {
-    delete window[cbName];
-    var el = document.getElementById('cms-jsonp');
-    if (el) el.parentNode.removeChild(el);
-  }
-
-  var script  = document.createElement('script');
-  script.id   = 'cms-jsonp';
-  script.src  = CMS_URL + '?callback=' + cbName;
-  script.onerror = function() {
-    if (done) return;
-    done = true;
-    clearTimeout(timeout);
-    cleanup();
-    console.info('CMS: using fallback data (sheet empty or not yet populated)');
-    renderAll(null);
-  };
-  document.head.appendChild(script);
-}
-
-function renderAll(data) {
-  var d = data || {};
-  renderHero(d.Hero);
-  renderGallery(d.Projects,       'projStage', 'projDots', 'project', FALLBACK.Projects);
-  renderGallery(d.Certifications, 'certStage', 'certDots', 'cert',    FALLBACK.Certifications);
-  renderSkills(d.Skills);
-  renderContact(d.Contact);
+  fetch(DATA_URL + '?v=' + Date.now())
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      renderHero(data.hero);
+      renderGallery(data.projects,       'projStage', 'projDots', 'project');
+      renderGallery(data.certifications, 'certStage', 'certDots', 'cert');
+      renderSkills(data.skills);
+      renderWriteups(data.writeups);
+      renderContact(data.contact);
+      console.log('Portfolio loaded from data.json');
+    })
+    .catch(function(err) {
+      console.warn('data.json load failed:', err.message, '— rendering from page defaults');
+    });
 }
 
 if (document.readyState === 'loading') {
