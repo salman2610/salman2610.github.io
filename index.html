@@ -5913,10 +5913,10 @@ function renderSkills(items) {
 }
 
 function renderWriteups(items) {
-  if (!items || !items.length) return;
+  if (!items || !items.length) return; // keep hardcoded cards as fallback
   var grid = document.querySelector('.writeups-grid');
   if (!grid) return;
-  grid.innerHTML = '';
+  grid.innerHTML = ''; // clear only if we have real data
 
   var mediumSVG = '<svg width="16" height="16" viewBox="0 0 1043 167" fill="currentColor" style="vertical-align:middle;opacity:0.6"><path d="M588.6 0c-46.5 0-84 37.5-84 84s37.5 84 84 84 84-37.5 84-84S635 0 588.6 0zM855 4.5l-81.4 157.4L692.2 4.5H855zM1042.8 4.5v157.4h-47.6V4.5h47.6zM467.5 83.6c0 46-37.2 83.2-83 83.2-45.8 0-83-37.2-83-83.2 0-46 37.2-83.2 83-83.2 45.8 0 83 37.2 83 83.2zM301 83.8c0 48.5-39 87.8-87.2 87.8S126.7 132.3 126.7 83.8 165.6-4 213.8-4 301 35.3 301 83.8zM127 84v73.7L42.6 10.6 127 84zm-84.4-73.4L0 167V11l42.6-.4z"/></svg>';
 
@@ -6010,7 +6010,7 @@ function loadCMS() {
       console.log('Portfolio loaded from data.json');
     })
     .catch(function(err) {
-      console.warn('data.json load failed:', err.message, '— rendering from page defaults');
+      console.info('data.json not found — using hardcoded page content');
     });
 }
 
