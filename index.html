@@ -1712,22 +1712,24 @@
             transform: translateX(600px) scale(0.5);
             opacity: 0; z-index: 0; pointer-events: none;
         }
-        .card-bg { position: absolute; inset: 0; }
+        .card-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
         .card-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.1) 55%, transparent 100%);
+            background: linear-gradient(to top, rgba(0,0,0,.95) 0%, rgba(0,0,0,.4) 50%, rgba(0,0,0,.1) 100%);
             display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 1.2rem;
+            padding: 1.25rem;
         }
         .card-label {
             font-size: 9px; font-weight: 700;
             letter-spacing: .1em; text-transform: uppercase;
-            color: var(--accent-secondary); margin-bottom: 5px;
+            color: rgba(255,200,80,1); margin-bottom: 5px;
             font-family: 'JetBrains Mono', monospace;
             line-height: 1.4;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
         }
         .card-title {
             font-size: 14px; font-weight: 700; color: #fff; line-height: 1.35;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
         }
         .card-badge {
             display: inline-block; margin-top: 6px;
@@ -3648,73 +3650,7 @@
             </p>
         </div>
 
-        <div class="skills-grid stagger-children" id="skillsGrid"></div><div class="skills-grid stagger-children">
-            <div class="skill-category">
-                <span class="skill-icon">🔒</span>
-                <h3 class="skill-title">Cybersecurity</h3>
-                <div class="skill-list">
-                    Certified Penetration Tester (CPT)<br>
-                    Network Security & Ethical Hacking<br>
-                    Vulnerability Assessment & Analysis<br>
-                    Burp Suite, Nmap, Metasploit, Wireshark
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">💻</span>
-                <h3 class="skill-title">Full-Stack Development</h3>
-                <div class="skill-list">
-                    NIIT Advanced Programming Certified<br>
-                    JavaScript, Python, Java, C++<br>
-                    Cross-Platform App Development<br>
-                    Database Management & SQL
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">⚛️</span>
-                <h3 class="skill-title">Physics & Research</h3>
-                <div class="skill-list">
-                    M.Sc. Physics - New College, Chennai<br>
-                    Medical & Nuclear Physics Interest<br>
-                    Ultrasonic Interferometry Research<br>
-                    Scientific Data Analysis
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">🌐</span>
-                <h3 class="skill-title">Web Technologies</h3>
-                <div class="skill-list">
-                    HTML5, CSS3, JavaScript (ES6+)<br>
-                    Responsive Design & UX/UI<br>
-                    Modern Frameworks & Libraries<br>
-                    RESTful API Development
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">📱</span>
-                <h3 class="skill-title">Mobile & Cross-Platform</h3>
-                <div class="skill-list">
-                    Cross-Platform App Development<br>
-                    Mobile UI/UX Design<br>
-                    Progressive Web Apps (PWA)<br>
-                    Native & Hybrid Solutions
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <span class="skill-icon">🖥️</span>
-                <h3 class="skill-title">Systems & Infrastructure</h3>
-                <div class="skill-list">
-                    Linux (Ubuntu, Kali) & Windows<br>
-                    Network Administration & Security<br>
-                    Cloud Security Concepts<br>
-                    DevOps & System Automation
-                </div>
-            </div>
-        </div>
+        <div class="skills-grid stagger-children" id="skillsGrid"></div>
     </section>
 
     <!-- Scroll Text Animation -->
@@ -5156,76 +5092,7 @@ Emergency Contact: +91 99627 26106
         }
 
 
-        // ── Card Gallery (vanilla, no GSAP needed) ───────────────────────────
-        function initGallery(stageId, prevId, nextId, dotsId) {
-            var stage = document.getElementById(stageId);
-            if (!stage) return;
-            var slides = Array.from(stage.querySelectorAll('.card-slide'));
-            var dotsEl = document.getElementById(dotsId);
-            if (!slides.length) return;
-            var cur = 0;
-            var timer = null;
-
-            // build dots
-            slides.forEach(function(_, i) {
-                var d = document.createElement('button');
-                d.className = 'gdot' + (i === 0 ? ' active' : '');
-                d.setAttribute('aria-label', 'Slide ' + (i+1));
-                d.addEventListener('click', function() { pause(); goTo(i); resume(); });
-                dotsEl.appendChild(d);
-            });
-
-            function pos(i) {
-                var n = slides.length;
-                var diff  = ((i - cur) % n + n) % n;
-                var rdiff = ((cur - i) % n + n) % n;
-                if (diff  === 0) return 'pos-active';
-                if (rdiff === 1) return 'pos-prev1';
-                if (rdiff === 2) return 'pos-prev2';
-                if (diff  === 1) return 'pos-next1';
-                if (diff  === 2) return 'pos-next2';
-                return 'pos-hidden';
-            }
-
-            function render() {
-                slides.forEach(function(s, i) {
-                    s.className = 'card-slide ' + pos(i);
-                });
-                var dots = dotsEl.querySelectorAll('.gdot');
-                dots.forEach(function(d, i) {
-                    d.classList.toggle('active', i === cur);
-                });
-            }
-
-            function goTo(n) {
-                cur = ((n % slides.length) + slides.length) % slides.length;
-                render();
-            }
-
-            function resume() {
-                pause();
-                timer = setInterval(function() { goTo(cur + 1); }, 3500);
-            }
-            function pause() { clearInterval(timer); timer = null; }
-
-            document.getElementById(prevId).addEventListener('click', function() {
-                pause(); goTo(cur - 1); resume();
-            });
-            document.getElementById(nextId).addEventListener('click', function() {
-                pause(); goTo(cur + 1); resume();
-            });
-
-            // swipe / drag
-            var sx = 0;
-            stage.addEventListener('pointerdown', function(e) { sx = e.clientX; });
-            stage.addEventListener('pointerup', function(e) {
-                var dx = e.clientX - sx;
-                if (Math.abs(dx) > 45) { pause(); goTo(cur + (dx < 0 ? 1 : -1)); resume(); }
-            });
-
-            render();
-            resume();
-        }
+        
 
         // ── Scroll Text Animation — pinned panel, scroll-driven word switcher ──
         function initScrollTextFallback() {
@@ -5652,8 +5519,6 @@ Emergency Contact: +91 99627 26106
             }
 
             // Card galleries
-            initGallery('projStage', 'projPrev', 'projNext', 'projDots');
-            initGallery('certStage', 'certPrev', 'certNext', 'certDots');
             initScrollTextFallback();
         });
 
@@ -5984,7 +5849,13 @@ function renderHero(d) {
 function buildCard(item,index,type){
   var slide=document.createElement('div'); slide.className='card-slide'; slide.dataset.i=index;
   var bg=document.createElement('div'); bg.className='card-bg';
-  bg.style.background=item.gradient||'linear-gradient(160deg,#0a0a1a,#1a1a3a)'; slide.appendChild(bg);
+  bg.style.background=item.gradient||'linear-gradient(160deg,#0a0a1a,#1a1a3a)';
+  // Add large index number as background visual
+  var bgNum=document.createElement('div');
+  bgNum.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:6rem;font-weight:900;color:rgba(255,255,255,0.06);font-family:JetBrains Mono,monospace;line-height:1;pointer-events:none;user-select:none;';
+  bgNum.textContent=String(index+1).padStart(2,'0');
+  bg.appendChild(bgNum);
+  slide.appendChild(bg);
   var ov=document.createElement('div'); ov.className='card-overlay';
   if(type==='cert'&&item.logo){var img=document.createElement('img'); img.className='cert-logo'; img.src=item.logo; img.alt=item.issuer||''; ov.appendChild(img);}
   var lbl=document.createElement('span'); lbl.className='card-label';
@@ -6037,7 +5908,11 @@ function renderSkills(items){
 function renderWriteups(items){
   if(!items||!items.length) return; // keep hardcoded cards as fallback
   var grid=document.querySelector('.writeups-grid'); if(!grid) return;
-  grid.innerHTML=''; // only clears when real data exists
+  // Only clear if we have actual valid items with URLs
+  var valid=items.filter(function(x){return x.url&&x.title;});
+  if(!valid.length) return;
+  grid.innerHTML='';
+  items=valid;
   var svg='<svg width="16" height="16" viewBox="0 0 1043 167" fill="currentColor" style="vertical-align:middle;opacity:0.6"><path d="M588.6 0c-46.5 0-84 37.5-84 84s37.5 84 84 84 84-37.5 84-84S635 0 588.6 0zM855 4.5l-81.4 157.4L692.2 4.5H855zM1042.8 4.5v157.4h-47.6V4.5h47.6zM467.5 83.6c0 46-37.2 83.2-83 83.2-45.8 0-83-37.2-83-83.2 0-46 37.2-83.2 83-83.2 45.8 0 83 37.2 83 83.2zM301 83.8c0 48.5-39 87.8-87.2 87.8S126.7 132.3 126.7 83.8 165.6-4 213.8-4 301 35.3 301 83.8zM127 84v73.7L42.6 10.6 127 84zm-84.4-73.4L0 167V11l42.6-.4z"/></svg>';
   items.forEach(function(item){
     var tags=(Array.isArray(item.tags)?item.tags:(item.tags||'').split(',')).map(function(t){return t.trim();}).filter(Boolean);
