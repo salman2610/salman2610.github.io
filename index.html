@@ -3064,6 +3064,8 @@
             gap: 1rem;
             padding: 1.75rem;
             border-radius: 18px;
+            opacity: 1 !important;
+            transform: none !important;
             background: rgba(255,255,255,0.042);
             backdrop-filter: blur(42px) saturate(180%) brightness(1.06);
             -webkit-backdrop-filter: blur(42px) saturate(180%) brightness(1.06);
@@ -3715,7 +3717,7 @@
 
         <div class="writeups-grid">
 
-            <a class="writeup-card fade-in-up" href="https://medium.com/@salmanulfariss642/building-a-real-time-server-monitoring-threat-detection-system-purple-agent-0fcb8452eece" target="_blank" rel="noopener">
+            <a class="writeup-card" href="https://medium.com/@salmanulfariss642/building-a-real-time-server-monitoring-threat-detection-system-purple-agent-0fcb8452eece" target="_blank" rel="noopener">
                 <div class="writeup-accent" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"></div>
                 <div class="writeup-meta">
                     <span class="writeup-tag">Purple Team</span>
@@ -3734,7 +3736,7 @@
                 </div>
             </a>
 
-            <a class="writeup-card fade-in-up" href="https://medium.com/@salmanulfariss642/from-a-simple-api-test-to-full-server-access-a-real-world-vapt-case-study-redacted-8047a3e18491" target="_blank" rel="noopener">
+            <a class="writeup-card" href="https://medium.com/@salmanulfariss642/from-a-simple-api-test-to-full-server-access-a-real-world-vapt-case-study-redacted-8047a3e18491" target="_blank" rel="noopener">
                 <div class="writeup-accent" style="background:linear-gradient(135deg,#dc2626,#ea580c)"></div>
                 <div class="writeup-meta">
                     <span class="writeup-tag">VAPT</span>
@@ -3755,7 +3757,7 @@
 
         </div>
 
-        <div class="writeups-cta fade-in-up">
+        <div class="writeups-cta">
             <a href="https://medium.com/@salmanulfariss642" target="_blank" rel="noopener" class="writeup-more-btn">
                 View all on Medium →
             </a>
@@ -5940,7 +5942,15 @@ function loadCMS(){
   showSkeleton();
   fetch(DATA_URL+'?v='+Date.now()).then(function(r){if(!r.ok)throw new Error(r.status); return r.json();})
   .then(function(d){renderHero(d.hero);renderGallery(d.projects,'projStage','projDots','project');renderGallery(d.certifications,'certStage','certDots','cert');renderSkills(d.skills);renderWriteups(d.writeups);renderContact(d.contact); console.log('Loaded from data.json');})
-  .catch(function(){console.info('data.json not found — using page defaults');});
+  .catch(function(){console.info('data.json not found — using page defaults');})
+  .finally(function(){
+    // Re-observe any newly rendered fade-in-up elements
+    if(typeof scrollObserver !== 'undefined'){
+      document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .stagger-children').forEach(function(el){
+        scrollObserver.observe(el);
+      });
+    }
+  });
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadCMS);}else{loadCMS();}
 
