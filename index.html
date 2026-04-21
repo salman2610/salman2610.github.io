@@ -5882,15 +5882,7 @@ incidents and saved clients millions in potential breach costs.`
 
 var DATA_URL = 'data.json';
 function renderHero(d) {
-  if (!d) return;
-  var b=document.querySelector('.hero-badge'), t=document.querySelector('.hero-title'),
-      s=document.querySelector('.hero-subtitle'), p=document.querySelector('.cta-primary'),
-      q=document.querySelector('.cta-secondary');
-  if(b) b.innerHTML='🟢 '+d.badge;
-  if(t) t.innerHTML=d.title;
-  if(s) s.innerHTML=d.subtitle;
-  if(p){p.textContent=d.cta_primary_text; p.href=d.cta_primary_link||'#';}
-  if(q){q.textContent=d.cta_secondary_text; q.href=d.cta_secondary_link||'#';}
+  // Disabled — hero content is hardcoded in HTML
 }
 function buildCard(item,index,type){
   var slide=document.createElement('div'); slide.className='card-slide'; slide.dataset.i=index;
@@ -5933,12 +5925,7 @@ function initGal(stageId,dotsId,prevId,nextId){
   update();
 }
 function renderGallery(items,stageId,dotsId,type){
-  if(!items||!items.length) return;
-  var stage=document.getElementById(stageId), dotsEl=document.getElementById(dotsId); if(!stage) return;
-  stage.innerHTML='';
-  items.forEach(function(item,i){stage.appendChild(buildCard(item,i,type));});
-  if(dotsEl){dotsEl.innerHTML=''; items.forEach(function(_,i){var d=document.createElement('div'); d.className='gallery-dot'+(i===0?' active':''); d.dataset.i=i; dotsEl.appendChild(d);});}
-  initGal(stageId,dotsId,stageId==='projStage'?'projPrev':'certPrev',stageId==='projStage'?'projNext':'certNext');
+  // Disabled — sections use static HTML grids
 }
 function renderSkills(items){
   if(!items||!items.length) return;
@@ -5968,12 +5955,7 @@ function renderWriteups(items){
   });
 }
 function renderContact(d){
-  if(!d) return;
-  var icons={email:'📧',phone:'📱',linkedin:'💼',github:'⚡'}, labels={email:'Secure Communication',phone:'Direct Line',linkedin:'Professional Network',github:'Code Repository'};
-  function lnk(k,v){if(k==='email')return 'mailto:'+v; if(k==='phone')return 'tel:'+v.replace(/\s/g,''); if(k==='linkedin'||k==='github')return 'https://'+v; return '#';}
-  var grid=document.querySelector('.contact-grid'); if(!grid) return;
-  grid.innerHTML='';
-  Object.keys(d).forEach(function(k){var v=d[k]; grid.innerHTML+='<div class="contact-item"><span class="contact-icon">'+(icons[k]||'📌')+'</span><h4 class="contact-title">'+(labels[k]||k)+'</h4><p class="contact-info-text"><a href="'+lnk(k,v)+'" class="contact-link" target="_blank">'+v+'</a></p></div>';});
+  // Disabled — contact grid is hardcoded in HTML
 }
 function showSkeleton(){ /* skeletons only shown when stages are empty */
   ['projStage','certStage'].forEach(function(id){var el=document.getElementById(id); if(el&&el.children.length===0) el.innerHTML='<div class="card-slide card-skeleton"></div><div class="card-slide card-skeleton"></div><div class="card-slide card-skeleton"></div>';});
