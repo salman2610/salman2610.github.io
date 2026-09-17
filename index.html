@@ -74,7 +74,7 @@ nav a:hover::after{transform:scaleX(1);transform-origin:left}
 /* preloader */
 #pre{position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(20px,5vw,60px);transition:transform 1.05s cubic-bezier(.76,0,.24,1)}
 #pre.done{transform:translateY(-101%)}
-#pre .count{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(4rem,18vw,13rem);line-height:.8;letter-spacing:-.05em}
+#pre .count{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(3.4rem,13vw,8.6rem);line-height:.8;letter-spacing:-.07em}
 #pre .bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--aqua),var(--gold))}
 #pre .what{max-width:24ch;font-size:.9rem;opacity:.55;text-align:right}
 
@@ -187,8 +187,8 @@ body.ready .hero-row{opacity:1;transform:none}
 #trail img.live{opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg))}
 #trail img.out{opacity:0;transform:translate(-50%,-50%) scale(1.12) rotate(var(--rot,0deg))}
 .work-track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:clamp(20px,3vw,44px);padding:0 clamp(18px,4vw,56px);z-index:2;will-change:transform}
-.card{position:relative;flex:0 0 auto;width:clamp(280px,40vw,560px);perspective:900px;display:block}
-.card .frame{position:relative;aspect-ratio:4/5;border-radius:2px;overflow:hidden;background:var(--ink);will-change:transform;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease;transform-style:preserve-3d}
+.card{position:relative;flex:0 0 auto;perspective:900px;display:block}
+.card .frame{position:relative;height:clamp(240px,min(54vh,68vw),560px);aspect-ratio:4/5;margin:0 auto;border-radius:2px;overflow:hidden;background:var(--ink);will-change:transform;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease;transform-style:preserve-3d}
 .card .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,12,28,.55),transparent 55%)}
 .card:hover .frame{box-shadow:0 30px 60px -20px rgba(16,12,28,.4)}
 .card canvas{width:100%;height:100%;display:block}
@@ -343,7 +343,7 @@ body.ready .hero-row{opacity:1;transform:none}
         </h1>
         <div class="hero-spacer" aria-hidden="true"></div>
         <div class="hero-row">
-          <p>Physics graduate turned security practitioner, based in Kozhikode, India. I build software, then try to break it before anyone else does — and teach others to do both.</p>
+          <p>Physics graduate turned security practitioner, based in Kozhikode, India. I build software, then try to break it before anyone else does.</p>
           <div class="terminal" id="heroTerminal" aria-hidden="true"><span class="tprompt">root@salman:~$</span> <span class="ttype" id="ttype"></span><span class="tcursor">▌</span></div>
         </div>
       </div>
@@ -550,16 +550,26 @@ PROJECTS.forEach(function(p,i){
 function paintCard(cv,cols,seed){
   var g=cv.getContext("2d"),W=cv.width,H=cv.height,a=cols[0],b=cols[1];
   var img=g.createImageData(W,H),d=img.data;
+  var radial=(seed%2===1);
   for(var y=0;y<H;y++)for(var x=0;x<W;x++){
-    var u=x/W,v=y/H;
-    var w=Math.sin((u*6.0+seed)*1.7+Math.cos(v*5.0+seed*2.1)*2.4)*0.5+0.5; w=Math.pow(w,1.4);
-    var band=Math.sin((u*3.0+v*7.0+w*4.0)*3.14159)*0.5+0.5;
-    var t=w*0.7+band*0.3;
-    var s=0.22+0.78*Math.pow(1.0-Math.abs(v-0.35)*1.2,2.0);
+    var u=x/W-0.5, v=y/H-0.5;
+    var uu=u+0.5, vv=v+0.5;
+    var rad=Math.sqrt(u*u+v*v), ang=Math.atan2(v,u);
+    var warp=Math.sin((uu*4.0+seed*0.7)*2.1+Math.cos(vv*3.5-seed)*2.6)*0.5;
+    var flow=radial
+      ? Math.sin(ang*3.0+rad*9.0-seed+warp*1.5)
+      : Math.sin((uu*3.0+vv*5.5+warp*2.0+seed*0.4)*3.14159);
+    var t=flow*0.5+0.5;
+    var vein=Math.pow(1.0-Math.abs(Math.sin(flow*Math.PI*2.0)),10.0);
+    var vig=Math.max(0.14,1.0-Math.pow(rad*1.55,2.2));
+    var top=0.72+0.36*(0.5-vv);
+    var s=vig*top;
+    var r=a[0]*(1-t)+b[0]*t, gg=a[1]*(1-t)+b[1]*t, bb=a[2]*(1-t)+b[2]*t;
+    var grain=(Math.random()-0.5)*9;
     var k=(y*W+x)*4;
-    d[k]  =Math.max(0,Math.min(255,(a[0]*(1-t)+b[0]*t)*255*s+band*36));
-    d[k+1]=Math.max(0,Math.min(255,(a[1]*(1-t)+b[1]*t)*255*s+band*30));
-    d[k+2]=Math.max(0,Math.min(255,(a[2]*(1-t)+b[2]*t)*255*s+band*44));
+    d[k]  =Math.max(0,Math.min(255,r*255*s+vein*66+grain));
+    d[k+1]=Math.max(0,Math.min(255,gg*255*s+vein*66+grain));
+    d[k+2]=Math.max(0,Math.min(255,bb*255*s+vein*76+grain));
     d[k+3]=255;
   }
   g.putImageData(img,0,0);
