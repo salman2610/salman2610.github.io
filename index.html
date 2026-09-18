@@ -65,7 +65,12 @@ nav{
   position:fixed;top:0;left:0;width:100%;z-index:80;display:flex;align-items:center;justify-content:space-between;
   padding:clamp(18px,2.4vw,30px) clamp(18px,4vw,56px);mix-blend-mode:difference;
 }
-nav .mark{font-family:"Syne",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
+nav .mark{font-family:"Syne",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.02em;position:relative;display:inline-block}
+nav .mark::before,nav .mark::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;white-space:nowrap}
+nav .mark:hover::before{opacity:.85;color:var(--coral);transform:translate(2px,-1px);mix-blend-mode:screen;animation:glitchA .3s steps(2,end) infinite}
+nav .mark:hover::after{opacity:.85;color:var(--aqua);transform:translate(-2px,1px);mix-blend-mode:screen;animation:glitchB .3s steps(2,end) infinite}
+@keyframes glitchA{0%{clip-path:inset(0 0 60% 0)}50%{clip-path:inset(40% 0 20% 0)}100%{clip-path:inset(10% 0 70% 0)}}
+@keyframes glitchB{0%{clip-path:inset(60% 0 0 0)}50%{clip-path:inset(20% 0 40% 0)}100%{clip-path:inset(70% 0 10% 0)}}
 nav ul{display:flex;gap:clamp(16px,2.4vw,34px);list-style:none;font-size:.88rem}
 nav a{position:relative;padding-bottom:2px}
 nav a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
@@ -79,6 +84,13 @@ nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .dotnav a:hover::after{opacity:.8}
 .dotnav a.on{background:#fff;transform:scale(1.4)}
 @media(max-width:860px){.dotnav{display:none}}
+
+/* easter egg */
+.egg-flash{position:fixed;inset:0;z-index:400;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:rgba(16,12,28,.94);opacity:0;pointer-events:none;transition:opacity .35s ease;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:center;padding:24px}
+.egg-flash.on{opacity:1}
+.egg-flash .egg-title{font-size:clamp(1.5rem,5vw,2.8rem);color:#4ee08a;font-weight:800;letter-spacing:.04em}
+.egg-flash .egg-sub{opacity:.6;font-size:.92rem}
 
 /* command palette */
 .cmdk-badge{position:fixed;right:clamp(14px,2.2vw,28px);bottom:20px;z-index:70;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;padding:7px 11px;border:1px solid var(--hair);border-radius:6px;background:rgba(16,12,28,.45);color:var(--fg);opacity:.62;cursor:pointer;backdrop-filter:blur(4px);transition:opacity .25s ease,border-color .25s ease}
@@ -108,6 +120,23 @@ nav a:hover::after{transform:scaleX(1);transform-origin:left}
 #pre .count{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(3.4rem,13vw,8.6rem);line-height:.8;letter-spacing:-.07em}
 #pre .bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--aqua),var(--gold))}
 #pre .what{max-width:24ch;font-size:.9rem;opacity:.55;text-align:right}
+#pre .pre-log{position:absolute;left:clamp(20px,5vw,60px);top:clamp(20px,5vw,60px);display:flex;flex-direction:column;gap:4px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.76rem;color:#4ee08a}
+#pre .pre-log-line{opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease}
+#pre .pre-log-line.on{opacity:.8;transform:translateY(0)}
+
+/* click ripple */
+.click-ripple{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;border:1px solid var(--aqua);
+  background:radial-gradient(circle,rgba(63,216,224,.35),transparent 70%);transform:scale(0);opacity:.9;
+  animation:rippleOut .6s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes rippleOut{to{transform:scale(9);opacity:0}}
+
+/* idle hint */
+.idle-hint{position:fixed;right:clamp(14px,2.2vw,28px);bottom:56px;z-index:70;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.72rem;padding:6px 10px;border:1px solid var(--hair);border-radius:6px;background:rgba(16,12,28,.62);color:var(--fg);
+  opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+.idle-hint.on{opacity:.85;transform:translateY(0)}
+@media(max-width:860px){.idle-hint{display:none}}
 
 /* scroll rig */
 #wrap{position:fixed;top:0;left:0;width:100%;will-change:transform}
@@ -183,6 +212,11 @@ body.ready .hero-row{opacity:1;transform:none}
 .proof-inner{position:relative;z-index:1}
 .proof-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(28px,4vw,44px);padding-bottom:clamp(56px,10vh,104px);border-bottom:1px solid var(--hair)}
 .stat .num{display:block;font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(2.3rem,5.6vw,4.4rem);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .num.odometer{display:inline-flex;align-items:baseline}
+.od-col{display:inline-block;height:1em;overflow:hidden;position:relative;width:.64em}
+.od-strip{display:block;transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+.od-strip i{display:block;height:1em;line-height:1;font-style:normal;text-align:center}
+.od-suffix{margin-left:2px}
 .stat .lbl{display:block;margin-top:8px;font-size:.85rem;opacity:.55}
 .quote{max-width:58ch;margin-top:clamp(48px,9vh,86px)}
 .quote p{font-family:"Syne",sans-serif;font-weight:600;font-size:clamp(1.25rem,2.5vw,1.9rem);line-height:1.3;letter-spacing:-.015em}
@@ -416,13 +450,14 @@ body.ready .hero-row{opacity:1;transform:none}
 <canvas id="trans" aria-hidden="true"></canvas>
 
 <div id="pre">
+  <div class="pre-log" id="preLog"></div>
   <div class="count" id="count">0</div>
   <p class="what">P. Salmanul Faris — full-stack dev &amp; certified penetration tester, Kozhikode. Loading the good part.</p>
   <div class="bar" id="bar"></div>
 </div>
 
 <nav>
-  <a class="mark" href="#top">SALMAN<sup>®</sup></a>
+  <a class="mark" href="#top" data-text="SALMAN®">SALMAN<sup>®</sup></a>
   <ul>
     <li><a href="#work"><span class="scr" data-text="Work">Work</span></a></li>
     <li><a href="#process"><span class="scr" data-text="Process">Process</span></a></li>
@@ -673,7 +708,7 @@ var CAPS = [
 ];
 
 /* ---------- preloader ---------- */
-var count=document.getElementById("count"), bar=document.getElementById("bar"), pre=document.getElementById("pre");
+var count=document.getElementById("count"), bar=document.getElementById("bar"), pre=document.getElementById("pre"), preLog=document.getElementById("preLog");
 var pct=0, revealStart=0;
 var lt=setInterval(function(){
   pct+=Math.random()*11+4;
@@ -681,8 +716,21 @@ var lt=setInterval(function(){
   count.textContent=Math.floor(pct); bar.style.width=pct+"%";
 }, reduced?20:95);
 
+var BOOT_LINES=["[ok] mounting filesystem","[ok] initializing shaders","[ok] loading threat intel","[ok] starting recon module","[ok] verifying certificates","[ok] establishing secure session","[ok] rendering interface"];
+var bootIdx=0;
+var bootTimer = (reduced||!preLog) ? null : setInterval(function(){
+  if(bootIdx>=BOOT_LINES.length){ clearInterval(bootTimer); return; }
+  var line=document.createElement("div");
+  line.className="pre-log-line";
+  line.textContent=BOOT_LINES[bootIdx++];
+  preLog.appendChild(line);
+  requestAnimationFrame(function(){ line.classList.add("on"); });
+  while(preLog.children.length>4) preLog.removeChild(preLog.firstChild);
+},170);
+
 function finish(){
   pre.classList.add("done");
+  if(bootTimer) clearInterval(bootTimer);
   document.body.classList.remove("locked");
   document.body.classList.add("ready");
   revealStart=performance.now()+180;
@@ -1255,6 +1303,10 @@ function loop(){
   if(Math.abs(target-current)<0.03)current=target;
   vel=current-prev;
   wrap.style.transform="translate3d(0,"+(-current.toFixed(2))+"px,0)";
+  if(!reduced){
+    var blurAmt=Math.min(2.4,Math.max(0,Math.abs(vel)*0.13));
+    wrap.style.filter=blurAmt>0.12?"blur("+blurAmt.toFixed(2)+"px)":"";
+  }
 
   var off=Math.min(Math.max(current-workTop,0),workLen);
   pin.style.transform="translate3d(0,"+off.toFixed(2)+"px,0)";
@@ -1617,21 +1669,27 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 });
 
-/* ================= proof counters ================= */
+/* ================= proof counters (odometer digit-flip) ================= */
 (function(){
   var nums=document.querySelectorAll(".stat .num");
   if(!nums.length) return;
   function animate(el){
-    var tgt=parseFloat(el.getAttribute("data-target"))||0;
+    var tgt=parseInt(el.getAttribute("data-target"),10)||0;
     var suf=el.getAttribute("data-suffix")||"";
     if(reduced){ el.textContent=tgt+suf; return; }
-    var t0=performance.now(), dur=1300;
-    (function step(now){
-      var k=Math.min(1,(now-t0)/dur);
-      var e=1-Math.pow(1-k,3);
-      el.textContent=Math.round(tgt*e)+suf;
-      if(k<1) requestAnimationFrame(step);
-    })(t0);
+    var str=String(tgt);
+    el.innerHTML="";
+    el.classList.add("odometer");
+    for(var i=0;i<str.length;i++){
+      (function(digit,idx){
+        var col=document.createElement("span"); col.className="od-col";
+        var strip=document.createElement("span"); strip.className="od-strip";
+        strip.innerHTML="0123456789".split("").map(function(c){ return "<i>"+c+"</i>"; }).join("");
+        col.appendChild(strip); el.appendChild(col);
+        setTimeout(function(){ strip.style.transform="translateY(-"+(digit*10)+"%)"; }, idx*130);
+      })(parseInt(str[i],10), i);
+    }
+    if(suf){ var sfx=document.createElement("span"); sfx.className="od-suffix"; sfx.textContent=suf; el.appendChild(sfx); }
   }
   if("IntersectionObserver" in window){
     var seen=new WeakSet();
@@ -1801,6 +1859,75 @@ setTimeout(measure,2500);
     var mod=e.metaKey||e.ctrlKey;
     if(mod&&(e.key==="k"||e.key==="K")){ e.preventDefault(); root.classList.contains("open")?close():open(); }
     else if(e.key==="Escape"&&root.classList.contains("open")){ close(); }
+  });
+})();
+
+/* ---------- click ripple ---------- */
+(function(){
+  if(reduced) return;
+  var layer=document.createElement("div");
+  layer.id="rippleLayer";
+  layer.style.cssText="position:fixed;inset:0;z-index:250;pointer-events:none;overflow:hidden";
+  document.body.appendChild(layer);
+  document.addEventListener("click",function(e){
+    var r=document.createElement("span");
+    r.className="click-ripple";
+    r.style.left=e.clientX+"px";
+    r.style.top=e.clientY+"px";
+    layer.appendChild(r);
+    r.addEventListener("animationend",function(){ r.remove(); });
+  });
+})();
+
+/* ---------- idle hint ---------- */
+(function(){
+  if(reduced) return;
+  var badge=document.getElementById("cmdkTrigger");
+  if(!badge || !badge.parentNode) return;
+  var hint=document.createElement("div");
+  hint.className="idle-hint";
+  hint.textContent="psst — try ⌘K";
+  badge.parentNode.insertBefore(hint,badge);
+  var timer=null;
+  function reset(){
+    hint.classList.remove("on");
+    clearTimeout(timer);
+    timer=setTimeout(function(){ hint.classList.add("on"); },20000);
+  }
+  ["mousemove","scroll","keydown","touchstart","click"].forEach(function(ev){
+    addEventListener(ev,reset,{passive:true});
+  });
+  reset();
+})();
+
+/* ---------- tab-away title swap ---------- */
+(function(){
+  var orig=document.title;
+  document.addEventListener("visibilitychange",function(){
+    document.title = document.hidden ? "👀 come back..." : orig;
+  });
+})();
+
+/* ---------- easter egg: type "sudo" ---------- */
+(function(){
+  var buf="";
+  document.addEventListener("keydown",function(e){
+    var ae=document.activeElement;
+    if(ae && (ae.tagName==="INPUT" || ae.tagName==="TEXTAREA")) return;
+    if(e.metaKey||e.ctrlKey||e.altKey||e.key.length>1) return;
+    buf=(buf+e.key).slice(-4).toLowerCase();
+    if(buf==="sudo"){
+      buf="";
+      var el=document.createElement("div");
+      el.className="egg-flash";
+      el.innerHTML='<span class="egg-title">ACCESS GRANTED</span><span class="egg-sub">welcome, root. you didn\'t need sudo — it was already your site.</span>';
+      document.body.appendChild(el);
+      requestAnimationFrame(function(){ el.classList.add("on"); });
+      setTimeout(function(){
+        el.classList.remove("on");
+        setTimeout(function(){ el.remove(); },400);
+      },1700);
+    }
   });
 })();
 })();
