@@ -202,6 +202,20 @@ body.ready .hero-row{opacity:1;transform:none}
 .spot-link:hover .dot{background:var(--violet)}
 @media(prefers-reduced-motion:reduce){#spotBg{transform:scale(1.05)!important}.spotlight-inner{transform:none!important;opacity:1!important}}
 
+/* attack story — cinematic pinned narrative */
+.attack-story{position:relative;background:var(--ink)}
+.story-pin{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;will-change:transform;display:flex;align-items:center;justify-content:center}
+.story-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.story-veil{position:absolute;inset:0;background:radial-gradient(58% 52% at 50% 50%,transparent 25%,rgba(16,12,28,.6) 100%);pointer-events:none}
+.story-text{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:780px;min-height:clamp(90px,18vh,170px)}
+.story-num{display:block;font-family:"Syne",sans-serif;font-weight:800;letter-spacing:.12em;font-size:clamp(.8rem,1.5vw,1rem);opacity:.6;margin-bottom:14px;min-height:1.2em}
+.story-line{position:absolute;inset:0;top:22px;display:flex;align-items:center;justify-content:center;
+  font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(1.6rem,5vw,3.2rem);line-height:1.15;letter-spacing:-.02em;color:var(--fg);
+  opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .55s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.story-line.on{opacity:1;transform:translateY(0)}
+.story-line.big{font-size:clamp(1.8rem,5.8vw,3.9rem)}
+.story-bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--aqua),var(--coral));z-index:3}
+
 /* work */
 .work{position:relative;background:var(--paper)}
 .work-pin{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;will-change:transform}
@@ -246,6 +260,21 @@ body.ready .hero-row{opacity:1;transform:none}
 .cap-row .body p{max-width:56ch;padding-top:14px;font-size:1rem;opacity:.72}
 .cap-row[aria-expanded="true"] .body,.cap-row:hover .body{grid-template-rows:1fr;opacity:1}
 .cap-row:hover .name,.cap-row:focus-visible .name{transform:translateX(14px);color:var(--aqua)}
+
+/* toolkit */
+.toolkit{background:var(--ink);padding:clamp(80px,14vh,160px) clamp(18px,4vw,56px);border-top:1px solid var(--hair)}
+.tk-head{max-width:44ch;margin-bottom:clamp(30px,6vh,56px)}
+.tk-head p{margin-top:10px;font-size:.98rem;opacity:.55}
+.tk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.tk-item{background:var(--ink);border:0;padding:20px 18px;text-align:left;font-family:"Syne",sans-serif;font-weight:700;font-size:.95rem;letter-spacing:-.01em;color:var(--fg);cursor:pointer;transition:background .3s ease,color .3s ease}
+.tk-item:hover,.tk-item:focus-visible,.tk-item.active{background:var(--fg);color:var(--ink)}
+.tk-detail{margin-top:clamp(24px,4vh,40px);min-height:70px}
+.tk-detail-inner{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px}
+.tk-detail-inner h4{font-family:"Syne",sans-serif;font-weight:700;font-size:1.1rem}
+.tk-detail-inner ul{display:flex;flex-wrap:wrap;gap:8px 16px;list-style:none}
+.tk-detail-inner li{font-size:.9rem;opacity:.65;position:relative;padding-left:14px}
+.tk-detail-inner li::before{content:"—";position:absolute;left:0;opacity:.5}
+.tk-empty{font-size:.9rem;opacity:.42}
 
 /* attack surface */
 .as-sec{background:var(--paper);color:var(--ink);padding:clamp(80px,14vh,160px) clamp(18px,4vw,56px)}
@@ -404,10 +433,12 @@ body.ready .hero-row{opacity:1;transform:none}
 
 <div class="dotnav" id="dotnav" aria-label="Section navigation">
   <a href="#top" data-label="Top"></a>
+  <a href="#attack-story" data-label="The Attack"></a>
   <a href="#work" data-label="Work"></a>
   <a href="#process" data-label="Process"></a>
   <a href="#capabilities" data-label="Capabilities"></a>
   <a href="#attack-surface" data-label="Attack surface"></a>
+  <a href="#toolkit" data-label="Toolkit"></a>
   <a href="#background" data-label="Background"></a>
   <a href="#notes" data-label="Notes"></a>
   <a href="#contact" data-label="Contact"></a>
@@ -473,6 +504,25 @@ body.ready .hero-row{opacity:1;transform:none}
       </div>
     </section>
 
+    <section class="attack-story" id="attack-story">
+      <div class="story-pin" id="storyPin">
+        <canvas id="storyCanvas" class="story-canvas" width="900" height="620" aria-hidden="true"></canvas>
+        <div class="story-veil" aria-hidden="true"></div>
+        <div class="story-text" id="storyText">
+          <span class="story-num" id="storyNum"></span>
+          <p class="story-line" data-i="0">You are looking at a normal web application.</p>
+          <p class="story-line" data-i="1">But every application has an attack surface.</p>
+          <p class="story-line" data-i="2">Recon.</p>
+          <p class="story-line" data-i="3">Enumeration.</p>
+          <p class="story-line" data-i="4">Discovery.</p>
+          <p class="story-line" data-i="5">Exploitation.</p>
+          <p class="story-line" data-i="6">Remediation.</p>
+          <p class="story-line big" data-i="7">Build it. Break it. Secure it.</p>
+        </div>
+        <div class="story-bar" id="storyBar"></div>
+      </div>
+    </section>
+
     <section class="work" id="work">
       <div class="work-pin">
         <div class="work-head">
@@ -529,6 +579,15 @@ body.ready .hero-row{opacity:1;transform:none}
         <div class="as-visual" aria-hidden="true"><canvas id="asCanvas" width="220" height="220"></canvas></div>
       </div>
       <div class="as-detail" id="asDetail"><p class="as-empty">↑ Click a surface to see what's actually being tested.</p></div>
+    </section>
+
+    <section class="toolkit" id="toolkit">
+      <div class="tk-head">
+        <h2 class="h2">Toolkit</h2>
+        <p>What's actually open when I'm working.</p>
+      </div>
+      <div class="tk-grid" id="tkGrid"></div>
+      <div class="tk-detail" id="tkDetail"><p class="tk-empty">Hover a tool to see what it's for.</p></div>
     </section>
 
     <section class="background" id="background">
@@ -600,6 +659,7 @@ var PROJECTS = [
   {t:"OWASP Security Framework", y:"Active",  tag:"Python · Burp Suite · CI/CD",   url:"https://github.com/salman2610/OWASP-Framework",  c:[[0.25,0.85,0.88],[0.96,0.82,0.41]]},
   {t:"Purple Team Framework",    y:"Active",  tag:"Python · MITRE ATT&CK · React", url:"https://github.com/salman2610/PurpleTeam-Project", c:[[1.0,0.48,0.30],[0.48,0.42,1.0]]},
   {t:"Purple Agent",             y:"Active",  tag:"Python · systemd · JWT auth",   url:"https://github.com/salman2610/purple-agent", c:[[0.96,0.82,0.41],[0.25,0.85,0.88]]},
+  {t:"RedScribe",                y:"In dev",  tag:"FastAPI · Next.js · AI reporting", url:"https://redscribe-2291.vercel.app", c:[[1.0,0.48,0.30],[0.96,0.82,0.41]]},
   {t:"Sesame Technologies",      y:"2026",    tag:"Client site · GSAP · Glassmorphism", url:"https://sesametechnologies.net", c:[[0.48,0.42,1.0],[1.0,0.48,0.30]]},
   {t:"Billing App",              y:"In dev",  tag:"JavaScript · SQL · Full-stack", url:"https://github.com/salman2610", c:[[0.86,0.88,0.84],[0.48,0.42,1.0]]}
 ];
@@ -751,6 +811,35 @@ CAPS.forEach(function(c,i){
 });
 
 /* ---------- attack surface ---------- */
+/* ---------- toolkit ---------- */
+var TOOLS=[
+  {n:"Burp Suite", d:["Web app proxy","Manual testing","Intercept & repeat requests"]},
+  {n:"Nmap",        d:["Network discovery","Port scanning","Service enumeration"]},
+  {n:"Wireshark",   d:["Packet capture","Protocol analysis","Traffic inspection"]},
+  {n:"Nuclei",      d:["Templated scanning","Fast, at scale","CI-friendly"]},
+  {n:"ffuf",        d:["Web fuzzing","Directories & params","Virtual hosts"]},
+  {n:"sqlmap",      d:["SQL injection detection","Automated exploitation","Database enumeration"]},
+  {n:"Metasploit",  d:["Exploit development","Payload generation","Impact validation"]},
+  {n:"OWASP ZAP",   d:["Open-source scanner","Active & passive scans","API testing"]},
+  {n:"Nessus",      d:["Infra vulnerability scans","Compliance checks","Asset coverage"]},
+  {n:"Linux",       d:["Kali & Ubuntu","Where all of this runs","Scripting & automation"]}
+];
+var tkGrid=document.getElementById("tkGrid"), tkDetail=document.getElementById("tkDetail");
+if(tkGrid){
+  TOOLS.forEach(function(t,i){
+    var b=document.createElement("button");
+    b.className="tk-item"; b.type="button"; b.textContent=t.n;
+    function show(){
+      Array.prototype.forEach.call(tkGrid.children,function(x){ x.classList.remove("active"); });
+      b.classList.add("active");
+      tkDetail.innerHTML='<div class="tk-detail-inner"><h4>'+t.n+'</h4><ul>'+t.d.map(function(x){ return "<li>"+x+"</li>"; }).join("")+'</ul></div>';
+    }
+    b.addEventListener("mouseenter",show);
+    b.addEventListener("focus",show);
+    tkGrid.appendChild(b);
+  });
+}
+
 var SURFACES=[
   {n:"Web",     pct:92, color:[0.48,0.42,1.0], items:["Cross-site scripting (XSS)","SQL injection","Authentication flaws","Broken access control","Business logic abuse","API security gaps"]},
   {n:"API",     pct:84, color:[0.25,0.85,0.88], items:["Broken object-level auth","Excessive data exposure","Mass assignment","Rate limiting & abuse","Injection via parameters"]},
@@ -819,6 +908,115 @@ if(asBarsEl){
     g.globalAlpha=1;
   }
   requestAnimationFrame(tick);
+})();
+
+/* ---------- attack story visual ---------- */
+(function(){
+  var cv=document.getElementById("storyCanvas");
+  if(!cv) return;
+  var g=cv.getContext("2d");
+  if(!g) return;
+  var W=cv.width,H=cv.height;
+  var CALM=[0.48,0.42,1.0], AQUA=[0.25,0.85,0.88], GOLD=[0.96,0.82,0.41], RED=[1,0.32,0.32], GREEN=[0.31,0.86,0.6];
+
+  var SNODES=(function(){
+    var core={x:.5,y:.5};
+    var domains=[], endpoints=[];
+    var dLabels=["app.target.io","api.target.io","admin.target.io"];
+    for(var i=0;i<3;i++){
+      var ang=(i/3)*Math.PI*2-Math.PI/2;
+      domains.push({x:.5+Math.cos(ang)*.24,y:.5+Math.sin(ang)*.24,label:dLabels[i]});
+      for(var e=0;e<2;e++){
+        var eAng=ang+(e-0.5)*0.55;
+        endpoints.push({x:.5+Math.cos(eAng)*.42,y:.5+Math.sin(eAng)*.42,parent:i,vuln:(i===1&&e===0)});
+      }
+    }
+    return {core:core,domains:domains,endpoints:endpoints};
+  })();
+
+  function lerpC(a,b,t){ return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]; }
+  function rgbStr(c,a){ return "rgba("+Math.round(c[0]*255)+","+Math.round(c[1]*255)+","+Math.round(c[2]*255)+","+a+")"; }
+
+  function drawStory(idx,within,t){
+    g.clearRect(0,0,W,H);
+    if(idx<0) return;
+    var shake = idx===1 ? Math.sin(t*40)*(1-within)*3 : 0;
+    function nx(n){ return n.x*W+shake; }
+    function ny(n){ return n.y*H+shake; }
+
+    var domAlpha=idx<2?0:(idx===2?within:1);
+    var epAlpha=idx<3?0:(idx===3?within:1);
+    var vulnOn=idx>=4;
+    var pathProg=idx===5?within:(idx>5?1:0);
+    var healT=idx===6?within:(idx>6?1:0);
+
+    g.lineWidth=1.2;
+    if(domAlpha>0){
+      SNODES.domains.forEach(function(d){
+        g.strokeStyle=rgbStr(AQUA,0.35*domAlpha);
+        g.beginPath(); g.moveTo(nx(SNODES.core),ny(SNODES.core)); g.lineTo(nx(d),ny(d)); g.stroke();
+      });
+    }
+    if(epAlpha>0){
+      SNODES.endpoints.forEach(function(e){
+        var parent=SNODES.domains[e.parent];
+        var col=e.vuln?lerpC(RED,GREEN,healT):GOLD;
+        g.strokeStyle=rgbStr(col,0.3*epAlpha);
+        g.beginPath(); g.moveTo(nx(parent),ny(parent)); g.lineTo(nx(e),ny(e)); g.stroke();
+      });
+    }
+
+    if(idx===5||idx>5){
+      var vulnEp=SNODES.endpoints.filter(function(e){ return e.vuln; })[0];
+      var dom=SNODES.domains[vulnEp.parent];
+      var pts=[SNODES.core,dom,vulnEp], segCount=pts.length-1;
+      var totalProg=idx>5?1:pathProg;
+      var col=lerpC(RED,GREEN,idx===6?within:(idx>6?1:0));
+      g.strokeStyle=rgbStr(col,0.9); g.lineWidth=2;
+      g.beginPath();
+      for(var s=0;s<segCount;s++){
+        var segStart=s/segCount, segEnd=(s+1)/segCount;
+        if(totalProg<=segStart) break;
+        var localT=Math.min(1,(totalProg-segStart)/(segEnd-segStart));
+        var a=pts[s], b=pts[s+1];
+        if(s===0) g.moveTo(nx(a),ny(a));
+        g.lineTo(nx(a)+(nx(b)-nx(a))*localT, ny(a)+(ny(b)-ny(a))*localT);
+      }
+      g.stroke();
+    }
+
+    function drawNode(n,r,col,alpha,pulse){
+      var rr=r+(pulse?Math.sin(t*6)*1.6:0);
+      g.beginPath(); g.arc(nx(n),ny(n),rr,0,6.283);
+      g.fillStyle=rgbStr(col,alpha); g.fill();
+    }
+    drawNode(SNODES.core,11,CALM,1,idx===1);
+    if(domAlpha>0) SNODES.domains.forEach(function(d){ drawNode(d,6.5,AQUA,domAlpha,false); });
+    if(epAlpha>0){
+      SNODES.endpoints.forEach(function(e){
+        if(e.vuln){
+          var vc=lerpC(vulnOn?RED:GOLD,GREEN,healT);
+          drawNode(e,4.5,vc,epAlpha,vulnOn&&idx<6);
+          if(vulnOn&&idx<6){
+            g.beginPath(); g.arc(nx(e),ny(e),4.5+6+Math.sin(t*6)*2,0,6.283);
+            g.strokeStyle=rgbStr(RED,0.35); g.lineWidth=1; g.stroke();
+          }
+        } else {
+          drawNode(e,4,GOLD,epAlpha,false);
+        }
+      });
+    }
+  }
+
+  var wrapEl=document.getElementById("storyPin");
+  function inView(){ if(!wrapEl) return true; var r=wrapEl.getBoundingClientRect(); return r.bottom>0 && r.top<innerHeight; }
+  var t0=performance.now();
+  function frame(now){
+    if(!reduced) requestAnimationFrame(frame);
+    if(!inView()) return;
+    drawStory(storyActive, storyWithin, (now-t0)/1000);
+  }
+  if(reduced){ drawStory(0,0,0); } else { requestAnimationFrame(frame); }
 })();
 
 /* ---------- hero terminal typewriter ---------- */
@@ -899,10 +1097,10 @@ if(asBarsEl){
   }
   var t0=performance.now();
   function inView(){ var r=wrap.getBoundingClientRect(); return r.bottom>0 && r.top<innerHeight; }
+  size();
   function draw(now){
     if(!reduced) requestAnimationFrame(draw);
     if(!inView()) return;
-    size();
     g.clearRect(0,0,cv.width,cv.height);
     var t=(now-t0)/1000, gap=34*dpr, R=170*dpr;
     for(var y=gap*0.5;y<cv.height;y+=gap){
@@ -999,8 +1197,13 @@ document.querySelectorAll(".magnet").forEach(function(el){
 /* ---------- scroll rig ---------- */
 var wrap=document.getElementById("wrap"), spacer=document.getElementById("spacer");
 var workSec=document.getElementById("work"), pin=workSec.querySelector(".work-pin");
-var target=0,current=0,vel=0,trackLen=0,workTop=0,workLen=0,stripX=0;
+var target=0,current=0,vel=0,trackLen=0,workTop=0,workLen=0,stripX=0,frameN=0;
 var procSec=document.getElementById("process"), procPin=document.getElementById("procPin");
+var storySec=document.getElementById("attack-story"), storyPin=document.getElementById("storyPin");
+var storyLineEls=storyPin?Array.prototype.slice.call(storyPin.querySelectorAll(".story-line")):[];
+var storyNumEl=document.getElementById("storyNum"), storyBarEl=document.getElementById("storyBar");
+var storyTop=0, storyLen=0, storyActive=-1, storyWithin=0;
+var STORY_NUMS=["","","01 — RECON","02 — ENUMERATION","03 — DISCOVERY","04 — EXPLOITATION","05 — REMEDIATION",""];
 var bgList=document.getElementById("bgList"), bgFill=document.getElementById("bgFill");
 var bgRows=bgList?Array.prototype.slice.call(bgList.querySelectorAll(".bgrow")):[];
 if("IntersectionObserver" in window && bgRows.length){
@@ -1024,9 +1227,14 @@ function measure(){
     procLen=vh*procStageEls.length*0.85;
     procSec.style.height=(vh+procLen)+"px";
   }
+  if(storySec&&storyLineEls.length){
+    storyLen=vh*storyLineEls.length*0.72;
+    storySec.style.height=(vh+storyLen)+"px";
+  }
   trackLen=Math.max(0,track.scrollWidth-vw);
   workSec.style.height=(vh+trackLen)+"px";
   if(procSec) procTop=procSec.offsetTop;
+  if(storySec) storyTop=storySec.offsetTop;
   workTop=workSec.offsetTop;
   workLen=workSec.offsetHeight-vh;
   spacer.style.height=wrap.scrollHeight+"px";
@@ -1089,36 +1297,56 @@ function loop(){
     }
   }
 
-  if(bgList){
-    var bgr=bgList.getBoundingClientRect();
-    var bgP=Math.max(0,Math.min(1,(innerHeight*0.7-bgr.top)/(bgr.height+innerHeight*0.3)));
-    bgFill.style.height=(bgP*100).toFixed(2)+"%";
-    var bgActive=Math.round(bgP*bgRows.length);
-    for(var bi=0;bi<bgRows.length;bi++){
-      var bon=bi<bgActive;
-      if(bon!==bgRows[bi]._on){ bgRows[bi].classList.toggle("on",bon); bgRows[bi]._on=bon; }
+  if(storyPin&&storyLen>0){
+    var soff=Math.min(Math.max(current-storyTop,0),storyLen);
+    storyPin.style.transform="translate3d(0,"+soff.toFixed(2)+"px,0)";
+    var sFrac=soff/storyLen;
+    storyBarEl.style.width=(sFrac*100).toFixed(2)+"%";
+    var sRaw=sFrac*storyLineEls.length;
+    var sIdx=Math.min(storyLineEls.length-1,Math.floor(sRaw));
+    storyWithin=Math.max(0,Math.min(1,sRaw-sIdx));
+    if(sIdx!==storyActive){
+      for(var sqi=0;sqi<storyLineEls.length;sqi++) storyLineEls[sqi].classList.toggle("on",sqi===sIdx);
+      storyNumEl.textContent=STORY_NUMS[sIdx]||"";
+      storyActive=sIdx;
     }
   }
 
-  if(spotEl&&!reduced){
-    var sr=spotEl.getBoundingClientRect();
-    var sc=Math.max(0,Math.min(1,1-Math.abs(sr.top+sr.height/2-innerHeight/2)/(innerHeight/2+sr.height/2)));
-    spotBg.style.transform="scale("+(1.05+(1-sc)*0.14).toFixed(3)+")";
-    spotInner.style.transform="translateY("+((1-sc)*38).toFixed(1)+"px)";
-    spotInner.style.opacity=(0.3+0.7*sc).toFixed(3);
+  /* secondary scroll-linked reads: throttled to every other frame — */
+  /* imperceptible for slow scroll-progress UI, meaningfully cuts forced-layout reads */
+  frameN++;
+  if(frameN%2===0){
+    if(bgList){
+      var bgr=bgList.getBoundingClientRect();
+      var bgP=Math.max(0,Math.min(1,(innerHeight*0.7-bgr.top)/(bgr.height+innerHeight*0.3)));
+      bgFill.style.height=(bgP*100).toFixed(2)+"%";
+      var bgActive=Math.round(bgP*bgRows.length);
+      for(var bi=0;bi<bgRows.length;bi++){
+        var bon=bi<bgActive;
+        if(bon!==bgRows[bi]._on){ bgRows[bi].classList.toggle("on",bon); bgRows[bi]._on=bon; }
+      }
+    }
+
+    if(spotEl&&!reduced){
+      var sr=spotEl.getBoundingClientRect();
+      var sc=Math.max(0,Math.min(1,1-Math.abs(sr.top+sr.height/2-innerHeight/2)/(innerHeight/2+sr.height/2)));
+      spotBg.style.transform="scale("+(1.05+(1-sc)*0.14).toFixed(3)+")";
+      spotInner.style.transform="translateY("+((1-sc)*38).toFixed(1)+"px)";
+      spotInner.style.opacity=(0.3+0.7*sc).toFixed(3);
+    }
+
+    if(dotEls.length){
+      var mid=innerHeight*0.5, activeD=-1;
+      for(var dti=0;dti<dotTargets.length;dti++){
+        var te=dotTargets[dti]; if(!te) continue;
+        if(te.getBoundingClientRect().top<=mid) activeD=dti;
+      }
+      for(var dj=0;dj<dotEls.length;dj++) dotEls[dj].classList.toggle("on",dj===activeD);
+    }
   }
 
   rx+=(mx-rx)*0.16; ry+=(my-ry)*0.16;
   ring.style.transform="translate("+rx.toFixed(1)+"px,"+ry.toFixed(1)+"px)";
-
-  if(dotEls.length){
-    var mid=innerHeight*0.5, activeD=-1;
-    for(var dti=0;dti<dotTargets.length;dti++){
-      var te=dotTargets[dti]; if(!te) continue;
-      if(te.getBoundingClientRect().top<=mid) activeD=dti;
-    }
-    for(var dj=0;dj<dotEls.length;dj++) dotEls[dj].classList.toggle("on",dj===activeD);
-  }
 
   requestAnimationFrame(loop);
 }
@@ -1436,8 +1664,12 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     {x:.48,y:.88,r:.42,c:"255,122,77"}
   ];
   var t0=performance.now();
+  var contactWrap=document.querySelector(".contact");
+  function inView(){ if(!contactWrap) return true; var r=contactWrap.getBoundingClientRect(); return r.bottom>0 && r.top<innerHeight; }
+  size();
   function draw(now){
-    size();
+    if(!reduced) requestAnimationFrame(draw);
+    if(!inView()) return;
     g.clearRect(0,0,cv.width,cv.height);
     var t=(now-t0)/1000;
     blobs.forEach(function(b,i){
@@ -1450,9 +1682,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
       g.fillStyle=grad;
       g.fillRect(0,0,cv.width,cv.height);
     });
-    if(!reduced) requestAnimationFrame(draw);
   }
-  requestAnimationFrame(draw);
+  if(reduced){ draw(t0); } else { requestAnimationFrame(draw); }
 })();
 
 setTimeout(measure,800);
@@ -1505,10 +1736,12 @@ setTimeout(measure,2500);
 
   var CMDS=[
     {label:"Go to top",                  k:"Section", run:function(){ jumpTo("#top"); }},
+    {label:"The Attack (story)",         k:"Section", run:function(){ jumpTo("#attack-story"); }},
     {label:"Selected work",              k:"Section", run:function(){ jumpTo("#work"); }},
     {label:"How I work",                 k:"Section", run:function(){ jumpTo("#process"); }},
     {label:"Capabilities",               k:"Section", run:function(){ jumpTo("#capabilities"); }},
     {label:"Attack surface",             k:"Section", run:function(){ jumpTo("#attack-surface"); }},
+    {label:"Toolkit",                    k:"Section", run:function(){ jumpTo("#toolkit"); }},
     {label:"Background",                 k:"Section", run:function(){ jumpTo("#background"); }},
     {label:"Notes",                      k:"Section", run:function(){ jumpTo("#notes"); }},
     {label:"Get in touch",               k:"Section", run:function(){ jumpTo("#contact"); }},
