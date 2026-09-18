@@ -274,11 +274,19 @@ body.ready .hero-row{opacity:1;transform:none}
 .background{background:var(--ink);padding:0 clamp(18px,4vw,56px) clamp(90px,13vh,150px);border-top:1px solid var(--hair)}
 .background-head{padding:clamp(60px,10vh,120px) 0 clamp(30px,5vh,54px);max-width:44ch}
 .background-head p{margin-top:10px;font-size:.98rem;opacity:.55}
-.bgrow{display:flex;gap:clamp(16px,3vw,28px);padding:clamp(16px,2.4vw,24px) 0;border-top:1px solid var(--hair);align-items:baseline}
+.bg-list{position:relative;padding-left:26px}
+.bg-rail{position:absolute;top:8px;bottom:8px;left:0;width:1px;background:rgba(244,242,238,.14)}
+.bg-fill{position:absolute;top:0;left:0;width:1px;height:0;background:var(--aqua)}
+.bgrow{position:relative;display:flex;gap:clamp(16px,3vw,28px);padding:clamp(16px,2.4vw,24px) 0;border-top:1px solid var(--hair);align-items:baseline;
+  opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.bgrow.in{opacity:1;transform:translateY(0)}
 .bgrow:last-child{border-bottom:1px solid var(--hair)}
+.bg-dot{position:absolute;left:-30px;top:50%;width:9px;height:9px;border-radius:50%;background:rgba(244,242,238,.25);transform:translateY(-50%);transition:background .3s ease,transform .3s ease}
+.bgrow.on .bg-dot{background:var(--aqua);transform:translateY(-50%) scale(1.35)}
 .bg-year{flex:0 0 auto;width:84px;font-size:.82rem;opacity:.45;font-variant-numeric:tabular-nums}
 .bg-what h3{font-family:"Syne",sans-serif;font-weight:700;font-size:clamp(1rem,1.8vw,1.25rem);letter-spacing:-.01em}
 .bg-what p{margin-top:4px;font-size:.92rem;opacity:.55;max-width:56ch}
+@media(max-width:560px){.bg-list{padding-left:18px}.bg-dot{left:-22px}}
 
 /* journal */
 .journal{background:var(--ink);padding:0 clamp(18px,4vw,56px) clamp(90px,13vh,150px);border-top:1px solid var(--hair);position:relative}
@@ -356,7 +364,7 @@ body.ready .hero-row{opacity:1;transform:none}
 /* native scroll-driven reveal — baseline CSS, no JS */
 @supports (animation-timeline: view()){
   @keyframes reveal-up{ from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-  .cap-row,.bgrow,.jrow,.stat{
+  .cap-row,.jrow,.stat{
     animation:reveal-up linear both;
     animation-timeline:view();
     animation-range:entry 0% cover 22%;
@@ -528,12 +536,15 @@ body.ready .hero-row{opacity:1;transform:none}
         <h2 class="h2">Background</h2>
         <p>A physics mind wired for security — from ultrasonic interferometry to penetration testing.</p>
       </div>
-      <div class="bgrow"><span class="bg-year">2025—</span><div class="bg-what"><h3>Cybersecurity Engineer</h3><p>Sesame Technologies — Web, API and Android VAPT, aligned with the OWASP Top 10.</p></div></div>
-      <div class="bgrow"><span class="bg-year">2024</span><div class="bg-what"><h3>Certified Penetration Tester (CPT)</h3><p>RedTeam Hacker Academy, Kozhikode — 3-month intensive covering Burp Suite, Nmap, Metasploit.</p></div></div>
-      <div class="bgrow"><span class="bg-year">2023</span><div class="bg-what"><h3>M.Sc. Physics</h3><p>The New College, Chennai — research in ultrasonic interferometry on aqueous antibiotic and insulin solutions.</p></div></div>
-      <div class="bgrow"><span class="bg-year">2022–23</span><div class="bg-what"><h3>APSE — Full-Stack Software Engineering</h3><p>NIIT, Chennai — JavaScript, databases, and software engineering principles.</p></div></div>
-      <div class="bgrow"><span class="bg-year">2021</span><div class="bg-what"><h3>B.Sc. Physics</h3><p>The New College, Chennai, Tamil Nadu.</p></div></div>
-      <div class="bgrow"><span class="bg-year">2016–18</span><div class="bg-what"><h3>Higher Secondary</h3><p>NEST Higher Secondary School, Kerala State Board.</p></div></div>
+      <div class="bg-list" id="bgList">
+        <div class="bg-rail"><div class="bg-fill" id="bgFill"></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2025—</span><div class="bg-what"><h3>Cybersecurity Engineer</h3><p>Sesame Technologies — Web, API and Android VAPT, aligned with the OWASP Top 10.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2024</span><div class="bg-what"><h3>Certified Penetration Tester (CPT)</h3><p>RedTeam Hacker Academy, Kozhikode — 3-month intensive covering Burp Suite, Nmap, Metasploit.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2023</span><div class="bg-what"><h3>M.Sc. Physics</h3><p>The New College, Chennai — research in ultrasonic interferometry on aqueous antibiotic and insulin solutions.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2022–23</span><div class="bg-what"><h3>APSE — Full-Stack Software Engineering</h3><p>NIIT, Chennai — JavaScript, databases, and software engineering principles.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2021</span><div class="bg-what"><h3>B.Sc. Physics</h3><p>The New College, Chennai, Tamil Nadu.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2016–18</span><div class="bg-what"><h3>Higher Secondary</h3><p>NEST Higher Secondary School, Kerala State Board.</p></div></div>
+      </div>
     </section>
 
     <section class="journal" id="notes">
@@ -990,6 +1001,16 @@ var wrap=document.getElementById("wrap"), spacer=document.getElementById("spacer
 var workSec=document.getElementById("work"), pin=workSec.querySelector(".work-pin");
 var target=0,current=0,vel=0,trackLen=0,workTop=0,workLen=0,stripX=0;
 var procSec=document.getElementById("process"), procPin=document.getElementById("procPin");
+var bgList=document.getElementById("bgList"), bgFill=document.getElementById("bgFill");
+var bgRows=bgList?Array.prototype.slice.call(bgList.querySelectorAll(".bgrow")):[];
+if("IntersectionObserver" in window && bgRows.length){
+  var bgIo=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting) en.target.classList.add("in"); });
+  },{threshold:0.25});
+  bgRows.forEach(function(r){ bgIo.observe(r); });
+} else {
+  bgRows.forEach(function(r){ r.classList.add("in"); });
+}
 var dotEls=Array.prototype.slice.call(document.querySelectorAll(".dotnav a"));
 var dotTargets=dotEls.map(function(a){ return document.querySelector(a.getAttribute("href")); });
 var procStageEls=procPin?Array.prototype.slice.call(procPin.querySelectorAll(".proc-stage")):[];
@@ -1065,6 +1086,17 @@ function loop(){
       de.classList.toggle("done",di<activeIdx);
       de.classList.toggle("active",di===activeIdx);
       if(di===activeIdx) de.style.setProperty("--p",within.toFixed(3));
+    }
+  }
+
+  if(bgList){
+    var bgr=bgList.getBoundingClientRect();
+    var bgP=Math.max(0,Math.min(1,(innerHeight*0.7-bgr.top)/(bgr.height+innerHeight*0.3)));
+    bgFill.style.height=(bgP*100).toFixed(2)+"%";
+    var bgActive=Math.round(bgP*bgRows.length);
+    for(var bi=0;bi<bgRows.length;bi++){
+      var bon=bi<bgActive;
+      if(bon!==bgRows[bi]._on){ bgRows[bi].classList.toggle("on",bon); bgRows[bi]._on=bon; }
     }
   }
 
