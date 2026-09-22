@@ -194,10 +194,10 @@ body.ready .hero-row{opacity:1;transform:none}
 .process-pin{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;will-change:transform;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(18px,4vw,56px)}
 .proc-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(26px,5vh,56px)}
 .proc-eyebrow{max-width:24ch}
-.proc-bignum{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(3.2rem,9vw,7.5rem);line-height:.9;letter-spacing:-.03em;opacity:.13;font-variant-numeric:tabular-nums}
-.proc-stages{position:relative;min-height:clamp(230px,34vh,360px)}
-.proc-stage{position:absolute;inset:0 auto 0 0;max-width:56ch;opacity:0;transform:translateY(28px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);pointer-events:none}
-.proc-stage.on{opacity:1;transform:translateY(0);pointer-events:auto}
+.proc-bignum{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(3.2rem,9vw,7.5rem);line-height:.9;letter-spacing:-.03em;opacity:.13;font-variant-numeric:tabular-nums;will-change:transform}
+.proc-stages{position:relative;min-height:clamp(230px,34vh,360px);perspective:1100px}
+.proc-stage{position:absolute;inset:0 auto 0 0;max-width:56ch;opacity:0;transform-style:preserve-3d;transform-origin:left bottom;backface-visibility:hidden;will-change:transform,opacity;pointer-events:none}
+.proc-stage.on{pointer-events:auto}
 .proc-stage h3{font-family:"Syne",sans-serif;font-weight:700;font-size:clamp(2.1rem,5.4vw,3.8rem);letter-spacing:-.03em}
 .proc-stage p{margin-top:18px;max-width:50ch;font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.55;opacity:.66}
 .proc-dashes{display:flex;gap:10px;margin-top:clamp(34px,5.4vh,58px)}
@@ -282,7 +282,8 @@ body.ready .hero-row{opacity:1;transform:none}
 .caps-body{display:flex;gap:clamp(30px,5vw,70px);align-items:flex-start}
 .caps-body>div:first-child{flex:1 1 auto;min-width:0}
 .caps-visual{flex:0 0 clamp(180px,24vw,300px);aspect-ratio:1/1;border-radius:12px;overflow:hidden;position:sticky;top:clamp(90px,14vh,150px);background:rgba(244,242,238,.03);border:1px solid var(--hair)}
-.caps-visual canvas{width:100%;height:100%;display:block;filter:blur(7px) saturate(1.15)}
+.caps-visual-tag{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.7rem;letter-spacing:.04em;color:#4ee08a;opacity:.7;pointer-events:none}
+.caps-visual canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 0 6px rgba(124,107,255,.35))}
 @media(max-width:860px){.caps-visual{display:none}}
 .cap-row{display:block;width:100%;text-align:left;background:none;border:0;color:inherit;font:inherit;border-top:1px solid var(--hair);padding:clamp(18px,2.6vw,30px) 0;cursor:pointer}
 .cap-row:last-of-type{border-bottom:1px solid var(--hair)}
@@ -600,7 +601,7 @@ body.ready .hero-row{opacity:1;transform:none}
       <h2 class="h2">What I'm actually good at</h2>
       <div class="caps-body">
         <div id="caplist"></div>
-        <div class="caps-visual" aria-hidden="true"><canvas id="capCanvas" width="180" height="180"></canvas></div>
+        <div class="caps-visual" aria-hidden="true"><canvas id="capCanvas" width="180" height="180"></canvas><span class="caps-visual-tag">● thinking</span></div>
       </div>
     </section>
 
@@ -1169,12 +1170,24 @@ if(asBarsEl){
   if(reduced){ size(); } else { requestAnimationFrame(draw); }
 })();
 
-/* live morphing visual beside capabilities */
+/* thinking orb — rotating depth-shaded particle sphere beside capabilities */
 (function(){
   var cv=document.getElementById("capCanvas");
   if(!cv) return;
   var g=cv.getContext("2d");
   var W=cv.width,H=cv.height, wrapEl=document.querySelector(".caps-visual");
+  var cx=W/2, cy=H/2, R=Math.min(W,H)*0.4;
+
+  /* even coverage of a sphere via the golden-angle (Fibonacci) method */
+  var N=110, pts=[];
+  var GA=Math.PI*(3-Math.sqrt(5));
+  for(var i=0;i<N;i++){
+    var yv=1-(i/(N-1))*2;
+    var rad=Math.sqrt(Math.max(0,1-yv*yv));
+    var th=GA*i;
+    pts.push({x:Math.cos(th)*rad, y:yv, z:Math.sin(th)*rad});
+  }
+
   var t0=performance.now();
   function inView(){
     if(!wrapEl) return true;
@@ -1187,20 +1200,27 @@ if(asBarsEl){
     var t=(now-t0)/1000;
     capCur[0]=capCur[0].map(function(v,k){return v+(capTarget[0][k]-v)*0.045;});
     capCur[1]=capCur[1].map(function(v,k){return v+(capTarget[1][k]-v)*0.045;});
-    var img=g.createImageData(W,H), d=img.data, a=capCur[0], b=capCur[1];
-    for(var y=0;y<H;y++)for(var x=0;x<W;x++){
-      var u=x/W,v=y/H;
-      var w=Math.sin((u*5.0+t*0.6)*1.7+Math.cos(v*5.0-t*0.5)*2.4)*0.5+0.5; w=Math.pow(w,1.3);
-      var band=Math.sin((u*3.0+v*6.0+w*4.0+t*0.8)*3.14159)*0.5+0.5;
-      var tt=w*0.7+band*0.3;
-      var s=0.3+0.7*Math.pow(1.0-Math.hypot(u-0.5,v-0.5)*1.35,1.6);
-      var k=(y*W+x)*4;
-      d[k]  =Math.max(0,Math.min(255,(a[0]*(1-tt)+b[0]*tt)*255*s));
-      d[k+1]=Math.max(0,Math.min(255,(a[1]*(1-tt)+b[1]*tt)*255*s));
-      d[k+2]=Math.max(0,Math.min(255,(a[2]*(1-tt)+b[2]*tt)*255*s));
-      d[k+3]=255;
-    }
-    g.putImageData(img,0,0);
+    var col=capCur[0];
+    var ay=t*0.35, ax=Math.sin(t*0.22)*0.5;
+    var cosY=Math.cos(ay),sinY=Math.sin(ay), cosX=Math.cos(ax),sinX=Math.sin(ax);
+
+    var rotated=pts.map(function(p){
+      var x1=p.x*cosY-p.z*sinY, z1=p.x*sinY+p.z*cosY;
+      var y2=p.y*cosX-z1*sinX, z2=p.y*sinX+z1*cosX;
+      return {x:x1,y:y2,z:z2};
+    });
+    rotated.sort(function(a,b){ return a.z-b.z; });
+
+    g.clearRect(0,0,W,H);
+    rotated.forEach(function(p){
+      var depth=(p.z+1)/2;
+      var size=1.1+depth*2.6;
+      var alpha=0.18+depth*0.82;
+      var px=cx+p.x*R, py=cy+p.y*R;
+      g.beginPath(); g.arc(px,py,size,0,6.283);
+      g.fillStyle="rgba("+Math.round(col[0]*255)+","+Math.round(col[1]*255)+","+Math.round(col[2]*255)+","+alpha.toFixed(3)+")";
+      g.fill();
+    });
   }
   requestAnimationFrame(frame);
 })();
@@ -1304,8 +1324,8 @@ function loop(){
   vel=current-prev;
   wrap.style.transform="translate3d(0,"+(-current.toFixed(2))+"px,0)";
   if(!reduced){
-    var blurAmt=Math.min(2.4,Math.max(0,Math.abs(vel)*0.13));
-    wrap.style.filter=blurAmt>0.12?"blur("+blurAmt.toFixed(2)+"px)":"";
+    var blurAmt=Math.min(0.9,Math.max(0,Math.abs(vel)*0.045));
+    wrap.style.filter=blurAmt>0.15?"blur("+blurAmt.toFixed(2)+"px)":"";
   }
 
   var off=Math.min(Math.max(current-workTop,0),workLen);
@@ -1336,11 +1356,35 @@ function loop(){
     var raw=pFrac*procStageEls.length;
     var activeIdx=Math.min(procStageEls.length-1,Math.floor(raw));
     if(activeIdx!==procActive){
-      for(var qi=0;qi<procStageEls.length;qi++) procStageEls[qi].classList.toggle("on",qi===activeIdx);
       if(procBigNum) procBigNum.textContent=String(activeIdx+1).padStart(2,"0");
       procActive=activeIdx;
     }
     var within=Math.max(0,Math.min(1,raw-activeIdx));
+
+    /* continuous 3D carousel: each stage rotates in from behind/below, */
+    /* sits upright at its active moment, then flips away as the next one arrives */
+    for(var qi=0;qi<procStageEls.length;qi++){
+      var diff=qi-raw;
+      var ad=Math.abs(diff);
+      var pel=procStageEls[qi];
+      pel.classList.toggle("on",ad<0.5);
+      if(reduced){
+        pel.style.opacity=ad<0.5?"1":"0";
+        pel.style.transform="";
+        continue;
+      }
+      var rotX=Math.max(-62,Math.min(62,diff*-48));
+      var tz=-ad*130;
+      var ty=diff*22;
+      var op=Math.max(0,1-ad*0.92);
+      if(op<=0.002){ pel.style.opacity="0"; continue; }
+      pel.style.opacity=op.toFixed(3);
+      pel.style.transform="perspective(1100px) rotateX("+rotX.toFixed(2)+"deg) translateY("+ty.toFixed(1)+"px) translateZ("+tz.toFixed(1)+"px)";
+    }
+    if(procBigNum && !reduced){
+      procBigNum.style.transform="perspective(900px) rotateY("+((within-0.5)*10).toFixed(2)+"deg)";
+    }
+
     for(var di=0;di<procDashEls.length;di++){
       var de=procDashEls[di];
       de.classList.toggle("done",di<activeIdx);
