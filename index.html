@@ -85,12 +85,16 @@ nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .dotnav a.on{background:#fff;transform:scale(1.4)}
 @media(max-width:860px){.dotnav{display:none}}
 
-/* easter egg */
-.egg-flash{position:fixed;inset:0;z-index:400;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  background:rgba(16,12,28,.94);opacity:0;pointer-events:none;transition:opacity .35s ease;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:center;padding:24px}
+/* easter egg — matrix rain */
+.egg-flash{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;
+  background:#000;opacity:0;pointer-events:none;transition:opacity .5s ease;overflow:hidden}
 .egg-flash.on{opacity:1}
-.egg-flash .egg-title{font-size:clamp(1.5rem,5vw,2.8rem);color:#4ee08a;font-weight:800;letter-spacing:.04em}
-.egg-flash .egg-sub{opacity:.6;font-size:.92rem}
+.egg-flash .matrix-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.egg-flash .egg-content{position:relative;z-index:2;text-align:center;padding:24px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  opacity:0;transform:scale(.94);transition:opacity .5s ease .55s,transform .5s cubic-bezier(.16,1,.3,1) .55s}
+.egg-flash.text-on .egg-content{opacity:1;transform:scale(1)}
+.egg-flash .egg-title{display:block;font-size:clamp(1.6rem,5.5vw,3.1rem);color:#4ee08a;font-weight:800;letter-spacing:.06em;text-shadow:0 0 18px rgba(78,224,138,.65)}
+.egg-flash .egg-sub{display:block;margin-top:10px;opacity:.65;font-size:.92rem;color:#c9ffdf}
 
 /* command palette */
 .cmdk-badge{position:fixed;right:clamp(14px,2.2vw,28px);bottom:20px;z-index:70;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.72rem;padding:7px 11px;border:1px solid var(--hair);border-radius:6px;background:rgba(16,12,28,.45);color:var(--fg);opacity:.62;cursor:pointer;backdrop-filter:blur(4px);transition:opacity .25s ease,border-color .25s ease}
@@ -241,12 +245,11 @@ body.ready .hero-row{opacity:1;transform:none}
 .story-pin{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;will-change:transform;display:flex;align-items:center;justify-content:center}
 .story-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .story-veil{position:absolute;inset:0;background:radial-gradient(58% 52% at 50% 50%,transparent 25%,rgba(16,12,28,.6) 100%);pointer-events:none}
-.story-text{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:780px;min-height:clamp(90px,18vh,170px)}
+.story-text{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:780px;min-height:clamp(90px,18vh,170px);perspective:1200px}
 .story-num{display:block;font-family:"Syne",sans-serif;font-weight:800;letter-spacing:.12em;font-size:clamp(.8rem,1.5vw,1rem);opacity:.6;margin-bottom:14px;min-height:1.2em}
 .story-line{position:absolute;inset:0;top:22px;display:flex;align-items:center;justify-content:center;
   font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(1.6rem,5vw,3.2rem);line-height:1.15;letter-spacing:-.02em;color:var(--fg);
-  opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .55s cubic-bezier(.16,1,.3,1);pointer-events:none}
-.story-line.on{opacity:1;transform:translateY(0)}
+  opacity:0;transform-style:preserve-3d;transform-origin:center center;backface-visibility:hidden;will-change:transform,opacity;pointer-events:none}
 .story-line.big{font-size:clamp(1.8rem,5.8vw,3.9rem)}
 .story-bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--aqua),var(--coral));z-index:3}
 
@@ -301,7 +304,9 @@ body.ready .hero-row{opacity:1;transform:none}
 .tk-head{max-width:44ch;margin-bottom:clamp(30px,6vh,56px)}
 .tk-head p{margin-top:10px;font-size:.98rem;opacity:.55}
 .tk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
-.tk-item{background:var(--ink);border:0;padding:20px 18px;text-align:left;font-family:"Syne",sans-serif;font-weight:700;font-size:.95rem;letter-spacing:-.01em;color:var(--fg);cursor:pointer;transition:background .3s ease,color .3s ease}
+.tk-item{background:var(--ink);border:0;padding:20px 18px;text-align:left;font-family:"Syne",sans-serif;font-weight:700;font-size:.95rem;letter-spacing:-.01em;color:var(--fg);cursor:pointer;
+  transition:background .3s ease,color .3s ease,opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1);opacity:0;transform:translateY(14px) scale(.96)}
+.tk-item.in{opacity:1;transform:translateY(0) scale(1)}
 .tk-item:hover,.tk-item:focus-visible,.tk-item.active{background:var(--fg);color:var(--ink)}
 .tk-detail{margin-top:clamp(24px,4vh,40px);min-height:70px}
 .tk-detail-inner{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px}
@@ -887,6 +892,20 @@ if(tkGrid){
     b.addEventListener("focus",show);
     tkGrid.appendChild(b);
   });
+  if("IntersectionObserver" in window){
+    var tkIo=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx=Array.prototype.indexOf.call(tkGrid.children,en.target);
+          setTimeout(function(){ en.target.classList.add("in"); }, Math.max(0,idx)*55);
+          tkIo.unobserve(en.target);
+        }
+      });
+    },{threshold:0.2});
+    Array.prototype.forEach.call(tkGrid.children,function(x){ tkIo.observe(x); });
+  } else {
+    Array.prototype.forEach.call(tkGrid.children,function(x){ x.classList.add("in"); });
+  }
 }
 
 var SURFACES=[
@@ -1402,9 +1421,27 @@ function loop(){
     var sIdx=Math.min(storyLineEls.length-1,Math.floor(sRaw));
     storyWithin=Math.max(0,Math.min(1,sRaw-sIdx));
     if(sIdx!==storyActive){
-      for(var sqi=0;sqi<storyLineEls.length;sqi++) storyLineEls[sqi].classList.toggle("on",sqi===sIdx);
       storyNumEl.textContent=STORY_NUMS[sIdx]||"";
       storyActive=sIdx;
+    }
+
+    /* same continuous 3D carousel language as the process section */
+    for(var sqi=0;sqi<storyLineEls.length;sqi++){
+      var sdiff=sqi-sRaw;
+      var sad=Math.abs(sdiff);
+      var sel=storyLineEls[sqi];
+      sel.classList.toggle("on",sad<0.5);
+      if(reduced){
+        sel.style.opacity=sad<0.5?"1":"0";
+        sel.style.transform="";
+        continue;
+      }
+      if(sad>1.05){ sel.style.opacity="0"; continue; }
+      var srotX=Math.max(-58,Math.min(58,sdiff*-52));
+      var stz=-sad*110;
+      var sop=Math.max(0,1-sad*0.95);
+      sel.style.opacity=sop.toFixed(3);
+      sel.style.transform="perspective(1200px) rotateX("+srotX.toFixed(2)+"deg) translateZ("+stz.toFixed(1)+"px) scale("+(1-sad*0.08).toFixed(3)+")";
     }
   }
 
@@ -1952,26 +1989,79 @@ setTimeout(measure,2500);
   });
 })();
 
-/* ---------- easter egg: type "sudo" ---------- */
+/* ---------- easter egg: type "sudo" → matrix rain ---------- */
 (function(){
-  var buf="";
+  var buf="", running=false;
+
+  function runMatrixRain(canvas, durationMs, onDone){
+    var ctx=canvas.getContext("2d");
+    var dpr=Math.min(devicePixelRatio||1,1.4);
+    var fontSize=15*dpr, cols, drops;
+    function size(){
+      canvas.width=Math.floor(innerWidth*dpr);
+      canvas.height=Math.floor(innerHeight*dpr);
+      cols=Math.max(1,Math.floor(canvas.width/fontSize));
+      drops=new Array(cols).fill(0).map(function(){ return Math.random()*-40; });
+    }
+    size();
+    var CHARS="アイウエオカキクケコサシスセソタチツテトナニヌネノ01デ";
+    var start=performance.now(), raf=null, stopped=false;
+    ctx.fillStyle="#000"; ctx.fillRect(0,0,canvas.width,canvas.height);
+    function draw(now){
+      if(stopped) return;
+      ctx.fillStyle="rgba(0,0,0,.09)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.font=fontSize+"px ui-monospace,monospace";
+      ctx.textBaseline="top";
+      for(var i=0;i<cols;i++){
+        var ch=CHARS[(Math.random()*CHARS.length)|0];
+        var y=drops[i]*fontSize;
+        ctx.fillStyle = Math.random()>0.94 ? "#c9ffdf" : "#3fd88f";
+        ctx.fillText(ch, i*fontSize, y);
+        drops[i]+= (Math.random()*0.5+0.55);
+        if(y>canvas.height && Math.random()>0.975) drops[i]=Math.random()*-20;
+      }
+      if(now-start<durationMs){ raf=requestAnimationFrame(draw); }
+      else if(onDone){ onDone(); }
+    }
+    raf=requestAnimationFrame(draw);
+    var resizeH=function(){ size(); };
+    addEventListener("resize",resizeH);
+    return function stop(){ stopped=true; if(raf) cancelAnimationFrame(raf); removeEventListener("resize",resizeH); };
+  }
+
+  function trigger(){
+    if(running) return;
+    running=true;
+    var el=document.createElement("div");
+    el.className="egg-flash";
+    el.innerHTML='<canvas class="matrix-canvas"></canvas><div class="egg-content"><span class="egg-title">ACCESS GRANTED</span><span class="egg-sub">welcome, root. you didn\'t need sudo — it was already your site.</span></div>';
+    document.body.appendChild(el);
+    var cv=el.querySelector(".matrix-canvas");
+    requestAnimationFrame(function(){ el.classList.add("on"); });
+
+    if(reduced){
+      setTimeout(function(){ el.classList.add("text-on"); },80);
+      setTimeout(finish,1800);
+      return;
+    }
+    var stopRain=runMatrixRain(cv, 2400, null);
+    setTimeout(function(){ el.classList.add("text-on"); },900);
+    setTimeout(function(){ stopRain(); finish(); },2400);
+
+    function finish(){
+      el.classList.remove("on");
+      el.classList.remove("text-on");
+      setTimeout(function(){ el.remove(); running=false; },500);
+    }
+  }
+
   document.addEventListener("keydown",function(e){
     var ae=document.activeElement;
     if(ae && (ae.tagName==="INPUT" || ae.tagName==="TEXTAREA")) return;
     if(e.metaKey||e.ctrlKey||e.altKey||e.key.length>1) return;
     buf=(buf+e.key).slice(-4).toLowerCase();
-    if(buf==="sudo"){
-      buf="";
-      var el=document.createElement("div");
-      el.className="egg-flash";
-      el.innerHTML='<span class="egg-title">ACCESS GRANTED</span><span class="egg-sub">welcome, root. you didn\'t need sudo — it was already your site.</span>';
-      document.body.appendChild(el);
-      requestAnimationFrame(function(){ el.classList.add("on"); });
-      setTimeout(function(){
-        el.classList.remove("on");
-        setTimeout(function(){ el.remove(); },400);
-      },1700);
-    }
+    if(buf==="sudo"){ buf=""; trigger(); }
   });
 })();
 })();
