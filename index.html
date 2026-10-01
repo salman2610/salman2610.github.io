@@ -120,6 +120,24 @@ nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .cmdk-empty{padding:22px 16px;text-align:center;font-size:.86rem;opacity:.5}
 .cmdk-hint{display:flex;gap:16px;padding:10px 16px;border-top:1px solid var(--hair);font-size:.73rem;opacity:.42}
 
+/* project detail modal */
+.proj-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px}
+.proj-modal.open{display:flex}
+.proj-backdrop{position:absolute;inset:0;background:rgba(16,12,28,.78);backdrop-filter:blur(6px)}
+.proj-box{position:relative;z-index:1;width:min(640px,100%);max-height:86vh;overflow-y:auto;background:var(--ink-2);border:1px solid var(--hair);border-radius:12px;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.6);transform:translateY(-10px) scale(.98);opacity:0;transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .3s ease}
+.proj-modal.open .proj-box{transform:translateY(0) scale(1);opacity:1}
+.proj-close{position:absolute;top:14px;right:14px;z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--hair);background:rgba(16,12,28,.6);color:var(--fg);cursor:pointer;font-size:.85rem}
+.proj-close:hover{border-color:var(--aqua);color:var(--aqua)}
+.proj-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--ink)}
+.proj-body{padding:26px clamp(22px,4vw,34px) clamp(28px,4vh,40px)}
+.proj-tag{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;opacity:.5}
+.proj-body h3{margin-top:10px;font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(1.4rem,3.4vw,2rem);letter-spacing:-.02em}
+.proj-body p{margin-top:14px;font-size:1rem;line-height:1.6;opacity:.72;max-width:56ch}
+.proj-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.proj-links a{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid var(--hair);border-radius:999px;font-size:.88rem;transition:background .3s ease,color .3s ease,border-color .3s ease}
+.proj-links a:hover{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+
 /* draggable work gallery */
 .work-pin{cursor:grab}
 .work-pin.dragging{cursor:grabbing}
@@ -178,12 +196,19 @@ body.ready .hero-row{opacity:1;transform:none}
 .terminal{
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;
   background:rgba(244,242,238,.05);border:1px solid var(--hair);border-radius:6px;
-  padding:12px 14px;white-space:nowrap;min-width:min(340px,80vw);flex:0 0 auto;
+  padding:12px 14px;min-width:min(360px,84vw);max-width:420px;flex:0 0 auto;cursor:text;
 }
-.tprompt{color:var(--aqua);opacity:.9}
-.ttype{opacity:.85}
-.tcursor{opacity:.8;animation:tblink 1s steps(1) infinite}
+.terminal.focused{border-color:var(--aqua)}
+.term-output{max-height:6.6em;overflow-y:auto;margin-bottom:2px}
+.term-output div{opacity:.75;white-space:pre-wrap;word-break:break-word;line-height:1.5}
+.term-output div.echo{opacity:.95}
+.term-output div.echo::before{content:"root@salman:~$ ";color:var(--aqua);opacity:.9}
+.term-line{white-space:nowrap;display:flex;align-items:center}
+.tprompt{color:var(--aqua);opacity:.9;flex:0 0 auto}
+.ttype{opacity:.85;margin-left:6px;white-space:pre;overflow:hidden;text-overflow:ellipsis}
+.tcursor{opacity:.8;animation:tblink 1s steps(1) infinite;flex:0 0 auto}
 @keyframes tblink{0%,49%{opacity:.8}50%,100%{opacity:0}}
+.term-input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 
 /* marquee */
 .strip{background:var(--ink);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);overflow:hidden;padding:clamp(14px,2vw,22px) 0}
@@ -372,7 +397,7 @@ body.ready .hero-row{opacity:1;transform:none}
 .certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:clamp(40px,6vh,64px)}
 .cert-card{position:relative;height:120px;perspective:800px;cursor:pointer}
 .cert-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.16,1,.3,1);transform-style:preserve-3d}
-.cert-card.flipped .cert-inner,.cert-card:focus-visible .cert-inner{transform:rotateY(180deg)}
+.cert-card.flipped .cert-inner,.cert-card:focus-visible .cert-inner,.cert-card:hover .cert-inner{transform:rotateY(180deg)}
 .cert-face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--hair);border-radius:8px;padding:14px;display:flex;flex-direction:column;justify-content:center}
 .cert-front{background:rgba(244,242,238,.03)}
 .cert-front h4{font-family:"Syne",sans-serif;font-weight:700;font-size:.95rem;line-height:1.25;letter-spacing:-.005em}
@@ -527,6 +552,20 @@ body.ready .hero-row{opacity:1;transform:none}
   </div>
 </div>
 
+<div class="proj-modal" id="projModal" aria-hidden="true">
+  <div class="proj-backdrop" id="projBackdrop"></div>
+  <div class="proj-box" role="dialog" aria-modal="true" aria-label="Project detail">
+    <button class="proj-close" id="projClose" aria-label="Close">✕</button>
+    <img id="projImg" alt="" class="proj-img" />
+    <div class="proj-body">
+      <span class="proj-tag" id="projTag"></span>
+      <h3 id="projTitle"></h3>
+      <p id="projDesc"></p>
+      <div class="proj-links" id="projLinks"></div>
+    </div>
+  </div>
+</div>
+
 <div id="wrap">
   <main id="top">
 
@@ -541,7 +580,11 @@ body.ready .hero-row{opacity:1;transform:none}
         <div class="hero-spacer" aria-hidden="true"></div>
         <div class="hero-row">
           <p>Physics graduate turned security practitioner, based in Kozhikode, India. I build software, then try to break it before anyone else does.</p>
-          <div class="terminal" id="heroTerminal" aria-hidden="true"><span class="tprompt">root@salman:~$</span> <span class="ttype" id="ttype"></span><span class="tcursor">▌</span></div>
+          <div class="terminal" id="heroTerminal" role="group" aria-label="Interactive terminal — try typing help">
+            <div class="term-output" id="termOutput"></div>
+            <div class="term-line"><span class="tprompt">root@salman:~$</span><span class="ttype" id="ttype"></span><span class="tcursor">▌</span></div>
+            <input id="termInput" class="term-input" autocomplete="off" spellcheck="false" autocapitalize="off" aria-label="Terminal input" />
+          </div>
         </div>
       </div>
     </section>
@@ -822,6 +865,7 @@ var PROJECTS = [
   {t:"Purple Agent",             y:"Active",  tag:"Python · systemd · JWT auth",      url:"https://github.com/salman2610/purple-agent",
    desc:"A modular server monitoring agent with centralized telemetry — CPU, memory, disk, processes and auth logs, plus file-integrity monitoring — deployed as a Linux systemd service with JWT-authenticated communication."},
   {t:"RedScribe",                y:"In dev",  tag:"FastAPI · Next.js · AI reporting", url:"https://redscribe-2291.vercel.app/",
+   github:"https://github.com/salman2610/redscribe",
    desc:"A self-hosted, AI-powered pentest report generation platform — FastAPI backend, Next.js frontend, PDF/DOCX export, Gemini/Ollama/Claude providers. The frontend is live; the backend isn't deployed publicly yet."}
 ];
 var CAPS = [
@@ -1246,36 +1290,70 @@ if(asBarsEl){
   requestAnimationFrame(frame);
 })();
 
-/* ---------- hero terminal typewriter ---------- */
+/* ---------- hero terminal: a real, typeable REPL ---------- */
 (function(){
-  var el=document.getElementById("ttype");
-  if(!el) return;
-  var LINES=["whoami","nmap -sV --top-ports 100 target.io","cat findings.md | grep CRITICAL","git commit -m \"ship it\""];
-  if(reduced){ el.textContent=LINES[0]; return; }
-  var li=0;
-  function typeLine(){
-    var text=LINES[li], ci=0;
-    var typeIv=setInterval(function(){
-      el.textContent=text.slice(0,ci+1); ci++;
-      SFX.key();
-      if(ci>=text.length){
-        clearInterval(typeIv);
-        setTimeout(eraseLine,1300);
-      }
-    },34);
+  var root=document.getElementById("heroTerminal"), el=document.getElementById("ttype"),
+      out=document.getElementById("termOutput"), input=document.getElementById("termInput");
+  if(!root||!el||!input) return;
+
+  function line(text,cls){
+    var d=document.createElement("div");
+    if(cls) d.className=cls;
+    d.textContent=text;
+    out.appendChild(d);
+    while(out.children.length>16) out.removeChild(out.firstChild);
+    out.scrollTop=out.scrollHeight;
   }
-  function eraseLine(){
-    var text=el.textContent;
-    var eraseIv=setInterval(function(){
-      text=text.slice(0,-1); el.textContent=text;
-      if(text.length===0){
-        clearInterval(eraseIv);
-        li=(li+1)%LINES.length;
-        setTimeout(typeLine,260);
-      }
-    },20);
+
+  var CMDS={
+    help:function(){ return "commands: help, whoami, projects, skills, contact, ls, sudo, clear"; },
+    whoami:function(){ return "salmanul_faris — full-stack dev / security researcher, kozhikode"; },
+    ls:function(){ return PROJECTS.map(function(p){ return p.t.toLowerCase().replace(/\s+/g,"-"); }).join("  "); },
+    projects:function(){
+      return PROJECTS.map(function(p,i){ return (i+1)+". "+p.t+" — "+p.tag; }).join("\n");
+    },
+    skills:function(){ return CAPS.map(function(c){ return c.n; }).join(", "); },
+    contact:function(){ return "salmanulfariss642@gmail.com — or scroll to the bottom, I don't bite"; },
+    date:function(){ return new Date().toString(); },
+    clear:function(){ out.innerHTML=""; return null; },
+    sudo:function(){ if(triggerSudoEgg) triggerSudoEgg(); return "permission granted."; }
+  };
+
+  function run(cmdRaw){
+    var cmd=cmdRaw.trim();
+    if(!cmd) return;
+    line(cmd,"echo");
+    var key=cmd.toLowerCase().split(/\s+/)[0];
+    var fn=CMDS[key];
+    if(!fn){ line("command not found: "+key+" — try 'help'"); return; }
+    var res=fn();
+    if(res) res.split("\n").forEach(function(l2){ line(l2); });
   }
-  typeLine();
+
+  root.addEventListener("click",function(){ input.focus(); });
+  input.addEventListener("focus",function(){ root.classList.add("focused"); });
+  input.addEventListener("blur",function(){ root.classList.remove("focused"); });
+  input.addEventListener("input",function(){ el.textContent=input.value; });
+  input.addEventListener("keydown",function(e){
+    if(e.key==="Enter"){ run(input.value); input.value=""; el.textContent=""; }
+    else if(e.key.length===1||e.key==="Backspace") SFX.key();
+  });
+
+  /* a short auto-typed intro so it doesn't open on a blank prompt, then hands over control */
+  var INTRO="whoami";
+  if(reduced){ el.textContent=INTRO; return; }
+  var ci=0;
+  var iv=setInterval(function(){
+    el.textContent=INTRO.slice(0,ci+1); ci++; SFX.key();
+    if(ci>=INTRO.length){
+      clearInterval(iv);
+      setTimeout(function(){
+        run(INTRO);
+        el.textContent="";
+        line("type 'help' to see what else this does");
+      },500);
+    }
+  },70);
 })();
 
 /* ---------- text scramble / decode ---------- */
@@ -1458,6 +1536,31 @@ if("IntersectionObserver" in window && bgRows.length){
 } else {
   bgRows.forEach(function(r){ r.classList.add("in"); });
 }
+
+/* ---------- certification flip-cards ---------- */
+var CERTS=[
+  {n:"Certified Penetration Tester (CPT)", issuer:"RedTeam Hacker Academy", year:"2024"},
+  {n:"Fortinet Certified Associate — Cybersecurity", issuer:"Fortinet", year:"2025"},
+  {n:"Fortinet Certified Associate — IT Operations", issuer:"Fortinet", year:"2025"},
+  {n:"Cisco Ethical Hacker", issuer:"Cisco", year:"2025"},
+  {n:"Cisco Cyber Threat Management", issuer:"Cisco", year:"2025"}
+];
+var certsEl=document.getElementById("certs");
+if(certsEl){
+  CERTS.forEach(function(c){
+    var card=document.createElement("div");
+    card.className="cert-card"; card.tabIndex=0;
+    card.innerHTML='<div class="cert-inner">'+
+      '<div class="cert-face cert-front"><h4>'+c.n+'</h4><span>Certification</span></div>'+
+      '<div class="cert-face cert-back"><span class="issuer">'+c.issuer+'</span><span class="year">'+c.year+'</span></div>'+
+    '</div>';
+    if(coarse||reduced){
+      card.addEventListener("click",function(){ card.classList.toggle("flipped"); });
+    }
+    certsEl.appendChild(card);
+  });
+}
+
 var dotEls=Array.prototype.slice.call(document.querySelectorAll(".dotnav a"));
 var dotTargets=dotEls.map(function(a){ return document.querySelector(a.getAttribute("href")); });
 var procStageEls=procPin?Array.prototype.slice.call(procPin.querySelectorAll(".proc-stage")):[];
@@ -2058,6 +2161,9 @@ setTimeout(measure,2500);
     {label:"Read Medium write-ups",      k:"Link",    run:function(){ openLink("https://medium.com/@salmanulfariss642"); }},
     {label:"Send an email",              k:"Action",  run:function(){ window.location.href="mailto:salmanulfariss642@gmail.com"; }}
   ];
+  PROJECTS.forEach(function(p,pi){
+    CMDS.push({label:"Project: "+p.t, k:"Project", run:function(){ if(openProject) openProject(pi); }});
+  });
 
   var filtered=CMDS.slice(), activeIdx=0;
 
@@ -2156,7 +2262,32 @@ setTimeout(measure,2500);
   });
 })();
 
+/* ---------- project detail modal ---------- */
+var openProject=null;
+(function(){
+  var modal=document.getElementById("projModal"), backdrop=document.getElementById("projBackdrop"),
+      closeBtn=document.getElementById("projClose"), img=document.getElementById("projImg"),
+      tag=document.getElementById("projTag"), title=document.getElementById("projTitle"),
+      desc=document.getElementById("projDesc"), links=document.getElementById("projLinks");
+  if(!modal) return;
+  function close(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); document.body.classList.remove("locked"); }
+  function open(i){
+    var p=PROJECTS[i]; if(!p) return;
+    img.src=ART[i]||""; tag.textContent=p.y+" · "+p.tag; title.textContent=p.t; desc.textContent=p.desc||"";
+    var ls="";
+    if(p.github){ ls+='<a href="'+p.github+'" target="_blank" rel="noopener noreferrer">View on GitHub</a>'; }
+    ls+='<a href="'+p.url+'" target="_blank" rel="noopener noreferrer">'+(p.github&&p.url!==p.github?"View live":"View repo")+'</a>';
+    links.innerHTML=ls;
+    modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.classList.add("locked");
+  }
+  backdrop.addEventListener("click",close);
+  closeBtn.addEventListener("click",close);
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&modal.classList.contains("open")) close(); });
+  openProject=open;
+})();
+
 /* ---------- easter egg: type "sudo" → matrix rain ---------- */
+var triggerSudoEgg=null;
 (function(){
   var buf="", running=false;
 
@@ -2223,6 +2354,7 @@ setTimeout(measure,2500);
     }
   }
 
+  triggerSudoEgg=trigger;
   document.addEventListener("keydown",function(e){
     var ae=document.activeElement;
     if(ae && (ae.tagName==="INPUT" || ae.tagName==="TEXTAREA")) return;
