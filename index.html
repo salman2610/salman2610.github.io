@@ -470,7 +470,7 @@ body.ready .hero-row{opacity:1;transform:none}
 .contact{background:var(--ink);padding:clamp(70px,12vh,150px) clamp(18px,4vw,56px) clamp(28px,5vh,50px);position:relative;overflow:hidden}
 .contact-bg{position:absolute;inset:-10%;width:120%;height:120%;z-index:0;opacity:.5;filter:blur(70px);pointer-events:none}
 .contact>*:not(.contact-bg){position:relative;z-index:1}
-.contact-headline{font-size:clamp(2.4rem,7.4vw,6.4rem);margin-top:16px;max-width:13ch}
+.contact-headline{font-size:clamp(2rem,5.2vw,4.6rem);font-weight:600;line-height:.95;margin-top:16px;max-width:16ch}
 .email-pill{
   display:inline-flex;align-items:center;gap:12px;margin-top:clamp(34px,6vh,56px);
   padding:clamp(14px,1.8vw,18px) clamp(22px,3vw,30px);border:1px solid var(--hair);border-radius:999px;
@@ -776,7 +776,7 @@ body.ready .hero-row{opacity:1;transform:none}
     <section class="contact" id="contact">
       <canvas id="contactBg" class="contact-bg" aria-hidden="true"></canvas>
       <span class="small">Open to security &amp; full-stack work</span>
-      <h2 class="display contact-headline">Have something to<br/>build, break, or teach?</h2>
+      <h2 class="display contact-headline">Got something to<br/>secure or build?</h2>
       <a href="mailto:salmanulfariss642@gmail.com" class="email-pill magnet"><span class="dot"></span><span class="scr" data-text="salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</span></a>
       <div class="doc-row">
         <a class="doc-pill magnet" href="https://salman2610.github.io/Salmanul_Faris_Cybersecurity_Resume%20.pdf" target="_blank" rel="noopener noreferrer"><span class="dot"></span><span class="scr" data-text="Download résumé">Download résumé</span></a>
@@ -1826,14 +1826,17 @@ requestAnimationFrame(loop);
   var vs="attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
   var fs=[
   "precision highp float;",
-  "uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform sampler2D uText; uniform float uHasText;",
+  "uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform vec2 uTr0,uTr1,uTr2; uniform float uPulse; uniform vec3 uClk; uniform sampler2D uText; uniform float uHasText;",
   "float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}",
   "float map(vec3 p){",
   " float t=uTime*0.35;",
   " float d=length(p-vec3(sin(t)*0.85,cos(t*0.9)*0.45,0.0))-0.78;",
   " d=smin(d,length(p-vec3(cos(t*1.13)*0.95,sin(t*0.72)*0.6,sin(t)*0.45))-0.52,0.62);",
   " d=smin(d,length(p-vec3(sin(t*0.61)*1.25,cos(t*1.31)*0.72,cos(t*0.8)*0.5))-0.44,0.62);",
-  " d=smin(d,length(p-vec3(uMouse.x*1.7,uMouse.y*1.05,0.55))-0.46,0.75);",
+  " d=smin(d,length(p-vec3(uMouse.x*1.7,uMouse.y*1.05,1.0))-(0.5+uPulse*0.45),0.8+uPulse*0.4);",
+  " d=smin(d,length(p-vec3(uTr0.x*1.7,uTr0.y*1.05,0.95))-0.42,0.7);",
+  " d=smin(d,length(p-vec3(uTr1.x*1.7,uTr1.y*1.05,0.85))-0.32,0.65);",
+  " d=smin(d,length(p-vec3(uTr2.x*1.7,uTr2.y*1.05,0.75))-0.23,0.6);",
   " return d;}",
   "vec3 nrm(vec3 p){vec2 e=vec2(0.0016,0.);return normalize(vec3(map(p+e.xyy)-map(p-e.xyy),map(p+e.yxy)-map(p-e.yxy),map(p+e.yyx)-map(p-e.yyx)));}",
   "vec3 env(vec3 rd){",
@@ -1878,6 +1881,8 @@ requestAnimationFrame(loop);
   " float amp=0.0026+prox*0.0058;",
   " vec2 mp=uMouse*0.5+0.5; vec2 md=(sc-mp)*vec2(asr,1.0); float mr=length(md);",
   " vec2 rip=md/(mr+1e-4)*sin(mr*44.0-ta*4.5)*exp(-mr*4.2)*0.0048;",
+  " vec2 cd=(sc-uClk.xy)*vec2(asr,1.0); float cr=length(cd); float fr=uClk.z*0.75;",
+  " rip+=cd/(cr+1e-4)*sin((cr-fr)*55.0)*exp(-abs(cr-fr)*10.0)*exp(-uClk.z*1.6)*0.016;",
   " vec2 tuv=sc+(w*amp+rip)*asp+lensR.xy*0.045*lensK*asp;",
   " vec2 dv=normalize(w+vec2(1e-4))*asp*0.0016;",
   " float ta2=(txt(tuv)*2.0+txt(tuv+dv)+txt(tuv-dv))*0.25;",
@@ -1904,7 +1909,7 @@ requestAnimationFrame(loop);
   gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
 
   var uRes=gl.getUniformLocation(prog,"uRes"), uTime=gl.getUniformLocation(prog,"uTime"),
-      uMouse=gl.getUniformLocation(prog,"uMouse"), uText=gl.getUniformLocation(prog,"uText"),
+      uMouse=gl.getUniformLocation(prog,"uMouse"), uTr0=gl.getUniformLocation(prog,"uTr0"), uTr1=gl.getUniformLocation(prog,"uTr1"), uTr2=gl.getUniformLocation(prog,"uTr2"), uPulse=gl.getUniformLocation(prog,"uPulse"), uClk=gl.getUniformLocation(prog,"uClk"), uText=gl.getUniformLocation(prog,"uText"),
       uHasText=gl.getUniformLocation(prog,"uHasText");
 
   var dpr=Math.min(devicePixelRatio||1,1.5);
@@ -1991,7 +1996,8 @@ requestAnimationFrame(loop);
     }).observe(row);
   })();
 
-  var tmx=0,tmy=0,cmx=0,cmy=0;
+  var tmx=0,tmy=0,cmx=0,cmy=0, t0x=0,t0y=0,t1x=0,t1y=0,t2x=0,t2y=0, v0x=0,v0y=0,v1x=0,v1y=0,v2x=0,v2y=0, clkX=0.5,clkY=0.5,clkAge=99, pulse=0;
+  addEventListener("pointerdown",function(e){ pulse=1; clkAge=0; clkX=e.clientX/innerWidth; clkY=1-e.clientY/innerHeight; });
   addEventListener("mousemove",function(e){tmx=(e.clientX/innerWidth)*2-1;tmy=-((e.clientY/innerHeight)*2-1);});
   addEventListener("touchmove",function(e){ if(!e.touches[0])return;
     tmx=(e.touches[0].clientX/innerWidth)*2-1; tmy=-((e.touches[0].clientY/innerHeight)*2-1);},{passive:true});
@@ -2012,6 +2018,13 @@ requestAnimationFrame(loop);
     gl.uniform2f(uRes,cv.width,cv.height);
     gl.uniform1f(uTime,reduced?4.0:(now-start)/1000);
     gl.uniform2f(uMouse,cmx,cmy);
+    /* liquid tail: each droplet chases the one before it, so the blob stretches toward the cursor and snaps back */
+    v0x=(v0x+(cmx-t0x)*0.012)*0.88; v0y=(v0y+(cmy-t0y)*0.012)*0.88; t0x+=v0x; t0y+=v0y;
+    v1x=(v1x+(t0x-t1x)*0.010)*0.88; v1y=(v1y+(t0y-t1y)*0.010)*0.88; t1x+=v1x; t1y+=v1y;
+    v2x=(v2x+(t1x-t2x)*0.008)*0.88; v2y=(v2y+(t1y-t2y)*0.008)*0.88; t2x+=v2x; t2y+=v2y;
+    clkAge+=0.016;
+    pulse*=0.93;
+    gl.uniform2f(uTr0,t0x,t0y); gl.uniform2f(uTr1,t1x,t1y); gl.uniform2f(uTr2,t2x,t2y); gl.uniform1f(uPulse,pulse); gl.uniform3f(uClk,clkX,clkY,clkAge);
     gl.uniform1f(uHasText,hasText?1:0);
     gl.bindTexture(gl.TEXTURE_2D,tex);
     gl.drawArrays(gl.TRIANGLES,0,3);
