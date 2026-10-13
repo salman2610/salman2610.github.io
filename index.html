@@ -259,9 +259,18 @@ body.ready .hero-row{opacity:1;transform:none}
 .proc-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(26px,5vh,56px)}
 .proc-eyebrow{max-width:24ch}
 .proc-bignum{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(3.2rem,9vw,7.5rem);line-height:.9;letter-spacing:-.03em;opacity:.2;font-variant-numeric:tabular-nums;will-change:transform}
-.proc-stages{position:relative;min-height:clamp(230px,34vh,360px);perspective:1100px}
+.proc-stages{position:relative;min-height:clamp(300px,46vh,470px);perspective:1100px}
 .proc-stage{position:absolute;inset:0 auto 0 0;max-width:56ch;opacity:0;transform-style:preserve-3d;transform-origin:left bottom;backface-visibility:hidden;will-change:transform,opacity;pointer-events:none}
 .proc-stage.on{pointer-events:auto}
+.process-pin::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(620px circle at 88% 18%,rgba(139,108,255,.20),transparent 62%),radial-gradient(520px circle at 6% 92%,rgba(53,214,200,.18),transparent 62%),radial-gradient(420px circle at 70% 85%,rgba(255,122,107,.12),transparent 60%),
+  linear-gradient(rgba(16,12,28,.055) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(16,12,28,.055) 1px,transparent 1px) 0 0/44px 44px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
+.proc-stage h3{display:flex;align-items:center;gap:14px}
+.proc-stage h3::before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--sc,#8b6cff);box-shadow:0 0 0 5px color-mix(in srgb,var(--sc,#8b6cff) 22%,transparent)}
+.proc-term{margin-top:22px;max-width:50ch;padding:14px 16px;border-radius:14px;background:rgba(16,12,28,.94);color:#d8d4e6;border:1px solid rgba(255,255,255,.08);box-shadow:0 22px 44px -26px rgba(16,12,28,.6),inset 3px 0 0 var(--sc,#8b6cff);font:12.5px/1.7 ui-monospace,"DejaVu Sans Mono",Menlo,monospace;white-space:nowrap;overflow:hidden}
+.proc-term i{font-style:normal;color:var(--sc,#35d6c8)}
+.proc-term em{font-style:normal}.proc-term .ok{color:#2fd07a}.proc-term .warn{color:#ff9a8a}
 .proc-stage h3{font-family:"Syne",sans-serif;font-weight:700;font-size:clamp(2.1rem,5.4vw,3.8rem);letter-spacing:-.03em}
 .proc-stage p{margin-top:18px;max-width:50ch;font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.55;opacity:.84}
 .proc-eyebrow{opacity:.75}
@@ -308,12 +317,15 @@ body.ready .hero-row{opacity:1;transform:none}
 .story-pin{position:absolute;top:0;left:0;width:100%;height:100svh;overflow:hidden;will-change:transform;display:flex;align-items:center;justify-content:center}
 .story-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .story-veil{position:absolute;inset:0;background:radial-gradient(58% 52% at 50% 50%,transparent 25%,rgba(16,12,28,.6) 100%);pointer-events:none}
-.story-text{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:780px;min-height:clamp(90px,18vh,170px);perspective:1200px}
+.story-text{position:relative;z-index:2;text-align:center;padding:0 24px;width:min(100vw,780px);box-sizing:border-box;max-width:780px;min-height:clamp(170px,30vh,260px);perspective:1200px}
 .story-num{display:block;font-family:"Syne",sans-serif;font-weight:800;letter-spacing:.12em;font-size:clamp(.8rem,1.5vw,1rem);opacity:.6;margin-bottom:14px;min-height:1.2em}
 .story-line{position:absolute;inset:0;top:22px;display:flex;align-items:center;justify-content:center;
   font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(1.6rem,5vw,3.2rem);line-height:1.15;letter-spacing:-.02em;color:var(--fg);
   opacity:0;transform-style:preserve-3d;transform-origin:center center;backface-visibility:hidden;will-change:transform,opacity;pointer-events:none}
 .story-line.big{font-size:clamp(1.8rem,5.8vw,3.9rem)}
+.story-line.step{flex-direction:column;gap:16px;text-align:center}
+.story-line.step b{font-weight:800;font-size:clamp(1.9rem,6.4vw,3.4rem);letter-spacing:-.02em}
+.story-line.step span{display:block;font-family:"Inter",system-ui,sans-serif;font-weight:400;font-size:clamp(.98rem,2.5vw,1.2rem);line-height:1.5;letter-spacing:0;max-width:32ch;opacity:.74}
 .story-bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--violet),var(--aqua),var(--coral));z-index:3}
 
 /* work */
@@ -335,7 +347,9 @@ body.ready .hero-row{opacity:1;transform:none}
 .card{position:relative;flex:0 0 var(--cw);width:var(--cw);min-width:0;perspective:900px;display:block}
 .card .frame{position:relative;width:100%;height:var(--ch);margin:0;border-radius:2px;overflow:hidden;background:var(--ink);will-change:transform;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease;transform-style:preserve-3d}
 .card .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,12,28,.55),transparent 55%)}
-.card:hover .frame{box-shadow:0 30px 60px -20px rgba(16,12,28,.4)}
+.card:hover .frame{box-shadow:0 30px 60px -20px rgba(16,12,28,.4),inset 0 0 0 1px rgba(255,255,255,.22)}
+.card .frame::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .35s ease;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.32),rgba(139,108,255,.14) 45%,transparent 70%);mix-blend-mode:screen}
+.card:hover .frame::before{opacity:1}
 .card img{width:100%;height:100%;display:block;object-fit:cover;user-select:none;-webkit-user-drag:none;transition:transform .9s cubic-bezier(.16,1,.3,1)}
 .card:hover img{transform:scale(1.05)}
 .card .cap{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:baseline;gap:4px 16px;margin-top:14px;color:var(--ink)}
@@ -470,7 +484,16 @@ body.ready .hero-row{opacity:1;transform:none}
 .contact{background:var(--ink);padding:clamp(70px,12vh,150px) clamp(18px,4vw,56px) clamp(28px,5vh,50px);position:relative;overflow:hidden}
 .contact-bg{position:absolute;inset:-10%;width:120%;height:120%;z-index:0;opacity:.5;filter:blur(70px);pointer-events:none}
 .contact>*:not(.contact-bg){position:relative;z-index:1}
-.contact-headline{font-size:clamp(2rem,5.2vw,4.6rem);font-weight:600;line-height:.95;margin-top:16px;max-width:16ch}
+.contact>.globe{position:absolute;right:clamp(28px,6vw,90px);bottom:clamp(110px,17vh,170px);width:clamp(170px,min(20vw,30vh),270px);aspect-ratio:1;cursor:grab;z-index:2;touch-action:pan-y}
+.globe:active{cursor:grabbing}
+@media(max-width:900px){.contact>.globe{display:none}}
+.contact-headline{font-size:clamp(2rem,5.2vw,4.6rem);font-weight:600;line-height:.95;margin-top:16px;max-width:16ch;color:var(--bone)}
+@media (prefers-reduced-motion:no-preference){
+  .contact-headline{color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;
+    background-image:radial-gradient(380px circle at var(--hx,22%) var(--hy,40%),rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(105deg,#f4f2ee 0%,#cfc6ff 14%,#8b6cff 30%,#35d6c8 46%,#f5c84b 62%,#ff7a6b 76%,#f4f2ee 92%);
+    background-size:100% 100%,320% 100%;background-repeat:no-repeat;animation:aurora 16s ease-in-out infinite alternate}
+}
+@keyframes aurora{from{background-position:0 0,0% 0}to{background-position:0 0,100% 0}}
 .email-pill{
   display:inline-flex;align-items:center;gap:12px;margin-top:clamp(34px,6vh,56px);
   padding:clamp(14px,1.8vw,18px) clamp(22px,3vw,30px);border:1px solid var(--hair);border-radius:999px;
@@ -638,12 +661,12 @@ body.ready .hero-row{opacity:1;transform:none}
             <div class="proc-bignum" id="procBigNum">01</div>
           </div>
           <div class="proc-stages" id="procStages">
-            <article class="proc-stage" data-i="0"><h3>Recon</h3><p>Asset discovery, enumeration, technology fingerprinting. Understand what actually exists before deciding what to test.</p></article>
-            <article class="proc-stage" data-i="1"><h3>Map</h3><p>Attack surface mapping and threat modelling — what's reachable, what's exposed, and what actually matters if it breaks.</p></article>
-            <article class="proc-stage" data-i="2"><h3>Test</h3><p>Manual and tool-assisted testing against the OWASP Top 10 — Burp Suite and Nmap as a starting point, not the whole method.</p></article>
-            <article class="proc-stage" data-i="3"><h3>Exploit</h3><p>Validate real impact safely, in scope, with evidence. A finding isn't a finding until it's proven, not just flagged by a scanner.</p></article>
-            <article class="proc-stage" data-i="4"><h3>Report</h3><p>Every finding CVSS-scored and reproducible — a report your team can act on without a follow-up call to ask what it means.</p></article>
-            <article class="proc-stage" data-i="5"><h3>Remediate</h3><p>Fix guidance mapped to each finding, then a retest. A report nobody acts on was never worth writing.</p></article>
+            <article class="proc-stage" data-i="0" style="--sc:#35d6c8"><h3>Recon</h3><p>Asset discovery, enumeration, technology fingerprinting. Understand what actually exists before deciding what to test.</p><div class="proc-term" aria-hidden="true"><div><i>$ </i>nmap -sV -p- target.example</div><div>443/tcp open  https  nginx 1.24</div><div>22/tcp  open  ssh    OpenSSH 9.2</div><div><i>+ </i><em class="ok">14 subdomains found</em></div></div></article>
+            <article class="proc-stage" data-i="1" style="--sc:#8b6cff"><h3>Map</h3><p>Attack surface mapping and threat modelling — what's reachable, what's exposed, and what actually matters if it breaks.</p><div class="proc-term" aria-hidden="true"><div>entry points  ▸ 38 routes · 9 forms</div><div>trust bounds  ▸ user → api → database</div><div><em class="warn">risk order    ▸ auth &gt; upload &gt; admin</em></div></div></article>
+            <article class="proc-stage" data-i="2" style="--sc:#f5c84b"><h3>Test</h3><p>Manual and tool-assisted testing against the OWASP Top 10 — Burp Suite and Nmap as a starting point, not the whole method.</p><div class="proc-term" aria-hidden="true"><div><i>$ </i>GET /api/orders?id=1&#x27;</div><div><i>← </i><em class="warn">500  SQL syntax error near &quot;&#x27;&quot;</em></div><div><i>⚑ </i><em class="warn">injection candidate · OWASP A03</em></div></div></article>
+            <article class="proc-stage" data-i="3" style="--sc:#ff7a6b"><h3>Exploit</h3><p>Validate real impact safely, in scope, with evidence. A finding isn't a finding until it's proven, not just flagged by a scanner.</p><div class="proc-term" aria-hidden="true"><div><i>$ </i>id=1 UNION SELECT user()</div><div><i>← </i>app_rw@db-internal</div><div><i>✔ </i><em class="ok">impact proven · read-only · in scope</em></div></div></article>
+            <article class="proc-stage" data-i="4" style="--sc:#35d6c8"><h3>Report</h3><p>Every finding CVSS-scored and reproducible — a report your team can act on without a follow-up call to ask what it means.</p><div class="proc-term" aria-hidden="true"><div>FINDING-07  SQL injection</div><div><em class="warn">CVSS 8.1 High · A03:2021</em></div><div><i>✔ </i><em class="ok">steps · evidence · fix attached</em></div></div></article>
+            <article class="proc-stage" data-i="5" style="--sc:#8b6cff"><h3>Remediate</h3><p>Fix guidance mapped to each finding, then a retest. A report nobody acts on was never worth writing.</p><div class="proc-term" aria-hidden="true"><div><i>- </i><em class="warn">query(&quot;… id = &quot; + id)</em></div><div><i>+ </i><em class="ok">query(&quot;… id = ?&quot;, [id])</em></div><div><i>✔ </i><em class="ok">retest passed · finding closed</em></div></div></article>
           </div>
           <div class="proc-dashes" id="procDashes"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
         </div>
@@ -656,13 +679,13 @@ body.ready .hero-row{opacity:1;transform:none}
         <div class="story-veil" aria-hidden="true"></div>
         <div class="story-text" id="storyText">
           <span class="story-num" id="storyNum"></span>
-          <p class="story-line" data-i="0">You are looking at a normal web application.</p>
-          <p class="story-line" data-i="1">But every application has an attack surface.</p>
-          <p class="story-line" data-i="2">Recon.</p>
-          <p class="story-line" data-i="3">Enumeration.</p>
-          <p class="story-line" data-i="4">Discovery.</p>
-          <p class="story-line" data-i="5">Exploitation.</p>
-          <p class="story-line" data-i="6">Remediation.</p>
+          <p class="story-line step" data-i="0"><b>A normal web application.</b><span>A login page, a dashboard, an API behind it. Nothing looks wrong.</span></p>
+          <p class="story-line step" data-i="1"><b>Every one has an attack surface.</b><span>Each form, endpoint, upload and integration is a door someone can try.</span></p>
+          <p class="story-line step" data-i="2"><b>Recon.</b><span>I map what's exposed: domains, subdomains, open ports and the tech behind them.</span></p>
+          <p class="story-line step" data-i="3"><b>Enumeration.</b><span>I probe each service for users, endpoints, versions and hidden paths.</span></p>
+          <p class="story-line step" data-i="4"><b>Discovery.</b><span>I find where the logic breaks: weak auth, injection points, misconfigurations.</span></p>
+          <p class="story-line step" data-i="5"><b>Exploitation.</b><span>I prove the impact safely, in scope, with evidence. Not just a scanner alert.</span></p>
+          <p class="story-line step" data-i="6"><b>Remediation.</b><span>I write the fix, hand it to your developers, and retest until it holds.</span></p>
           <p class="story-line big" data-i="7">Build it. Break it. Secure it.</p>
         </div>
         <div class="story-bar" id="storyBar"></div>
@@ -788,6 +811,7 @@ body.ready .hero-row{opacity:1;transform:none}
         <div><h4>Elsewhere</h4><ul><li><a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://salman2610.github.io" target="_blank" rel="noopener noreferrer">Full portfolio</a></li></ul></div>
         <div><h4>Reach me</h4><ul><li><a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li><li><a href="tel:+919962726106">+91 99627 26106</a></li></ul></div>
       </div>
+      <canvas id="globe" class="globe" aria-label="Globe with a marker on Kozhikode, India"></canvas>
       <div class="foot"><span>© 2026 P. Salmanul Faris</span><span>Built in the browser</span></div>
     </section>
 
@@ -973,6 +997,7 @@ PROJECTS.forEach(function(p,i){
       var r=frameEl.getBoundingClientRect();
       var px=(e.clientX-r.left)/r.width-0.5, py=(e.clientY-r.top)/r.height-0.5;
       frameEl.style.transform="rotateX("+(py*-9).toFixed(2)+"deg) rotateY("+(px*11).toFixed(2)+"deg)";
+      frameEl.style.setProperty("--mx",((px+.5)*100).toFixed(1)+"%"); frameEl.style.setProperty("--my",((py+.5)*100).toFixed(1)+"%");
     });
     el.addEventListener("mouseleave",function(){ frameEl.style.transform=""; });
   }
@@ -1309,7 +1334,7 @@ if(asBarsEl){
     var scrollFrac=Math.max(0,Math.min(1, current/totalScrollLen));
     var col=stopColor(scrollFrac);
     var mxN=mx/innerWidth, myN=my/innerHeight;
-    var wide=innerWidth>900, SZ=Math.min(W,H)*(wide?0.66:0.5), cx=W*(wide?0.74:0.5), cy=H*(wide?0.5:0.3);
+    var wide=innerWidth>900, SZ=Math.min(W,H)*(wide?0.38:0.5), cx=W*(wide?0.77:0.5), cy=H*(wide?0.33:0.3);
     g.clearRect(0,0,W,H);
     for(var i=0;i<pts.length;i++){
       var p=pts[i];
@@ -1712,7 +1737,7 @@ function loop(){
       var rotX=Math.max(-62,Math.min(62,diff*-48));
       var tz=-ad*130;
       var ty=diff*22;
-      var op=Math.max(0,Math.min(1,1-Math.max(0,ad-0.2)*3.2));
+      var op=Math.max(0,Math.min(1,1-Math.max(0,ad-0.28)*2.9));
       if(op<=0.002){ pel.style.opacity="0"; continue; }
       pel.style.opacity=op.toFixed(3);
       pel.style.transform="perspective(1100px) rotateX("+rotX.toFixed(2)+"deg) translateY("+ty.toFixed(1)+"px) translateZ("+tz.toFixed(1)+"px)";
@@ -2460,6 +2485,47 @@ var triggerSudoEgg=null;
     buf=(buf+e.key).slice(-4).toLowerCase();
     if(buf==="sudo"){ buf=""; trigger(); }
   });
+})();
+
+/* ---------- contact: aurora headline light + dotted globe ---------- */
+(function(){
+  var ct=document.getElementById("contact"), h=document.querySelector(".contact-headline");
+  if(ct&&h&&!reduced&&!coarse) ct.addEventListener("mousemove",function(e){ var r=h.getBoundingClientRect(); h.style.setProperty("--hx",(e.clientX-r.left)+"px"); h.style.setProperty("--hy",(e.clientY-r.top)+"px"); });
+  var cv=document.getElementById("globe"); if(!cv) return;
+  var g=cv.getContext("2d"), dpr=Math.min(devicePixelRatio||1,2), S=0, on=false, drag=false, lx=0, off=0, offV=0;
+  var HEX="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff9ffffe0000000000000000000000000133fcfffff000700000000c000000000000129900fffff00000000e001f8000000000003c034003fff00000006007ff80080008040017c6fe01ffe000000061dfffff7f80007ffffd43b381ff80001fe05ebfffffffffff3fffffffc3e1fc04007fd3fffffffffffff00fffffff51c1f00800f7ffffffffffffffe03ffffffc0600e00003e7ffffffffffffef801e07fffe07a0000003e7fffffffffff808000801ffff87e00000214fffffffffffe038000000ffffeff80000d1fffffffffffff0300000007ffffffc00003ffffffffffffff0000000003fffff4e00003ffffffffffffff0000000003fffffc000001fff5f7fffffffe0000000003fffff0000001ebe0effffffffc4000000003ffffe000000f86f6f3fffffff08000000001ffffc000000f029ff3fffffe208000000001ffffc0000000f007ffffffff1300000000007fff80000007f003ffffffff0400000000005ffe0000000ffeebffffffff8000000000003fc10000000fffffefffffff8000000000000f810000003ffffdf3ffffff00000000000007800000003ffffdfe1ffffe80000000000003880000007ffffeff0fe7e000000000000003d81800003ffffefe07c3d000000000000000780000007fffff780781e0800000000000000e0000007fffffe00301f0c0000000000000002800003fffff9003016000000000000000017f00001ffffff000010020000000000000007f80000fbffff000808000000000000000007ff000000fffe00001860000000000000000fff000000fffc00000ce0000000000000000fffc00000fff800000ce8c00000000000000ffff80000fff0000004083c0000000000000ffffc00007ff0000002001e0000000000000ffffc00007ff00000001a0800000000000007fff800007ff0000000000000000000000007fff000007ff100000000c000000000000001fff000007ff300000007e400000000000000fff000007fc300000007fe00000000000000fff000007fc60000003fff00000000000000ffc000003fc60000007fff00000000000000ff8000003f800000007fff80000000000001ff0000001f800000003fff80000000000001ff0000001f000000003fff80000000000001fe0000001c000000003c3f80000000000001f80000000000000000000f00000000000001f00000000000000000000200200000000003c00000000000000000000200400000000001c000000000000000000000008000000000038000000000000000000000010000000000038000000000000000000000000000000000030800000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", C=144, R=72, dots=[];
+  for(var r=0;r<R;r++) for(var c=0;c<C;c++){ var i=r*C+c; if(parseInt(HEX[i>>2],16)>>(3-(i&3))&1){ var la=(90-(r+.5)*180/R)*Math.PI/180, lo=(-180+(c+.5)*360/C)*Math.PI/180; dots.push([Math.cos(la)*Math.sin(lo),Math.sin(la),Math.cos(la)*Math.cos(lo)]); } }
+  function vec(la,lo){ la*=Math.PI/180; lo*=Math.PI/180; return [Math.cos(la)*Math.sin(lo),Math.sin(la),Math.cos(la)*Math.cos(lo)]; }
+  var HOME=vec(11.25,75.78), CITY=[vec(51.5,-.1),vec(25.2,55.3),vec(1.35,103.8),vec(40.7,-74),vec(-33.9,151.2)], TILT=.38;
+  function size(){ var b=cv.getBoundingClientRect(); S=Math.round(b.width)||200; cv.width=S*dpr; cv.height=S*dpr; g.setTransform(dpr,0,0,dpr,0,0); }
+  size(); addEventListener("resize",size);
+  function rot(v,a){ var x=v[0]*Math.cos(a)-v[2]*Math.sin(a), z=v[0]*Math.sin(a)+v[2]*Math.cos(a), y=v[1]; return [x, y*Math.cos(TILT)-z*Math.sin(TILT), y*Math.sin(TILT)+z*Math.cos(TILT)]; }
+  function slerp(a,b,s){ var d=Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2])), om=Math.acos(d), so=Math.sin(om)||1, k1=Math.sin((1-s)*om)/so, k2=Math.sin(s*om)/so; return [k1*a[0]+k2*b[0],k1*a[1]+k2*b[1],k1*a[2]+k2*b[2]]; }
+  function frame(now){
+    if(on) requestAnimationFrame(frame);
+    var t=now*.001; if(!drag){ off+=offV; offV*=.94; off*=.985; }
+    var a=(75.78+80*Math.sin(t*.22))*Math.PI/180+off, cx=S/2, cy=S/2, Rr=S*.44;
+    g.clearRect(0,0,S,S);
+    var bg=g.createRadialGradient(cx,cy,Rr*.2,cx,cy,Rr*1.25); bg.addColorStop(0,"rgba(90,70,220,.16)"); bg.addColorStop(.8,"rgba(60,40,160,.08)"); bg.addColorStop(1,"rgba(60,40,160,0)");
+    g.fillStyle=bg; g.beginPath(); g.arc(cx,cy,Rr*1.25,0,6.2832); g.fill();
+    g.strokeStyle="rgba(255,255,255,.14)"; g.lineWidth=1; g.beginPath(); g.arc(cx,cy,Rr,0,6.2832); g.stroke();
+    for(var i=0;i<dots.length;i++){ var p=rot(dots[i],a); if(p[2]<=0) continue; g.fillStyle="rgba(190,180,255,"+(.18+.62*p[2]).toFixed(2)+")"; g.fillRect(cx+p[0]*Rr-.6,cy-p[1]*Rr-.6,1.3,1.3); }
+    var hp=rot(HOME,a);
+    CITY.forEach(function(ct2,k){
+      var prog=((t*.18+k*.37)%1), lastOK=false;
+      g.lineWidth=1.1; g.beginPath(); var started=false;
+      for(var s=0;s<=1.001;s+=.04){ var v=slerp(HOME,ct2,s), lift=1+.22*Math.sin(Math.PI*s), q=rot([v[0]*lift,v[1]*lift,v[2]*lift],a); if(q[2]<-.05){ started=false; continue; } var X=cx+q[0]*Rr, Y=cy-q[1]*Rr; if(!started){ g.moveTo(X,Y); started=true; } else g.lineTo(X,Y); }
+      g.strokeStyle="rgba(53,214,200,.45)"; g.stroke();
+      var v2=slerp(HOME,ct2,prog), l2=1+.22*Math.sin(Math.PI*prog), q2=rot([v2[0]*l2,v2[1]*l2,v2[2]*l2],a);
+      if(q2[2]>0){ g.fillStyle="#fff"; g.beginPath(); g.arc(cx+q2[0]*Rr,cy-q2[1]*Rr,1.8,0,6.2832); g.fill(); }
+    });
+    if(hp[2]>0){ var X=cx+hp[0]*Rr, Y=cy-hp[1]*Rr, pr=(t*.9)%1; g.strokeStyle="rgba(255,122,107,"+(.7*(1-pr)).toFixed(2)+")"; g.lineWidth=1.4; g.beginPath(); g.arc(X,Y,3+pr*14,0,6.2832); g.stroke(); g.fillStyle="#ff7a6b"; g.beginPath(); g.arc(X,Y,3.2,0,6.2832); g.fill(); g.font="500 10px ui-monospace,Menlo,monospace"; var lft=X>cx; g.textAlign=lft?"right":"left"; g.fillStyle="rgba(255,255,255,.85)"; g.fillText("KOZHIKODE · IN",lft?X-9:X+9,Y-8); }
+  }
+  new IntersectionObserver(function(en){ var v=en[0].isIntersecting; if(v&&!on){ on=true; requestAnimationFrame(frame); } else if(!v) on=false; },{threshold:.05}).observe(cv);
+  if(reduced) frame(0);
+  cv.addEventListener("pointerdown",function(e){ drag=true; lx=e.clientX; offV=0; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove",function(e){ if(!drag) return; var d=(e.clientX-lx)*.012; off+=d; offV=d; lx=e.clientX; });
+  cv.addEventListener("pointerup",function(){ drag=false; });
 })();
 })();
 </script>
