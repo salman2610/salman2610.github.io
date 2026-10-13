@@ -484,7 +484,7 @@ body.ready .hero-row{opacity:1;transform:none}
 .contact{background:var(--ink);padding:clamp(70px,12vh,150px) clamp(18px,4vw,56px) clamp(28px,5vh,50px);position:relative;overflow:hidden}
 .contact-bg{position:absolute;inset:-10%;width:120%;height:120%;z-index:0;opacity:.5;filter:blur(70px);pointer-events:none}
 .contact>*:not(.contact-bg){position:relative;z-index:1}
-.contact>.globe{position:absolute;right:clamp(28px,6vw,90px);bottom:clamp(110px,17vh,170px);width:clamp(170px,min(20vw,30vh),270px);aspect-ratio:1;cursor:grab;z-index:2;touch-action:pan-y}
+.contact>.globe{position:absolute;right:clamp(18px,2.4vw,36px);bottom:clamp(110px,17vh,170px);width:clamp(140px,min(14vw,24vh),210px);aspect-ratio:1;cursor:grab;z-index:2;touch-action:pan-y}
 .globe:active{cursor:grabbing}
 @media(max-width:900px){.contact>.globe{display:none}}
 .contact-headline{font-size:clamp(2rem,5.2vw,4.6rem);font-weight:600;line-height:.95;margin-top:16px;max-width:16ch;color:var(--bone)}
@@ -717,12 +717,6 @@ body.ready .hero-row{opacity:1;transform:none}
     <section class="proof">
       <canvas id="proofGrid" aria-hidden="true"></canvas>
       <div class="proof-inner">
-        <div class="proof-stats">
-          <div class="stat"><span class="num" data-target="4">0</span><span class="lbl">Live projects shipped</span></div>
-          <div class="stat"><span class="num" data-target="5">0</span><span class="lbl">Certifications earned</span></div>
-          <div class="stat"><span class="num" data-target="2">0</span><span class="lbl">Internship curricula built</span></div>
-          <div class="stat"><span class="num" data-target="2">0</span><span class="lbl">Technical write-ups published</span></div>
-        </div>
         <div class="quote">
           <p>"Security isn't a phase you bolt on at the end. I build software and try to break it — sometimes in the same week — because that's the only way either discipline gets taken seriously."</p>
           <span class="who">— P. Salmanul Faris</span>
@@ -1061,16 +1055,30 @@ CAPS.forEach(function(c,i){
 /* ---------- attack surface ---------- */
 /* ---------- toolkit ---------- */
 var TOOLS=[
-  {n:"Burp Suite", d:["Web app proxy","Manual testing","Intercept & repeat requests"]},
-  {n:"Nmap",        d:["Network discovery","Port scanning","Service enumeration"]},
-  {n:"Wireshark",   d:["Packet capture","Protocol analysis","Traffic inspection"]},
-  {n:"Nuclei",      d:["Templated scanning","Fast, at scale","CI-friendly"]},
-  {n:"ffuf",        d:["Web fuzzing","Directories & params","Virtual hosts"]},
-  {n:"sqlmap",      d:["SQL injection detection","Automated exploitation","Database enumeration"]},
-  {n:"Metasploit",  d:["Exploit development","Payload generation","Impact validation"]},
-  {n:"OWASP ZAP",   d:["Open-source scanner","Active & passive scans","API testing"]},
-  {n:"Nessus",      d:["Infra vulnerability scans","Compliance checks","Asset coverage"]},
-  {n:"Linux",       d:["Kali & Ubuntu","Where all of this runs","Scripting & automation"]}
+  {n:"Burp Suite Pro", d:["Web app proxy","Collaborator & out-of-band testing","Custom extensions"]},
+  {n:"Metasploit", d:["Exploit development","Post-exploitation","Impact validation"]},
+  {n:"Sliver", d:["Adversary emulation","C2 & implant tradecraft","Red-team operations"]},
+  {n:"BloodHound", d:["Active Directory attack paths","Privilege-escalation graphs","Tiering & delegation gaps"]},
+  {n:"Impacket", d:["Kerberos & SMB attacks","Credential relay","Windows protocol tooling"]},
+  {n:"NetExec", d:["Credential spraying","Lateral movement","AD checks at scale"]},
+  {n:"Nuclei", d:["Templated scanning","Custom detection templates","CI-friendly"]},
+  {n:"Frida", d:["Dynamic instrumentation","Mobile runtime hooking","Certificate-pinning analysis"]},
+  {n:"Ghidra", d:["Reverse engineering","Binary analysis","Decompilation"]},
+  {n:"MobSF", d:["Mobile static & dynamic analysis","APK & IPA review","Manifest & permission audit"]},
+  {n:"Semgrep", d:["Static analysis","Custom rules","Secure code review"]},
+  {n:"CodeQL", d:["Semantic code queries","Variant analysis","CI scanning"]},
+  {n:"Hashcat", d:["GPU password recovery","Rule-based attacks","Hash analysis"]},
+  {n:"Responder", d:["LLMNR / NBT-NS poisoning","Internal network testing","Hash capture"]},
+  {n:"Amass", d:["Attack-surface mapping","Subdomain enumeration","OSINT graphs"]},
+  {n:"Trivy", d:["Container & IaC scanning","SBOM & CVE detection","Pipeline gates"]},
+  {n:"Wazuh", d:["SIEM & EDR","Detection engineering","Log correlation"]},
+  {n:"ffuf", d:["Web fuzzing","Directories & params","Virtual hosts"]},
+  {n:"sqlmap", d:["SQL injection detection","Automated exploitation","Database enumeration"]},
+  {n:"Nmap", d:["Network discovery","Port scanning","Service enumeration"]},
+  {n:"Wireshark", d:["Packet capture","Protocol analysis","Traffic inspection"]},
+  {n:"OWASP ZAP", d:["Open-source scanner","Active & passive scans","API testing"]},
+  {n:"Nessus", d:["Infra vulnerability scans","Compliance checks","Asset coverage"]},
+  {n:"Linux", d:["Kali & Ubuntu","Where all of this runs","Scripting & automation"]}
 ];
 var tkGrid=document.getElementById("tkGrid"), tkDetail=document.getElementById("tkDetail");
 if(tkGrid){
@@ -1334,7 +1342,7 @@ if(asBarsEl){
     var scrollFrac=Math.max(0,Math.min(1, current/totalScrollLen));
     var col=stopColor(scrollFrac);
     var mxN=mx/innerWidth, myN=my/innerHeight;
-    var wide=innerWidth>900, SZ=Math.min(W,H)*(wide?0.38:0.5), cx=W*(wide?0.77:0.5), cy=H*(wide?0.33:0.3);
+    var wide=innerWidth>900, SZ=wide?Math.min(W*0.3,H*0.66):Math.min(W,H)*0.5, cx=W*(wide?0.75:0.5), cy=H*(wide?0.47:0.3);
     g.clearRect(0,0,W,H);
     for(var i=0;i<pts.length;i++){
       var p=pts[i];
