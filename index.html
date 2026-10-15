@@ -202,6 +202,7 @@ nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:radial-gradient(900px circle at 72% 28%,rgba(100,80,230,.32),transparent 62%),radial-gradient(700px circle at 12% 92%,rgba(53,214,200,.13),transparent 60%),var(--ink)}
 body.gltext .terminal{background:rgba(14,10,28,.88)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 body.gltext .hero-row p{text-shadow:0 1px 20px rgba(10,8,20,.95),0 0 3px rgba(10,8,20,.6)}
+#vapour{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 #locks{position:absolute;inset:0;width:100%;height:100%;display:block}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hero-veil{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 0%,transparent 45%,rgba(16,12,28,.55) 100%);pointer-events:none}
@@ -628,17 +629,19 @@ body.ready .hero-row{opacity:1;transform:none}
 
     <section class="hero">
       <canvas id="locks" aria-hidden="true"></canvas>
+      <canvas id="vapour" aria-hidden="true"></canvas>
       <canvas id="gl"></canvas>
       <div class="hero-veil"></div>
       <div class="hero-inner">
         <h1 class="display">
           <span class="ln"><span>Security engineer.</span></span>
-          <span class="ln"><span>Pentester. AI developer.</span></span>
+          <span class="ln"><span>Pentester.</span></span>
+          <span class="ln"><span>AI developer.</span></span>
           <span class="ln"><span>Full-stack.</span></span>
         </h1>
         <div class="hero-spacer" aria-hidden="true"></div>
         <div class="hero-row">
-          <p>Certified Penetration Tester and full-stack developer based in Kozhikode, India. I test software for a living, and build it the rest of the time.</p>
+          <p>Certified penetration tester and full-stack developer in Kozhikode, India. I assess web, API and Android applications, and build secure software with FastAPI, React and AI.</p>
           <div class="terminal" id="heroTerminal" role="group" aria-label="Interactive terminal — try typing help">
             <div class="term-output" id="termOutput"></div>
             <div class="term-line"><span class="tprompt">root@salman:~$</span><span class="ttype" id="ttype"></span><span class="tcursor">▌</span></div>
@@ -1862,7 +1865,7 @@ requestAnimationFrame(loop);
 
 /* ================= hero WebGL: blob + refracted headline ================= */
 (function(){
-  var cv=document.getElementById("gl");
+  var cv=document.getElementById("gl"); if(cv) cv.style.display="none"; return;
   var gl=cv.getContext("webgl",{antialias:false,alpha:true,premultipliedAlpha:true,powerPreference:"high-performance"})||cv.getContext("experimental-webgl");
   if(!gl){ cv.style.background="linear-gradient(140deg,#17122A,#3b2f7a 45%,#7C6BFF)"; return; }
 
@@ -2624,7 +2627,7 @@ var triggerSudoEgg=null;
     B.forEach(function(b,i){ if(!b.live) return; var isP=(i===PI||i===KI), f=i/n, op=ss1((sc-.04-f*.26)/.16), s2=(isP?(hand.on?.001:1):Math.max(.001,1-ss1((sc-.4-f*.22)/.22)))*b.zs, sg=b.g.userData.sg;
       b.g.position.set(b.x,b.y,b.z); b.g.rotation.set(b.tx+Math.sin(t*.8+b.ph)*.22+op*.35,b.ty+Math.cos(t*.7+b.ph)*.26,b.a); b.g.scale.setScalar(s2);
       if(sg){ sg.rotation.z=op*1.2; sg.position.y=b.g.userData.sy+op*.12*b.r; } });
-    var glEl=document.getElementById("gl"); if(glEl){ glEl.style.opacity=(1-ss1((sc-.12)/.4)).toFixed(3); glEl.style.transform="translateY("+(-sc*90).toFixed(1)+"px)"; }
+    var glEl=document.getElementById("vapour"); if(glEl){ glEl.style.opacity=(1-ss1((sc-.12)/.4)).toFixed(3); glEl.style.transform="translateY("+(-sc*90).toFixed(1)+"px)"; }
     var gone=sc>.95; cvs.style.visibility=gone?"hidden":"visible"; if(!gone) ren.render(scene,cam);
   }
   requestAnimationFrame(frame);
@@ -2661,6 +2664,65 @@ var triggerSudoEgg=null;
     requestAnimationFrame(f2);
   })();
 
+})();
+
+/* ---------- hero: four titles, one at a time (vapour text effect, ported from the 21st.dev VaporizeTextCycle) ---------- */
+(function(){
+  var cv=document.getElementById("vapour"), hero=document.querySelector(".hero"), row=document.querySelector(".hero-row");
+  if(!cv||!hero||!row) return; var g=cv.getContext("2d"); if(!g) return;
+  var TEXTS=["Security engineer.","Pentester.","AI developer.","Full-stack."], FAM='"Syne",Impact,sans-serif';
+  var VAP_S=2, FADE_S=1, WAIT_S=1.8, SPREAD=5, DENSITY=.65;      /* density 5/10 -> 0.65, as in the component */
+  var small=innerWidth<760, reduced=matchMedia("(prefers-reduced-motion:reduce)").matches, dpr=Math.min(devicePixelRatio||1,2), CAP=small?4200:9000;
+  var W=0,H=0,sets=[],idx=0,state="idle",st=0,prog=0,last=0,started=false;
+  function spreadFor(size){ var P=[[20,.2],[50,.5],[100,1.5]]; if(size<=20) return .2; if(size>=100) return 1.5; var i=0; while(i<2&&P[i+1][0]<size) i++; return P[i][1]+(size-P[i][0])*(P[i+1][1]-P[i][1])/(P[i+1][0]-P[i][0]); }
+  function layout(){
+    var hr=hero.getBoundingClientRect(); W=Math.round(hr.width*dpr); H=Math.round(hr.height*dpr); cv.width=W; cv.height=H; g.setTransform(1,0,0,1,0,0);
+    var rTop=row.getBoundingClientRect().top-hr.top, padL=Math.max(18,Math.min(56,hr.width*.04)), base=rTop-Math.min(64,hr.height*.08);
+    var m=document.createElement("canvas").getContext("2d"); m.font="800 100px "+FAM; var wmax=1; TEXTS.forEach(function(t){ wmax=Math.max(wmax,m.measureText(t).width); });
+    var fs=Math.max(36,Math.min((hr.width-padL*2)/wmax*100,small?120:200,(base-96)/.95)), fd=fs*dpr;
+    var top=Math.max(0,Math.floor((base-fs*1.05)*dpr)), bh=Math.ceil(fd*1.4), mk=document.createElement("canvas"); mk.width=W; mk.height=bh; var mc=mk.getContext("2d",{willReadFrequently:true});
+    var sr=Math.max(2,Math.round(fd/70)), out=[];
+    for(var tries=0;tries<8;tries++){ out=[]; var worst=0;
+      TEXTS.forEach(function(t){ mc.clearRect(0,0,W,bh); mc.font="800 "+fd+"px "+FAM; mc.textBaseline="alphabetic"; mc.textAlign="left"; mc.fillStyle="#fff"; var x0=padL*dpr; mc.fillText(t,x0,base*dpr-top);
+        var wd=mc.measureText(t).width, d=mc.getImageData(0,0,W,bh).data, px=[],py=[],pa=[];
+        for(var y=0;y<bh;y+=sr) for(var x=0;x<W;x+=sr){ var al=d[(y*W+x)*4+3]; if(al>40){ px.push(x); py.push(top+y); pa.push(al/255); } }
+        var n=px.length; out.push({n:n,ox:Float32Array.from(px),oy:Float32Array.from(py),oa:Float32Array.from(pa),x:new Float32Array(n),y:new Float32Array(n),vx:new Float32Array(n),vy:new Float32Array(n),sp:new Float32Array(n),op:new Float32Array(n),fq:new Uint8Array(n),left:x0,width:wd}); worst=Math.max(worst,n); });
+      if(worst<=CAP) break; sr++; }
+    sets=out; sets.sr=sr; sets.msp=spreadFor(fs)*SPREAD*(dpr/3);
+    document.body.classList.add("gltext"); state=started?"fadein":"idle"; st=0; reset(sets[idx]);
+  }
+  function reset(S){ for(var i=0;i<S.n;i++){ S.x[i]=S.ox[i]; S.y[i]=S.oy[i]; S.op[i]=S.oa[i]; S.sp[i]=0; S.vx[i]=0; S.vy[i]=0; S.fq[i]=0; } }
+  function vaporize(S,vx0,dt){
+    var all=true, M=sets.msp, fade=.25*(2000/(VAP_S*1000)), cap=M*2;
+    for(var i=0;i<S.n;i++){
+      if(S.ox[i]<=vx0){
+        if(S.sp[i]===0){ var an=Math.random()*6.2832; S.sp[i]=(Math.random()+.5)*M; S.vx[i]=Math.cos(an)*S.sp[i]; S.vy[i]=Math.sin(an)*S.sp[i]; S.fq[i]=Math.random()>DENSITY?1:0; }
+        if(S.fq[i]){ S.op[i]=Math.max(0,S.op[i]-dt); }
+        else { var dx=S.ox[i]-S.x[i], dy=S.oy[i]-S.y[i], dist=Math.sqrt(dx*dx+dy*dy), damp=Math.max(.95,1-dist/(100*M)), spx=(Math.random()-.5)*M*3, spy=(Math.random()-.5)*M*3;
+          S.vx[i]=(S.vx[i]+spx+dx*.002)*damp; S.vy[i]=(S.vy[i]+spy+dy*.002)*damp; var v=Math.sqrt(S.vx[i]*S.vx[i]+S.vy[i]*S.vy[i]); if(v>cap){ S.vx[i]*=cap/v; S.vy[i]*=cap/v; }
+          S.x[i]+=S.vx[i]*dt*20; S.y[i]+=S.vy[i]*dt*10; S.op[i]=Math.max(0,S.op[i]-dt*fade); }
+        if(S.op[i]>.01) all=false;
+      } else all=false;
+    }
+    return all;
+  }
+  function draw(S,mul){ g.clearRect(0,0,W,H); g.fillStyle="#f4f2ee"; var sz=sets.sr*.95; for(var i=0;i<S.n;i++){ var o=S.op[i]*mul; if(o>.01){ g.globalAlpha=o; g.fillRect(S.x[i],S.y[i],sz,sz); } } g.globalAlpha=1; }
+  function frame(now){
+    requestAnimationFrame(frame);
+    if(!sets.length) return; var hr=hero.getBoundingClientRect(); if(hr.bottom<-40||hr.top>innerHeight+40){ last=now; return; }
+    var dt=Math.min(.05,(now-last)/1000||.016); last=now;
+    if(!started){ if(document.body.classList.contains("ready")){ started=true; state="fadein"; st=0; reset(sets[idx]); } else { g.clearRect(0,0,W,H); return; } }
+    var S=sets[idx]; st+=dt;
+    if(state==="fadein"){ draw(S,Math.min(1,st/FADE_S)); if(st>=FADE_S){ state="wait"; st=0; } }
+    else if(state==="wait"){ draw(S,1); if(!reduced&&st>=WAIT_S){ state="vapor"; st=0; prog=0; reset(S); } }
+    else if(state==="vapor"){ prog+=dt*100/VAP_S; var p=Math.min(100,prog), vx0=S.left+S.width*p/100, done=vaporize(S,vx0,dt); draw(S,1);
+      if(prog>=100&&done){ idx=(idx+1)%TEXTS.length; reset(sets[idx]); state="fadein"; st=0; } }
+  }
+  var timer=0; function relayout(){ clearTimeout(timer); timer=setTimeout(layout,150); }
+  addEventListener("resize",relayout); if(window.ResizeObserver) new ResizeObserver(relayout).observe(row);
+  var go=false, once=function(){ if(go) return; go=true; layout(); requestAnimationFrame(frame); };
+  if(document.fonts&&document.fonts.load){ document.fonts.load("800 100px Syne").then(once,once); setTimeout(once,2500); } else once();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ if(go) relayout(); });
 })();
 })();
 </script>
