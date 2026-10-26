@@ -831,7 +831,6 @@ body.ready .hero-row{opacity:1;transform:none}
 </div>
 <div id="spacer"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -2566,7 +2565,11 @@ var triggerSudoEgg=null;
 
 /* ---------- hero: a heap of glass & metal padlocks you can shove around ---------- */
 (function(){
-  var cvs=document.getElementById("locks"); if(!cvs||!window.THREE) return;
+  var cvs=document.getElementById("locks"); if(!cvs) return;
+  /* three.js is loaded off the critical path: a slow or blocked CDN can never hold up the page or the loader */
+  function loadThree(urls,done){ var i=0; (function next(){ if(i>=urls.length) return; var sc=document.createElement("script"), to=setTimeout(function(){ sc.onload=sc.onerror=null; next(); },7000);
+      sc.async=true; sc.src=urls[i++]; sc.onload=function(){ clearTimeout(to); done(); }; sc.onerror=function(){ clearTimeout(to); next(); }; document.head.appendChild(sc); })(); }
+  function boot(){
   var T=THREE, hero=cvs.parentNode, small=innerWidth<760, weak=(navigator.hardwareConcurrency||8)<=4||!!(navigator.deviceMemory&&navigator.deviceMemory<=4), ren, PERF=window.__perf=window.__perf||{level:0,hooks:[]};
   try{ ren=new T.WebGLRenderer({canvas:cvs,antialias:!(weak||small),alpha:true,powerPreference:"high-performance"}); }catch(e){ return; }
   ren.setPixelRatio(Math.min(devicePixelRatio||1,(small||weak)?1.5:2)); ren.outputColorSpace=T.SRGBColorSpace; ren.toneMapping=T.ACESFilmicToneMapping; ren.toneMappingExposure=1.0;
@@ -2709,7 +2712,8 @@ var triggerSudoEgg=null;
     }
     requestAnimationFrame(f2);
   })();
-
+  }
+  if(window.THREE) boot(); else loadThree(["https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js","https://cdnjs.cloudflare.com/ajax/libs/three.js/r158/three.min.js"],boot);
 })();
 
 /* ---------- hero: four titles, one at a time (vapour text effect, ported from the 21st.dev VaporizeTextCycle) ---------- */
