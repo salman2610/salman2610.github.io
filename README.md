@@ -71,11 +71,12 @@ If the 3D library is blocked or offline, the page still works and simply skips t
 
 | Project | What it is | Links |
 |---------|-----------|-------|
+| **RedScribe** | Self-hosted, AI-powered pentest report generation platform (FastAPI, Next.js). In development. | [Live](https://redscribe-2291.vercel.app/) · [Repo](https://github.com/salman2610/redscribe) |
+| **Purple Agent** | Server monitoring agent with centralised telemetry and JWT-authenticated communication. | [Live](https://purple-agent-omega.vercel.app/) · [Repo](https://github.com/salman2610/purple-agent) |
+| **ProofLayer** | Verifies that a security fix really worked: replays the attack and alternate routes, returns one of five verdicts, and issues a sealed proof record anyone can check offline. | [Live](https://proof-layer-zeta.vercel.app) · [Repo](https://github.com/salman2610/ProofLayer) |
 | **AI Vulnerability Scanner** | ML-assisted scanner that maps findings to CVSS v3.1 and prioritises the fixes. | [Repo](https://github.com/salman2610/ai-vuln-scanner) |
 | **OWASP Security Framework** | Modular Python pipeline (Nmap, Nikto, Nuclei, API fuzzing) with OWASP Top 10 mapping and HTML reports. | [Repo](https://github.com/salman2610/OWASP-Framework) |
 | **Purple Team Framework** | Real-time threat-hunting dashboard mapped to MITRE ATT&CK (FastAPI + React). | [Repo](https://github.com/salman2610/PurpleTeam-Project) |
-| **Purple Agent** | Server monitoring agent with centralised telemetry and JWT-authenticated communication. | [Live](https://purple-agent-omega.vercel.app/) · [Repo](https://github.com/salman2610/purple-agent) |
-| **RedScribe** | Self-hosted, AI-powered pentest report generation platform (FastAPI, Next.js). In development. | [Live](https://redscribe-2291.vercel.app/) · [Repo](https://github.com/salman2610/redscribe) |
 
 ---
 
