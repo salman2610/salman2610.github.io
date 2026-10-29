@@ -72,6 +72,7 @@ If the 3D library is blocked or offline, the page still works and simply skips t
 | Project | What it is | Links |
 |---------|-----------|-------|
 | **RedScribe** | Self-hosted, AI-powered pentest report generation platform (FastAPI, Next.js). In development. | [Live](https://redscribe-2291.vercel.app/) · [Repo](https://github.com/salman2610/redscribe) |
+| **SiteReliant** | Website operations platform for agencies: HTTP, TLS, DNS and TCP monitoring, synthetic browser journeys with an evidence vault, root-cause hints, and fix verification before an incident can close. White-label client portals and SLA reports. | [Live](https://site-reliant.vercel.app/) · [Repo](https://github.com/salman2610/SiteReliant) |
 | **Purple Agent** | Server monitoring agent with centralised telemetry and JWT-authenticated communication. | [Live](https://purple-agent-omega.vercel.app/) · [Repo](https://github.com/salman2610/purple-agent) |
 | **ProofLayer** | Verifies that a security fix really worked: replays the attack and alternate routes, returns one of five verdicts, and issues a sealed proof record anyone can check offline. | [Live](https://proof-layer-zeta.vercel.app) · [Repo](https://github.com/salman2610/ProofLayer) |
 | **AI Vulnerability Scanner** | ML-assisted scanner that maps findings to CVSS v3.1 and prioritises the fixes. | [Repo](https://github.com/salman2610/ai-vuln-scanner) |
