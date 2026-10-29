@@ -1700,6 +1700,9 @@ var procDashEls=procPin?Array.prototype.slice.call(procPin.querySelectorAll(".pr
 var procBigNum=document.getElementById("procBigNum");
 var procTop=0, procLen=0, procActive=-1;
 
+/* absolute document position, correct whatever the offsetParent chain looks like */
+function absTop(e){ var y=0; while(e){ y+=e.offsetTop; e=e.offsetParent; } return y; }
+
 function measure(){
   var vw=innerWidth,vh=innerHeight;
   if(procSec&&procStageEls.length){
@@ -1712,9 +1715,9 @@ function measure(){
   }
   trackLen=Math.max(0,track.scrollWidth-vw);
   workSec.style.height=(vh+trackLen)+"px";
-  if(procSec) procTop=procSec.offsetTop;
-  if(storySec) storyTop=storySec.offsetTop;
-  workTop=workSec.offsetTop;
+  if(procSec) procTop=absTop(procSec);
+  if(storySec) storyTop=absTop(storySec);
+  workTop=absTop(workSec);
   workLen=workSec.offsetHeight-vh;
   spacer.style.height=wrap.scrollHeight+"px";
   totalScrollLen=Math.max(1,wrap.scrollHeight-vh);
@@ -2184,7 +2187,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     var el=document.querySelector(a.getAttribute("href"));
     if(!el) return;
     e.preventDefault();
-    var y=el.offsetTop;
+    var y=absTop(el);
     if(runTransition){
       runTransition(function(){ scrollTo({top:y,behavior:"auto"}); current=y; });
     } else {
@@ -2310,7 +2313,7 @@ setTimeout(measure,2500);
 
   function jumpTo(hash){
     var el=document.querySelector(hash); if(!el) return;
-    var y=el.offsetTop;
+    var y=absTop(el);
     if(typeof runTransition==="function"){ runTransition(function(){ scrollTo({top:y,behavior:"auto"}); current=y; }); }
     else scrollTo({top:y,behavior:reduced?"auto":"smooth"});
   }
