@@ -17,9 +17,13 @@
 
 ## 👾 About This Repository
 
-This repo powers my **personal portfolio**: a single-file, interactive site built from scratch with vanilla HTML, CSS and JavaScript. No framework, no build step.
+This repo powers my **personal portfolio**: a hand-built, interactive site with no framework and no build step. It is designed to show three complementary capabilities:
 
-The page is designed as one continuous story. A heap of glass padlocks and keys falls into the hero and can be shoved around with the cursor. When you scroll, the pile unlocks and dissolves into particles, and one padlock and key stay with you down the page, acting out each section. They end up as the particle **S** in the footer.
+1. **Design & Creative Engineering**: visual storytelling, typography, motion design, interactive interfaces, WebGL, CSS and creative frontend engineering.
+2. **Cybersecurity Engineering**: VAPT, application security, infrastructure security, penetration testing and security research.
+3. **Software & Product Development**: SiteReliant, ProofLayer, RedScribe, AI tooling, full-stack development and product architecture.
+
+The page is one continuous story. A heap of glass padlocks and keys falls into the hero and can be shoved around with the cursor. On scroll the pile unlocks and dissolves into particles, and one padlock and key stay with you, acting out each section until they become the particle **S** in the footer.
 
 ---
 
@@ -28,7 +32,7 @@ The page is designed as one continuous story. A heap of glass padlocks and keys 
 ```
 Name      : P. Salmanul Faris
 Role      : Security Engineer · Penetration Tester · AI Developer · Full-Stack
-Focus     : Web / API / Android VAPT (OWASP Top 10) · Secure full-stack builds
+Focus     : Creative engineering · Web / API / Android VAPT (OWASP Top 10) · Secure product development
 Based in  : Kozhikode, Kerala, India
 Status    : [ OPEN TO OPPORTUNITIES ]
 ```
@@ -43,6 +47,7 @@ Status    : [ OPEN TO OPPORTUNITIES ]
 - 🧭 **"How I work"**: a pinned, six-step process (Recon → Map → Test → Exploit → Report → Remediate), each step with a mini terminal showing what it looks like.
 - 🕸️ **Attack story**: a scroll-driven network graph that walks through recon, enumeration, discovery, exploitation and remediation.
 - 🔍 **Glass lens on projects**: project cards tilt, light up under the cursor and show a magnifying glass lens on hover.
+- 🏅 **Certifications carousel**: the seven real certificates float in 3D, with the front card sharp and the rest tilted and blurred. The section pins while you scroll, so every certificate gets its turn before the page moves on. Arrow keys also work, and clicking the front card opens it in full.
 - 🧰 **Toolkit**: the tools I actually work with, shown as an interactive grid.
 - 🌍 **Dotted globe**: a draggable globe with a marker on Kozhikode and arcs to other cities.
 - ⌨️ **Command palette**: press `⌘K` / `Ctrl+K` to jump anywhere.
@@ -55,15 +60,14 @@ Status    : [ OPEN TO OPPORTUNITIES ]
 
 | Layer | Technology |
 |-------|-----------|
-| **Structure** | HTML5, single file |
-| **Styling** | CSS3 · custom properties · soft dark-to-pale section transitions |
-| **3D** | Three.js r158 (loaded in the background from jsDelivr, with a cdnjs fallback) |
+| **Structure** | HTML5, one page; styles in `assets/styles.css`, logic in `assets/app.js` |
+| **3D** | Three.js r158, **self-hosted** in `vendor/` and loaded with a Subresource Integrity hash |
 | **2D effects** | Canvas 2D (vapour text, particle field, globe) |
 | **Motion** | `requestAnimationFrame`, custom smooth scroll and physics |
-| **Fonts** | Syne · Inter |
+| **Fonts** | Syne · Inter, **self-hosted** (`fonts/`), no Google Fonts requests |
 | **Hosting** | GitHub Pages |
 
-If the 3D library is blocked or offline, the page still works and simply skips the padlocks.
+If the 3D library fails to load, the page still works and simply skips the padlocks.
 
 ---
 
@@ -86,24 +90,48 @@ If the 3D library is blocked or offline, the page still works and simply skips t
 ```
 salman2610.github.io/
 │
-├── 📄  index.html                              # The whole portfolio (HTML, CSS and JS in one file)
-├── 🖼️  Assets/                                 # Images & media files
-├── 📋  Salmanul_Faris_Cybersecurity_Resume.pdf # Resume
-└── 🔍  Redacted Report.pdf                     # Sample pentest report
+├── 📄  index.html                    # Page markup, metadata and Content-Security-Policy
+├── 🎨  assets/
+│   ├── styles.css                    # All styles (incl. self-hosted @font-face)
+│   └── app.js                        # All behaviour (no inline scripts)
+├── 🔤  fonts/                        # Syne and Inter, woff2
+├── 🧊  vendor/three.min.js           # Three.js r158, SRI-pinned
+├── 🖼️  og.png                        # Social preview image
+├── 🔐  .well-known/security.txt      # How to report a vulnerability
+├── 🤖  robots.txt · sitemap.xml
+├── ⚙️  _headers                      # Real security headers (Netlify / Cloudflare Pages only)
+├── 🖼️  Assets/                       # Images & media files (existing)
+├── 📋  Salmanul_Faris_Cybersecurity_Resume.pdf
+└── 🔍  Redacted Report.pdf
 ```
 
 ---
 
 ## ▶️ Run Locally
 
-There is nothing to install or build. Either open `index.html` in a browser, or serve the folder:
+The page loads its script and styles as separate files, so serve the folder instead of opening `index.html` directly:
 
 ```bash
 python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
-An internet connection is needed for Google Fonts and the Three.js scene.
+---
+
+## 🔒 Security
+
+A security engineer's site should be hard to attack. What is in place, and what isn't:
+
+- **Strict Content-Security-Policy** (meta tag): `script-src 'self'`, no inline scripts, no `eval`, `object-src 'none'`, `base-uri 'none'`, `form-action 'none'`, `frame-src 'none'`, `upgrade-insecure-requests`. Tested: injected inline scripts and inline event handlers are blocked.
+- **Zero third-party requests**: fonts and Three.js are self-hosted, so there is nothing to tamper with and no visitor data goes to a CDN. Three.js is loaded with a **Subresource Integrity** hash.
+- **No XSS sinks fed by users**: the hero terminal prints with `textContent`, and its command lookup only accepts its own commands (no prototype lookups).
+- **Clickjacking guard**: the page refuses to render inside someone else's frame.
+- **Link hygiene**: every external link uses `rel="noopener noreferrer"`; a `Referrer-Policy` is set.
+- **No cookies, no storage, no tracking, no network calls from the page.**
+- **Accessibility as security hygiene**: dialogs trap focus, restore it on close, and make the page behind inert; the global arrow-key shortcut never fires while typing.
+- **`security.txt`** at `/.well-known/security.txt` for responsible disclosure.
+
+Limits: GitHub Pages cannot send HTTP response headers, so `frame-ancestors`, HSTS and `X-Frame-Options` can't be set there. The `_headers` file contains the full set for Netlify or Cloudflare Pages. `style-src` still allows inline styles because the page sets some styles per element.
 
 ---
 
@@ -111,13 +139,13 @@ An internet connection is needed for Google Fonts and the Three.js scene.
 
 | | Certification | Issuer | Year |
 |--|--------------|--------|------|
-| 🛡️ | Certified Penetration Tester | RedTeam Hacker Academy | 2024 |
-| 🎯 | Ethical Hacker | RedTeam Hacker Academy | 2025 |
+| 🛡️ | Certified Penetration Tester (CPT v3) | RedTeam Hacker Academy | 2025 |
+| 🎯 | Ethical Hacker | Cisco Networking Academy | 2025 |
 | 🌐 | Fortinet Certified Associate in Cybersecurity | Fortinet | 2025 |
-| 🔧 | Fortinet FortiGate 7.6 Operator | Fortinet | 2025 |
-| 🕵️ | Advent of Cyber 2024 Certificate | TryHackMe | 2025 |
-| 🔗 | Cyber Threat Management | Cisco | 2025 |
-| 💻 | Advanced Programme in Full Stack Software Engineering | NIIT Limited | 2025 |
+| 🔗 | Cyber Threat Management | Cisco Networking Academy | 2025 |
+| 🔧 | FortiGate 7.6 Operator (NSE 3) | Fortinet | 2025 |
+| 🕵️ | Advent of Cyber 2024 | TryHackMe | 2025 |
+| 💻 | Advanced Program in Full Stack Software Engineering | NIIT | 2021 |
 
 ---
 
