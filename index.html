@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; upgrade-insecure-requests" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>P. Salmanul Faris — Security Engineer, Pentester &amp; Full-Stack Developer</title>
+<meta name="description" content="Security engineer, penetration tester, AI developer and full-stack developer in Kozhikode, India. Web, API and Android VAPT, plus secure software built with FastAPI, React and AI." />
+<link rel="canonical" href="https://salman2610.github.io/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23100C1C%27/%3E%3Cpath d=%27M20 30v-6a12 12 0 0 1 24 0v6%27 fill=%27none%27 stroke=%27%23dbe9ff%27 stroke-width=%275%27 stroke-linecap=%27round%27/%3E%3Crect x=%2713%27 y=%2729%27 width=%2738%27 height=%2728%27 rx=%278%27 fill=%27%232f8bff%27/%3E%3Ccircle cx=%2732%27 cy=%2741%27 r=%274%27 fill=%27%230b0817%27/%3E%3C/svg%3E" />
+
+<meta name="theme-color" content="#100C1C" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="P. Salmanul Faris" />
+<meta property="og:title" content="P. Salmanul Faris — Security Engineer · Pentester · AI Developer · Full-Stack" />
+<meta property="og:description" content="Design-led creative engineering, offensive security and product development, with live projects: RedScribe, SiteReliant, Purple Agent and ProofLayer." />
+<meta property="og:url" content="https://salman2610.github.io/" />
+<meta property="og:image" content="https://salman2610.github.io/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="P. Salmanul Faris — Security Engineer · Pentester · AI Developer · Full-Stack" />
+<meta name="twitter:description" content="Design-led creative engineering, offensive security and product development." />
+<meta name="twitter:image" content="https://salman2610.github.io/og.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"P. Salmanul Faris","url":"https://salman2610.github.io/","jobTitle":"Security Engineer and Full-Stack Developer","address":{"@type":"PostalAddress","addressLocality":"Kozhikode","addressRegion":"Kerala","addressCountry":"IN"},"sameAs":["https://github.com/salman2610"],"knowsAbout":["Penetration testing","Vulnerability assessment","Application security","Full-stack development","Creative web engineering"]}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="assets/styles.css" />
+<noscript><style>
+#pre{display:none!important}body.locked{overflow:auto!important;height:auto!important}
+#wrap{position:static!important;transform:none!important}#spacer,.spacer{display:none!important}
+.proc-stage{position:static!important;opacity:1!important;transform:none!important;margin-bottom:28px}
+.process,.work,.story,.certs-sec,.as-sec{height:auto!important}.cx-pin,.proc-pin,.work-pin{position:static!important;height:auto!important}
+.hero{height:auto!important;min-height:0!important}.hero h1 .ln{opacity:1!important;position:static!important}
+</style></noscript>
+<style>#pre{animation:preGiveUp .5s ease 12s forwards}@keyframes preGiveUp{to{opacity:0;visibility:hidden;pointer-events:none}}</style>
+</head>
+<body class="locked">
+
+<div id="grain" aria-hidden="true"></div>
+<canvas id="threadCanvas" aria-hidden="true"></canvas>
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<canvas id="trans" aria-hidden="true"></canvas>
+
+<div id="pre">
+  <div class="pre-log" id="preLog"></div>
+  <div class="count" id="count">0</div>
+  <p class="what">P. Salmanul Faris — full-stack dev &amp; certified penetration tester, Kozhikode. Loading the good part.</p>
+  <div class="bar" id="bar"></div>
+</div>
+
+<nav>
+  <a class="mark" href="#top" aria-label="Salman"><span class="ml" aria-hidden="true" style="--i:0">S</span><span class="ml" aria-hidden="true" style="--i:1">A</span><span class="ml" aria-hidden="true" style="--i:2">L</span><span class="ml" aria-hidden="true" style="--i:3">M</span><span class="ml" aria-hidden="true" style="--i:4">A</span><span class="ml" aria-hidden="true" style="--i:5">N</span><sup>®</sup></a>
+  <ul>
+    <li><a href="#work"><span class="scr" data-text="Work">Work</span></a></li>
+    <li><a href="#process"><span class="scr" data-text="Process">Process</span></a></li>
+    <li><a href="#capabilities"><span class="scr" data-text="Capabilities">Capabilities</span></a></li>
+    <li><a href="#contact"><span class="scr" data-text="Get in touch">Get in touch</span></a></li>
+  </ul>
+</nav>
+
+<div class="dotnav" id="dotnav" role="navigation" aria-label="Page sections">
+  <a href="#top" data-label="Top"></a>
+  <a href="#attack-story" data-label="The Attack"></a>
+  <a href="#work" data-label="Work"></a>
+  <a href="#process" data-label="Process"></a>
+  <a href="#capabilities" data-label="Capabilities"></a>
+  <a href="#attack-surface" data-label="Attack surface"></a>
+  <a href="#toolkit" data-label="Toolkit"></a>
+  <a href="#background" data-label="Background"></a>
+  <a href="#certifications" data-label="Certifications"></a>
+  <a href="#notes" data-label="Notes"></a>
+  <a href="#contact" data-label="Contact"></a>
+</div>
+
+<button class="sound-toggle" id="soundToggle" aria-label="Toggle sound" aria-pressed="false">🔇</button>
+<button class="cmdk-badge" id="cmdkTrigger" aria-label="Open quick navigation">⌘K</button>
+
+<div class="cmdk" id="cmdk" aria-hidden="true">
+  <div class="cmdk-backdrop" id="cmdkBackdrop"></div>
+  <div class="cmdk-box" role="dialog" aria-modal="true" aria-label="Quick navigation">
+    <input type="text" id="cmdkInput" class="cmdk-input" placeholder="Jump to a section, or open a link..." autocomplete="off" spellcheck="false" />
+    <div class="cmdk-list" id="cmdkList"></div>
+    <div class="cmdk-hint"><span>↑↓ navigate</span><span>↵ select</span><span>esc close</span></div>
+  </div>
+</div>
+
+<div class="proj-modal" id="projModal" aria-hidden="true">
+  <div class="proj-backdrop" id="projBackdrop"></div>
+  <div class="proj-box" role="dialog" aria-modal="true" aria-labelledby="projTitle">
+    <button class="proj-close" id="projClose" aria-label="Close">✕</button>
+    <img id="projImg" alt="" class="proj-img" />
+    <div class="proj-body">
+      <img id="projLogo" class="proj-logo" alt="" hidden />
+      <span class="proj-tag" id="projTag"></span>
+      <h3 id="projTitle"></h3>
+      <p id="projDesc"></p>
+      <div class="proj-links" id="projLinks"></div>
+    </div>
+  </div>
+</div>
+
+<div id="wrap">
+  <main id="top">
+
+    <section class="hero">
+      <canvas id="locks" aria-hidden="true"></canvas>
+      <canvas id="vapour" aria-hidden="true"></canvas>
+            <div class="hero-veil"></div>
+      <div class="hero-inner">
+        <h1 class="display">
+          <span class="ln"><span>Creative engineer.</span></span>
+          <span class="ln"><span>Security engineer.</span></span>
+          <span class="ln"><span>Pentester.</span></span>
+          <span class="ln"><span>AI developer.</span></span>
+          <span class="ln"><span>Full-stack.</span></span>
+        </h1>
+        <div class="hero-spacer" aria-hidden="true"></div>
+        <div class="hero-row">
+          <p>I design and engineer interactive web experiences, test applications and infrastructure as a certified penetration tester, and build secure products with FastAPI, React and AI. Based in Kozhikode, India.</p>
+          <div class="terminal" id="heroTerminal" role="group" aria-label="Interactive terminal — try typing help">
+            <div class="term-output" id="termOutput"></div>
+            <div class="term-line"><span class="tprompt">root@salman:~$</span><span class="ttype" id="ttype"></span><span class="tcursor">▌</span></div>
+            <input id="termInput" class="term-input" autocomplete="off" spellcheck="false" autocapitalize="off" aria-label="Terminal input" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strip" aria-hidden="true">
+      <div class="strip-track" id="strip"></div>
+    </section>
+
+    <section class="paper">
+      <div class="manifesto">
+        <div class="meta"><span>Kozhikode, India</span><span>·</span><span>Cybersecurity Engineer, Sesame Technologies</span></div>
+        <p id="manifesto-copy">Security is not a checklist bolted onto software at the end. It has to be part of how the thing gets built in the first place.</p>
+        <p class="sig">That's the case for working with someone who does both. I've been doing this professionally at Sesame Technologies since June 2025 — Web, API, and Android VAPT aligned with OWASP Top 10, alongside full-stack builds in React and FastAPI. Testing other people's software for a living changes what you ship of your own.</p>
+      </div>
+
+      <div class="process" id="process">
+        <div class="process-pin" id="procPin">
+          <div class="proc-top">
+            <div class="proc-eyebrow"><span class="eyebrow">How I work — six steps, from first recon to the retest.</span></div>
+            <div class="proc-bignum" id="procBigNum">01</div>
+          </div>
+          <div class="proc-stages" id="procStages">
+            <article class="proc-stage" data-i="0" style="--sc:#35d6c8"><h3>Recon</h3><p>Asset discovery, enumeration, technology fingerprinting. Understand what actually exists before deciding what to test.</p><div class="proc-term" aria-hidden="true"><div><i>$ </i>nmap -sV -p- target.example</div><div>443/tcp open  https  nginx 1.24</div><div>22/tcp  open  ssh    OpenSSH 9.2</div><div><i>+ </i><em class="ok">14 subdomains found</em></div></div></article>
+            <article class="proc-stage" data-i="1" style="--sc:#8b6cff"><h3>Map</h3><p>Attack surface mapping and threat modelling — what's reachable, what's exposed, and what actually matters if it breaks.</p><div class="proc-term" aria-hidden="true"><div>entry points  ▸ 38 routes · 9 forms</div><div>trust bounds  ▸ user → api → database</div><div><em class="warn">risk order    ▸ auth &gt; upload &gt; admin</em></div></div></article>
+            <article class="proc-stage" data-i="2" style="--sc:#f5c84b"><h3>Test</h3><p>Manual and tool-assisted testing against the OWASP Top 10 — Burp Suite and Nmap as a starting point, not the whole method.</p><div class="proc-term" aria-hidden="true"><div><i>$ </i>GET /api/orders?id=1&#x27;</div><div><i>← </i><em class="warn">500  SQL syntax error near &quot;&#x27;&quot;</em></div><div><i>⚑ </i><em class="warn">injection candidate · OWASP A03</em></div></div></article>
+            <article class="proc-stage" data-i="3" style="--sc:#ff7a6b"><h3>Exploit</h3><p>Validate real impact safely, in scope, with evidence. A finding isn't a finding until it's proven, not just flagged by a scanner.</p><div class="proc-term" aria-hidden="true"><div><i>$ </i>id=1 UNION SELECT user()</div><div><i>← </i>app_rw@db-internal</div><div><i>✔ </i><em class="ok">impact proven · read-only · in scope</em></div></div></article>
+            <article class="proc-stage" data-i="4" style="--sc:#35d6c8"><h3>Report</h3><p>Every finding CVSS-scored and reproducible — a report your team can act on without a follow-up call to ask what it means.</p><div class="proc-term" aria-hidden="true"><div>FINDING-07  SQL injection</div><div><em class="warn">CVSS 8.1 High · A03:2021</em></div><div><i>✔ </i><em class="ok">steps · evidence · fix attached</em></div></div></article>
+            <article class="proc-stage" data-i="5" style="--sc:#8b6cff"><h3>Remediate</h3><p>Fix guidance mapped to each finding, then a retest. A report nobody acts on was never worth writing.</p><div class="proc-term" aria-hidden="true"><div><i>- </i><em class="warn">query(&quot;… id = &quot; + id)</em></div><div><i>+ </i><em class="ok">query(&quot;… id = ?&quot;, [id])</em></div><div><i>✔ </i><em class="ok">retest passed · finding closed</em></div></div></article>
+          </div>
+          <div class="proc-dashes" id="procDashes"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="attack-story" id="attack-story">
+      <div class="story-pin" id="storyPin">
+        <canvas id="storyCanvas" class="story-canvas" width="900" height="620" aria-hidden="true"></canvas>
+        <div class="story-veil" aria-hidden="true"></div>
+        <div class="story-text" id="storyText">
+          <span class="story-num" id="storyNum"></span>
+          <p class="story-line step" data-i="0"><b>A normal web application.</b><span>A login page, a dashboard, an API behind it. Nothing looks wrong.</span></p>
+          <p class="story-line step" data-i="1"><b>Every one has an attack surface.</b><span>Each form, endpoint, upload and integration is a door someone can try.</span></p>
+          <p class="story-line step" data-i="2"><b>Recon.</b><span>I map what's exposed: domains, subdomains, open ports and the tech behind them.</span></p>
+          <p class="story-line step" data-i="3"><b>Enumeration.</b><span>I probe each service for users, endpoints, versions and hidden paths.</span></p>
+          <p class="story-line step" data-i="4"><b>Discovery.</b><span>I find where the logic breaks: weak auth, injection points, misconfigurations.</span></p>
+          <p class="story-line step" data-i="5"><b>Exploitation.</b><span>I prove the impact safely, in scope, with evidence. Not just a scanner alert.</span></p>
+          <p class="story-line step" data-i="6"><b>Remediation.</b><span>I write the fix, hand it to your developers, and retest until it holds.</span></p>
+          <p class="story-line big" data-i="7">Build it. Break it. Secure it.</p>
+        </div>
+        <div class="story-bar" id="storyBar"></div>
+      </div>
+    </section>
+
+    <section class="work" id="work">
+      <div class="work-pin">
+        <div class="work-head">
+          <h2>Selected work</h2>
+          <p>Drag, scroll, or use arrow keys</p>
+        </div>
+        <div id="trail" aria-hidden="true"></div>
+        <div class="work-track" id="track"></div>
+      </div>
+    </section>
+
+    <section class="spotlight" id="spotlight">
+      <img id="spotBg" alt="" aria-hidden="true" draggable="false">
+      <div class="spotlight-veil" aria-hidden="true"></div>
+      <div class="spotlight-inner">
+        <span class="spot-eyebrow eyebrow">Flagship build</span>
+        <h2 class="display spot-title">Purple<br/>Team.</h2>
+        <p class="spot-desc">A real-time threat-hunting dashboard mapped to MITRE ATT&amp;CK — live system telemetry on a FastAPI backend, surfaced through a React front end built to be read at a glance during an incident.</p>
+        <a class="spot-link magnet" href="https://github.com/salman2610/PurpleTeam-Project" target="_blank" rel="noopener noreferrer"><span class="dot"></span><span class="scr" data-text="View the repo">View the repo</span></a>
+      </div>
+    </section>
+
+    <section class="proof">
+      <canvas id="proofGrid" aria-hidden="true"></canvas>
+      <div class="proof-inner">
+        <div class="quote">
+          <p>"Security isn't a phase you bolt on at the end. I build software and try to break it — sometimes in the same week — because that's the only way either discipline gets taken seriously."</p>
+          <span class="who">— P. Salmanul Faris</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="caps" id="capabilities">
+      <h2 class="h2">Three capabilities,<br/>one engineer</h2>
+      <div class="caps-body">
+        <div id="caplist"></div>
+        <div class="caps-visual" aria-hidden="true"><canvas id="capCanvas" width="180" height="180"></canvas><span class="caps-visual-tag">● thinking</span></div>
+      </div>
+    </section>
+
+    <section class="as-sec" id="attack-surface">
+      <div class="as-head">
+        <h2 class="h2">Attack surface</h2>
+        <p>Where I look first, roughly in order of how often it pays off. Click a surface to see what's actually being tested.</p>
+      </div>
+      <div class="as-body">
+        <div class="as-bars" id="asBars"></div>
+        <div class="as-visual" aria-hidden="true"><canvas id="asCanvas" width="220" height="220"></canvas></div>
+      </div>
+      <div class="as-detail" id="asDetail"><p class="as-empty">↑ Click a surface to see what's actually being tested.</p></div>
+    </section>
+
+    <section class="toolkit" id="toolkit">
+      <div class="tk-head">
+        <h2 class="h2">Toolkit</h2>
+        <p>What's actually open when I'm working.</p>
+      </div>
+      <div class="tk-grid" id="tkGrid"></div>
+      <div class="tk-detail" id="tkDetail"><p class="tk-empty">Hover a tool to see what it's for.</p></div>
+    </section>
+
+    <section class="background" id="background">
+      <div class="background-head">
+        <h2 class="h2">Background</h2>
+        <p>A physics mind wired for security — from ultrasonic interferometry to penetration testing.</p>
+      </div>
+      <div class="bg-list" id="bgList">
+        <div class="bg-rail"><div class="bg-fill" id="bgFill"></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2025—</span><div class="bg-what"><h3>Cybersecurity Engineer</h3><p>Sesame Technologies — Web, API and Android VAPT, aligned with the OWASP Top 10.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2024</span><div class="bg-what"><h3>Certified Penetration Tester (CPT)</h3><p>RedTeam Hacker Academy, Kozhikode — 3-month intensive covering Burp Suite, Nmap, Metasploit.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2023</span><div class="bg-what"><h3>M.Sc. Physics</h3><p>The New College, Chennai — research in ultrasonic interferometry on aqueous antibiotic and insulin solutions.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2022–23</span><div class="bg-what"><h3>APSE — Full-Stack Software Engineering</h3><p>NIIT, Chennai — JavaScript, databases, and software engineering principles.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2021</span><div class="bg-what"><h3>B.Sc. Physics</h3><p>The New College, Chennai, Tamil Nadu.</p></div></div>
+        <div class="bgrow"><span class="bg-dot"></span><span class="bg-year">2016–18</span><div class="bg-what"><h3>Higher Secondary</h3><p>NEST Higher Secondary School, Kerala State Board.</p></div></div>
+      </div>
+    </section>
+
+    <section class="certs-sec" id="certifications">
+     <div class="cx-pin" id="cxPin">
+      <div class="cx-head">
+        <h2 class="h2">Certifications</h2>
+        <p>Seven credentials, in my own order of relevance. Scroll to move through them, or click the front card to read it in full.</p>
+      </div>
+      <div class="cx-stage" id="cxStage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Certifications. Scroll, or use the left and right arrow keys.">
+        <div class="cx-word" aria-hidden="true">Proof, not claims.</div>
+        <div class="cx-track" id="cxTrack"></div>
+      </div>
+      <div class="cx-info" aria-live="polite">
+        <div><div class="cx-title" id="cxTitle"></div><div class="cx-meta" id="cxMeta"></div></div>
+        <div class="cx-ctrl"><button class="cx-btn" id="cxPrev" aria-label="Previous certificate">←</button><span class="cx-count" id="cxCount"></span><button class="cx-btn" id="cxNext" aria-label="Next certificate">→</button></div>
+      </div>
+      <div class="cx-hint">Scroll · arrow keys · click to enlarge</div>
+     </div>
+    </section>
+    <div class="cx-lb" id="cxLb" hidden role="dialog" aria-modal="true" aria-label="Certificate, enlarged. Press Escape to close." tabindex="-1"><img id="cxLbImg" alt="" /></div>
+
+    <section class="journal" id="notes">
+      <div class="journal-head">
+        <h2 class="h2">Notes</h2>
+        <p>Write-ups from real engagements and the odd internal reflection.</p>
+      </div>
+      <a class="jrow" href="https://medium.com/@salmanulfariss642/building-a-real-time-server-monitoring-threat-detection-system-purple-agent-0fcb8452eece" target="_blank" rel="noopener noreferrer"><span class="jt scr">Building Purple Agent: real-time server monitoring &amp; threat detection</span><span class="jd">Medium</span></a>
+      <a class="jrow" href="https://medium.com/@salmanulfariss642/from-a-simple-api-test-to-full-server-access-a-real-world-vapt-case-study-redacted-8047a3e18491" target="_blank" rel="noopener noreferrer"><span class="jt scr">From an API test to full server access: a VAPT case study</span><span class="jd">Medium</span></a>
+      <a class="jrow" href="#contact"><span class="jt scr">What I don't pre-solve when I design an internship curriculum</span><span class="jd">Notes</span></a>
+      <div class="j-preview" id="jPreview" aria-hidden="true"><img id="jPreviewImg" alt="" /></div>
+    </section>
+
+    <a class="sysstatus" href="#contact">
+      <span class="sys-dot" aria-hidden="true"></span>
+      <span class="sys-body">
+        <span class="sys-title eyebrow">System status</span>
+        <span class="sys-avail">● Available</span>
+        <span class="sys-desc">Currently accepting security assessments, VAPT, security engineering, and selected development projects.</span>
+      </span>
+    </a>
+
+    <section class="contact" id="contact">
+      <canvas id="contactBg" class="contact-bg" aria-hidden="true"></canvas>
+      <span class="small">Open to security &amp; full-stack work</span>
+      <h2 class="display contact-headline">Got something to<br/>secure or build?</h2>
+      <a href="mailto:salmanulfariss642@gmail.com" class="email-pill magnet"><span class="dot"></span><span class="scr" data-text="salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</span></a>
+      <div class="doc-row">
+        <a class="doc-pill magnet" href="https://salman2610.github.io/Salmanul_Faris_Cybersecurity_Resume%20.pdf" target="_blank" rel="noopener noreferrer"><span class="dot"></span><span class="scr" data-text="Download résumé">Download résumé</span></a>
+        <a class="doc-pill magnet" href="https://salman2610.github.io/Redacted%20Report.pdf" target="_blank" rel="noopener noreferrer"><span class="dot dot-b"></span><span class="scr" data-text="View a redacted VAPT report">View a redacted VAPT report</span></a>
+        <a class="doc-pill magnet" href="https://medium.com/@salmanulfariss642" target="_blank" rel="noopener noreferrer"><span class="dot dot-c"></span><span class="scr" data-text="Read my Medium write-ups">Read my Medium write-ups</span></a>
+      </div>
+      <div class="cols">
+        <div><h4>Based in</h4><ul><li>Kozhikode, Kerala, IN</li></ul></div>
+        <div><h4>Elsewhere</h4><ul><li><a href="https://github.com/salman2610" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.linkedin.com/in/p-salmanul-faris-68b733249/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://salman2610.github.io" target="_blank" rel="noopener noreferrer">Full portfolio</a></li></ul></div>
+        <div><h4>Reach me</h4><ul><li><a href="mailto:salmanulfariss642@gmail.com">salmanulfariss642@gmail.com</a></li><li><a href="tel:+919962726106">+91 99627 26106</a></li></ul></div>
+      </div>
+      <canvas id="globe" class="globe" aria-label="Globe with a marker on Kozhikode, India"></canvas>
+      <div class="foot"><span>© 2026 P. Salmanul Faris</span><span>Built in the browser</span></div>
+    </section>
+
+  </main>
+</div>
+<div id="spacer"></div>
+
+<script src="assets/app.js" defer></script>
+</body>
+</html>
