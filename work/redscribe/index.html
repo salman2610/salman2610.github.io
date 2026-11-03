@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; object-src 'none'; upgrade-insecure-requests" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>RedScribe — case study · P. Salmanul Faris</title>
+<meta name="description" content="RedScribe: AI-powered pentest reporting, built by a pentester for pentesters. Case study by P. Salmanul Faris." />
+<link rel="canonical" href="https://salman2610.github.io/work/redscribe/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23100C1C%27/%3E%3Cpath d=%27M20 30v-6a12 12 0 0 1 24 0v6%27 fill=%27none%27 stroke=%27%23dbe9ff%27 stroke-width=%275%27 stroke-linecap=%27round%27/%3E%3Crect x=%2713%27 y=%2729%27 width=%2738%27 height=%2728%27 rx=%278%27 fill=%27%232f8bff%27/%3E%3Ccircle cx=%2732%27 cy=%2741%27 r=%274%27 fill=%27%230b0817%27/%3E%3C/svg%3E" />
+<meta name="theme-color" content="#100C1C" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="RedScribe — case study" />
+<meta property="og:description" content="AI-powered pentest reporting, built by a pentester for pentesters." />
+<meta property="og:url" content="https://salman2610.github.io/work/redscribe/" />
+<meta property="og:image" content="https://salman2610.github.io/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="../../assets/case.css" />
+<script src="../../assets/case.js"></script>
+</head>
+<body style="--acc:#ff7a6b">
+<header class="top"><a class="back" href="../../index.html#work">← Portfolio</a><span class="count">Case study 02 / 04</span><a class="nx" href="../sitereliant/index.html">SiteReliant →</a></header>
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow rv">Case study · 02</p>
+    <h1 class="rv" style="--len:6">Red<wbr>Scribe</h1>
+    <p class="lede rv">AI-powered pentest reporting, built by a pentester for pentesters.</p>
+    <dl class="meta rv"><div><dt>Status</dt><dd>In development</dd></div><div><dt>Type</dt><dd>Pentest reporting platform</dd></div><div><dt>Stack</dt><dd>FastAPI · Next.js · PostgreSQL</dd></div></dl>
+    <div class="cta rv"><a class="btn pri" href="https://redscribe-2291.vercel.app/" target="_blank" rel="noopener noreferrer">View live</a><a class="btn" href="https://github.com/salman2610/redscribe" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+  </div>
+  <figure class="art rv"><img src="../../assets/img/art-01.webp" alt="Artwork for RedScribe" width="720" height="540" /></figure>
+</section>
+<section class="stats"><div class="rv"><strong>3</strong><span>scanner parsers live</span></div><div class="rv"><strong>20+</strong><span>finding templates</span></div><div class="rv"><strong>4</strong><span>AI rewrite modes</span></div><div class="rv"><strong>3</strong><span>team roles</span></div></section>
+<section class="idea"><span class="lab rv">The idea</span><p class="rv">Pentesters can spend 30–40% of an engagement writing the report. RedScribe is built to cut that to under an hour: upload your scan files, let AI parse, deduplicate and enrich every finding, then export a professional PDF or DOCX. And when no scanner found it, you add it by hand.</p></section>
+<section class="shots"><span class="lab rv">In the product</span><figure class="shot rv"><div class="frame"><img src="../../assets/img/cs/red-project.webp" alt="Project page screenshot" width="1600" height="716" loading="lazy" /></div><figcaption><b>Project page</b><span>Engagement details, plus every action in one row: import Nmap, Burp or Nessus, AI enrich, executive summary, export PDF or DOCX, preview and share.</span></figcaption></figure><figure class="shot rv"><div class="frame"><img src="../../assets/img/cs/red-team.webp" alt="Team workspace screenshot" width="1331" height="298" loading="lazy" /></div><figcaption><b>Team workspace</b><span>Workspace members with roles, and invite links with a role and an expiry for each.</span></figcaption></figure></section>
+<section class="flow"><span class="lab rv">How it works</span><ol><li class="rv"><b>01</b><h3>Capture</h3><p>Add findings by hand, or import Nmap, Burp Suite and Nessus results.</p></li><li class="rv"><b>02</b><h3>Enrich</h3><p>AI writes business impact, remediation, attack scenarios, CVSS suggestions and CWE/OWASP mapping.</p></li><li class="rv"><b>03</b><h3>Refine</h3><p>Edit in a live split-screen preview, rewrite for a different audience, reorder, attach evidence.</p></li><li class="rv"><b>04</b><h3>Summarise</h3><p>An executive summary, severity heatmap and overall risk score.</p></li><li class="rv"><b>05</b><h3>Deliver</h3><p>PDF and DOCX export, or a read-only share link for the client.</p></li></ol></section>
+<section class="feat"><span class="lab rv">What it does</span><div class="cards"><article class="card rv"><span>01</span><h3>Smart parsing</h3><p>Nmap XML with service, OS and script detection, Burp issue exports with request and response, and Nessus results. Nikto, SSLScan, ffuf and Nuclei are next.</p></article><article class="card rv"><span>02</span><h3>AI enrichment</h3><p>Business impact, specific remediation steps, attack-scenario narratives, CVSS score and vector suggestions, CWE and OWASP mapping.</p></article><article class="card rv"><span>03</span><h3>Four rewrite modes</h3><p>Technical, Executive, Compliance or Concise, generated on demand for description, business impact and remediation.</p></article><article class="card rv"><span>04</span><h3>Live report preview</h3><p>A split-screen editor: what you edit appears formatted instantly. Drag-and-drop ordering persists to the database.</p></article><article class="card rv"><span>05</span><h3>Evidence in the report</h3><p>Screenshots and files attach to a finding, are stored server-side and are embedded straight into the exported PDF.</p></article><article class="card rv"><span>06</span><h3>Structured exports</h3><p>A multi-page PDF (cover, index, risk overview, findings, confidentiality) and DOCX, with a severity heatmap and risk score.</p></article><article class="card rv"><span>07</span><h3>20+ finding templates</h3><p>SQLi, XSS, CSRF, RCE, SSRF, auth bypass, IDOR and more, in a searchable gallery that pre-fills the fields.</p></article><article class="card rv"><span>08</span><h3>Attack chain builder</h3><p>Chain findings into a narrative attack path, with severity and notes for each step.</p></article><article class="card rv"><span>09</span><h3>Teams and clients</h3><p>Organizations with Admin, Tester and Client Viewer roles, expiring invite links, and read-only client share links.</p></article></div></section>
+
+<section class="dec"><span class="lab rv">Design decisions</span><ol><li class="rv"><span>01</span><div><h3>Manual first</h3><p>Scanner-independent by design. No tool detected it? Add it manually. RedScribe never limits you to what scanners find.</p></div></li><li class="rv"><span>02</span><div><h3>Providers are config, not code</h3><p>An abstracted AI layer puts Gemini first and local Ollama behind it as a free, private fallback. Swapping providers is a config change, not a rewrite.</p></div></li><li class="rv"><span>03</span><div><h3>Evidence belongs in the report</h3><p>Evidence lives with the finding and lands in the PDF automatically, not in a folder on a desktop.</p></div></li><li class="rv"><span>04</span><div><h3>Hand the client a link</h3><p>Unguessable, revocable, optionally expiring share links with PDF and DOCX download. Nothing to install or explain.</p></div></li></ol></section>
+<section class="under"><span class="lab rv">Under the hood</span><ul class="chips rv"><li>FastAPI</li><li>PostgreSQL</li><li>Next.js</li><li>WeasyPrint</li><li>Gemini</li><li>Ollama</li><li>@dnd-kit</li><li>Docker</li></ul><p class="note rv">Status: the frontend is live; the backend currently runs locally, so hosted login and API calls won’t resolve until deployment is finished. Anthropic, OpenAI and Groq providers are planned through the same interface.</p></section>
+<a class="next" href="../sitereliant/index.html"><span class="lab">Next case study</span><strong>SiteReliant</strong><em aria-hidden="true">→</em></a>
+</main>
+<footer><span>© 2026 P. Salmanul Faris</span><a href="../../index.html#contact">Get in touch</a></footer>
+</body>
+</html>

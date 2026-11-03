@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; object-src 'none'; upgrade-insecure-requests" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ProofLayer — case study · P. Salmanul Faris</title>
+<meta name="description" content="ProofLayer: A fix is a claim until it’s proven. Case study by P. Salmanul Faris." />
+<link rel="canonical" href="https://salman2610.github.io/work/proof-layer/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23100C1C%27/%3E%3Cpath d=%27M20 30v-6a12 12 0 0 1 24 0v6%27 fill=%27none%27 stroke=%27%23dbe9ff%27 stroke-width=%275%27 stroke-linecap=%27round%27/%3E%3Crect x=%2713%27 y=%2729%27 width=%2738%27 height=%2728%27 rx=%278%27 fill=%27%232f8bff%27/%3E%3Ccircle cx=%2732%27 cy=%2741%27 r=%274%27 fill=%27%230b0817%27/%3E%3C/svg%3E" />
+<meta name="theme-color" content="#100C1C" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="ProofLayer — case study" />
+<meta property="og:description" content="A fix is a claim until it’s proven." />
+<meta property="og:url" content="https://salman2610.github.io/work/proof-layer/" />
+<meta property="og:image" content="https://salman2610.github.io/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="../../assets/case.css" />
+<script src="../../assets/case.js"></script>
+</head>
+<body style="--acc:#4fe3a0">
+<header class="top"><a class="back" href="../../index.html#work">← Portfolio</a><span class="count">Case study 01 / 04</span><a class="nx" href="../redscribe/index.html">RedScribe →</a></header>
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow rv">Case study · 01</p>
+    <h1 class="rv" style="--len:5">Proof<wbr>Layer</h1>
+    <p class="lede rv">A fix is a claim until it’s proven.</p>
+    <dl class="meta rv"><div><dt>Status</dt><dd>Active</dd></div><div><dt>Type</dt><dd>Security verification · CLI + web</dd></div><div><dt>Stack</dt><dd>Node.js · SARIF · RFC 8785</dd></div></dl>
+    <div class="cta rv"><a class="btn pri" href="https://proof-layer-zeta.vercel.app" target="_blank" rel="noopener noreferrer">View live</a><a class="btn" href="https://github.com/salman2610/ProofLayer" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+  </div>
+  <figure class="art rv"><img src="../../assets/img/art-04.webp" alt="Artwork for ProofLayer" width="720" height="540" /></figure>
+</section>
+<section class="stats"><div class="rv"><strong>5</strong><span>verdicts</span></div><div class="rv"><strong>3</strong><span>separate assessment fields</span></div><div class="rv"><strong>4</strong><span>bypass techniques tried</span></div><div class="rv"><strong>7</strong><span>end-to-end test cases</span></div></section>
+<section class="idea"><span class="lab rv">The idea</span><p class="rv">A penetration test reports 30 vulnerabilities. Developers fix them and close the tickets. But did the fixes work? A patch can stop the original attack and leave a second route open, and a scanner can go quiet without the risk going away. ProofLayer replaces “we fixed it” with something you can check.</p></section>
+<section class="shots"><span class="lab rv">In the product</span><figure class="shot rv"><div class="frame"><img src="../../assets/img/cs/proof-cockpit.webp" alt="Remediation Cockpit screenshot" width="1600" height="716" loading="lazy" /></div><figcaption><b>Remediation Cockpit</b><span>Imported findings, verified remediations, regressions intercepted and the retest queue in one view. Sample data: four findings awaiting retest.</span></figcaption></figure><figure class="shot rv"><div class="frame"><img src="../../assets/img/cs/proof-studio.webp" alt="Proof Studio screenshot" width="1600" height="716" loading="lazy" /></div><figcaption><b>Proof Studio</b><span>The original exploit evidence, with secrets already redacted, beside the scoped retest evidence. Shown here: a BOLA finding (CWE-639) before its first retest.</span></figcaption></figure></section>
+<section class="flow"><span class="lab rv">How it works</span><ol><li class="rv"><b>01</b><h3>Import</h3><p>SARIF 2.1.0, Burp Suite, or GitHub and Jira webhooks, keeping scanner version, rule ID and line ranges.</p></li><li class="rv"><b>02</b><h3>Capture</h3><p>The original proof is saved with secrets and PII redacted, using deterministic hash placeholders.</p></li><li class="rv"><b>03</b><h3>Verify</h3><p>Approved, scoped retests, guarded against SSRF and cloud-metadata access.</p></li><li class="rv"><b>04</b><h3>Check</h3><p>Did the patch break real workflows, or leave an alternate path open?</p></li><li class="rv"><b>05</b><h3>Seal</h3><p>A cryptographically sealed proof record, verified offline from the CLI.</p></li></ol></section>
+<section class="feat"><span class="lab rv">What it does</span><div class="cards"><article class="card rv"><span>01</span><h3>Hardened retest engine</h3><p>Strict domain allowlists, http and https only, and SSRF and cloud-metadata targets blocked. Production retests need an explicit authorization token, and destructive methods are refused.</p></article><article class="card rv"><span>02</span><h3>Automatic redaction</h3><p>Bearer JWTs, AWS keys, session cookies and credit cards are masked with hash placeholders, so results stay reproducible.</p></article><article class="card rv"><span>03</span><h3>Bypass matrix</h3><p>After the fix, ProofLayer tries HTTP verb tunneling, path normalization, header spoofing and parameter pollution.</p></article><article class="card rv"><span>04</span><h3>Real integrations</h3><p>SARIF and Burp keep rule ID, tool version, file URI and line numbers. A pull-request comment can trigger a retest and get an audit breakdown back.</p></article><article class="card rv"><span>05</span><h3>Offline verifier</h3><p>One CLI command checks a proof record. A valid record exits with code 0, a tampered one with code 2.</p></article><article class="card rv"><span>06</span><h3>Tested end to end</h3><p>Seven cases: redaction, scope guard, vulnerable target, naive patch, genuinely fixed target, proof integrity and the standalone CLI.</p></article></div></section>
+<section class="verd"><span class="lab rv">Five verdicts</span><ul><li class="rv" style="--vc:#e8c44b"><code>VERIFIED_REMEDIATED</code><p>The fix holds, and every applicable assertion passed.</p></li><li class="rv" style="--vc:#ff9f43"><code>BYPASS_DETECTED</code><p>The original attack fails, but an alternate path still works.</p></li><li class="rv" style="--vc:#ff6b6b"><code>VULNERABILITY_PERSISTS</code><p>The original issue still reproduces.</p></li><li class="rv" style="--vc:#b38cff"><code>FUNCTIONAL_REGRESSION</code><p>The patch broke legitimate behavior.</p></li><li class="rv" style="--vc:#aeb3c2"><code>INCONCLUSIVE</code><p>The test couldn’t decide, so it doesn’t guess.</p></li></ul></section>
+<section class="dec"><span class="lab rv">Design decisions</span><ol><li class="rv"><span>01</span><div><h3>Three fields, never one score</h3><p>Verdict, assertion coverage and conclusion confidence stay separate, so confidence in a failure is never mixed up with confidence in a fix.</p></div></li><li class="rv"><span>02</span><div><h3>Inconclusive beats a guess</h3><p>Network dropouts, connection resets and 5xx crashes are marked INCONCLUSIVE. They are never assumed to be a pass.</p></div></li><li class="rv"><span>03</span><div><h3>Trust the maths, not the server</h3><p>Records hash canonical RFC 8785 JSON and verify offline. No dashboard, database or account is needed.</p></div></li><li class="rv"><span>04</span><div><h3>Say what it doesn’t prove</h3><p>Every certificate carries its own limitation: it proves one test ran against one scope, not that the app has no other vulnerabilities.</p></div></li></ol></section>
+<section class="under"><span class="lab rv">Under the hood</span><ul class="chips rv"><li>Node.js</li><li>SARIF 2.1.0</li><li>Burp Suite</li><li>RFC 8785</li><li>GitHub webhooks</li><li>Jira webhooks</li><li>Vercel</li></ul></section>
+<a class="next" href="../redscribe/index.html"><span class="lab">Next case study</span><strong>RedScribe</strong><em aria-hidden="true">→</em></a>
+</main>
+<footer><span>© 2026 P. Salmanul Faris</span><a href="../../index.html#contact">Get in touch</a></footer>
+</body>
+</html>

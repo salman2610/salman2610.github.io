@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; object-src 'none'; upgrade-insecure-requests" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Purple Agent — case study · P. Salmanul Faris</title>
+<meta name="description" content="Purple Agent: An AI SRE agent that tells you what’s wrong, and why. Case study by P. Salmanul Faris." />
+<link rel="canonical" href="https://salman2610.github.io/work/purple-agent/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23100C1C%27/%3E%3Cpath d=%27M20 30v-6a12 12 0 0 1 24 0v6%27 fill=%27none%27 stroke=%27%23dbe9ff%27 stroke-width=%275%27 stroke-linecap=%27round%27/%3E%3Crect x=%2713%27 y=%2729%27 width=%2738%27 height=%2728%27 rx=%278%27 fill=%27%232f8bff%27/%3E%3Ccircle cx=%2732%27 cy=%2741%27 r=%274%27 fill=%27%230b0817%27/%3E%3C/svg%3E" />
+<meta name="theme-color" content="#100C1C" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Purple Agent — case study" />
+<meta property="og:description" content="An AI SRE agent that tells you what’s wrong, and why." />
+<meta property="og:url" content="https://salman2610.github.io/work/purple-agent/" />
+<meta property="og:image" content="https://salman2610.github.io/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="../../assets/case.css" />
+<script src="../../assets/case.js"></script>
+</head>
+<body style="--acc:#8b6cff">
+<header class="top"><a class="back" href="../../index.html#work">← Portfolio</a><span class="count">Case study 04 / 04</span><a class="nx" href="../proof-layer/index.html">ProofLayer →</a></header>
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow rv">Case study · 04</p>
+    <h1 class="rv" style="--len:6">Purple Agent</h1>
+    <p class="lede rv">An AI SRE agent that tells you what’s wrong, and why.</p>
+    <dl class="meta rv"><div><dt>Status</dt><dd>Active</dd></div><div><dt>Type</dt><dd>AI server monitoring</dd></div><div><dt>Stack</dt><dd>React · FastAPI · PyTorch (LSTM)</dd></div></dl>
+    <div class="cta rv"><a class="btn pri" href="https://purple-agent-omega.vercel.app/" target="_blank" rel="noopener noreferrer">View live</a><a class="btn" href="https://github.com/salman2610/purple-agent" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn" href="https://medium.com/@salmanulfariss642/building-a-real-time-server-monitoring-threat-detection-system-purple-agent-0fcb8452eece" target="_blank" rel="noopener noreferrer">Read the write-up</a></div>
+  </div>
+  <figure class="art rv"><img src="../../assets/img/art-03.webp" alt="Artwork for Purple Agent" width="720" height="540" /></figure>
+</section>
+<section class="stats"><div class="rv"><strong>4</strong><span>alert severity levels</span></div><div class="rv"><strong>3</strong><span>dashboard layout modes</span></div><div class="rv"><strong>4</strong><span>things the agent watches</span></div></section>
+<section class="idea"><span class="lab rv">The idea</span><p class="rv">Most monitoring tools show a spike in CPU and leave you to work out why. Purple Agent analyses the system in real time, correlates events across metrics, and says in plain English what’s happening, before it becomes an outage.</p></section>
+<section class="shots"><span class="lab rv">In the product</span><figure class="shot rv"><div class="frame"><img src="../../assets/img/cs/pa-overview.webp" alt="Dashboard overview screenshot" width="1600" height="741" loading="lazy" /></div><figcaption><b>Dashboard overview</b><span>Live system resources, the running-process table, network activity and a global server distribution mesh.</span></figcaption></figure><figure class="shot rv"><div class="frame"><img src="../../assets/img/cs/pa-ai.webp" alt="AI Smart Insights screenshot" width="1600" height="741" loading="lazy" /></div><figcaption><b>AI Smart Insights</b><span>Fleet posture, an LSTM anomaly score, ingestion velocity, and the Autonomous SRE Copilot chat for questions about the system.</span></figcaption></figure></section>
+<section class="flow"><span class="lab rv">How it works</span><ol><li class="rv"><b>01</b><h3>Deploy</h3><p>A lightweight Python agent runs as a systemd service on each server.</p></li><li class="rv"><b>02</b><h3>Collect</h3><p>System metrics, log files, network connections and file integrity.</p></li><li class="rv"><b>03</b><h3>Send</h3><p>Telemetry reaches the backend over JWT-authenticated communication.</p></li><li class="rv"><b>04</b><h3>Analyse</h3><p>AI insights, predictive alerts and configurable alert rules.</p></li><li class="rv"><b>05</b><h3>Respond</h3><p>A live WebSocket dashboard, incident history and a chat assistant.</p></li></ol></section>
+<section class="feat"><span class="lab rv">What it does</span><div class="cards"><article class="card rv"><span>01</span><h3>Smart insights</h3><p>Real-time analysis of CPU, memory, disk and network patterns, turned into plain-English diagnostics.</p></article><article class="card rv"><span>02</span><h3>Predictive alerts</h3><p>Predicts CPU peaks and memory pressure before they hit, using a PyTorch LSTM model.</p></article><article class="card rv"><span>03</span><h3>Live dashboard</h3><p>WebSocket-powered charts, a per-process breakdown, network history and several layout modes. No page refresh.</p></article><article class="card rv"><span>04</span><h3>Security and access</h3><p>JWT authentication with admin and user roles, a visitor IP log, a user activity audit trail and suspicious-request detection.</p></article><article class="card rv"><span>05</span><h3>Alerts and incidents</h3><p>Configurable rules such as CPU above 80% or disk above 85%, four severity levels, and incident tracking and history.</p></article><article class="card rv"><span>06</span><h3>Built for fleets</h3><p>One agent per monitored server, designed for multi-server deployments and set up with a single config file.</p></article></div></section>
+
+<section class="dec"><span class="lab rv">Design decisions</span><ol><li class="rv"><span>01</span><div><h3>Explain, don’t just graph</h3><p>The goal is a diagnosis in plain English, not another chart to interpret.</p></div></li><li class="rv"><span>02</span><div><h3>Predict before the outage</h3><p>Predictive alerts aim to flag CPU peaks and memory pressure before they land.</p></div></li><li class="rv"><span>03</span><div><h3>Keep the agent light</h3><p>A small Python process under systemd, authenticated with a JWT, so it is easy to put on every server.</p></div></li><li class="rv"><span>04</span><div><h3>Log every visitor</h3><p>Every IP that reaches the backend is tracked, with a full audit trail of logins and actions.</p></div></li></ol></section>
+<section class="under"><span class="lab rv">Under the hood</span><ul class="chips rv"><li>React 18</li><li>Vite</li><li>FastAPI</li><li>PostgreSQL</li><li>WebSockets</li><li>JWT</li><li>PyTorch (LSTM)</li><li>Docker</li><li>systemd</li></ul><aside class="callout rv">Seen in testing: on a self-hosted test server, Purple Agent detected a reverse shell via file-upload monitoring, and DDoS activity.</aside></section>
+<a class="next" href="../proof-layer/index.html"><span class="lab">Next case study</span><strong>ProofLayer</strong><em aria-hidden="true">→</em></a>
+</main>
+<footer><span>© 2026 P. Salmanul Faris</span><a href="../../index.html#contact">Get in touch</a></footer>
+</body>
+</html>
