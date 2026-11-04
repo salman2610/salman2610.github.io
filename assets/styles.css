@@ -260,8 +260,8 @@ body.ready .hero-row{opacity:1;transform:none}
 .proc-stage{position:absolute;inset:0 auto 0 0;max-width:56ch;opacity:0;transform-style:preserve-3d;transform-origin:left bottom;backface-visibility:hidden;will-change:transform,opacity;pointer-events:none}
 .proc-stage.on{pointer-events:auto}
 .process-pin::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(620px circle at 88% 18%,rgba(139,108,255,.20),transparent 62%),radial-gradient(520px circle at 6% 92%,rgba(53,214,200,.18),transparent 62%),radial-gradient(420px circle at 70% 85%,rgba(255,122,107,.12),transparent 60%),
-  linear-gradient(rgba(16,12,28,.055) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(16,12,28,.055) 1px,transparent 1px) 0 0/44px 44px;
+  background:radial-gradient(640px circle at 88% 16%,rgba(139,108,255,.30),transparent 64%),radial-gradient(540px circle at 6% 92%,rgba(53,214,200,.20),transparent 64%),radial-gradient(440px circle at 72% 88%,rgba(255,106,90,.14),transparent 62%),
+  linear-gradient(rgba(244,242,238,.045) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(244,242,238,.045) 1px,transparent 1px) 0 0/44px 44px;
   -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
 .proc-stage h3{display:flex;align-items:center;gap:14px}
 .proc-stage h3::before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--sc,#8b6cff);box-shadow:0 0 0 5px color-mix(in srgb,var(--sc,#8b6cff) 22%,transparent)}
@@ -272,8 +272,8 @@ body.ready .hero-row{opacity:1;transform:none}
 .proc-stage p{margin-top:18px;max-width:50ch;font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.55;opacity:.84}
 .proc-eyebrow{opacity:.75}
 .proc-dashes{display:flex;gap:10px;margin-top:clamp(34px,5.4vh,58px)}
-.proc-dashes i{flex:1;max-width:84px;height:2px;background:rgba(16,12,28,.28);position:relative;overflow:hidden}
-.proc-dashes i b{position:absolute;inset:0;background:var(--ink);display:block;transform:scaleX(0);transform-origin:left}
+.proc-dashes i{flex:1;max-width:84px;height:2px;background:rgba(244,242,238,.2);position:relative;overflow:hidden}
+.proc-dashes i b{position:absolute;inset:0;background:var(--bone);display:block;transform:scaleX(0);transform-origin:left}
 .proc-dashes i.done b{transform:scaleX(1)}
 .proc-dashes i.active b{transform:scaleX(var(--p,0))}
 
@@ -657,3 +657,7 @@ body.ready .hero-row{opacity:1;transform:none}
 .detail-btn span{transition:transform .3s}
 .detail-btn:hover,.detail-btn:focus-visible{background:var(--ink);color:var(--bone);border-color:var(--ink)}
 .detail-btn:hover span{transform:translateX(4px)}
+
+.dark-proc{position:relative;background:var(--ink);color:var(--bone)}
+.dark-proc .proc-term{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.dark-proc .proc-stage h3{color:var(--bone)}
